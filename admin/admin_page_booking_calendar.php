@@ -128,6 +128,7 @@
 
 <div class="loading"><img src="<?= plugin_dir_url(__DIR__); ?>/calendar/img/spinner.svg"></div>
 
+
 <style>
 
     body{background: #f1f1f1}
