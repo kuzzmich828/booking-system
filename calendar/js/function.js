@@ -1,5 +1,5 @@
 
-
+var calendar_month = null;
 var ROOMS_DATES_TIMES = null;
 
 var input_rooms = "select.choose-room";
@@ -8,9 +8,12 @@ var table_edit = ".booking-table-edit";
 var container_rooms = ".step-2";
 var container_time = ".step-3";
 var container_edit = ".step-4";
+var SELECT_CELL = "selected-day";
+var button_save = ".save-button";
+var button_edit = ".edit-button";
+var button_delete = ".delete-button";
 
 jQuery( document ).ready(function() {
-
 
     /********* Select a Day *********/
     jQuery(document).on("click", ".cell-day, .fc-today", function (event) {
@@ -41,9 +44,9 @@ jQuery( document ).ready(function() {
 
         var days = jQuery("#calendar").find(".cell-day, .fc-today");
         jQuery( days ).each(function( index ) {
-            jQuery(days[index]).removeClass('selected-day');
+            jQuery(days[index]).removeClass(SELECT_CELL);
         });
-        jQuery(this).toggleClass("selected-day");
+        jQuery(this).toggleClass(SELECT_CELL);
 
     });
 
@@ -55,6 +58,10 @@ jQuery( document ).ready(function() {
             jQuery(days[index]).removeClass('selected-day');
         });
         jQuery(this).toggleClass("selected-day");
+
+        jQuery(button_delete).show();
+        jQuery(button_edit).show();
+        jQuery(button_save).hide();
 
     });
 
@@ -69,9 +76,10 @@ jQuery( document ).ready(function() {
             var sel_date = jQuery(this).attr("data-date-attr");
 
             BookingInfoAjax(booking_id);
+            jQuery(table_edit).show();
 
         }else{
-
+            jQuery(table_edit).hide();
         }
 
     });
@@ -102,8 +110,9 @@ jQuery( document ).ready(function() {
     });
 
     /********* Button EDIT *********/
-    jQuery(table_edit+" .edit-button").on("click", function (event) {
+    jQuery(table_edit+" "+button_edit).on("click", function (event) {
 
+        updateUrlBookingID();
         jQuery(table_edit + " input, " + table_edit + " select, " + table_edit + " textarea").prop("disabled", false);
         jQuery(this).hide();
         jQuery(table_edit + " .save-button").show();
@@ -111,7 +120,7 @@ jQuery( document ).ready(function() {
     });
 
     /********* Button DELETE *********/
-    jQuery(table_edit + " .delete-button").on("click", function (event) {
+    jQuery(table_edit+" "+button_delete).on("click", function (event) {
 
         if (confirm("Do you want to delete booking?")){
 
@@ -123,6 +132,9 @@ jQuery( document ).ready(function() {
     
 });
 
+function updateUrlBookingID() {
+    window.history.pushState("", "", window.location.href.replace(/edit_booking=[0-9]{1,5}/gi, 'edit_booking='+jQuery("#booking_id").val()));
+}
 function BookingInfoAjax(booking_id) {
     /******* AJAX ******/
     jQuery.ajax({
@@ -135,6 +147,17 @@ function BookingInfoAjax(booking_id) {
         }
     });
     jQuery(container_edit).fadeIn(300);
+}
+
+function AutoFillDateTimeBooking(date){
+    init_calendar(date.split('-')[1]);
+    var days = jQuery("#calendar").find(".cell-day, .fc-today");
+    jQuery( days ).each(function( index ) {
+        jQuery(days[index]).removeClass(SELECT_CELL);
+    });
+    jQuery("#calendar").find(".cell-day[data-date-attr='"+date+"']").toggleClass(SELECT_CELL);
+
+
 }
 
 function spinnerShow() {
@@ -151,6 +174,7 @@ function fillBooking(data) {
     jQuery("#notes_booking").val(data['notes']);
     jQuery("#discount_booking").val(data['discount']);
     jQuery(table_edit + " input, " + table_edit + " select, " + table_edit + " textarea").prop("disabled", true);
+    AutoFillDateTimeBooking(data['room_date']);
 }
 
 function spinnerHide() {
@@ -172,10 +196,7 @@ function fillRooms(data) {
 function fillRezerved(room_id, data) {
     jQuery(data).each(function (index) {
         if (data[index]['room_id'] == room_id){
-
             jQuery('#calendar-time .cell-time[data-time="'+data[index]['room_time']+'"]').addClass('reserved').attr('data-booking-id', data[index]['id']);
-
-
         }
     });
 }
@@ -215,4 +236,72 @@ function fillTimes(data, room_id) {
             return false;
         }
     });
+}
+
+
+
+
+function init_calendar(set_month) {
+
+    // $(function() {
+
+        var transEndEventNames = {
+                'WebkitTransition' : 'webkitTransitionEnd',
+                'MozTransition' : 'transitionend',
+                'OTransition' : 'oTransitionEnd',
+                'msTransition' : 'MSTransitionEnd',
+                'transition' : 'transitionend'
+            },
+            transEndEventName = transEndEventNames[ Modernizr.prefixed( 'transition' ) ],
+            $wrapper = $( '#custom-inner' ),
+            $calendar = $( '#calendar' ),
+            cal = $calendar.calendario( {
+                onDayClick : function( $el, $contentEl, dateProperties ) {
+                    console.log( dateProperties);
+                    if( $contentEl.length > 0 ) {
+                        showEvents( $contentEl, dateProperties );
+                    }
+                },
+                caldata : codropsEvents,
+                displayWeekAbbr : true,
+                month : set_month
+
+            } ),
+            $month = $( '#custom-month' ).html( cal.getMonthName() ),
+            $year = $( '#custom-year' ).html( cal.getYear() );
+
+
+        $( '#custom-next' ).on( 'click', function() {
+            cal.gotoNextMonth( updateMonthYear );
+        } );
+
+        $( '#custom-prev' ).on( 'click', function() {
+            cal.gotoPreviousMonth( updateMonthYear );
+        } );
+
+        function updateMonthYear() {
+            $month.html( cal.getMonthName() );
+            $year.html( cal.getYear() );
+        }
+        // just an example..
+        function showEvents( $contentEl, dateProperties ) {
+
+            hideEvents();
+            var $events = $( '<div id="custom-content-reveal" class="custom-content-reveal"><h4>Events for ' + dateProperties.monthname + ' ' + dateProperties.day + ', ' + dateProperties.year + '</h4></div>' ),
+                $close = $( '<span class="custom-content-close"></span>' ).on( 'click', hideEvents );
+            $events.append( $contentEl.html() , $close ).insertAfter( $wrapper );
+            setTimeout( function() {
+                $events.css( 'top', '0%' );
+            }, 25 );
+        }
+        function hideEvents() {
+            var $events = $( '#custom-content-reveal' );
+            if( $events.length > 0 ) {
+                $events.css( 'top', '100%' );
+                Modernizr.csstransitions ? $events.on( transEndEventName, function() { $( this ).remove(); } ) : $events.remove();
+            }
+        }
+
+    // });
+
 }

@@ -1,9 +1,8 @@
 ;( function( $, window, undefined ) {	
 	'use strict';
-	$.Calendario = function( options, element ) {		
+	$.Calendario = function( options, element ) {
 		this.$el = $( element );
 		this._init( options );
-		
 	};
 
 	// the options
@@ -16,19 +15,22 @@
 		displayMonthAbbr : false,
 		startIn : 1,
 		onDayClick : function( $el, $content, dateProperties ) { 
-			return false; }
+			return false;
+		}
 	};
 	$.Calendario.prototype = {
 		_init : function( options ) {			
 			// options
 			this.options = $.extend( true, {}, $.Calendario.defaults, options );
 			this.today = new Date();
-			this.month = ( isNaN( this.options.month ) || this.options.month == null) ? this.today.getMonth() : this.options.month - 1;
+			this.month =  ( isNaN( this.options.month ) || this.options.month == null) ? this.today.getMonth() : this.options.month - 1;
 			this.year = ( isNaN( this.options.year ) || this.options.year == null) ? this.today.getFullYear() : this.options.year;
 			this.caldata = this.options.caldata || {};
-			this._generateTemplate();
-			//this._initEvents();
 
+			// if (calendar_month)
+			// 	this.month = calendar_month-1;
+			//this._initEvents();
+			this._generateTemplate();
 		},
 		/*_initEvents : function() {
       		var self = this;
@@ -93,8 +95,14 @@
 
 						var mon = this.month + 1;
 						if (mon > 12) mon = 1;
-						date_current =  day+"/"+mon+"/"+this.year;	
 
+						if (mon < 10)
+							mon = ("0"+mon).toString();
+
+						if (day < 10)
+							day = ("0"+day).toString();
+
+						date_current =  day+"-"+mon+"-"+this.year;
 
 						inner += '<span class="fc-date">'+day+'</span><span class="fc-weekday">'+this.options.weekabbrs[j+this.options.startIn>6?j+this.options.startIn-6-1: j+this.options.startIn]+'</span>';
 						var strdate = (this.month+1<10?'0'+(this.month+1): this.month+1)+'-'+(day<10?'0'+day: day)+'-'+this.year,dayData = this.caldata[ strdate ];
@@ -157,8 +165,8 @@
 			}
 			this._generateTemplate( callback );
 		},
-    getYear : function() {return this.year;},
-    getMonth : function() {return this.month + 1;},
+		getYear : function() {return this.year;},
+		getMonth : function() {return this.month + 1;},
 		getMonthName : function() {
 			return this.options.displayMonthAbbr ? this.options.monthabbrs[ this.month ] : this.options.months[ this.month ];
 		},
@@ -232,66 +240,3 @@
 })(jQuery,window);
 
 var codropsEvents = {};
-	
-$(function() {
-
-	var transEndEventNames = {
-			'WebkitTransition' : 'webkitTransitionEnd',
-			'MozTransition' : 'transitionend',
-			'OTransition' : 'oTransitionEnd',
-			'msTransition' : 'MSTransitionEnd',
-			'transition' : 'transitionend'
-		},
-		transEndEventName = transEndEventNames[ Modernizr.prefixed( 'transition' ) ],
-		$wrapper = $( '#custom-inner' ),
-		$calendar = $( '#calendar' ),
-		cal = $calendar.calendario( {
-			onDayClick : function( $el, $contentEl, dateProperties ) {
-
-
-				console.log( dateProperties);
-				if( $contentEl.length > 0 ) {
-					showEvents( $contentEl, dateProperties );
-				}
-
-			},
-			caldata : codropsEvents,
-			displayWeekAbbr : true
-		} ),
-		$month = $( '#custom-month' ).html( cal.getMonthName() ),
-		$year = $( '#custom-year' ).html( cal.getYear() );
-	$( '#custom-next' ).on( 'click', function() {
-		cal.gotoNextMonth( updateMonthYear );
-	} );
-	$( '#custom-prev' ).on( 'click', function() {
-		cal.gotoPreviousMonth( updateMonthYear );
-	} );
-	function updateMonthYear() {
-		$month.html( cal.getMonthName() );
-		$year.html( cal.getYear() );
-	}
-	// just an example..
-	function showEvents( $contentEl, dateProperties ) {
-
-		hideEvents();
-		var $events = $( '<div id="custom-content-reveal" class="custom-content-reveal"><h4>Events for ' + dateProperties.monthname + ' ' + dateProperties.day + ', ' + dateProperties.year + '</h4></div>' ),
-			$close = $( '<span class="custom-content-close"></span>' ).on( 'click', hideEvents );
-		$events.append( $contentEl.html() , $close ).insertAfter( $wrapper );
-		setTimeout( function() {
-			$events.css( 'top', '0%' );
-		}, 25 );
-	}
-	function hideEvents() {
-		var $events = $( '#custom-content-reveal' );
-		if( $events.length > 0 ) {
-			$events.css( 'top', '100%' );
-			Modernizr.csstransitions ? $events.on( transEndEventName, function() { $( this ).remove(); } ) : $events.remove();
-		}
-	}
-
-
-
-
-
-
-});

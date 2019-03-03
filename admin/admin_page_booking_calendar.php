@@ -304,7 +304,13 @@
 
 
 <?php if (isset($_GET['edit_booking'])): ?>
-    <script> BookingInfoAjax(<?=$_GET['edit_booking']; ?>); </script>
+    <script>
+        BookingInfoAjax(<?=$_GET['edit_booking']; ?>);
+    </script>
+<?php else: ?>
+    <script>
+        init_calendar(3);
+    </script>
 <?php endif; ?>
 
 

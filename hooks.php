@@ -152,32 +152,36 @@ add_action( 'wp_ajax_get_booking_rooms_by_date', 'callback_get_booking_rooms_by_
 add_action( 'wp_ajax_nopriv_get_booking_rooms_by_date', 'callback_get_booking_rooms_by_date' );
 function callback_get_booking_rooms_by_date(){
 
-
-    $date = DateTime::createFromFormat('d/m/Y', $_POST['date']);
-
-    $bookings = get_posts([
-        'post_type'=>'booking',
-        'post_status'=>'publish',
-        'meta_key' => 'fw_option:room_date',
-        'meta_query' => array(
-            'relation' => 'AND',
-            [
-                'key' => 'fw_option:room_date',
-                'value' => $date->format("d-m-Y"),
-            ],
-        ),
-    ]);
-
     $response = [];
-    foreach ($bookings as $booking){
-        $room_id = get_post_meta($booking->ID, 'fw_option:room', 1);
-        $response [] = [
-            'id'    => $booking->ID,
-            'room_id'    => $room_id,
-            'room_time' => get_post_meta($booking->ID, 'fw_option:room_time', 1),
-            'room_name'    => get_the_title(get_post_meta($booking->ID, 'fw_option:room', 1)),
-            'room_times'    => get_post_meta($room_id, 'fw_option:times', 1),
-        ];
+
+    if ($_POST['date']) {
+
+        $date = DateTime::createFromFormat('d-m-Y', $_POST['date']);
+
+        $bookings = get_posts([
+            'post_type' => 'booking',
+            'post_status' => 'publish',
+            'meta_key' => 'fw_option:room_date',
+            'meta_query' => array(
+                'relation' => 'AND',
+                [
+                    'key' => 'fw_option:room_date',
+                    'value' => $date->format("d-m-Y"),
+                ],
+            ),
+        ]);
+
+        foreach ($bookings as $booking){
+            $room_id = get_post_meta($booking->ID, 'fw_option:room', 1);
+            $response [] = [
+                'id'    => $booking->ID,
+                'room_id'    => $room_id,
+                'room_time' => get_post_meta($booking->ID, 'fw_option:room_time', 1),
+                'room_name'    => get_the_title(get_post_meta($booking->ID, 'fw_option:room', 1)),
+                'room_times'    => get_post_meta($room_id, 'fw_option:times', 1),
+            ];
+        }
+
     }
 
     wp_send_json(json_encode($response), 200);
