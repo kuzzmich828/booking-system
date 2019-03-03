@@ -104,7 +104,7 @@
 
 						date_current =  day+"-"+mon+"-"+this.year;
 
-						inner += '<span class="fc-date">'+day+'</span><span class="fc-weekday">'+this.options.weekabbrs[j+this.options.startIn>6?j+this.options.startIn-6-1: j+this.options.startIn]+'</span>';
+						inner += '<span class="fc-date">'+day+'</span><span class="fc-weekday">'+this.options.weekabbrs[j+this.options.startIn>6?j+this.options.startIn-6-1: j+this.options.startIn]+'</span><span class="fc-total-booking">23</span>';
 						var strdate = (this.month+1<10?'0'+(this.month+1): this.month+1)+'-'+(day<10?'0'+day: day)+'-'+this.year,dayData = this.caldata[ strdate ];
 						if( dayData ) {content = dayData;}
 						if( content !== '' ) {inner += '<div>' + content + '</div>';}

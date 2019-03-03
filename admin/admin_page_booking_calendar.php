@@ -136,6 +136,14 @@
 
     body{background: #f1f1f1}
 
+    .fc-total-booking{
+        font-size: 11px;
+        color: #1c0bef;
+        position: absolute;
+        right: 0;
+        margin: -2px 3px;
+    }
+
     .fc-calendar .fc-row > div.cell-time.reserved {
         background: #ccc;
     }
