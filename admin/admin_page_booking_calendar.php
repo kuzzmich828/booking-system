@@ -1,3 +1,4 @@
+
 <div class="wrap">
     <div class="row">
 
@@ -69,7 +70,9 @@
                         <tr>
                             <td><label><?= __('Name','bkng'); ?></label></td>
                             <td>
-                                <input name="booking_id" id="booking_id"  type="hidden" value="" class="form-control" />
+                                <input name="booking_id" id="booking_id"    type="hidden" value="" class="form-control" />
+                                <input name="room_time"  id="room_time"     type="hidden" value="" class="form-control" />
+                                <input name="room_date"  id="room_date"     type="hidden" value="" class="form-control" />
                                 <input id="name_booking" name="name_booking" placeholder="<?= __('Name...','bkng'); ?>" type="text" value="" class="form-control" />
                             </td>
                         </tr>
@@ -299,6 +302,10 @@
 
 </style>
 
+
+<?php if (isset($_GET['edit_booking'])): ?>
+    <script> BookingInfoAjax(<?=$_GET['edit_booking']; ?>); </script>
+<?php endif; ?>
 
 
 

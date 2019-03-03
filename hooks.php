@@ -206,6 +206,8 @@ function callback_get_booking(){
                 'status'    => get_post_meta($id, 'fw_option:status', 1),
                 'approve'    => get_post_meta($id, 'fw_option:approve', 1),
                 'status'    => get_post_meta($id, 'fw_option:status', 1),
+                'room_date'    => get_post_meta($id, 'fw_option:room_date', 1),
+                'room_time'    => get_post_meta($id, 'fw_option:room_time', 1),
             ];
     }
 

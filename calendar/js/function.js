@@ -67,18 +67,8 @@ jQuery( document ).ready(function() {
             spinnerShow();
 
             var sel_date = jQuery(this).attr("data-date-attr");
-            /******* AJAX ******/
-            jQuery.ajax({
-                url: '/wp-admin/admin-ajax.php',
-                type: 'POST',
-                data: {action:'get_booking', booking_id:booking_id},
-                success: function( data ) {
-                    fillBooking(JSON.parse(data));
-                    spinnerHide();
-                }
-            });
 
-            jQuery(container_edit).fadeIn(300);
+            BookingInfoAjax(booking_id);
 
         }else{
 
@@ -133,6 +123,19 @@ jQuery( document ).ready(function() {
     
 });
 
+function BookingInfoAjax(booking_id) {
+    /******* AJAX ******/
+    jQuery.ajax({
+        url: '/wp-admin/admin-ajax.php',
+        type: 'POST',
+        data: {action:'get_booking', booking_id:booking_id},
+        success: function( data ) {
+            fillBooking(JSON.parse(data));
+            spinnerHide();
+        }
+    });
+    jQuery(container_edit).fadeIn(300);
+}
 
 function spinnerShow() {
     jQuery('div.loading').show();
@@ -140,6 +143,8 @@ function spinnerShow() {
 
 function fillBooking(data) {
     jQuery("#booking_id").val(data['id']);
+    jQuery("#room_time").val(data['room_time']);
+    jQuery("#room_date").val(data['room_date']);
     jQuery("#phone_booking").val(data['phone']);
     jQuery("#email_booking").val(data['email']);
     jQuery("#name_booking").val(data['name']);
