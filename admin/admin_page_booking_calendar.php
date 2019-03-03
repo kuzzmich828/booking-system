@@ -1,4 +1,4 @@
-<div class="wrap ">
+<div class="wrap">
     <div class="row">
 
         <div class="col-sm-4">
@@ -17,7 +17,7 @@
                 </div>
         </div>
 
-        <div class="col-sm-3">
+        <div class="col-sm-4">
 
             <div class="step-2">
                 <h4><?= __('Choose a room:','bkng'); ?></h4>
@@ -58,55 +58,66 @@
         </div>
 
 
-        <div class="col-sm-5">
+        <div class="col-sm-4">
 
-            <h4><?= __('Booking details:','bkng'); ?></h4>
+            <div class="step-4">
+                <h4><?= __('Booking details:','bkng'); ?></h4>
 
-            <table class="table table-striped w-auto">
-                <tbody>
-                    <tr>
-                        <td><label><?= __('Name','bkng'); ?></label></td>
-                        <td>
-                            <input type="text" value="name of book" class="form-control" />
-                        </td>
-                    </tr>
-                    <tr>
-                        <td><label><?= __('E-mail','bkng'); ?></label></td>
-                        <td>
-                            <input type="email" value="name@book.ua" class="form-control" />
-                        </td>
-                    </tr>
-                    <tr>
-                        <td><label><?= __('Phone','bkng'); ?></label></td>
-                        <td>
-                            <input type="text" value="+380954477332" class="form-control" />
-                        </td>
-                    </tr>
-                    <tr>
-                        <td><label><?= __('Price & Quantity','bkng'); ?></label></td>
-                        <td>
-                            <select class="form-control">
-                                <option>100</option>
-                                <option>200</option>
-                                <option>300</option>
-                            </select>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td><label><?= __('Discount','bkng'); ?></label></td>
-                        <td>
-                            <input type="text" value="+380954477332" class="form-control" />
-                        </td>
-                    </tr>
-                    <tr>
-                        <td><label><?= __('Notes','bkng'); ?></label></td>
-                        <td>
-                            <textarea class="form-control"></textarea>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
+                <form action="" method="post" >
+                <table class="table table-striped w-auto booking-table-edit">
+                    <tbody>
+                        <tr>
+                            <td><label><?= __('Name','bkng'); ?></label></td>
+                            <td>
+                                <input name="booking_id" id="booking_id"  type="hidden" value="" class="form-control" />
+                                <input id="name_booking" name="name_booking" placeholder="<?= __('Name...','bkng'); ?>" type="text" value="" class="form-control" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><label><?= __('E-mail','bkng'); ?></label></td>
+                            <td>
+                                <input name="email_booking" id="email_booking" placeholder="<?= __('Email...','bkng'); ?>" type="email" value="" class="form-control" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><label><?= __('Phone','bkng'); ?></label></td>
+                            <td>
+                                <input name="phone_booking" id="phone_booking"  placeholder="<?= __('Phone...','bkng'); ?>" type="text" value="" class="form-control" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><label><?= __('Price & Quantity','bkng'); ?></label></td>
+                            <td>
+                                <select name="price_booking" id="price_booking"  class="form-control">
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><label><?= __('Discount','bkng'); ?></label></td>
+                            <td>
+                                <input name="discount_booking" id="discount_booking"  placeholder="<?= __('Discount...','bkng'); ?>" type="text" value="" class="form-control" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><label><?= __('Notes','bkng'); ?></label></td>
+                            <td>
+                                <textarea name="notes_booking" id="notes_booking" placeholder="<?= __('Your comments...','bkng'); ?>" class="form-control"></textarea>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <button class="btn btn-success edit-button " type="button"><?= __('Edit','bkng'); ?></button>
+                                <button name="save_booking" style="display:none;" class="btn btn-primary save-button" type="submit"><?= __('Save','bkng'); ?></button>
+                            </td>
+                            <td>
+                                <button class="btn btn-danger delete-button" type="button"><?= __('Delete','bkng'); ?></button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                </form>
 
+            </div>
         </div>
 
 
@@ -125,7 +136,7 @@
         background: #ccc;
     }
 
-    .step-2, .step-3{
+    .step-2, .step-3, .step-4{
         display: none;
     }
 
@@ -161,7 +172,7 @@
     }
 
     .fc-calendar .fc-row  .selected-day, .fc-calendar .fc-row > div.fc-today.selected-day{
-        background: #201186ba;
+        background: #201186ba !important;
     }
 
     .fc-calendar .fc-row > div.selected-day > span.fc-date {

@@ -1,7 +1,6 @@
 <?php
 
 add_action('init', 'bkng_register_posts_type');
-
 function bkng_register_posts_type(){
     register_post_type('room', array(
         'labels'             => array(
@@ -66,7 +65,6 @@ function bkng_register_posts_type(){
 
 add_action( 'wp_ajax_get_booking_rooms', 'callback_get_booking_rooms' );
 add_action( 'wp_ajax_nopriv_get_booking_rooms', 'callback_get_booking_rooms' );
-
 function callback_get_booking_rooms(){
 
     $rooms = get_posts([
@@ -79,7 +77,6 @@ function callback_get_booking_rooms(){
 
 add_action( 'wp_ajax_get_room_times', 'callback_get_room_times' );
 add_action( 'wp_ajax_nopriv_get_room_times', 'callback_get_room_times' );
-
 function callback_get_room_times(){
     $times = get_post_meta($_POST['id'], 'fw_option:times', 1);
     wp_send_json(json_encode($times), 200);
@@ -108,7 +105,6 @@ function _action_theme_fw_post_options_update($post_id) {
 
 add_action( 'wp_ajax_get_booking_room_date', 'callback_get_booking_room_date' );
 add_action( 'wp_ajax_nopriv_get_booking_room_date', 'callback_get_booking_room_date' );
-
 function callback_get_booking_room_date(){
 
     $query = new WP_Query([
@@ -141,7 +137,6 @@ function callback_get_booking_room_date(){
 
 add_action( 'wp_ajax_get_room_attributes', 'callback_get_room_attributes' );
 add_action( 'wp_ajax_nopriv_get_room_attributes', 'callback_get_room_attributes' );
-
 function callback_get_room_attributes(){
 
     $times = get_post_meta($_POST['id'], 'fw_option:times', 1);
@@ -155,7 +150,6 @@ function callback_get_room_attributes(){
 
 add_action( 'wp_ajax_get_booking_rooms_by_date', 'callback_get_booking_rooms_by_date' );
 add_action( 'wp_ajax_nopriv_get_booking_rooms_by_date', 'callback_get_booking_rooms_by_date' );
-
 function callback_get_booking_rooms_by_date(){
 
 
@@ -187,4 +181,34 @@ function callback_get_booking_rooms_by_date(){
     }
 
     wp_send_json(json_encode($response), 200);
+}
+
+add_action( 'wp_ajax_get_booking', 'callback_get_booking' );
+add_action( 'wp_ajax_nopriv_get_booking', 'callback_get_booking' );
+function callback_get_booking(){
+
+    $bookings = get_posts([
+        'post_type'=>'booking',
+        'post__in' => [$_POST['booking_id']]
+    ]);
+
+    $response = '';
+    if (count($bookings) > 0 && $bookings[0]->ID){
+            $id = $bookings[0]->ID;
+            $response  = [
+                'id'    => $id,
+                'email' => get_post_meta($id, 'fw_option:email', 1),
+                'name'    => get_post_meta($id, 'fw_option:name', 1),
+                'phone'    => get_post_meta($id, 'fw_option:phone', 1),
+                'comments'    => get_post_meta($id, 'fw_option:comments', 1),
+                'amount_price'    => get_post_meta($id, 'fw_option:amount_price', 1),
+                'discount'    => get_post_meta($id, 'fw_option:discount', 1),
+                'status'    => get_post_meta($id, 'fw_option:status', 1),
+                'approve'    => get_post_meta($id, 'fw_option:approve', 1),
+                'status'    => get_post_meta($id, 'fw_option:status', 1),
+            ];
+    }
+
+    wp_send_json(json_encode($response), 200);
+
 }

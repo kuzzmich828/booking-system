@@ -27,7 +27,12 @@ function add_to_admin_menu_bkng(){
     add_submenu_page('edit.php?post_type=booking', __('Booking Calendar','bkng'), __('Booking Calendar','bkng'), 'administrator', 'booking-calendar', 'admin_page_booking_calendar');
 }
 
+
+
 function admin_page_booking_calendar() {
+
+    bkng_save_booking();
+
     wp_enqueue_style('calendar-css',plugin_dir_url(__FILE__).'/calendar/css/style.css');
     wp_enqueue_style('calendar-google-css', '//ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/themes/smoothness/jquery-ui.css');
     wp_enqueue_style('bootstrapcdn-css', 'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css');
