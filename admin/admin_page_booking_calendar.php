@@ -127,6 +127,21 @@
     </div>
 </div>
 
+<script>
+
+    var date_count =  (<?= get_booking_count_by_date(); ?>);
+
+    jQuery(document).ready(function(){
+        updateDateCount();
+    });
+
+    function updateDateCount() {
+        jQuery(date_count).each(function (index) {
+            jQuery(".cell-day[data-date-attr='" + date_count[index]['date'] + "'] .fc-total-booking").html(date_count[index]['count']);
+        });
+    }
+
+</script>
 
 
 <div class="loading"><img src="<?= plugin_dir_url(__DIR__); ?>/calendar/img/spinner.svg"></div>

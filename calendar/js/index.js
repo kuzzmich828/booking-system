@@ -62,6 +62,7 @@
 			this.$cal = $('<div class="fc-calendar '+rowClass+'">').append( head,body );
 			this.$el.find( 'div.fc-calendar' ).remove().end().append( this.$cal );
 			if( callback ) { callback.call(); }
+			updateDateCount();
 		},
 		_getHead : function() {
 
@@ -104,7 +105,7 @@
 
 						date_current =  day+"-"+mon+"-"+this.year;
 
-						inner += '<span class="fc-date">'+day+'</span><span class="fc-weekday">'+this.options.weekabbrs[j+this.options.startIn>6?j+this.options.startIn-6-1: j+this.options.startIn]+'</span><span class="fc-total-booking">23</span>';
+						inner += '<span class="fc-date">'+day+'</span><span class="fc-weekday">'+this.options.weekabbrs[j+this.options.startIn>6?j+this.options.startIn-6-1: j+this.options.startIn]+'</span><span class="fc-total-booking"></span>';
 						var strdate = (this.month+1<10?'0'+(this.month+1): this.month+1)+'-'+(day<10?'0'+day: day)+'-'+this.year,dayData = this.caldata[ strdate ];
 						if( dayData ) {content = dayData;}
 						if( content !== '' ) {inner += '<div>' + content + '</div>';}
@@ -198,12 +199,14 @@
 		},
 		gotoPreviousMonth : function( callback ) {
 			this._move( 'month', 'previous', callback );
+			updateDateCount();
 		},
 		gotoPreviousYear : function( callback ) {
 			this._move( 'year', 'previous', callback );
 		},
 		gotoNextMonth : function( callback ) {
 			this._move( 'month', 'next', callback );
+			updateDateCount();
 		},
 		gotoNextYear : function( callback ) {
 			this._move( 'year', 'next', callback );

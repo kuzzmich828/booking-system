@@ -218,3 +218,49 @@ function callback_get_booking(){
     wp_send_json(json_encode($response), 200);
 
 }
+
+function get_booking_count_by_date(){
+
+    $query = new WP_Query([
+        'post_type' =>  'booking',
+        'post_status' => 'publish',
+        'meta_key' => 'fw_option:room_date',
+        'meta_query' => array(
+            'relation' => 'OR',
+            [
+                'key' => 'fw_option:room_date',
+                'compare' => 'LIKE',
+                'value' => '-02-2019',
+            ],
+            [
+                'key' => 'fw_option:room_date',
+                'compare' => 'LIKE',
+                'value' => '-03-2019',
+            ],
+        ),
+    ]);
+
+    $posts = $query->get_posts();
+    $response = [];
+
+    foreach ($posts as $post){
+        $date = get_post_meta($post->ID, "fw_option:room_date", true);
+        if (isset($response[$date])){
+            $response[$date]++;
+        } else {
+            $response[$date] = 1;
+        }
+    }
+
+    $dates = [];
+    foreach ($response as $k => $v){
+        $dates[] = [
+            'date' => $k,
+            'count' => $v
+        ];
+    }
+
+
+    return (json_encode($dates));
+
+}
