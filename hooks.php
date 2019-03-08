@@ -198,69 +198,19 @@ function callback_get_booking(){
 
     $response = '';
     if (count($bookings) > 0 && $bookings[0]->ID){
-            $id = $bookings[0]->ID;
-            $response  = [
-                'id'    => $id,
-                'email' => get_post_meta($id, 'fw_option:email', 1),
-                'name'    => get_post_meta($id, 'fw_option:name', 1),
-                'phone'    => get_post_meta($id, 'fw_option:phone', 1),
-                'comments'    => get_post_meta($id, 'fw_option:comments', 1),
-                'amount_price'    => get_post_meta($id, 'fw_option:amount_price', 1),
-                'discount'    => get_post_meta($id, 'fw_option:discount', 1),
-                'status'    => get_post_meta($id, 'fw_option:status', 1),
-                'approve'    => get_post_meta($id, 'fw_option:approve', 1),
-                'status'    => get_post_meta($id, 'fw_option:status', 1),
-                'room_date'    => get_post_meta($id, 'fw_option:room_date', 1),
-                'room_time'    => get_post_meta($id, 'fw_option:room_time', 1),
-            ];
+        $id = $bookings[0]->ID;
+        $response  = get_all_meta_booking($id);
     }
 
     wp_send_json(json_encode($response), 200);
 
 }
 
-function get_booking_count_by_date(){
-
-    $query = new WP_Query([
-        'post_type' =>  'booking',
-        'post_status' => 'publish',
-        'meta_key' => 'fw_option:room_date',
-        'meta_query' => array(
-            'relation' => 'OR',
-            [
-                'key' => 'fw_option:room_date',
-                'compare' => 'LIKE',
-                'value' => '-02-2019',
-            ],
-            [
-                'key' => 'fw_option:room_date',
-                'compare' => 'LIKE',
-                'value' => '-03-2019',
-            ],
-        ),
-    ]);
-
-    $posts = $query->get_posts();
-    $response = [];
-
-    foreach ($posts as $post){
-        $date = get_post_meta($post->ID, "fw_option:room_date", true);
-        if (isset($response[$date])){
-            $response[$date]++;
-        } else {
-            $response[$date] = 1;
-        }
-    }
-
-    $dates = [];
-    foreach ($response as $k => $v){
-        $dates[] = [
-            'date' => $k,
-            'count' => $v
-        ];
-    }
-
-
-    return (json_encode($dates));
-
-}
+add_action('admin_footer', function (){
+    ?>
+    <style>
+        .wp-core-ui .button-delete{background: #d61111c4; color: #fff; border-color: #c70000; box-shadow: 0 1px 0 #ff3636;}
+        .wp-core-ui .button-approve{background: #0a7b00b5; color: #fff; border-color: #0a7b00b5; box-shadow: 0 1px 0 #0a7b00b5;}
+    </style>
+<?php
+});

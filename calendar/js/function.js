@@ -165,7 +165,7 @@ function spinnerShow() {
 }
 
 function fillBooking(data) {
-    jQuery("#booking_id").val(data['id']);
+    jQuery("#booking_id").val(data['booking_id']);
     jQuery("#room_time").val(data['room_time']);
     jQuery("#room_date").val(data['room_date']);
     jQuery("#phone_booking").val(data['phone']);

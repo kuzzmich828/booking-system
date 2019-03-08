@@ -1,5 +1,6 @@
 
 <div class="wrap">
+    <h1><?= __('Booking Calendar'); ?></h1>
     <div class="row">
 
         <div class="col-sm-4">
@@ -70,6 +71,7 @@
                         <tr>
                             <td><label><?= __('Name','bkng'); ?></label></td>
                             <td>
+                                <input name="bkng_action" type="hidden" value="save_booking" class="form-control" />
                                 <input name="booking_id" id="booking_id"    type="hidden" value="" class="form-control" />
                                 <input name="room_time"  id="room_time"     type="hidden" value="" class="form-control" />
                                 <input name="room_date"  id="room_date"     type="hidden" value="" class="form-control" />
@@ -145,186 +147,6 @@
 
 
 <div class="loading"><img src="<?= plugin_dir_url(__DIR__); ?>/calendar/img/spinner.svg"></div>
-
-
-<style>
-
-    body{background: #f1f1f1}
-
-    .fc-total-booking{
-        font-size: 11px;
-        color: #1c0bef;
-        position: absolute;
-        right: 0;
-        margin: -2px 3px;
-    }
-
-    .fc-calendar .fc-row > div.cell-time.reserved {
-        background: #ccc;
-    }
-
-    .step-2, .step-3, .step-4{
-        display: none;
-    }
-
-    select.form-control {
-        height: 38px;
-        font-size: 15px;
-        margin: 18px 0;
-    }
-
-    .fc-calendar .fc-row > div.cell-time{
-        float: left;
-        height: 100%;
-        width: -moz-calc(100%/4);
-        width: -webkit-calc(100%/4);
-        width: calc(100%/4);
-        position: relative;
-    }
-
-    .fc-calendar-container.time-calendar{
-        height: auto;
-    }
-
-    .fc-calendar-container.time-calendar .fc-row{
-        height: 32px;
-    }
-
-    .fc-calendar-container.time-calendar .fc-body{
-        height: auto;
-    }
-
-    .fc-calendar .fc-row > div.cell-time > span.fc-date{
-        margin: -10px 0 0 -25px;
-    }
-
-    .fc-calendar .fc-row  .selected-day, .fc-calendar .fc-row > div.fc-today.selected-day{
-        background: #201186ba !important;
-    }
-
-    .fc-calendar .fc-row > div.selected-day > span.fc-date {
-        color: #fff;
-        text-shadow: 0 1px 1px rgba(0,0,0,0.1);
-    }
-
-
-
-
-
-
-    .loading img{
-        position: inherit;
-        width: 140px;
-        top: 30%
-    }
-
-    /* Absolute Center Spinner */
-    .loading {
-        display: none;
-        position: fixed;
-        z-index: 999;
-        height: 2em;
-        width: 2em;
-        overflow: visible;
-        margin: auto;
-        top: 0;
-        left: 0;
-        bottom: 0;
-        right: 0;
-    }
-
-    /* Transparent Overlay */
-    .loading:before {
-        content: '';
-        display: block;
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background-color: rgba(0,0,0,0.3);
-    }
-
-    /* :not(:required) hides these rules from IE9 and below */
-    .loading:not(:required) {
-        /* hide "loading..." text */
-        font: 0/0 a;
-        color: transparent;
-        text-shadow: none;
-        background-color: transparent;
-        border: 0;
-    }
-
-
-    /* Animation */
-
-    @-webkit-keyframes spinner {
-        0% {
-            -webkit-transform: rotate(0deg);
-            -moz-transform: rotate(0deg);
-            -ms-transform: rotate(0deg);
-            -o-transform: rotate(0deg);
-            transform: rotate(0deg);
-        }
-        100% {
-            -webkit-transform: rotate(360deg);
-            -moz-transform: rotate(360deg);
-            -ms-transform: rotate(360deg);
-            -o-transform: rotate(360deg);
-            transform: rotate(360deg);
-        }
-    }
-    @-moz-keyframes spinner {
-        0% {
-            -webkit-transform: rotate(0deg);
-            -moz-transform: rotate(0deg);
-            -ms-transform: rotate(0deg);
-            -o-transform: rotate(0deg);
-            transform: rotate(0deg);
-        }
-        100% {
-            -webkit-transform: rotate(360deg);
-            -moz-transform: rotate(360deg);
-            -ms-transform: rotate(360deg);
-            -o-transform: rotate(360deg);
-            transform: rotate(360deg);
-        }
-    }
-    @-o-keyframes spinner {
-        0% {
-            -webkit-transform: rotate(0deg);
-            -moz-transform: rotate(0deg);
-            -ms-transform: rotate(0deg);
-            -o-transform: rotate(0deg);
-            transform: rotate(0deg);
-        }
-        100% {
-            -webkit-transform: rotate(360deg);
-            -moz-transform: rotate(360deg);
-            -ms-transform: rotate(360deg);
-            -o-transform: rotate(360deg);
-            transform: rotate(360deg);
-        }
-    }
-    @keyframes spinner {
-        0% {
-            -webkit-transform: rotate(0deg);
-            -moz-transform: rotate(0deg);
-            -ms-transform: rotate(0deg);
-            -o-transform: rotate(0deg);
-            transform: rotate(0deg);
-        }
-        100% {
-            -webkit-transform: rotate(360deg);
-            -moz-transform: rotate(360deg);
-            -ms-transform: rotate(360deg);
-            -o-transform: rotate(360deg);
-            transform: rotate(360deg);
-        }
-    }
-
-</style>
-
 
 <?php if (isset($_GET['edit_booking'])): ?>
     <script>
