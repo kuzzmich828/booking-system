@@ -66,7 +66,7 @@
                 <h4><?= __('Booking details:','bkng'); ?></h4>
 
                 <form action="" method="post" >
-                <table class="table table-striped w-auto booking-table-edit">
+                    <table class="table table-striped w-auto booking-table-edit">
                     <tbody>
                         <tr>
                             <td><label><?= __('Name','bkng'); ?></label></td>
@@ -110,6 +110,12 @@
                             </td>
                         </tr>
                         <tr>
+                            <td><label><?= __('Frozen','bkng'); ?></label></td>
+                            <td>
+                                <input name="frozen_booking" id="frozen_booking" type="checkbox" class="form-control" />
+                            </td>
+                        </tr>
+                        <tr>
                             <td>
                                 <button class="btn btn-success edit-button " type="button"><?= __('Edit','bkng'); ?></button>
                                 <button name="save_booking" style="display:none;" class="btn btn-primary save-button" type="submit"><?= __('Save','bkng'); ?></button>
@@ -121,6 +127,8 @@
                     </tbody>
                 </table>
                 </form>
+
+                <a class="href-new-booking" style="display: none;" href="<?= admin_url('post-new.php'); ?>?post_type=booking"><button class="button button-primary"><?= __('New Booking'); ?></button></a>
 
             </div>
         </div>

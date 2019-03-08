@@ -12,6 +12,7 @@ var SELECT_CELL = "selected-day";
 var button_save = ".save-button";
 var button_edit = ".edit-button";
 var button_delete = ".delete-button";
+var button_new_booking = ".href-new-booking";
 
 jQuery( document ).ready(function() {
 
@@ -70,6 +71,8 @@ jQuery( document ).ready(function() {
 
         var booking_id = jQuery(this).attr('data-booking-id');
 
+        hideNewBooking();
+
         if (booking_id){
             spinnerShow();
 
@@ -80,6 +83,7 @@ jQuery( document ).ready(function() {
 
         }else{
             jQuery(table_edit).hide();
+            showNewBooking();
         }
 
     });
@@ -132,6 +136,14 @@ jQuery( document ).ready(function() {
     
 });
 
+function showNewBooking() {
+    jQuery(button_new_booking).fadeIn(300);
+}
+
+function hideNewBooking() {
+    jQuery(button_new_booking).hide();
+}
+
 function updateUrlBookingID() {
     window.history.pushState("", "", window.location.href.replace(/edit_booking=[0-9]{1,5}/gi, 'edit_booking='+jQuery("#booking_id").val()));
 }
@@ -142,7 +154,10 @@ function BookingInfoAjax(booking_id) {
         type: 'POST',
         data: {action:'get_booking', booking_id:booking_id},
         success: function( data ) {
-            fillBooking(JSON.parse(data));
+            data = JSON.parse(data);
+            if (data) {
+                fillBooking(data);
+            }
             spinnerHide();
         }
     });
@@ -172,6 +187,11 @@ function fillBooking(data) {
     jQuery("#email_booking").val(data['email']);
     jQuery("#name_booking").val(data['name']);
     jQuery("#notes_booking").val(data['notes']);
+    if (data['frozen'] == 'on'){
+        jQuery("#frozen_booking").prop('checked', true);
+    }else{
+        jQuery("#frozen_booking").prop('checked', false);
+    }
     jQuery("#discount_booking").val(data['discount']);
     jQuery(table_edit + " input, " + table_edit + " select, " + table_edit + " textarea").prop("disabled", true);
     AutoFillDateTimeBooking(data['room_date']);
@@ -243,8 +263,6 @@ function fillTimes(data, room_id) {
 
 function init_calendar(set_month) {
 
-    // $(function() {
-
         var transEndEventNames = {
                 'WebkitTransition' : 'webkitTransitionEnd',
                 'MozTransition' : 'transitionend',
@@ -301,7 +319,5 @@ function init_calendar(set_month) {
                 Modernizr.csstransitions ? $events.on( transEndEventName, function() { $( this ).remove(); } ) : $events.remove();
             }
         }
-
-    // });
-
+ 
 }
