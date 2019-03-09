@@ -18,6 +18,7 @@ add_action('admin_init', function () {
         /****************** ***********************/
         if (isset($_POST['bkng_action'])) {
             if ($_POST['bkng_action'] == 'save_booking') {
+                do_action('edit_booking_hook', $_POST['booking_id']);
                 add_action('admin_notices', 'my_plugin_notice');
                 function my_plugin_notice()
                 {

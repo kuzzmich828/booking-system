@@ -7,7 +7,6 @@ function bkng_dashboard_widget_all_booking() {
 
 function bkng_dashboard_widget_all_booking_handler() {
 
-
     $all_bookings = get_booking_after_date(date('d-m-Y'), date('H:i'));
     foreach ($all_bookings as $booking):
     ?>
