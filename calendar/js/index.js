@@ -13,7 +13,7 @@
 		monthabbrs : [ 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec' ],
 		displayWeekAbbr : false,
 		displayMonthAbbr : false,
-		startIn : 1,
+		startIn : true,
 		onDayClick : function( $el, $content, dateProperties ) { 
 			return false;
 		}
@@ -26,10 +26,6 @@
 			this.month =  ( isNaN( this.options.month ) || this.options.month == null) ? this.today.getMonth() : this.options.month - 1;
 			this.year = ( isNaN( this.options.year ) || this.options.year == null) ? this.today.getFullYear() : this.options.year;
 			this.caldata = this.options.caldata || {};
-
-			// if (calendar_month)
-			// 	this.month = calendar_month-1;
-			//this._initEvents();
 			this._generateTemplate();
 		},
 		/*_initEvents : function() {
@@ -81,6 +77,7 @@
 
 			var d = new Date(this.year, this.month+1,0),	monthLength = d.getDate(),firstDay = new Date(this.year,this.month,1);
 			this.startingDay = firstDay.getDay();
+
 			var html = '<div class="fc-body"><div class="fc-row">',	day = 1;
 			for ( var i = 0; i < 7; i++ ) {
 				var date_current = '';
@@ -105,7 +102,8 @@
 
 						date_current =  day+"-"+mon+"-"+this.year;
 
-						inner += '<span class="fc-date">'+day+'</span><span class="fc-weekday">'+this.options.weekabbrs[j+this.options.startIn>6?j+this.options.startIn-6-1: j+this.options.startIn]+'</span><span class="fc-total-booking"></span>';
+						inner += '<span class="fc-date ">'+day+'</span><span class="fc-weekday">'+this.options.weekabbrs[j+this.options.startIn>6?j+this.options.startIn-6-1: j+this.options.startIn]+'</span><span class="fc-total-booking"></span>';
+
 						var strdate = (this.month+1<10?'0'+(this.month+1): this.month+1)+'-'+(day<10?'0'+day: day)+'-'+this.year,dayData = this.caldata[ strdate ];
 						if( dayData ) {content = dayData;}
 						if( content !== '' ) {inner += '<div>' + content + '</div>';}
@@ -113,7 +111,17 @@
 					}
 					var cellClasses = today ? 'fc-today ' : '';
 					if( content !== '' ) {cellClasses += 'fc-content';}
-					html += cellClasses !== '' ? '<div class="' + cellClasses + '">' : '<div class="cell-day" data-date-attr="'+date_current+'">';
+
+					var past_class = '';
+
+					var current_date_full = new Date(this.year, mon-1, day);
+					if (current_date_full.getUTCDate()) {
+						if (current_date_full.getTime() < this.today.getTime()){
+							past_class = 'past-date';
+						}
+					}
+
+					html += cellClasses !== '' ? '<div class="' + cellClasses + '">' : '<div class="cell-day '+ past_class +'" data-date-attr="'+date_current+'">';
 					html += inner;
 					html += '</div>';
 				}
@@ -128,7 +136,7 @@
 			html += '</div></div>';
 			return html;
 		},
-		// based on http://stackoverflow.com/a/8390325/989439
+
 		_isValidDate : function( date ) {
 
 			date = date.replace(/-/gi,'');

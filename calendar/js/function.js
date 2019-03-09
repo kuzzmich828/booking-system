@@ -16,8 +16,17 @@ var button_new_booking = ".href-new-booking";
 
 jQuery( document ).ready(function() {
 
+    jQuery(document).on("click", "div.cell-day.past-date", function (event) {
+        event.preventDefault();
+    });
+
+
     /********* Select a Day *********/
     jQuery(document).on("click", ".cell-day, .fc-today", function (event) {
+
+        if (jQuery(this).attr('class').indexOf('past-date') > -1){
+            return;
+        }
 
         spinnerShow();
 
@@ -42,6 +51,10 @@ jQuery( document ).ready(function() {
 
     /********* Select a Day *********/
     jQuery(document).on("click", ".cell-day, .fc-today", function (event) {
+
+        if (jQuery(this).attr('class').indexOf('past-date') > -1){
+            return;
+        }
 
         var days = jQuery("#calendar").find(".cell-day, .fc-today");
         jQuery( days ).each(function( index ) {
