@@ -27,7 +27,8 @@ function bkng_register_posts_type(){
         'capability_type'    => 'post',
         'has_archive'        => true,
         'hierarchical'       => false,
-        'menu_position'      => null,
+        'menu_position'      => 4,
+        'menu_icon'          => 'dashicons-grid-view',
         'supports'           => array('title','author','thumbnail')
     ) );
 
@@ -57,7 +58,8 @@ function bkng_register_posts_type(){
         'capability_type'    => 'post',
         'has_archive'        => true,
         'hierarchical'       => false,
-        'menu_position'      => null,
+        'menu_position'      => 4,
+        'menu_icon'          => 'dashicons-feedback',
         'supports'           => array('title','author', )
     ) );
 
@@ -83,21 +85,16 @@ function callback_get_room_times(){
 }
 
 add_action('save_post', '_action_theme_fw_post_options_update', 10, 1);
-function _action_theme_fw_post_options_update($post_id) {
+function _action_theme_fw_post_options_update($booking_id) {
 
 
-    if (get_post_meta($post_id, "fw_option:approve", 1) == 'on'){
+    if (get_post_meta($booking_id, "fw_option:approve", 1) == 'on'){
 
-        if (get_post_meta($post_id, "fw_option:approve_time", 1) == '') {
-            update_post_meta($post_id, "fw_option:approve_time", date("Y/m/d H:i"));
-        }
-        if (get_post_meta($post_id, "fw_option:approve_person", 1) == '') {
-            update_post_meta($post_id, "fw_option:approve_person", wp_get_current_user()->nickname);
-        }
+        approveBookingData($booking_id);
 
     } else {
-        update_post_meta($post_id, "fw_option:approve_time", '');
-        update_post_meta($post_id, "fw_option:approve_person", '');
+        update_post_meta($booking_id, "fw_option:approve_time", '');
+        update_post_meta($booking_id, "fw_option:approve_person", '');
     }
 
 }
@@ -206,11 +203,25 @@ function callback_get_booking(){
 
 }
 
+add_action('approve_booking_hook', function ($booking_id){
+    update_post_meta($booking_id, 'fw_option:approve', 'on');
+    approveBookingData($booking_id);
+});
+
 add_action('admin_footer', function (){
     ?>
     <style>
         .wp-core-ui .button-delete{background: #d61111c4; color: #fff; border-color: #c70000; box-shadow: 0 1px 0 #ff3636;}
-        .wp-core-ui .button-approve{background: #0a7b00b5; color: #fff; border-color: #0a7b00b5; box-shadow: 0 1px 0 #0a7b00b5;}
+        .wp-core-ui .button-approve{background: #f7ff20b5; color: #4a4a4a; border-color: #4a4a4a; box-shadow: 0 1px 0 #0a7b00b5;}
     </style>
 <?php
 });
+
+function approveBookingData($booking_id){
+    if (get_post_meta($booking_id, "fw_option:approve_time", 1) == '') {
+        update_post_meta($booking_id, "fw_option:approve_time", date("Y/m/d H:i"));
+    }
+    if (get_post_meta($booking_id, "fw_option:approve_person", 1) == '') {
+        update_post_meta($booking_id, "fw_option:approve_person", wp_get_current_user()->nickname);
+    }
+}
