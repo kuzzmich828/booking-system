@@ -68,11 +68,11 @@ function bkng_dashboard_widget_need_approve_handler() {
 
 
             <p>
-                <form action="" method="post">
+                <form action="" method="post" class="dashboard-form">
                     <input type="hidden" name="booking_id" value="<?= $booking['booking_id']; ?>" />
                     <button class="button button-approve" name="approve_booking" type="submit">Approve</button>
                     <a href="<?= admin_url('edit.php'); ?>?post_type=booking&page=booking-calendar&edit_booking=<?= $booking['booking_id']; ?>"><button class="button button-primary">Edit</button></a>
-                    <button class="button button-delete">Delete</button>
+                    <button class="button button-delete" name="delete_booking" type="submit" >Delete</button>
                 </form>
             </p>
         </div>

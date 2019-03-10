@@ -87,14 +87,32 @@ function callback_get_room_times(){
 add_action('save_post', '_action_theme_fw_post_options_update', 10, 1);
 function _action_theme_fw_post_options_update($booking_id) {
 
+    if ( ! wp_is_post_revision( $booking_id ) ){
 
-    if (get_post_meta($booking_id, "fw_option:approve", 1) == 'on'){
+        remove_action('save_post', '_action_theme_fw_post_options_update');
 
-        approveBookingData($booking_id);
 
-    } else {
-        update_post_meta($booking_id, "fw_option:approve_time", '');
-        update_post_meta($booking_id, "fw_option:approve_person", '');
+        $name = get_post_meta($booking_id, "fw_option:name", 1);
+        $room_id = get_post_meta($booking_id, "fw_option:room", 1);
+        $room_name = get_the_title($room_id);
+        $phone = get_post_meta($booking_id, "fw_option:phone", 1);
+        $room_date = get_post_meta($booking_id, "fw_option:room_date", 1);
+        $room_time = get_post_meta($booking_id, "fw_option:room_time", 1);
+
+        wp_update_post( [
+                'post_title' => "$room_name; $room_date; $room_time; $name; $phone"
+            ]);
+
+        if (get_post_meta($booking_id, "fw_option:approve", 1) == 'on'){
+
+            approveBookingData($booking_id);
+
+        } else {
+            update_post_meta($booking_id, "fw_option:approve_time", '');
+            update_post_meta($booking_id, "fw_option:approve_person", '');
+        }
+
+        add_action('save_post', '_action_theme_fw_post_options_update');
     }
 
 }
@@ -208,6 +226,10 @@ add_action('approve_booking_hook', function ($booking_id){
     approveBookingData($booking_id);
 });
 
+add_action('delete_booking_hook', function ($booking_id){
+    wp_delete_post($booking_id);
+});
+
 add_action('admin_footer', function (){
     ?>
     <style>
@@ -225,3 +247,10 @@ function approveBookingData($booking_id){
         update_post_meta($booking_id, "fw_option:approve_person", wp_get_current_user()->nickname);
     }
 }
+
+add_action('init', function (){
+    $array = [
+        'message_confirm_before_delete_booking' => __('Do you want ot delete booking?'),
+    ];
+    wp_localize_script('jquery', 'bkng_messages', $array);
+});

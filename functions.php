@@ -37,7 +37,6 @@ function bkng_save_booking(){
     }
 }
 
-
 function get_booking_count_by_date(){
 
     $query = new WP_Query([
@@ -83,7 +82,6 @@ function get_booking_count_by_date(){
     return (json_encode($dates));
 
 }
-
 
 function get_booking_after_date($from_date, $time, $frozen = null, $approve = null){
 
@@ -145,12 +143,17 @@ function get_booking_after_date($from_date, $time, $frozen = null, $approve = nu
         $date = get_post_meta($booking->ID, "fw_option:room_date", true);
         $time = get_post_meta($booking->ID, "fw_option:room_time", true);
 
-        $timestamp = DateTime::createFromFormat('d-m-Y H:i', $date . " " . $time)->getTimestamp();
-
-        if ($timestamp > time()){
-            $meta = get_all_meta_booking($booking->ID);
-            $response[] = array_merge(['timestamp' => $timestamp], $meta);
+        if (!$date || !$time){
+            continue;
         }
+
+        $timestamp = DateTime::createFromFormat('d-m-Y H:i', "$date $time")->getTimestamp();
+
+        if ($timestamp)
+            if ($timestamp > time()){
+                $meta = get_all_meta_booking($booking->ID);
+                $response[] = array_merge(['timestamp' => $timestamp], $meta);
+            }
     }
 
     usort($response, 'sort_by_timestamp');

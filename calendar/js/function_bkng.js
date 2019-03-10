@@ -139,7 +139,7 @@ jQuery( document ).ready(function() {
     /********* Button DELETE *********/
     jQuery(table_edit+" "+button_delete).on("click", function (event) {
 
-        if (confirm("Do you want to delete booking?")){
+        if (confirm(bkng_messages.message_confirm_before_delete_booking)){
 
             jQuery(container_rooms+", "+container_time+", "+container_edit).hide();
 
