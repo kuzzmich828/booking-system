@@ -61,9 +61,11 @@ require __DIR__.'/functions.php';
 
 require __DIR__.'/hooks.php';
 
-require __DIR__.'/dashboard.php';
+require __DIR__ . '/admin/dashboard.php';
 
-require __DIR__.'/action_messages.php';
+require __DIR__ . '/admin/action_messages.php';
+
+require __DIR__ . '/admin/table_columns.php';
 
 
 
