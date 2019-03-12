@@ -67,6 +67,8 @@ require __DIR__ . '/admin/action_messages.php';
 
 require __DIR__ . '/admin/table_columns.php';
 
+require __DIR__ . '/admin/table_filters.php';
+
 
 
 
