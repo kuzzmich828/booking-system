@@ -35,6 +35,7 @@ function fill_views_column( $colname, $post_id ){
     }elseif ($colname === 'amount_price'){
         echo get_post_meta($post_id, 'fw_option:amount_price', 1);
     }elseif ($colname === 'room_date'){
+//        echo get_post_meta($post_id, 'room_date:timestamp', 1);
         echo get_post_meta($post_id, 'fw_option:room_date', 1) ." ". get_post_meta($post_id, 'fw_option:room_time', 1);
     }elseif ($colname === 'room'){
         echo get_the_title(get_post_meta($post_id, 'fw_option:room', 1));
@@ -64,7 +65,53 @@ function fill_views_column( $colname, $post_id ){
         echo DateTime::createFromFormat("d-m-Y", $date)->format("D");
     }elseif ($colname === 'room'){
         echo  (get_post_meta($post_id, 'fw_option:room', 1));
+    }elseif ($colname === 'amount'){
+
+        echo get_post_meta($post_id, 'amount', 1);
+
+
     }
 }
 
 /***************************************** *****************************************/
+
+
+// добавляем возможность сортировать колонку
+add_filter( 'manage_'.'edit-booking'.'_sortable_columns', 'add_views_sortable_column' );
+function add_views_sortable_column( $sortable_columns ){
+    $sortable_columns['name'] = [ 'name_name', false ];
+    $sortable_columns['amount'] = [ 'amount', false ];
+    $sortable_columns['room_date'] = [ 'room_date', false ];
+    // false = asc (по умолчанию)
+    // true  = desc
+
+    return $sortable_columns;
+}
+
+// изменяем запрос при сортировке колонки
+add_action( 'pre_get_posts', 'add_column_amount_request' );
+function add_column_amount_request( $query ){
+    if( ! is_admin()
+        || ! $query->is_main_query()
+        || $query->get('orderby') !== 'amount'
+    )
+        return;
+
+    $query->set( 'meta_key', 'amount' );
+    $query->set( 'orderby', 'meta_value_num' );
+}
+
+add_action( 'pre_get_posts', 'add_column_room_date_request' );
+function add_column_room_date_request( $query ){
+    if( ! is_admin()
+        || ! $query->is_main_query()
+        || $query->get('orderby') !== 'room_date'
+    )
+        return;
+
+    $query->set( 'meta_key', 'room_date:timestamp' );
+    $query->set( 'orderby', 'meta_value_num' );
+
+
+}
+
