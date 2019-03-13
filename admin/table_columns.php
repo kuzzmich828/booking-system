@@ -66,10 +66,9 @@ function fill_views_column( $colname, $post_id ){
     }elseif ($colname === 'room'){
         echo  (get_post_meta($post_id, 'fw_option:room', 1));
     }elseif ($colname === 'amount'){
-
         echo get_post_meta($post_id, 'amount', 1);
-
-
+    }elseif ($colname === 'subscribe'){
+        echo get_post_meta($post_id, 'subscribe', 1);
     }
 }
 

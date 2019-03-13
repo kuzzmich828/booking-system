@@ -193,3 +193,13 @@ function get_all_meta_booking($id){
 
 }
 
+function bkng_get_booking_rooms(){
+
+    remove_action('pre_get_posts','add_post_format_filter_to_posts');
+    $rooms = get_posts([
+        'post_type'=>'room',
+        'post_status'=>'publish',
+    ]);
+    add_action('pre_get_posts','add_post_format_filter_to_posts');
+    return $rooms;
+}

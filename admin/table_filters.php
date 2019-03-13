@@ -5,55 +5,153 @@ function add_post_formats_filter_to_post_administration(){
     //execute only on the 'post' content type
     global $post_type;
     if($post_type == 'booking'){
-
-        $post_formats_args = array(
-            'show_option_all'   => 'All Post formats',
-            'orderby'           => 'NAME',
-            'order'             => 'ASC',
-            'name'              => 'post_format_admin_filter',
-            'taxonomy'          => 'post_format'
-        );
-
-        //if we have a post format already selected, ensure that its value is set to be selected
-        if(isset($_GET['post_format_admin_filter'])){
-            $post_formats_args['selected'] = sanitize_text_field($_GET['post_format_admin_filter']);
-        }
-
+        $rooms = bkng_get_booking_rooms();
         ?>
-        <select name="post_format_admin_filter" id="post_format_admin_filter" class="postform">
-            <option>asfgdsg</option>
-            <option>acvncv</option>
-            <option>hdfhdfjfg</option>
+        <select name="room_name" id="room_name" class="postform" >
+            <option value=""><?= __('Room name...', 'bkng'); ?></option>
+            <?php foreach ($rooms as $room): ?>
+                <option value="<?= $room->ID; ?>"><?= $room->post_title; ?></option>
+            <?php endforeach; ?>
         </select>
+
+        <!--  ***********************************************************   -->
+        <input  type="date" name="room_date" id="room_date" class="postform" />
+
+        <!--  ***********************************************************   -->
+        <select name="room_day" id="room_day" class="postform">
+            <option value=""><?= __('Day...', 'bkng'); ?></option>
+            <?php
+                $days = [
+                        __('Sun', 'bkng'),
+                        __('Mon', 'bkng'),
+                        __('Tue', 'bkng'),
+                        __('Wed', 'bkng'),
+                        __('Thu', 'bkng'),
+                        __('Fri', 'bkng'),
+                        __('Sat', 'bkng')
+                    ];
+            ?>
+            <?php foreach ($days as $day): ?>
+                <option value="<?= $day; ?>"><?= $day; ?></option>.
+            <?php endforeach; ?>
+        </select>
+
+        <!--   ***********************************************************   -->
+        <select name="status" id="status" class="postform">
+            <option value=""><?= __('Status...', 'bkng'); ?></option>
+            <option value="frozen"><?= __('Frozen', 'bkng'); ?></option>
+            <option value="needapprove"><?= __('Need Approve', 'bkng'); ?></option>
+            <option value="approved"><?= __('Approved', 'bkng'); ?></option>
+        </select>
+
+        <!--   ***********************************************************   -->
+        <select name="subscribe" id="subscribe" class="postform">
+            <option value=""><?= __('Subscribe...', 'bkng'); ?></option>
+            <option value="on"><?= __('Subscribe', 'bkng'); ?></option>
+            <option value="off"><?= __('Not subscribe', 'bkng'); ?></option>
+        </select>
+
 <?php
+
+        wp_dropdown_users([
+            'show' => 'display_name',
+            'echo' => true,
+            'name' => 'approved_person',
+            'selected' => '',
+            'show_option_none' => __('Approved person...','bkng')
+        ]);
 
     }
 }
+
+
+
 add_action('restrict_manage_posts','add_post_formats_filter_to_post_administration');
 
 function add_post_format_filter_to_posts($query){
 
     global $post_type, $pagenow;
+    $meta_queries = [];
 
-    //if we are currently on the edit screen of the post type listings
-    if($pagenow == 'edit.php' && $post_type == 'post'){
-        if(isset($_GET['post_format_admin_filter'])){
+    if($pagenow == 'edit.php' && $post_type == 'booking'){
 
-            //get the desired post format
-            $post_format = sanitize_text_field($_GET['post_format_admin_filter']);
-            //if the post format is not 0 (which means all)
-            if($post_format != 0){
-
-                $query->query_vars['tax_query'] = array(
+        /************************************ ***************************/
+        if(isset($_GET['room_name'])){
+            $room_name = sanitize_text_field($_GET['room_name']);
+            if($room_name){
+                $meta_queries [] =
                     array(
-                        'taxonomy'  => 'post_format',
-                        'field'     => 'ID',
-                        'terms'     => array($post_format)
-                    )
+                        'key'     => 'fw_option:room',
+                        'value'   => $room_name,
+                        'compare' => '=',
+
                 );
+            }
+        }
+
+        /************************************ ***************************/
+        if(isset($_GET['room_date'])){
+            $room_date = sanitize_text_field($_GET['room_date']);
+            if($room_date){
+
+                $room_date = DateTime::createFromFormat("Y-m-d", $room_date);
+                if ($room_date){
+                    $meta_queries [] =
+                        array(
+                            'key'     => 'fw_option:room_date',
+                            'value'   => $room_date->format("d-m-Y"),
+                            'compare' => '=',
+                    );
+                }
 
             }
         }
+
+        /************************************ ***************************/
+        if(isset($_GET['status'])){
+            $status = sanitize_text_field($_GET['status']);
+            if($status){
+
+                if ($status == 'approved'){
+                    $metakey = 'fw_option:approve';
+                    $metaval = 'on';
+                }elseif ($status == 'needapprove') {
+                    $metakey = 'fw_option:approve';
+                    $metaval = 'off';
+                }else{
+                    $metakey = 'fw_option:frozen';
+                    $metaval = 'on';
+                }
+
+                $meta_queries [] =
+                    array(
+                        'key'     => $metakey,
+                        'value'   => $metaval,
+                        'compare' => '=',
+                    );
+
+            }
+        }
+
+        /************************************ ***************************/
+        if(isset($_GET['approved_person'])){
+            $approved_person = sanitize_text_field($_GET['approved_person']);
+            if($approved_person && $approved_person > 0){
+
+                $meta_queries [] =
+                    array(
+                        'key'     => 'fw_option:approve_person',
+                        'value'   => get_user_by('ID', $approved_person)->nickname,
+                        'compare' => '=',
+                    );
+
+            }
+        }
+        $query->set( 'meta_query', [ array_merge(['AND'], $meta_queries) ] );
+
     }
+
+    return $query;
 }
+
 add_action('pre_get_posts','add_post_format_filter_to_posts');

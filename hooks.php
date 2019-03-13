@@ -87,10 +87,9 @@ function callback_get_room_times(){
 add_action('save_post', '_action_theme_fw_post_options_update', 100, 1);
 function _action_theme_fw_post_options_update($booking_id) {
 
-    if ( ! wp_is_post_revision( $booking_id ) ){
+    if ( ! wp_is_post_revision( $booking_id ) && get_post_type($booking_id) == 'booking'){
 
         remove_action('save_post', '_action_theme_fw_post_options_update');
-
 
         $name = get_post_meta($booking_id, "fw_option:name", 1);
         $room_id = get_post_meta($booking_id, "fw_option:room", 1);
@@ -99,21 +98,19 @@ function _action_theme_fw_post_options_update($booking_id) {
         $room_date = get_post_meta($booking_id, "fw_option:room_date", 1);
         $room_time = get_post_meta($booking_id, "fw_option:room_time", 1);
 
-        if (!$name) $name = ' ';
-        if (!$room_name) $room_name = ' ';
-        if (!$phone) $phone = ' ';
-        if (!$room_date) $room_date = ' ';
-        if (!$room_time) $room_time = ' ';
 
-        update_post_meta($booking_id, 'post_title', "FDSGDG");
+        $name = (!$name) ? '' : "$name |";
+        $room_name = (!$room_name) ? '' : "$room_name |";
+        $phone = (!$phone) ? '' : "$phone |";
+        $room_date = (!$room_date) ? '' : "$room_date |";
+        $room_time = (!$room_time) ? '' : "$room_time |";
+
 
         global $wpdb;
-        $wpdb->update( $wpdb->posts, array( 'post_title' =>  "$room_name; $room_date; $room_time; $name; $phone" ), array( 'ID' => $booking_id ) );
+        $wpdb->update( $wpdb->posts, array( 'post_title' =>  "$room_name $room_date $room_time $name $phone" ), array( 'ID' => $booking_id ) );
 
         if (get_post_meta($booking_id, "fw_option:approve", 1) == 'on'){
-
             approveBookingData($booking_id);
-
         } else {
             update_post_meta($booking_id, "fw_option:approve_time", '');
             update_post_meta($booking_id, "fw_option:approve_person", '');
