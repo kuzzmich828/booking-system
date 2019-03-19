@@ -122,3 +122,42 @@ function bkng_dashboard_widget_frozen_handler() {
     <?php
     endforeach;
 }
+
+/******************** ************************/
+add_action( 'wp_dashboard_setup', 'bkng_dashboard_widget_newbooking' );
+function bkng_dashboard_widget_newbooking() {
+    wp_add_dashboard_widget( 'bkng_dashboard_widget_newbooking', __( 'New Booking', 'bkng' ), 'bkng_dashboard_widget_newbooking_handler' );
+}
+
+function bkng_dashboard_widget_newbooking_handler() {
+?>
+        <div class="activity-block">
+            <p>
+                <a href="<?= admin_url('post-new.php'); ?>?post_type=booking"><button class="button button-primary"><?= __('New Booking','bkng'); ?></button></a>
+            </p>
+        </div>
+    <?php
+}
+
+
+/******************** AutoRefresh Dashboard *******************/
+add_action('admin_footer', function (){
+   if (get_current_screen()->id === 'dashboard'){
+       ?>
+<script>
+    var time = new Date().getTime();
+    jQuery(document.body).bind("mousemove keypress", function(e) {
+        time = new Date().getTime();
+    });
+    function refresh() {
+        if(new Date().getTime() - time >= 2000)
+            window.location.reload(true);
+        else
+            setTimeout(refresh, 2000);
+    }
+
+    setTimeout(refresh, 2000);
+</script>
+<?php
+   }
+});

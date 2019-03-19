@@ -97,6 +97,7 @@ function _action_theme_fw_post_options_update($booking_id) {
         $phone = get_post_meta($booking_id, "fw_option:phone", 1);
         $room_date = get_post_meta($booking_id, "fw_option:room_date", 1);
         $room_time = get_post_meta($booking_id, "fw_option:room_time", 1);
+        $amount_price = get_post_meta($booking_id, "fw_option:amount_price", 1);
 
 
         $name = (!$name) ? '' : "$name |";
@@ -105,7 +106,17 @@ function _action_theme_fw_post_options_update($booking_id) {
         $room_date = (!$room_date) ? '' : "$room_date |";
         $room_time = (!$room_time) ? '' : "$room_time |";
 
-
+        /**************************** Update Quantity *****************************/
+        if ($amount_price){
+            $prices = get_post_meta($room_id, "fw_option:prices", 1);
+            foreach ($prices as $price){
+                if ($price['price'] == $amount_price){
+                    update_post_meta($booking_id, "fw_option:quantity", $price['quantity']);
+                    break;
+                }
+            }
+        }
+        /**************************** Update Title *****************************/
         global $wpdb;
         $wpdb->update( $wpdb->posts, array( 'post_title' =>  "$room_name $room_date $room_time $name $phone" ), array( 'ID' => $booking_id ) );
 
@@ -115,6 +126,7 @@ function _action_theme_fw_post_options_update($booking_id) {
             update_post_meta($booking_id, "fw_option:approve_time", '');
             update_post_meta($booking_id, "fw_option:approve_person", '');
         }
+        /**************************** *****************************/
 
         add_action('save_post', '_action_theme_fw_post_options_update');
     }
@@ -265,6 +277,7 @@ function callback_update_bookin_meta($meta_id, $post_id, $meta_key, $meta_value 
 
 
     remove_action('updated_post_meta', 'callback_update_bookin_meta');
+
     if ($meta_key == 'fw_option:amount_price'){
         update_post_meta($post_id, 'amount', $meta_value - $meta_value * get_post_meta($post_id, 'fw_option:discount', 1) / 100);
     }elseif ($meta_key == 'fw_option:discount'){
@@ -284,6 +297,7 @@ function callback_update_bookin_meta($meta_id, $post_id, $meta_key, $meta_value 
 
         }
     }
+
     add_action( 'updated_post_meta', 'callback_update_bookin_meta', 10, 4);
 
 }

@@ -1,10 +1,34 @@
 
-
 var input_room = "#fw-option-room";
 var input_room_time = "#fw-option-room_time";
 var input_room_date = "#fw-option-room_date";
 var input_amount_price = "#fw-option-amount_price";
 var input_quantity = "#fw-option-quantity";
+
+/***************** Required Fields ********************/
+jQuery( document ).ready(function() {
+
+    if (window.location.href.indexOf('post_type=booking') > -1){
+        jQuery("#publish").attr("disabled", true);
+    }
+
+    jQuery("input, select").bind("keyup change", function(e) {
+
+        if (
+            String(jQuery('#fw-option-room').val()).trim() == '' ||
+            String(jQuery('#fw-option-room_date').val()).trim() == '' ||
+            String(jQuery('#fw-option-room_time').val()).trim() == '' ||
+            String(jQuery('#fw-option-email').val()).trim() == '' ||
+            String(jQuery('#fw-option-phone').val()).trim() == '' ||
+            String(jQuery('#fw-option-name').val()).trim() == ''
+        ){
+            jQuery("#publish").attr("disabled", true);
+        } else {
+            jQuery("#publish").attr("disabled", false);
+        }
+
+    });
+});
 
 
 jQuery(document).on("click", "input#publish", function(){

@@ -61,8 +61,8 @@ function fill_views_column( $colname, $post_id ){
             echo "need approve";
         }
     }elseif ($colname === 'week_day'){
-        $date = get_post_meta($post_id, 'fw_option:room_date', 1);
-        echo DateTime::createFromFormat("d-m-Y", $date)->format("D");
+        $date = get_post_meta($post_id, 'room_date:timestamp', 1);
+        echo date("D", $date);
     }elseif ($colname === 'room'){
         echo  (get_post_meta($post_id, 'fw_option:room', 1));
     }elseif ($colname === 'amount'){

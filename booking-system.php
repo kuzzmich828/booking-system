@@ -19,7 +19,7 @@ function add_to_admin_menu_bkng(){
     add_menu_page(__('Booking Calendar','bkng'), __('Booking Calendar','bkng'), 'administrator', 'booking-calendar', 'admin_page_booking_calendar', 'dashicons-calendar-alt', 5);
 }
 
-if (is_admin() && $_GET['page'] == 'booking-calendar' ) {
+if (is_admin() && isset($_GET['page']) && $_GET['page'] == 'booking-calendar' ) {
     add_action('admin_enqueue_scripts', function () {
         wp_enqueue_style('calendar-css', plugin_dir_url(__FILE__) . 'calendar/css/style.css');
         wp_enqueue_style('calendar-google-css', '//ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/themes/smoothness/jquery-ui.css');
