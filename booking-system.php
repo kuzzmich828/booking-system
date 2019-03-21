@@ -69,6 +69,8 @@ require __DIR__ . '/admin/table_columns.php';
 
 require __DIR__ . '/admin/table_filters.php';
 
+require __DIR__ . '/frontend/shortcode.php';
+
 
 
 
