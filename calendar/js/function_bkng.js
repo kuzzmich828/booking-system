@@ -89,7 +89,7 @@ jQuery( document ).ready(function() {
         if (booking_id){
             spinnerShow();
 
-            var sel_date = jQuery(this).attr("data-date-attr");
+            // var sel_date = jQuery(this).attr("data-date-attr");
 
             BookingInfoAjax(booking_id);
             jQuery(table_edit).show();
@@ -130,6 +130,7 @@ jQuery( document ).ready(function() {
     jQuery(table_edit+" "+button_edit).on("click", function (event) {
 
         updateUrlBookingID();
+
         jQuery(table_edit + " input, " + table_edit + " select, " + table_edit + " textarea").prop("disabled", false);
         jQuery(this).hide();
         jQuery(table_edit + " .save-button").show();
@@ -193,19 +194,53 @@ function spinnerShow() {
 }
 
 function fillBooking(data) {
+
     jQuery("#booking_id").val(data['booking_id']);
     jQuery("#room_time").val(data['room_time']);
     jQuery("#room_date").val(data['room_date']);
     jQuery("#phone_booking").val(data['phone']);
     jQuery("#email_booking").val(data['email']);
     jQuery("#name_booking").val(data['name']);
-    jQuery("#notes_booking").val(data['notes']);
+    jQuery("#notes_booking").val(data['comments']);
+    jQuery("#price_booking").html(
+        '<option selected value="'+data['amount_price']+'">'+data['quantity'] + ' - ' +data['amount_price']+'</option>'
+    );
+
+    var amount_price = data['amount_price'];
+
+    /******* Fill Prices ******/
+    jQuery.ajax({
+        url: '/wp-admin/admin-ajax.php',
+        type: 'POST',
+        data: {action:'get_room_attributes', id: data['room_id'] },
+        success: function( data ) {
+            var response = JSON.parse(data);
+            var prices = response['prices'];
+            /********* Fill Input Price & Quantity ******/
+            var options = '';
+            jQuery( prices ).each(function( index ) {
+                var selected = '';
+                if (amount_price == prices[index]['price']) {
+                    selected = 'selected';
+                }
+                options += '<option '+selected+' value = "' + prices[index]['price'] + '">' + prices[index]['quantity'] + ' - ' + prices[index]['price'] + '</option>';
+            });
+            jQuery("#price_booking").html(options);
+
+        }
+    });
+
+
     if (data['frozen'] == 'on'){
         jQuery("#frozen_booking").prop('checked', true);
     }else{
         jQuery("#frozen_booking").prop('checked', false);
     }
-    jQuery("#discount_booking").val(data['discount']);
+
+    if (data['discount'] != null)
+        jQuery("#discount_booking").val(data['discount']);
+    else
+        jQuery("#discount_booking").val('0');
     jQuery(table_edit + " input, " + table_edit + " select, " + table_edit + " textarea").prop("disabled", true);
     AutoFillDateTimeBooking(data['room_date']);
 }

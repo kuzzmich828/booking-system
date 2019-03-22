@@ -24,9 +24,6 @@
             <div class="step-2">
                 <h4><?= __('Choose a room:','bkng'); ?></h4>
                 <select class="form-control choose-room">
-                    <option>Mustard</option>
-                    <option>Ketchup</option>
-                    <option>Relish</option>
                     <option selected="selected" disabled value="0">Choose a room</option>
                 </select>
             </div>
@@ -100,13 +97,19 @@
                         <tr>
                             <td><label><?= __('Discount','bkng'); ?></label></td>
                             <td>
-                                <input name="discount_booking" id="discount_booking"  placeholder="<?= __('Discount...','bkng'); ?>" type="text" value="" class="form-control" />
+                                <input name="discount_booking" id="discount_booking"  placeholder="<?= __('Discount...','bkng'); ?>" type="number" min="0" max="100" value="" class="form-control" />
                             </td>
                         </tr>
                         <tr>
                             <td><label><?= __('Notes','bkng'); ?></label></td>
                             <td>
                                 <textarea name="notes_booking" id="notes_booking" placeholder="<?= __('Your comments...','bkng'); ?>" class="form-control"></textarea>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><label><?= __('Approve','bkng'); ?></label></td>
+                            <td>
+                                <input name="approve_booking" id="approve_booking" type="checkbox" class="form-control" />
                             </td>
                         </tr>
                         <tr>

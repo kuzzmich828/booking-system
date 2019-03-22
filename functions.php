@@ -26,13 +26,19 @@ function bkng_save_booking(){
         $fields['fw_option:name'] = (isset($_POST['name_booking']) && $_POST['name_booking']) ? $_POST['name_booking'] : null;
         $fields['fw_option:phone'] = (isset($_POST['phone_booking']) && $_POST['phone_booking']) ? $_POST['phone_booking'] : null;
         $fields['fw_option:email'] = (isset($_POST['email_booking']) && $_POST['email_booking']) ? $_POST['email_booking'] : null;
-        $fields['fw_option:discount'] = (isset($_POST['discount_booking']) && $_POST['discount_booking']) ? $_POST['discount_booking'] : null;
-        $fields['fw_option:notes'] = (isset($_POST['notes_booking']) && $_POST['notes_booking']) ? $_POST['notes_booking'] : null;
-        $fields['fw_option:price'] = (isset($_POST['price_booking']) && $_POST['price_booking']) ? $_POST['price_booking'] : null;
+        $fields['fw_option:discount'] = (isset($_POST['discount_booking'])) ? (int)$_POST['discount_booking'] : null;
+        $fields['fw_option:comments'] = (isset($_POST['notes_booking']) && $_POST['notes_booking']) ? $_POST['notes_booking'] : null;
+        $fields['fw_option:amount_price'] = (isset($_POST['price_booking'])) ? (float)$_POST['price_booking'] : null;
 
         foreach ($fields as $key => $val){
-            update_post_meta($fields['booking_id'], $key, $val);
+            if ($val !== null)
+                update_post_meta($fields['booking_id'], $key, $val);
         }
+
+        add_action('admin_footer', function (){
+            ?><script> window.location.href = '<?= admin_url('edit.php').'?post_type=booking&page=booking-calendar&edit_booking='.$_POST['booking_id']; ?>'; </script><?php
+        });
+
 
     }
 }
@@ -181,12 +187,14 @@ function get_all_meta_booking($id){
         'phone'    => get_post_meta($id, 'fw_option:phone', 1),
         'comments'    => get_post_meta($id, 'fw_option:comments', 1),
         'amount_price'    => get_post_meta($id, 'fw_option:amount_price', 1),
+        'amount'    => get_post_meta($id, 'amount', 1),
         'discount'    => get_post_meta($id, 'fw_option:discount', 1),
 
         'approve'    => get_post_meta($id, 'fw_option:approve', 1),
         'frozen'    => get_post_meta($id, 'fw_option:frozen', 1),
         'room_date'    => get_post_meta($id, 'fw_option:room_date', 1),
         'room_time'    => get_post_meta($id, 'fw_option:room_time', 1),
+        'quantity'    => get_post_meta($id, 'fw_option:quantity', 1),
         'room_id' => $room_id,
         'room_name' => $room_name,
     ];

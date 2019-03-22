@@ -18,7 +18,7 @@ function add_views_column( $columns ){
         'approved_date' => __('Approved Date', 'bkng'),
         'quantity' => __('Quantity', 'bkng'),
         'subscribe' => __('Subscribe', 'bkng'),
-        'discount' => __('Subscribe', 'bkng'),
+        'discount' => __('Discount', 'bkng'),
         'amount' => __('Amount', 'bkng'),
     );
 
@@ -110,7 +110,6 @@ function add_column_room_date_request( $query ){
 
     $query->set( 'meta_key', 'room_date:timestamp' );
     $query->set( 'orderby', 'meta_value_num' );
-
 
 }
 
