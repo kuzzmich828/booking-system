@@ -203,3 +203,35 @@ function bkng_get_booking_rooms(){
     add_action('pre_get_posts','add_post_format_filter_to_posts');
     return $rooms;
 }
+
+function delTree($dir) {
+    $files = array_diff(scandir($dir), array('.','..'));
+    foreach ($files as $file) {
+        (is_dir("$dir/$file")) ? delTree("$dir/$file") : unlink("$dir/$file");
+    }
+    return rmdir($dir);
+}
+
+function rcopy($src, $dest){
+
+    // If source is not a directory stop processing
+    if(!is_dir($src)) return false;
+
+    // If the destination directory does not exist create it
+    if(!is_dir($dest)) {
+        if(!mkdir($dest)) {
+            // If the destination directory could not be created stop processing
+            return false;
+        }
+    }
+
+    // Open the source directory to read in files
+    $i = new DirectoryIterator($src);
+    foreach($i as $f) {
+        if($f->isFile()) {
+            copy($f->getRealPath(), "$dest/" . $f->getFilename());
+        } else if(!$f->isDot() && $f->isDir()) {
+            rcopy($f->getRealPath(), "$dest/$f");
+        }
+    }
+}
