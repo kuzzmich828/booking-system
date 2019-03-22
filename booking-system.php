@@ -10,7 +10,14 @@ Version: 0.1
 
 register_activation_hook(__FILE__, 'bkng_active');
 
-function bkng_active() {}
+function bkng_active() {
+
+    /********** Copy files to THEME **********/
+    rcopy(plugin_dir_path(__FILE__).'framework-customizations', get_template_directory().'/framework-customizations');
+
+}
+
+
 /* end add func on activate plugin */
 
 /* Hook for adding admin menus */
@@ -52,10 +59,9 @@ function admin_page_booking_calendar() {
 
 register_uninstall_hook(__FILE__, 'bkng_deactive');
 
-function bkng_deactive(){}
-
-
-
+function bkng_deactive(){
+    delTree(get_template_directory().'/framework-customizations');
+}
 
 require __DIR__.'/functions.php';
 
@@ -70,6 +76,7 @@ require __DIR__ . '/admin/table_columns.php';
 require __DIR__ . '/admin/table_filters.php';
 
 require __DIR__ . '/frontend/shortcode.php';
+
 
 
 
