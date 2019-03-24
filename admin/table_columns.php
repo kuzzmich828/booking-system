@@ -1,7 +1,7 @@
 <?php
 
 // создаем новую колонку
-add_filter( 'manage_'.'booking'.'_posts_columns', 'add_views_column', 4 );
+add_filter( 'manage_'.'bookings'.'_posts_columns', 'add_views_column', 4 );
 function add_views_column( $columns ){
     $num = 2; // после какой по счету колонки вставлять новые
 
@@ -26,7 +26,7 @@ function add_views_column( $columns ){
 }
 
 // заполняем колонку данными
-add_action('manage_'.'booking'.'_posts_custom_column', 'fill_views_column', 5, 2 );
+add_action('manage_'.'bookings'.'_posts_custom_column', 'fill_views_column', 5, 2 );
 function fill_views_column( $colname, $post_id ){
     if( $colname === 'name' ){
         echo get_post_meta($post_id, 'fw_option:name', 1);

@@ -29,10 +29,10 @@ function bkng_register_posts_type(){
         'hierarchical'       => false,
         'menu_position'      => 4,
         'menu_icon'          => 'dashicons-grid-view',
-        'supports'           => array('title','author','thumbnail')
+        'supports'           => array('title','author','thumbnail', 'editor')
     ) );
 
-    register_post_type('booking', array(
+    register_post_type('bookings', array(
         'labels'             => array(
             'name'               => __('Booking', 'bkng'),
             'singular_name'      => __('Booking', 'bkng'),
@@ -70,7 +70,7 @@ add_action( 'wp_ajax_nopriv_get_booking_rooms', 'callback_get_booking_rooms' );
 function callback_get_booking_rooms(){
 
     $rooms = get_posts([
-        'post_type'=>'booking',
+        'post_type'=>'bookings',
         'post_status'=>'publish',
     ]);
 
@@ -88,15 +88,21 @@ add_action( 'wp_ajax_get_booking_room_date', 'callback_get_booking_room_date' );
 add_action( 'wp_ajax_nopriv_get_booking_room_date', 'callback_get_booking_room_date' );
 function callback_get_booking_room_date(){
 
+    if (stristr($_POST['date'], "-") === false){
+        $date = date("d-m-Y", $_POST['date']);
+    }else{
+        $date = DateTime::createFromFormat("d-m-Y", $_POST['date'])->format("d-m-Y");
+    }
+
     $query = new WP_Query([
-        'post_type' =>  'booking',
+        'post_type' =>  'bookings',
         'post_status' => 'publish',
         'meta_key' => 'fw_option:room_date',
         'meta_query' => array(
             'relation' => 'AND',
             [
                 'key' => 'fw_option:room_date',
-                'value' => $_POST['date'],
+                'value' => $date,
             ],
             [
                 'key' => 'fw_option:room',
@@ -140,7 +146,7 @@ function callback_get_booking_rooms_by_date(){
         $date = DateTime::createFromFormat('d-m-Y', $_POST['date']);
 
         $bookings = get_posts([
-            'post_type' => 'booking',
+            'post_type' => 'bookings',
             'post_status' => 'publish',
             'meta_key' => 'fw_option:room_date',
             'meta_query' => array(
@@ -173,7 +179,7 @@ add_action( 'wp_ajax_nopriv_get_booking', 'callback_get_booking' );
 function callback_get_booking(){
 
     $bookings = get_posts([
-        'post_type'=>'booking',
+        'post_type'=>'bookings',
         'post__in' => [$_POST['booking_id']]
     ]);
 
@@ -262,7 +268,7 @@ function updateRoomTimestamp($booking_id){
 add_action('save_post', '_action_theme_fw_post_options_update', 100, 1);
 function _action_theme_fw_post_options_update($booking_id) {
 
-    if ( ! wp_is_post_revision( $booking_id ) && get_post_type($booking_id) == 'booking'){
+    if ( ! wp_is_post_revision( $booking_id ) && get_post_type($booking_id) == 'bookings'){
 
         remove_action('save_post', '_action_theme_fw_post_options_update');
 

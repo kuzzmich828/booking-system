@@ -4,7 +4,7 @@ function add_post_formats_filter_to_post_administration(){
 
     //execute only on the 'post' content type
     global $post_type;
-    if($post_type == 'booking'){
+    if($post_type == 'bookings'){
         $rooms = bkng_get_booking_rooms();
         ?>
         <select name="room_name" id="room_name" class="postform" >
@@ -73,7 +73,7 @@ function add_post_format_filter_to_posts($query){
     global $post_type, $pagenow;
     $meta_queries = [];
 
-    if($pagenow == 'edit.php' && $post_type == 'booking'){
+    if($pagenow == 'edit.php' && $post_type == 'bookings'){
 
         /************************************ ***************************/
         if(isset($_GET['room_name'])){

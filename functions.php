@@ -46,7 +46,7 @@ function bkng_save_booking(){
 function get_booking_count_by_date(){
 
     $query = new WP_Query([
-        'post_type' =>  'booking',
+        'post_type' =>  'bookings',
         'post_status' => 'publish',
         'meta_key' => 'fw_option:room_date',
         'meta_query' => array(
@@ -99,7 +99,7 @@ function get_booking_after_date($from_date, $time, $frozen = null, $approve = nu
     $date_3 = $date->modify('+1 month')->format('-m-Y');
 
     $args = [
-        'post_type' =>  'booking',
+        'post_type' =>  'bookings',
         'post_status' => 'publish',
         'meta_key' => 'fw_option:room_date',
         'meta_query' => array(
