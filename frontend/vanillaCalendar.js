@@ -23,7 +23,7 @@ var vanillaCalendar = {
     },
     createDay: function (t, e, a) {
         var n = document.createElement("div"), s = document.createElement("span");
-        s.innerHTML = t, n.className = "vcal-date", n.setAttribute("data-calendar-date", (this.date.getUTCDate()+1) + '-' + (this.date.getMonth()+1) + '-' + this.date.getUTCFullYear()    ), 1 === t && (n.style.marginLeft = 0 === e ? 6 * 14.28 + "%" : 14.28 * (e - 1) + "%"), this.options.disablePastDays && this.date.getTime() <= this.todaysDate.getTime() - 1 ? n.classList.add("vcal-date--disabled") : (n.classList.add("vcal-date--active"), n.setAttribute("data-calendar-status", "active")), this.date.toString() === this.todaysDate.toString() && n.classList.add("vcal-date--today"), n.appendChild(s), this.month.appendChild(n)
+        s.innerHTML = t, n.className = "vcal-date", n.setAttribute("data-calendar-date", (this.date.getUTCDate()) + '-' + (this.date.getMonth()+1) + '-' + this.date.getUTCFullYear()    ), 1 === t && (n.style.marginLeft = 0 === e ? 6 * 14.28 + "%" : 14.28 * (e - 1) + "%"), this.options.disablePastDays && this.date.getTime() <= this.todaysDate.getTime() - 1 ? n.classList.add("vcal-date--disabled") : (n.classList.add("vcal-date--active"), n.setAttribute("data-calendar-status", "active")), this.date.toString() === this.todaysDate.toString() && n.classList.add("vcal-date--today"), n.appendChild(s), this.month.appendChild(n)
     },
     dateClicked: function () {
         var t = this;

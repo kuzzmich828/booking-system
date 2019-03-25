@@ -94,6 +94,7 @@ function callback_get_booking_room_date(){
         $date = DateTime::createFromFormat("d-m-Y", $_POST['date'])->format("d-m-Y");
     }
 
+
     $query = new WP_Query([
         'post_type' =>  'bookings',
         'post_status' => 'publish',

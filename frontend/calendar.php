@@ -1,47 +1,50 @@
-<div id="v-cal" class="calendar-block" data-room-id="">
-    <div class="vcal-header">
-        <button class="vcal-btn" data-calendar-toggle="previous">
-            <svg height="24" version="1.1" viewbox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
-                <path d="M20,11V13H8L13.5,18.5L12.08,19.92L4.16,12L12.08,4.08L13.5,5.5L8,11H20Z"></path>
-            </svg>
-        </button>
-        <div class="vcal-header__label" data-calendar-label="month"></div>
-        <button class="vcal-btn" data-calendar-toggle="next">
-            <svg height="24" version="1.1" viewbox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
-                <path d="M4,11V13H16L10.5,18.5L11.92,19.92L19.84,12L11.92,4.08L10.5,5.5L16,11H4Z"></path>
-            </svg>
-        </button>
+<div class="f-step">
+
+    <div id="v-cal" class="calendar-block" data-room-id="">
+        <div class="vcal-header">
+            <button class="vcal-btn" data-calendar-toggle="previous">
+                <svg height="24" version="1.1" viewbox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M20,11V13H8L13.5,18.5L12.08,19.92L4.16,12L12.08,4.08L13.5,5.5L8,11H20Z"></path>
+                </svg>
+            </button>
+            <div class="vcal-header__label" data-calendar-label="month"></div>
+            <button class="vcal-btn" data-calendar-toggle="next">
+                <svg height="24" version="1.1" viewbox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M4,11V13H16L10.5,18.5L11.92,19.92L19.84,12L11.92,4.08L10.5,5.5L16,11H4Z"></path>
+                </svg>
+            </button>
+        </div>
+        <div class="vcal-week">
+            <span>Mon</span>
+            <span>Tue</span>
+            <span>Wed</span>
+            <span>Thu</span>
+            <span>Fri</span>
+            <span>Sat</span>
+            <span>Sun</span>
+        </div>
+        <div class="vcal-body" data-calendar-area="month"></div>
     </div>
-    <div class="vcal-week">
-        <span>Mon</span>
-        <span>Tue</span>
-        <span>Wed</span>
-        <span>Thu</span>
-        <span>Fri</span>
-        <span>Sat</span>
-        <span>Sun</span>
+
+    <p class="demo-picked">
+<!--        Date picked:-->
+<!--        <span data-calendar-label="picked"></span>-->
+    </p>
+
+    <div class="time-table">
+        <div class="item time-grid">
+            <div class="item_content"></div>
+        </div>
     </div>
-    <div class="vcal-body" data-calendar-area="month"></div>
+
+
+    <div class="booking-popup-right-agent">להזמנת משחק ב 01:00, מומלץ ליצור קשר עם הנציג</div>
+    <a href="#" class="booking-buttom">הזמן עכשיו</a>
+
 </div>
 
 
-<p class="demo-picked">
-    Date picked:
-    <span data-calendar-label="picked"></span>
-</p>
-
-<div class="time-table">
-    <div class="item time-grid">
-        <div class="item_content">11:30</div>
-        <div class="item_content">11:30</div>
-        <div class="item_content">11:30</div>
-        <div class="item_content">11:30</div>
-        <div class="item_content">11:30</div>
-        <div class="item_content">11:30</div>
-        <div class="item_content">11:30</div>
-        <div class="item_content">11:30</div>
-    </div>
-</div>
+<?php include __DIR__ . '/order-form.php'; ?>
 
 
 <link href="<?= plugin_dir_url(__FILE__); ?>/vanillaCalendar.css" rel="stylesheet">
@@ -57,11 +60,43 @@
         });
     });
 
+
+    jQuery(document).on("click", ".booking-submit", function(){
+        $(".f-step").hide();
+        $(".s-step").show();
+        $(".second-step").show();
+        var time_room = $(this).attr("data-time-room");
+        var room_id = $('.open-booking').attr('id');
+    });
+
+    jQuery(document).on("click", ".booking-buttom", function(){
+        $(".f-step").hide();
+        $(".s-step").show();
+        $(".second-step").show();
+        var time_room = $(this).attr("data-time-room");
+        var room_id = $('.open-booking').attr('id');
+    });
+
+    jQuery(document).on("click", ".item_content", function(){
+
+        if ($(this).hasClass('reserv'))
+            return;
+        var time_room = $(this).attr("data-time-room");
+        var room_id = $('.open-booking').attr('id');
+
+        console.log(time_room);
+        console.log(room_id);
+        $(".item_content").removeClass("selected-time");
+        $(this).addClass("selected-time");
+
+    });
+
     /************ Click to DAY **********/
     jQuery(document).on("click", "div.vcal-date", function(){
 
         var date_calendar = $(this).attr("data-calendar-date");
         var room_id = $('.open-booking').attr('id');
+        $(".item_content").removeClass("reserv");
 
         if (date_calendar){
             $.ajax({
@@ -73,7 +108,12 @@
                 },
                 type:'POST',
                 success: function(data){
-                    console.log(data);
+                    var response = JSON.parse(data);
+                    $(response).each(function(index){
+                        $(".item_content[data-time-room='"+response[index]+"']").addClass("reserv");
+                        console.log(response[index])
+                    });
+                    $('.time-grid').show();
                 }
 
             });
@@ -116,7 +156,7 @@
                   var times = JSON.parse(data);
                   var time_table = '';
                   $(times).each(function(index){
-                      time_table += '<div class="item_content">'+times[index]+'</div>';
+                      time_table += '<div class="item_content" data-time-room="'+times[index]+'">'+times[index]+'</div>';
                   });
                   $('.time-grid').html(time_table);
               }
@@ -157,6 +197,31 @@
     });
 </script>
 <style>
+
+    .s-step{
+        display: none;
+    }
+    .selected-time{
+        background: #eee35e !important;
+    }
+
+    .item_content.reserv{
+        visibility: hidden;
+        position: relative;
+        cursor: default;
+    }
+
+    .item_content.reserv:after{
+        content: "reserve";
+        width: 100%;
+        background: #cccccc91;
+        color: white;
+        font-size: 16px;
+        visibility: visible;
+        position: absolute;
+        top: 0;
+        left: 0;
+    }
 
     #v-cal{
         color: #000;
