@@ -8,7 +8,7 @@ function add_views_column( $columns ){
     $new_columns = array(
         'name' => __('Name', 'bkng'),
         'phone' => __('Phone', 'bkng'),
-        'amount_price' => __('Price', 'bkng'),
+
         'room_date' => __('Date', 'bkng'),
         'week_day' => __('Day of Week', 'bkng'),
         'room' => __('Room', 'bkng'),
@@ -19,6 +19,7 @@ function add_views_column( $columns ){
         'quantity' => __('Quantity', 'bkng'),
         'subscribe' => __('Subscribe', 'bkng'),
         'discount' => __('Discount', 'bkng'),
+        'amount_price' => __('Price', 'bkng'),
         'amount' => __('Amount', 'bkng'),
     );
 

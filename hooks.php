@@ -317,3 +317,217 @@ function _action_theme_fw_post_options_update($booking_id) {
     }
 
 }
+
+
+
+add_action('admin_footer', function () {
+
+    if ($_GET['post_type'] == 'bookings') {
+
+        global $wp_query;
+        $attr = $wp_query->query;
+        $attr['posts_per_page'] = -1;
+        $query = new WP_Query($attr);
+
+        $posts = $query->get_posts();
+        $summa = 0;
+        foreach ($posts as $post) {
+            $summa = $summa + (float)get_post_meta($post->ID, 'amount', true);
+        }
+        wp_reset_query();
+?>
+        <script type="application/javascript">
+            var i, summ;
+            var arr = jQuery('td.column-amount');
+            summ = 0;
+            for (i = 0; i < arr.length; i++) {
+                if (!isNaN(parseInt(jQuery(arr[i]).html()))) {
+                    summ = summ + parseFloat(jQuery(arr[i]).html());
+
+                }
+            }
+
+            jQuery("#the-list").append(
+                '<tr class="iedit author-other level-0 post-1394 type-booking status-publish hentry">' +
+                '<th class="check-column"></th>' +
+                '<td ></td>' +
+                '<td ></td>' +
+                '<td ></td>' +
+                '<td ></td>' +
+                '<td ></td>' +
+                '<td ></td>' +
+                '<td ></td>' +
+                '<td ></td>' +
+                '<td ></td>' +
+                '<td ></td>' +
+                '<td ></td>' +
+                '<td ></td>' +
+                '<td ></td>' +
+                '<td style="font-weight: bold;">On Page:</td>' +
+                '<td style="font-weight: bold;" class="title column-title has-row-actions column-primary page-title">' + summ + '</td>' +
+                '</tr>');
+            jQuery("#the-list").append(
+                '<tr class="iedit author-other level-0 post-1394 type-booking status-publish hentry">' +
+                '<th class="check-column"></th>' +
+                '<td></td>' +
+                '<td></td>' +
+                '<td></td>' +
+                '<td></td>' +
+                '<td></td>' +
+                '<td></td>' +
+                '<td></td>' +
+                '<td></td>' +
+                '<td></td>' +
+                '<td></td>' +
+                '<td ></td>' +
+                '<td ></td>' +
+                '<td ></td>' +
+                '<td style="font-weight: bold;">Total:</td>' +
+                '<td style="font-weight: bold;" class="title column-title has-row-actions column-primary page-title"><?=$summa; ?></td>' +
+                '</tr>');
+        </script>
+        <?php
+    }
+});
+
+
+
+add_action('restrict_manage_posts', function () {
+    global $wp_query, $query;
+
+    $posts = $wp_query->get_posts();
+    $arr = [];
+    foreach ($posts as $post) {
+
+        $arr [] = $post->ID;
+    }
+
+    echo "<button class='button export-xls'  data-query='".base64_encode(serialize($wp_query->query))."' data-export='" . json_encode($arr) . "'>Export to XLS</button>";
+
+    ?>
+    <script>
+        jQuery(document).ready(function ($) {
+            jQuery(".export-xls").on("click", function (e) {
+                e.preventDefault();
+                var arr = (jQuery(this).attr('data-export'));
+                var dataquery = (jQuery(this).attr('data-query'));
+
+                jQuery.post(ajaxurl, {
+                    action: 'export_xls',
+                    ids: arr,
+                    dataquery: dataquery
+                }, function (result) {
+                    console.log(result);
+                    window.location.href = result;
+                });
+
+            });
+        });
+    </script>
+    <?php
+}, 1);
+
+add_action('wp_ajax_export_xls', 'export_xls_callback');
+function export_xls_callback()
+{
+
+    $ids = (json_decode($_POST['ids']));
+    $dataquery = base64_decode($_POST['dataquery']);
+    $dataquery = unserialize($dataquery);
+    $dataquery['posts_per_page'] = -1;
+
+    $args = array(
+        'post_type' => 'booking',
+        'post__in' => $ids
+    );
+    $query = new WP_Query($dataquery);
+
+    export_xls($query->get_posts());
+
+    wp_die();
+}
+
+function export_xls($posts)
+{
+    require_once __DIR__ . '/LibXLS/PHPExcel.php';
+    require_once __DIR__ . '/LibXLS/PHPExcel/Writer/Excel5.php';
+    //******************************************
+    $xls = new PHPExcel();
+    $xls->setActiveSheetIndex(0);
+    $sheet = $xls->getActiveSheet();
+    $sheet->setTitle("Booking");
+
+
+    $sheet->setCellValue("A1", "חדרים"); // name
+    $sheet->setCellValue("B1", "שם"); // name
+    $sheet->setCellValue("C1", "טלפון");  // phone
+    $sheet->setCellValue("D1", "דוא\"ל"); // email
+    $sheet->setCellValue("E1", "מצב הזמנה"); //status
+    $sheet->setCellValue("F1", "תאריך הזמנה"); // date
+    $sheet->setCellValue("G1", "תאריך אישור הזמנה"); // date confirm
+    $sheet->setCellValue("H1", "רשימת תפוצה"); // Invite רשימת תפוצה
+    $sheet->setCellValue("I1", "מאשר הזמנה"); // Mailing
+    $sheet->setCellValue("J1", "מחיר"); // Price  מחיר
+
+    $sheet->getColumnDimension('A')->setAutoSize(true);
+    $sheet->getColumnDimension('B')->setAutoSize(true);
+    $sheet->getColumnDimension('C')->setAutoSize(true);
+    $sheet->getColumnDimension('D')->setAutoSize(true);
+    $sheet->getColumnDimension('E')->setAutoSize(true);
+    $sheet->getColumnDimension('F')->setAutoSize(true);
+    $sheet->getColumnDimension('G')->setAutoSize(true);
+    $sheet->getColumnDimension('H')->setAutoSize(true);
+    $sheet->getColumnDimension('I')->setAutoSize(true);
+    $sheet->getColumnDimension('J')->setAutoSize(true);
+
+
+    $sheet->getStyle("A1")->getFont()->setBold(true);
+    $sheet->getStyle("B1")->getFont()->setBold(true);
+    $sheet->getStyle("C1")->getFont()->setBold(true);
+    $sheet->getStyle("D1")->getFont()->setBold(true);
+    $sheet->getStyle("E1")->getFont()->setBold(true);
+    $sheet->getStyle("F1")->getFont()->setBold(true);
+    $sheet->getStyle("G1")->getFont()->setBold(true);
+    $sheet->getStyle("H1")->getFont()->setBold(true);
+    $sheet->getStyle("I1")->getFont()->setBold(true);
+    $sheet->getStyle("J1")->getFont()->setBold(true);
+
+
+    $row = 3;
+    $summa = 0;
+    foreach ($posts as $post) {
+
+        $post_status = '';
+
+        if (get_post_meta($post->ID, 'wpcf-booking-frozen', true) == '1') {
+            $post_status = 'מושבת';
+        } else {
+            $status = get_post_status($post->ID);
+            if ($status == 'pending') $post_status = 'לא מאושר';
+            if ($status == 'publish') $post_status = 'מאושר';
+        }
+
+        $subscr = get_post_meta($post->ID, 'wpcf-booking-subscribe', 1);
+        if ($subscr == '1') $subscr = 'כן'; elseif ($subscr == '0') $subscr = 'לא';
+
+        $sheet->setCellValue("A" . $row, get_post_meta($post->ID, 'wpcf-booking-room', true));
+        $sheet->setCellValue("B" . $row, get_post_meta($post->ID, 'wpcf-booking-fullname', true));
+        $sheet->setCellValue("C" . $row, get_post_meta($post->ID, 'wpcf-booking-phone', true));
+        $sheet->setCellValue("D" . $row, get_post_meta($post->ID, 'wpcf-booking-email', true));
+
+
+        $sheet->setCellValue("E" . $row, $post_status);
+        $sheet->setCellValue("F" . $row, $post->post_date);
+        $sheet->setCellValue("G" . $row, get_post_meta($post->ID, 'wpcf-booking-approve-time', true));
+        $sheet->setCellValue("I" . $row, get_post_meta($post->ID, 'wpcf-booking-approve-person', true));
+        $sheet->setCellValue("H" . $row, $subscr);
+        $sheet->setCellValue("J" . $row, get_post_meta($post->ID, 'wpcf-booking-price', true));
+        $summa = $summa + (float)get_post_meta($post->ID, 'wpcf-booking-price', true);
+        $row++;
+    }
+    $sheet->setCellValue("J" . $row, $summa);
+    $sheet->getStyle("J".$row)->getFont()->setBold(true);
+    $objWriter = new PHPExcel_Writer_Excel5($xls);
+    $objWriter->save(get_template_directory() . '/export.xls');
+    echo get_template_directory_uri() . '/export.xls';
+}
