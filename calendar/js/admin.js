@@ -8,7 +8,7 @@ var input_quantity = "#fw-option-quantity";
 /***************** Required Fields ********************/
 jQuery( document ).ready(function() {
 
-    if (window.location.href.indexOf('post_type=booking') > -1){
+    if (window.location.href.indexOf('post_type=bookings') > -1){
         jQuery("#publish").attr("disabled", true);
     }
 

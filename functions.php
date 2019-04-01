@@ -54,12 +54,22 @@ function get_booking_count_by_date(){
             [
                 'key' => 'fw_option:room_date',
                 'compare' => 'LIKE',
-                'value' => '-02-2019',
+                'value' => '-'.date("m", strtotime("-1 month", time())).'-2019',
             ],
             [
                 'key' => 'fw_option:room_date',
                 'compare' => 'LIKE',
-                'value' => '-03-2019',
+                'value' => '-'.( date('m') ).'-2019',
+            ],
+            [
+                'key' => 'fw_option:room_date',
+                'compare' => 'LIKE',
+                'value' => '-'.date("m", strtotime("+1 month", time())).'-2019',
+            ],
+            [
+                'key' => 'fw_option:room_date',
+                'compare' => 'LIKE',
+                'value' => '-'.date("m", strtotime("+2 month", time())).'-2019',
             ],
         ),
     ]);

@@ -165,7 +165,7 @@
     </script>
 <?php else: ?>
     <script>
-        init_calendar(3);
+        init_calendar(<?= date('m'); ?>);
     </script>
 <?php endif; ?>
 

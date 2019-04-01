@@ -437,7 +437,7 @@ function export_xls_callback()
     $dataquery['posts_per_page'] = -1;
 
     $args = array(
-        'post_type' => 'booking',
+        'post_type' => 'bookings',
         'post__in' => $ids
     );
     $query = new WP_Query($dataquery);

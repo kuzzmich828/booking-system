@@ -24,6 +24,9 @@ jQuery( document ).ready(function() {
     /********* Select a Day *********/
     jQuery(document).on("click", ".cell-day, .fc-today", function (event) {
 
+        if (jQuery(this).attr('data-date-attr') == '')
+            return;
+
         if (jQuery(this).attr('class').indexOf('past-date') > -1){
             return;
         }
@@ -51,6 +54,9 @@ jQuery( document ).ready(function() {
 
     /********* Select a Day *********/
     jQuery(document).on("click", ".cell-day, .fc-today", function (event) {
+
+        if (jQuery(this).attr('data-date-attr') == '')
+            return;
 
         if (jQuery(this).attr('class').indexOf('past-date') > -1){
             return;
