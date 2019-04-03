@@ -1,0 +1,22 @@
+html, body {
+  width: 100%;
+  height: auto;
+  padding: 0px;
+  margin: 0px;
+  font-family: 'assistantregular';
+  direction: rtl;
+  unicode-bidi: embed;
+  font-size: 20px;
+  background: #000;
+}
+
+.booking-popup-close {
+  width: 70px;
+  height: 29px;
+  background-image: url(images/add-review-popup-close.png);
+  background-repeat: no-repeat;
+  position: absolute;
+  left: calc(50% - 542px);
+  top: 25px;
+  cursor: pointer;
+}
