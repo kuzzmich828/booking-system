@@ -755,3 +755,47 @@ img.order-icon {
   text-align: center;
 }
 
+@media (max-width: 768px) {
+  .booking-popup-right-agent {
+    font-size: 16px;
+  }
+}
+
+.booking-popup-right-agent {
+  font-size: 14px;
+  display: block;
+  position: relative;
+  margin-top: -25px;
+  width: 200px;
+}
+
+.booking-buttom {
+  display: block;
+  text-align: center;
+  text-decoration: none;
+  width: 100%;
+  background-color: #eee35e;
+  color: #860000;
+  font-size: 24px;
+  font-family: 'assistantbold';
+  line-height: 50px;
+  cursor: pointer;
+  -webkit-transition: .3s;
+  -moz-transition: .3s;
+  -o-transition: .3s;
+  transition: .3s;
+  margin-top: 10px;
+  margin-bottom: 5px;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+/*booking-form second-step*/
+.datetime-wrapper {
+  height: 60px;
+  background-color: #b5b5b5;
+  -webkit-clip-path: polygon(86% 0,100% 0,100% 100%,0 100%,0 63%,81% 63%);
+  clip-path: polygon(86% 0,100% 0,100% 100%,0 100%,0 63%,81% 63%);
+  margin-bottom: 32px;
+}
+
