@@ -6,18 +6,20 @@ function add_views_column( $columns ){
     $num = 2; // после какой по счету колонки вставлять новые
 
     $new_columns = array(
-        'name' => __('Name', 'bkng'),
-        'phone' => __('Phone', 'bkng'),
+        'name' => __('Name', 'bkng'),       // name
+        'phone' => __('Phone', 'bkng'),     // phone
+        'email' => __('Email', 'bkng'),     // email
+        'status' => __('Status', 'bkng'),   // status
 
+
+        'approved_date' => __('Approved Date', 'bkng'),     // approved_date
+        'approved_person' => __('Approved Person', 'bkng'), // approved_person
+        'subscribe' => __('Subscribe', 'bkng'),             // Subscribe
+
+        'room' => __('Room', 'bkng'),
         'room_date' => __('Date', 'bkng'),
         'week_day' => __('Day of Week', 'bkng'),
-        'room' => __('Room', 'bkng'),
-        'status' => __('Status', 'bkng'),
-        'email' => __('Email', 'bkng'),
-        'approved_person' => __('Approved Person', 'bkng'),
-        'approved_date' => __('Approved Date', 'bkng'),
         'quantity' => __('Quantity', 'bkng'),
-        'subscribe' => __('Subscribe', 'bkng'),
         'discount' => __('Discount', 'bkng'),
         'amount_price' => __('Price', 'bkng'),
         'amount' => __('Amount', 'bkng'),
@@ -33,6 +35,8 @@ function fill_views_column( $colname, $post_id ){
         echo get_post_meta($post_id, 'fw_option:name', 1);
     }elseif ($colname === 'phone'){
         echo get_post_meta($post_id, 'fw_option:phone', 1);
+    }elseif ($colname === 'email'){
+        echo  (get_post_meta($post_id, 'fw_option:email', 1));
     }elseif ($colname === 'amount_price'){
         echo get_post_meta($post_id, 'fw_option:amount_price', 1);
     }elseif ($colname === 'room_date'){
@@ -40,8 +44,6 @@ function fill_views_column( $colname, $post_id ){
         echo get_post_meta($post_id, 'fw_option:room_date', 1) ." ". get_post_meta($post_id, 'fw_option:room_time', 1);
     }elseif ($colname === 'room'){
         echo get_the_title(get_post_meta($post_id, 'fw_option:room', 1));
-    }elseif ($colname === 'email'){
-        echo  (get_post_meta($post_id, 'fw_option:email', 1));
     }elseif ($colname === 'approved_person'){
         echo (get_post_meta($post_id, 'fw_option:approve_person', 1));
     }elseif ($colname === 'approved_date'){

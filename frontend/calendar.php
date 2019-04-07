@@ -27,8 +27,7 @@
     </div>
 
     <p class="demo-picked">
-<!--        Date picked:-->
-<!--        <span data-calendar-label="picked"></span>-->
+        <span data-calendar-label="picked"></span>
     </p>
 
     <div class="time-table">
@@ -59,14 +58,22 @@
             disablePastDays: true
         });
     });
-
-
+    //
     jQuery(document).on("click", ".booking-submit", function(){
-        $(".f-step").hide();
-        $(".s-step").show();
-        $(".second-step").show();
-        var time_room = $(this).attr("data-time-room");
-        var room_id = $('.open-booking').attr('id');
+        alert();
+
+        var name = $("input[name='order_fullname']").val();
+        var email =$("input[name='order_email']").val();
+        var phone =$("input[name='order_phone']").val();
+
+        console.log(name);
+        console.log(email);
+        console.log(phone);
+        // $(".f-step").hide();
+        // $(".s-step").show();
+        // $(".second-step").show();
+        // var time_room = $(this).attr("data-time-room");
+        // var room_id = $('.open-booking').attr('id');
     });
 
     jQuery(document).on("click", ".booking-buttom", function(){
@@ -77,6 +84,7 @@
         var room_id = $('.open-booking').attr('id');
     });
 
+    /************ Click to TIME **********/
     jQuery(document).on("click", ".item_content", function(){
 
         if ($(this).hasClass('reserv'))
@@ -89,6 +97,9 @@
         $(".item_content").removeClass("selected-time");
         $(this).addClass("selected-time");
 
+        $(".booking-time").html(time_room);
+        $(".booking-date").html($(".vcal-date.selected-day").attr("data-calendar-date"));
+
     });
 
     /************ Click to DAY **********/
@@ -96,7 +107,10 @@
 
         var date_calendar = $(this).attr("data-calendar-date");
         var room_id = $('.open-booking').attr('id');
-        $(".item_content").removeClass("reserv");
+        $("div.vcal-date").removeClass("reserv").removeClass("selected-day");
+
+        $(this).addClass("selected-day");
+
 
         if (date_calendar){
             $.ajax({
@@ -118,9 +132,7 @@
 
             });
         }
-
     });
-
 
     /************ OPEN Modal Room ***********/
 
@@ -148,20 +160,34 @@
         $.ajax({
               url: '<?= admin_url(); ?>/admin-ajax.php',
               data: {
-                  action: "get_room_times",
+                  action: "get_room_attributes",
                   id: $post_id
               },
               type:'POST',
               success: function(data){
-                  var times = JSON.parse(data);
+                  var response = JSON.parse(data);
+                  var times = response['times'];
+                  var prices = response['prices'];
                   var time_table = '';
+                  var prices_table = '';
+
+                  /* *************************************** */
                   $(times).each(function(index){
                       time_table += '<div class="item_content" data-time-room="'+times[index]+'">'+times[index]+'</div>';
                   });
                   $('.time-grid').html(time_table);
+
+                  /* *************************************** */
+                  $(prices).each(function(index){
+                      prices_table += '<option value="'+prices[index]['price']+'">'+prices[index]['price']+'</option>';
+                  });
+                  $("select[name='order_quantity']").html(prices_table);
+
               }
 
         });
+
+
 
         $room_name = $(this).parent().find('h3').html();
         $('.booking-popup h2.room-booking-header').html($room_name);
@@ -198,9 +224,14 @@
 </script>
 <style>
 
+    .selected-day{
+        background: #ccc !important;
+    }
+
     .s-step{
         display: none;
     }
+
     .selected-time{
         background: #eee35e !important;
     }

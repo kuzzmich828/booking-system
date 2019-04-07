@@ -40,7 +40,230 @@ $options = array(
             'type' => 'post-meta',
             'post-meta' => 'fw_option:prices',
         ),
-    )
+    ),
+
+    /***********************************/
+
+    'wpcf-subtitle' => [
+        'type'  => 'text',
+        'value' => '',
+        'label' => __('Subtitle', 'bkng'),
+        'fw-storage' => array(
+            'type' => 'post-meta',
+            'post-meta' => 'wpcf-subtitle',
+        ),
+    ],
+    'wpcf-bg-color' => [
+        'type'  => 'color-picker',
+        'value' => '',
+        'label' => __('Background color', 'bkng'),
+        'fw-storage' => array(
+            'type' => 'post-meta',
+            'post-meta' => 'wpcf-bg-color',
+        ),
+    ],
+    'wpcf-age-color' => [
+        'type'  => 'color-picker',
+        'value' => '',
+        'label' => __('age color', 'bkng'),
+        'fw-storage' => array(
+            'type' => 'post-meta',
+            'post-meta' => 'wpcf-age-color',
+        ),
+    ],
+    'wpcf-text-color' => [
+        'type'  => 'color-picker',
+        'value' => '',
+        'label' => __('text color', 'bkng'),
+        'fw-storage' => array(
+            'type' => 'post-meta',
+            'post-meta' => 'wpcf-text-color',
+        ),
+    ],
+    'wpcf-excerpt' => [
+        'type'  => 'wp-editor',
+        'value' => '',
+        'label' => __('Excerpt', 'bkng'),
+        'fw-storage' => array(
+            'type' => 'post-meta',
+            'post-meta' => 'wpcf-excerpt',
+        ),
+    ],
+
+    /********* ICON ************/
+    'wpcf-complexity-icon' => [
+        'type'  => 'upload',
+        'value' => '',
+        'label' => __('complexity icon', 'bkng'),
+        'fw-storage' => array(
+            'type' => 'post-meta',
+            'post-meta' => 'wpcf-complexity-icon',
+        ),
+    ],
+    'wpcf-complexity' => [
+        'type'  => 'text',
+        'value' => '',
+        'label' => __('complexity', 'bkng'),
+        'fw-storage' => array(
+            'type' => 'post-meta',
+            'post-meta' => 'wpcf-complexity',
+        ),
+    ],
+    'wpcf-order-complexity-icon' => [
+        'type'  => 'upload',
+        'value' => '',
+        'label' => __('order complexity icon', 'bkng'),
+        'fw-storage' => array(
+            'type' => 'post-meta',
+            'post-meta' => 'wpcf-order-complexity-icon',
+        ),
+    ],
+    'wpcf-people-icon' => [
+        'type'  => 'upload',
+        'value' => '',
+        'label' => __('people icon', 'bkng'),
+        'fw-storage' => array(
+            'type' => 'post-meta',
+            'post-meta' => 'wpcf-people-icon',
+        ),
+    ],
+    'wpcf-people' => [
+        'type'  => 'text',
+        'value' => '',
+        'label' => __('people icon', 'bkng'),
+        'fw-storage' => array(
+            'type' => 'post-meta',
+            'post-meta' => 'wpcf-people',
+        ),
+    ],
+    'wpcf-time-icon' => [
+        'type'  => 'upload',
+        'value' => '',
+        'label' => __('time icon', 'bkng'),
+        'fw-storage' => array(
+            'type' => 'post-meta',
+            'post-meta' => 'wpcf-time-icon',
+        ),
+    ],
+    'wpcf-time' => [
+        'type'  => 'text',
+        'value' => '',
+        'label' => __('time', 'bkng'),
+        'fw-storage' => array(
+            'type' => 'post-meta',
+            'post-meta' => 'wpcf-time',
+        ),
+    ],
+    'wpcf-order-time-icon' => [
+        'type'  => 'upload',
+        'value' => '',
+        'label' => __('order time icon', 'bkng'),
+        'fw-storage' => array(
+            'type' => 'post-meta',
+            'post-meta' => 'wpcf-order-time-icon',
+        ),
+    ],
+    'wpcf-age-icon' => [
+        'type'  => 'upload',
+        'value' => '',
+        'label' => __('age icon', 'bkng'),
+        'fw-storage' => array(
+            'type' => 'post-meta',
+            'post-meta' => 'wpcf-age-icon',
+        ),
+    ],
+    'wpcf-secondary-thumbnail' => [
+        'type'  => 'upload',
+        'value' => '',
+        'label' => __('secondary thumbnail', 'bkng'),
+        'fw-storage' => array(
+            'type' => 'post-meta',
+            'post-meta' => 'wpcf-secondary-thumbnail',
+        ),
+    ],
+
+    'wpcf-order-age-icon' => [
+        'type'  => 'upload',
+        'value' => '',
+        'label' => __('order age icon', 'bkng'),
+        'fw-storage' => array(
+            'type' => 'post-meta',
+            'post-meta' => 'wpcf-order-age-icon',
+        ),
+    ],
+    'wpcf-mobile-thumbnail' => [
+        'type'  => 'upload',
+        'value' => '',
+        'label' => __('mobile thumbnail', 'bkng'),
+        'fw-storage' => array(
+            'type' => 'post-meta',
+            'post-meta' => 'wpcf-mobile-thumbnail',
+        ),
+    ],
+    'wpcf-background-thumbnail' => [
+        'type'  => 'upload',
+        'value' => '',
+        'label' => __('background thumbnail', 'bkng'),
+        'fw-storage' => array(
+            'type' => 'post-meta',
+            'post-meta' => 'wpcf-background-thumbnail',
+        ),
+    ],
+    'wpcf-button-text' => [
+        'type'  => 'text',
+        'value' => '',
+        'label' => __('button text', 'bkng'),
+        'fw-storage' => array(
+            'type' => 'post-meta',
+            'post-meta' => 'wpcf-button-text',
+        ),
+    ],
+    'wpcf-options' => [
+        'type'  => 'wp-editor',
+        'value' => '',
+        'label' => __('options', 'bkng'),
+        'fw-storage' => array(
+            'type' => 'post-meta',
+            'post-meta' => 'wpcf-options',
+        ),
+    ],
+    'wpcf-flag-image' => [
+        'type'  => 'upload',
+        'value' => '',
+        'label' => __('flag image', 'bkng'),
+        'fw-storage' => array(
+            'type' => 'post-meta',
+            'post-meta' => 'wpcf-flag-image',
+        ),
+    ],
+    'wpcf-age' => [
+        'type'  => 'text',
+        'value' => '',
+        'label' => __('age', 'bkng'),
+        'fw-storage' => array(
+            'type' => 'post-meta',
+            'post-meta' => 'wpcf-age',
+        ),
+    ],
+    'wpcf-new-text' => [
+        'type'  => 'text',
+        'value' => '',
+        'label' => __('new text', 'bkng'),
+        'fw-storage' => array(
+            'type' => 'post-meta',
+            'post-meta' => 'wpcf-new-text',
+        ),
+    ],
+    'wpcf-percent-without-help' => [
+        'type'  => 'text',
+        'value' => '',
+        'label' => __('percent without help', 'bkng'),
+        'fw-storage' => array(
+            'type' => 'post-meta',
+            'post-meta' => 'wpcf-percent-without-help',
+        ),
+    ],
+
 
 );
 

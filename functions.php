@@ -200,6 +200,8 @@ function get_all_meta_booking($id){
         'amount'    => get_post_meta($id, 'amount', 1),
         'discount'    => get_post_meta($id, 'fw_option:discount', 1),
 
+        'approve_time'    => get_post_meta($id, 'fw_option:approve_time', 1),
+        'approve_person'    => get_post_meta($id, 'fw_option:approve_person', 1),
         'approve'    => get_post_meta($id, 'fw_option:approve', 1),
         'frozen'    => get_post_meta($id, 'fw_option:frozen', 1),
         'room_date'    => get_post_meta($id, 'fw_option:room_date', 1),
