@@ -413,11 +413,11 @@ add_action('restrict_manage_posts', function () {
                 var dataquery = (jQuery(this).attr('data-query'));
 
                 jQuery.post(ajaxurl, {
-                    action: 'export_xls',
+                    action: 'bkng_export_xls',
                     ids: arr,
                     dataquery: dataquery
                 }, function (result) {
-                    console.log(result);
+                    // console.log(result);
                     window.location.href = result;
                 });
 
@@ -427,27 +427,33 @@ add_action('restrict_manage_posts', function () {
     <?php
 }, 1);
 
-add_action('wp_ajax_export_xls', 'export_xls_callback');
-function export_xls_callback()
+/*ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);*/
+
+add_action('wp_ajax_bkng_export_xls', 'bkng_export_xls_callback');
+function bkng_export_xls_callback()
 {
 
     $ids = (json_decode($_POST['ids']));
     $dataquery = base64_decode($_POST['dataquery']);
     $dataquery = unserialize($dataquery);
     $dataquery['posts_per_page'] = -1;
+    $dataquery['post__in'] = $ids;
 
     $args = array(
         'post_type' => 'bookings',
         'post__in' => $ids
     );
+
     $query = new WP_Query($dataquery);
 
-    export_xls($query->get_posts());
+    bkng_export_xls($query->get_posts());
 
     wp_die();
 }
 
-function export_xls($posts)
+function bkng_export_xls($posts)
 {
     require_once __DIR__ . '/LibXLS/PHPExcel.php';
     require_once __DIR__ . '/LibXLS/PHPExcel/Writer/Excel5.php';
@@ -459,7 +465,7 @@ function export_xls($posts)
 
 
     $sheet->setCellValue("A1", "חדרים"); // name
-    $sheet->setCellValue("B1", "שם"); // name
+    $sheet->setCellValue("B1", "שם");   // name
     $sheet->setCellValue("C1", "טלפון");  // phone
     $sheet->setCellValue("D1", "דוא\"ל"); // email
     $sheet->setCellValue("E1", "מצב הזמנה"); //status
@@ -498,8 +504,9 @@ function export_xls($posts)
     foreach ($posts as $post) {
 
         $post_status = '';
+        $meta = get_all_meta_booking($post->ID);
 
-        if (get_post_meta($post->ID, 'wpcf-booking-frozen', true) == '1') {
+        if ($meta['frozen'] == 'on') {
             $post_status = 'מושבת';
         } else {
             $status = get_post_status($post->ID);
@@ -507,22 +514,24 @@ function export_xls($posts)
             if ($status == 'publish') $post_status = 'מאושר';
         }
 
-        $subscr = get_post_meta($post->ID, 'wpcf-booking-subscribe', 1);
-        if ($subscr == '1') $subscr = 'כן'; elseif ($subscr == '0') $subscr = 'לא';
 
-        $sheet->setCellValue("A" . $row, get_post_meta($post->ID, 'wpcf-booking-room', true));
-        $sheet->setCellValue("B" . $row, get_post_meta($post->ID, 'wpcf-booking-fullname', true));
-        $sheet->setCellValue("C" . $row, get_post_meta($post->ID, 'wpcf-booking-phone', true));
-        $sheet->setCellValue("D" . $row, get_post_meta($post->ID, 'wpcf-booking-email', true));
+        if ($meta['frozen'] == 'on') $subscr = 'כן'; else $subscr = 'לא';
+
+
+
+        $sheet->setCellValue("A" . $row, $meta['room_name']);
+        $sheet->setCellValue("B" . $row, $meta['name']);
+        $sheet->setCellValue("C" . $row, $meta['phone']);
+        $sheet->setCellValue("D" . $row, $meta['email']);
 
 
         $sheet->setCellValue("E" . $row, $post_status);
         $sheet->setCellValue("F" . $row, $post->post_date);
-        $sheet->setCellValue("G" . $row, get_post_meta($post->ID, 'wpcf-booking-approve-time', true));
-        $sheet->setCellValue("I" . $row, get_post_meta($post->ID, 'wpcf-booking-approve-person', true));
+        $sheet->setCellValue("G" . $row, $meta['approve_time'] );
+        $sheet->setCellValue("I" . $row, $meta['approve_person'] );
         $sheet->setCellValue("H" . $row, $subscr);
-        $sheet->setCellValue("J" . $row, get_post_meta($post->ID, 'wpcf-booking-price', true));
-        $summa = $summa + (float)get_post_meta($post->ID, 'wpcf-booking-price', true);
+        $sheet->setCellValue("J" . $row, $meta['amount']);
+        $summa = $summa + (float)$meta['amount'];
         $row++;
     }
     $sheet->setCellValue("J" . $row, $summa);

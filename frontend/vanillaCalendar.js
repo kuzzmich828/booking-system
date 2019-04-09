@@ -26,14 +26,14 @@ var vanillaCalendar = {
         s.innerHTML = t, n.className = "vcal-date", n.setAttribute("data-calendar-date", (this.date.getUTCDate()) + '-' + (this.date.getMonth()+1) + '-' + this.date.getUTCFullYear()    ), 1 === t && (n.style.marginLeft = 0 === e ? 6 * 14.28 + "%" : 14.28 * (e - 1) + "%"), this.options.disablePastDays && this.date.getTime() <= this.todaysDate.getTime() - 1 ? n.classList.add("vcal-date--disabled") : (n.classList.add("vcal-date--active"), n.setAttribute("data-calendar-status", "active")), this.date.toString() === this.todaysDate.toString() && n.classList.add("vcal-date--today"), n.appendChild(s), this.month.appendChild(n)
     },
     dateClicked: function () {
-        var t = this;
-        this.activeDates = document.querySelectorAll('[data-calendar-status="active"]');
-        for (var e = 0; e < this.activeDates.length; e++) this.activeDates[e].addEventListener("click", function (e) {
-            document.querySelectorAll('[data-calendar-label="picked"]')[0].innerHTML =
-                this.dataset.calendarDate,
-                t.removeActiveClass(),
-                this.classList.add("vcal-date--selected")
-        })
+        // var t = this;
+        // this.activeDates = document.querySelectorAll('[data-calendar-status="active"]');
+        // for (var e = 0; e < this.activeDates.length; e++) this.activeDates[e].addEventListener("click", function (e) {
+            // document.querySelectorAll('[data-calendar-label="picked"]')[0].innerHTML =
+            //     this.dataset.calendarDate,
+            //     t.removeActiveClass(),
+            //     this.classList.add("vcal-date--selected")
+        // })
     },
     createMonth: function () {
         for (var t = this.date.getMonth(); this.date.getMonth() === t;) this.createDay(this.date.getDate(), this.date.getDay(), this.date.getFullYear()), this.date.setDate(this.date.getDate() + 1);
