@@ -15,7 +15,8 @@
         <button type="button" class="wrapper-quest__button" id="wrapper-quest__button3">3 Modal</button>
     </div>
     <!-- BG -->
-    <div id="wrapper-quest__container">
+    <div id="wrapper-quest__container" >
+        <img src="img/bg.jpg" alt="" class="wrapper-quest__background">
         <div id="wrapper-quest__close"></div>
 
         <div id="wrapper-quest__modal1" class="wrapper-quest__modal">
@@ -102,11 +103,12 @@
                 </div>
 
             </div>
-            <div class="wrapper-quest__widget modal-1" style="display: none;">
-                <a href="#" class="wrapper-quest__widget_button">Modal 2</a>
+            <!-- Modal 1 widget-->
+            <div id="modal-1" class="wrapper-quest__widget">
+                <a href="#" class="wrapper-quest__widget_button">הזמן עכשיו</a>
             </div>
-
-            <div class="wrapper-quest__widget modal-2">
+            <!-- Modal 2 widget-->
+            <div id="modal-2" class="wrapper-quest__widget">
                 <form class="wrapper-quest__form" method="post" action="/thanks-page/">
 
                     <div class="wrapper-quest__datetime"></div><!-- datetime-wrapper -->
@@ -160,10 +162,8 @@
                     <input type="submit" name="quest_submit" class="wrapper-quest__widget_button" value="הזמן עכשיו">
                 </form>
             </div>
+            <!-- Modal 2 widget The end -->
 
-        </div>
-        <!-- Modal 2 -->
-        <div id="wrapper-quest__modal2" class="wrapper-quest__modal">
         </div>
         <!-- Modal 3 -->
         <div id="wrapper-quest__modal3" class="wrapper-quest__modal">
@@ -182,19 +182,47 @@
                     <div class="clearfix"></div>
                     <div class="wrapper-quest__thanks-left">
                         <table>
-                            <tbody><tr><td>משחק: </td><td></td></tr>
-                            <tr><td>תאריך: </td><td></td></tr>
-                            <tr><td>שעה: </td><td></td></tr>
-                            <tr><td>משתתפים: </td><td></td></tr>
-                            </tbody></table>
+                            <tbody>
+                            <tr>
+                                <td>משחק:</td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>תאריך:</td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>שעה:</td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>משתתפים:</td>
+                                <td></td>
+                            </tr>
+                            </tbody>
+                        </table>
                     </div><!-- thanks-left -->
                     <div class="wrapper-quest__thanks-right">
                         <table>
-                            <tbody><tr><td>שם: </td><td></td></tr>
-                            <tr><td>דוא”ל: </td><td></td></tr>
-                            <tr><td>טלפון: </td><td></td></tr>
-                            <tr><td>ערך: </td><td></td></tr>
-                            </tbody></table>
+                            <tbody>
+                            <tr>
+                                <td>שם:</td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>דוא”ל:</td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>טלפון:</td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>ערך:</td>
+                                <td></td>
+                            </tr>
+                            </tbody>
+                        </table>
                     </div><!-- thanks-right -->
                     <div class="clearfix"></div>
 
@@ -204,13 +232,15 @@
 
                     <ul class="wrapper-quest__menu-social">
                         <li>
-                            <a target="_blank" href="https://www.facebook.com/" class="menu-image-title-after menu-image-not-hovered">
+                            <a target="_blank" href="https://www.facebook.com/"
+                               class="menu-image-title-after menu-image-not-hovered">
                                 <img width="30" height="31" src="img/s-1.png" alt="">
                                 <span>פייסבוק</span>
                             </a>
                         </li>
                         <li>
-                            <a target="_blank" href="https://www.instagram.com/" class="menu-image-title-after menu-image-not-hovered">
+                            <a target="_blank" href="https://www.instagram.com/"
+                               class="menu-image-title-after menu-image-not-hovered">
                                 <img width="30" height="31" src="img/s-2.png" alt="">
                                 <span>אינסטגרם</span>
                             </a>
@@ -244,45 +274,43 @@
         var button1 = document.getElementById('wrapper-quest__button1'),
             button2 = document.getElementById('wrapper-quest__button2'),
             button3 = document.getElementById('wrapper-quest__button3'),
-            wrapperKvestButtons = document.getElementById('wrapper-quest__buttons'),
-            wrapperKvestContainer = document.getElementById('wrapper-quest__container'),
+            wrapperQuestButtons = document.getElementById('wrapper-quest__buttons'),
+            wrapperQuestContainer = document.getElementById('wrapper-quest__container'),
             wrapperQuestQuantity = document.getElementById('wrapper-quest__quantity'),
             wrapperQuestDisWrapper = document.getElementById('wrapper-quest__dis_wrapper'),
             modal1 = document.getElementById('wrapper-quest__modal1'),
-            modal2 = document.getElementById('wrapper-quest__modal2'),
             modal3 = document.getElementById('wrapper-quest__modal3'),
+            widget1 = document.getElementById('modal-1'),
+            widget2 = document.getElementById('modal-2'),
             close = document.getElementById('wrapper-quest__close');
 
         button1.addEventListener('click', function (e) {
             e.preventDefault();
-            wrapperKvestButtons.className = ' hide';
-            wrapperKvestContainer.className += ' show';
-            modal1.classList.remove("hide");
+            wrapperQuestButtons.className = ' hide';
+            wrapperQuestContainer.className += ' show';
             modal1.className += ' show';
+            widget1.className += ' show';
         });
         button2.addEventListener('click', function (e) {
             e.preventDefault();
-            wrapperKvestButtons.className += ' hide';
-            wrapperKvestContainer.className += ' show';
-            modal2.classList.remove("hide");
-            modal2.className += ' show';
+            wrapperQuestButtons.className += ' hide';
+            wrapperQuestContainer.className += ' show';
+            modal1.className += ' show';
+            widget2.className += ' show';
         });
         button3.addEventListener('click', function (e) {
             e.preventDefault();
-            wrapperKvestButtons.className += ' hide';
-            wrapperKvestContainer.className += ' show';
-            modal3.classList.remove("hide");
+            wrapperQuestButtons.className += ' hide';
+            wrapperQuestContainer.className += ' show';
             modal3.className += ' show';
         });
         close.addEventListener('click', function () {
-            wrapperKvestContainer.classList.remove("show");
+            wrapperQuestContainer.classList.remove("show");
             modal1.classList.remove("show");
-            modal1.className += ' hide';
-            modal2.classList.remove("show");
-            modal2.className += ' hide';
             modal3.classList.remove("show");
-            modal3.className += ' hide';
-            wrapperKvestButtons.classList.remove("hide");
+            widget1.classList.remove("show");
+            widget2.classList.remove("show");
+            wrapperQuestButtons.classList.remove("hide");
         });
         wrapperQuestQuantity.addEventListener('change', function (e) {
             wrapperQuestDisWrapper.innerHTML = e.target.value;

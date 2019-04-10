@@ -12,7 +12,7 @@ html, body {
 }
 
 .clearfix {
-  clear: both;
+  width: 100%;
   display: table;
 }
 
@@ -24,7 +24,6 @@ html, body {
   line-height: 1em;
   font-size: 68px;
   font-weight: 700;
-  padding-top: 120px;
 }
 
 .wrapper-quest h2 {
@@ -98,6 +97,7 @@ html, body {
 }
 
 .wrapper-quest .show {
+  animation: widget-quest-show ease-in-out 0.7s;
   display: block !important;
 }
 
@@ -147,19 +147,15 @@ html, body {
   width: 100%;
 }
 
-#wrapper-quest__container::before {
-  content: '';
-  background-image: url('../img/bg.jpg');
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: 100% auto;
+.wrapper-quest__background {
   filter: progid:DXImageTransform.Microsoft.Alpha(opacity=35);
   position: absolute;
   -moz-opacity: 0.35;
   -khtml-opacity: 0.35;
   opacity: 0.35;
-  height: 100%;
   width: 100%;
+  top: 50%;
+  transform: translateY(-50%)
 }
 
 .wrapper-quest__modal::-webkit-scrollbar {
@@ -278,10 +274,7 @@ html, body {
   color: rgb(56, 58, 58);
   -webkit-clip-path: polygon(20% 0%, 100% 0, 100% 100%, 0% 100%);
   clip-path: polygon(20% 0%, 100% 0, 100% 100%, 0% 100%);
-  padding-left: 60px;
-  padding-right: 35px;
-  padding-top: 20px;
-  padding-bottom: 20px;
+  padding: 20px 35px 20px 60px;
   line-height: 1em;
   display: flex;
   position: relative;
@@ -308,11 +301,11 @@ html, body {
   justify-content: space-between;
   flex-wrap: wrap;
   padding-top: 32px;
+  margin-bottom: 70px;
 }
 
 .wrapper-quest__item {
   margin-top: 70px;
-  margin-bottom: 70px;
   background: rgba(255, 255, 255, 0.95);
   padding: 2px;
   width: 22%;
@@ -381,11 +374,11 @@ html, body {
 /************/
 
 .wrapper-quest__widget {
+  display: none;
   direction: ltr;
   z-index: 1;
   width: 360px;
-  height: 537px;
-  /*border: 1px dotted #eee35e;*/
+  margin-top: 18px;
   box-sizing: border-box;
 }
 
@@ -533,7 +526,7 @@ html, body {
   background-position: center right;
   cursor: default;
   font-size: 16px;
-  padding-right: 22px;
+  padding-right: 25px;
 }
 
 .wrapper-quest input[type="checkbox"]:checked + label {
@@ -577,15 +570,13 @@ html, body {
 
 .wrapper-quest .wrapper-quest__feedback-wrapper {
   background-color: #fff;
-  padding: 60px 16px 32px 16px;
+  padding: 10px 16px 100px 16px;
   position: relative;
   justify-content: space-between;
   font-size: 24px;
   font-weight: 300;
   margin-top: 20px;
-  padding-top: 10px;
   display: block;
-  padding-bottom: 100px;
   -webkit-clip-path: polygon(0 0, 100% 0, 100% 88%, 48% 88%, 43% 100%, 0 100%);
   clip-path: polygon(0 0, 100% 0, 100% 88%, 48% 88%, 43% 100%, 0 100%);
 }
@@ -674,16 +665,27 @@ html, body {
   line-height: 1em;
   font-weight: 700;
   text-decoration: none;
-  padding: 15px 125px 15px 80px;
+  padding: 15px 0 15px 0;
   margin: 60px auto 40px;
   display: block;
-  width: 164px;
+  width: 100%;
   text-align: center;
-  background-image: url('../img/thanks-page-button.png');
-  background-repeat: no-repeat;
-  background-position: 256px 16px;
+  position: relative;
 }
 
+.wrapper-quest__button-back::after {
+  content: '';
+  width: 29px;
+  height: 29px;
+  background-image: url('../img/thanks-page-button.png');
+  background-repeat: no-repeat;
+  -webkit-background-size: 29px;
+  background-size: 29px;
+  position: absolute;
+  top: auto;
+  right: 35%;
+  bottom: auto;
+}
 
 /****************/
 /* MediaQueries */
@@ -733,8 +735,13 @@ html, body {
     right: 0;
     width: auto;
   }
+
   .wrapper-quest__menu-social li a span {
     display: none;
+  }
+
+  .wrapper-quest__button-back::after {
+    right: 30%;
   }
 }
 
@@ -744,8 +751,9 @@ html, body {
     padding-top: 0;
   }
 
-  #wrapper-quest__container::before {
-    background-size: cover;
+  .wrapper-quest__background {
+    object-fit: cover;
+    height: 100%;
   }
 
   .wrapper-quest__whiteline_header-left > .header {
@@ -849,6 +857,7 @@ html, body {
   .wrapper-quest__menu-social {
     padding-top: 0;
   }
+
   .wrapper-quest .wrapper-quest__h2 {
     font-size: 24px;
     margin: 20px auto;
@@ -887,8 +896,8 @@ html, body {
   }
 
   .wrapper-quest .wrapper-quest__feedback-wrapper {
-    -webkit-clip-path: polygon(0 0,100% 0,100% 100%,100% 100%,100% 100%,0 100%);
-    clip-path: polygon(0 0,100% 0,100% 100%,100% 100%,100% 100%,0 100%);
+    -webkit-clip-path: polygon(0 0, 100% 0, 100% 100%, 100% 100%, 100% 100%, 0 100%);
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 100% 100%, 100% 100%, 0 100%);
     padding-bottom: 0px;
   }
 
@@ -917,5 +926,22 @@ html, body {
 
   .wrapper-quest__menu-social li {
     padding-left: 15px;
+  }
+
+  .wrapper-quest__button-back::after {
+    right: 10%;
+  }
+}
+
+/*************/
+/* Keyframes */
+/*************/
+
+@keyframes widget-quest-show {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
   }
 }
