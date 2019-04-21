@@ -98,11 +98,11 @@ html, body {
 
 .wrapper-quest .show {
   animation: widget-quest-show ease-in-out 0.7s;
-  display: block !important;
+  display: block ;
 }
 
 .wrapper-quest {
-  height: 100vh;
+
 }
 
 #wrapper-quest__buttons {
@@ -944,4 +944,95 @@ html, body {
   100% {
     opacity: 1;
   }
+}
+
+
+
+
+
+
+
+/******************************************************/
+/******************************************************/
+/******************************************************/
+/******************************************************/
+.selected-day{
+  background: #ccc !important;
+}
+
+.selected-time{
+  background: #eee35e !important;
+}
+
+.item_content.reserv{
+  visibility: hidden;
+  position: relative;
+  cursor: default;
+}
+
+.item_content.reserv:after{
+  content: "reserve";
+  width: 100%;
+  background: #cccccc91;
+  color: white;
+  font-size: 16px;
+  visibility: visible;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+#v-cal{
+  color: #000;
+}
+
+html {
+  font-size: 10px;
+}
+
+body {
+  color: #333;
+  font-size: 1.6rem;
+  background-color: #FAFAFA;
+  -webkit-font-smoothing: antialiased;
+}
+
+footer {
+  text-align: center;
+  margin: 1.6rem 0;
+}
+
+.demo-picked {
+  font-size: 1.2rem;
+  text-align: center;
+}
+
+.demo-picked span {
+  font-weight: bold;
+}
+
+.time-table {
+  width: 100%;
+  padding: 0;
+  font-size: 0;
+}
+
+.item {
+  display: inline-block;
+  margin: 3px 0;
+}
+
+.item_content {
+  display: inline-block;
+  background: #fff;
+  font-size: 16px;
+  color: #000;
+  line-height: 25px;
+  text-align: center;
+  min-width: 59px;
+  min-height: 25px;
+  margin-right: 1px;
+  margin-bottom: 1px;
+  padding: 0;
+  cursor: pointer;
 }

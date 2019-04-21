@@ -265,6 +265,47 @@ function updateRoomTimestamp($booking_id){
     }
 }
 
+function callback_post_options_update($booking_id){
+    $name = get_post_meta($booking_id, "fw_option:name", 1);
+    $room_id = get_post_meta($booking_id, "fw_option:room", 1);
+    $room_name = get_the_title($room_id);
+    $phone = get_post_meta($booking_id, "fw_option:phone", 1);
+    $room_date = get_post_meta($booking_id, "fw_option:room_date", 1);
+    $room_time = get_post_meta($booking_id, "fw_option:room_time", 1);
+    $amount_price = get_post_meta($booking_id, "fw_option:amount_price", 1);
+
+
+    $name = (!$name) ? '' : "$name |";
+    $room_name = (!$room_name) ? '' : "$room_name |";
+    $phone = (!$phone) ? '' : "$phone |";
+    $room_date = (!$room_date) ? '' : "$room_date |";
+    $room_time = (!$room_time) ? '' : "$room_time |";
+
+    updateRoomTimestamp($booking_id);
+
+    updateRoomAmount($booking_id);
+    /**************************** Update Quantity *****************************/
+    if ($amount_price){
+        $prices = get_post_meta($room_id, "fw_option:prices", 1);
+        foreach ($prices as $price){
+            if ($price['price'] == $amount_price){
+                update_post_meta($booking_id, "fw_option:quantity", $price['quantity']);
+                break;
+            }
+        }
+    }
+    /**************************** Update Title *****************************/
+    global $wpdb;
+    $wpdb->update( $wpdb->posts, array( 'post_title' =>  "$room_name $room_date $room_time $name $phone" ), array( 'ID' => $booking_id ) );
+
+    if (get_post_meta($booking_id, "fw_option:approve", 1) == 'on'){
+        approveBookingData($booking_id);
+    } else {
+        update_post_meta($booking_id, "fw_option:approve_time", '');
+        update_post_meta($booking_id, "fw_option:approve_person", '');
+    }
+    /**************************** *****************************/
+}
 
 add_action('save_post', '_action_theme_fw_post_options_update', 100, 1);
 function _action_theme_fw_post_options_update($booking_id) {
@@ -273,52 +314,12 @@ function _action_theme_fw_post_options_update($booking_id) {
 
         remove_action('save_post', '_action_theme_fw_post_options_update');
 
-        $name = get_post_meta($booking_id, "fw_option:name", 1);
-        $room_id = get_post_meta($booking_id, "fw_option:room", 1);
-        $room_name = get_the_title($room_id);
-        $phone = get_post_meta($booking_id, "fw_option:phone", 1);
-        $room_date = get_post_meta($booking_id, "fw_option:room_date", 1);
-        $room_time = get_post_meta($booking_id, "fw_option:room_time", 1);
-        $amount_price = get_post_meta($booking_id, "fw_option:amount_price", 1);
-
-
-        $name = (!$name) ? '' : "$name |";
-        $room_name = (!$room_name) ? '' : "$room_name |";
-        $phone = (!$phone) ? '' : "$phone |";
-        $room_date = (!$room_date) ? '' : "$room_date |";
-        $room_time = (!$room_time) ? '' : "$room_time |";
-
-        updateRoomTimestamp($booking_id);
-
-        updateRoomAmount($booking_id);
-        /**************************** Update Quantity *****************************/
-        if ($amount_price){
-            $prices = get_post_meta($room_id, "fw_option:prices", 1);
-            foreach ($prices as $price){
-                if ($price['price'] == $amount_price){
-                    update_post_meta($booking_id, "fw_option:quantity", $price['quantity']);
-                    break;
-                }
-            }
-        }
-        /**************************** Update Title *****************************/
-        global $wpdb;
-        $wpdb->update( $wpdb->posts, array( 'post_title' =>  "$room_name $room_date $room_time $name $phone" ), array( 'ID' => $booking_id ) );
-
-        if (get_post_meta($booking_id, "fw_option:approve", 1) == 'on'){
-            approveBookingData($booking_id);
-        } else {
-            update_post_meta($booking_id, "fw_option:approve_time", '');
-            update_post_meta($booking_id, "fw_option:approve_person", '');
-        }
-        /**************************** *****************************/
+        callback_post_options_update($booking_id);
 
         add_action('save_post', '_action_theme_fw_post_options_update');
     }
 
 }
-
-
 
 add_action('admin_footer', function () {
 
@@ -390,8 +391,6 @@ add_action('admin_footer', function () {
     }
 });
 
-
-
 add_action('restrict_manage_posts', function () {
     global $wp_query, $query;
 
@@ -426,10 +425,6 @@ add_action('restrict_manage_posts', function () {
     </script>
     <?php
 }, 1);
-
-/*ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);*/
 
 add_action('wp_ajax_bkng_export_xls', 'bkng_export_xls_callback');
 function bkng_export_xls_callback()
@@ -539,4 +534,50 @@ function bkng_export_xls($posts)
     $objWriter = new PHPExcel_Writer_Excel5($xls);
     $objWriter->save(get_template_directory() . '/export.xls');
     echo get_template_directory_uri() . '/export.xls';
+}
+
+add_action( 'wp_ajax_create_booking', 'callback_create_booking' );
+add_action( 'wp_ajax_nopriv_create_booking', 'callback_create_booking' );
+function callback_create_booking(){
+
+    $post_data = array(
+        'post_status'   => 'publish',
+        'post_type'     => 'bookings',
+        'post_title'    => '',
+        'post_content'  => '',
+        'post_author'   => 1,
+    );
+
+    $post_id = wp_insert_post( $post_data );
+    if ($post_id){
+
+        $fields = [];
+        $fields['fw_option:room'] = (isset($_POST['room_id']) && $_POST['room_id']) ? $_POST['room_id'] : null;
+
+        $fields['fw_option:name'] = (isset($_POST['name_booking']) && $_POST['name_booking']) ? $_POST['name_booking'] : null;
+        $fields['fw_option:phone'] = (isset($_POST['phone_booking']) && $_POST['phone_booking']) ? $_POST['phone_booking'] : null;
+        $fields['fw_option:email'] = (isset($_POST['email_booking']) && $_POST['email_booking']) ? $_POST['email_booking'] : null;
+
+        $fields['fw_option:room_date'] = (isset($_POST['room_date']) && $_POST['room_date']) ? $_POST['room_date'] : null;
+        $fields['fw_option:room_time'] = (isset($_POST['room_time']) && $_POST['room_time']) ? $_POST['room_time'] : null;
+
+        $fields['fw_option:frozen'] = 'off';
+        $fields['fw_option:approve'] = 'off';
+        $fields['fw_option:approve_person'] = '';
+        $fields['fw_option:approve_time'] = '';
+        $fields['fw_option:quantity'] = 0;
+        $fields['fw_option:discount'] = 0;
+        $fields['fw_option:comments'] = '';
+
+        $fields['fw_option:amount'] = (isset($_POST['price']) && $_POST['price']) ? $_POST['price'] : null;
+        $fields['fw_option:amount_price'] = (isset($_POST['price']) && $_POST['price']) ? $_POST['price'] : null;
+
+        foreach ($fields as $key => $val){
+            if ($val !== null)
+                update_post_meta($post_id, $key, $val);
+        }
+
+        callback_post_options_update($post_id);
+    }
+
 }
