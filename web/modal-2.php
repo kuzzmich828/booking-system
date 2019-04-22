@@ -16,13 +16,6 @@
         <input required="" type="tel" name="quest_phone" placeholder="* טלפון / נייד">
         <span class="wrapper-quest__span">* משתתפים במשחק</span>
         <select id="quest__quantity" name="wrapper-quest__quantity">
-            <option value="111" data-price="">(₪ 110) 2</option>
-            <option value="123" data-price="300">(₪ 100) 3</option>
-            <option value="360" data-price="360">(₪ 90) 4</option>
-            <option value="400" data-price="400">(₪ 80) 5</option>
-            <option value="420" data-price="420">(₪ 70) 6</option>
-            <option value="490" data-price="490">(₪ 70) 7</option>
-            <option value="560" data-price="560">(₪ 70) 8</option>
         </select>
         <!--                    <div class="clearfix"></div>-->
 

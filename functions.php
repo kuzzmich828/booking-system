@@ -106,7 +106,7 @@ function get_booking_after_date($from_date, $time, $frozen = null, $approve = nu
     $date = $from_date;
     $date_1 = $date->format('-m-Y');
     $date_2 = $date->modify('+1 month')->format('-m-Y');
-    $date_3 = $date->modify('+1 month')->format('-m-Y');
+    $date_3 = $date->modify('+2 month')->format('-m-Y');
 
     $args = [
         'post_type' =>  'bookings',
@@ -150,6 +150,7 @@ function get_booking_after_date($from_date, $time, $frozen = null, $approve = nu
             'value' => $approve
         ];
     }
+
     $query = new WP_Query($args);
 
     $posts = $query->get_posts();

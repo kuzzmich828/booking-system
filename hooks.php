@@ -129,9 +129,12 @@ function callback_get_room_attributes(){
 
     $times = get_post_meta($_POST['id'], 'fw_option:times', 1);
     $pq = get_post_meta($_POST['id'], 'fw_option:prices', 1);
+    $the_post = get_post($_POST['id']);
     $data = [];
     $data ['times'] = $times;
     $data ['prices'] = $pq;
+    $data ['description'] = apply_filters('the_content', $the_post->post_content);
+    $data ['room_name'] = apply_filters('the_title', $the_post->post_title);
 
     wp_send_json(json_encode($data), 200);
 }
@@ -540,6 +543,8 @@ add_action( 'wp_ajax_create_booking', 'callback_create_booking' );
 add_action( 'wp_ajax_nopriv_create_booking', 'callback_create_booking' );
 function callback_create_booking(){
 
+    $response = [];
+
     $post_data = array(
         'post_status'   => 'publish',
         'post_type'     => 'bookings',
@@ -558,7 +563,7 @@ function callback_create_booking(){
         $fields['fw_option:phone'] = (isset($_POST['phone_booking']) && $_POST['phone_booking']) ? $_POST['phone_booking'] : null;
         $fields['fw_option:email'] = (isset($_POST['email_booking']) && $_POST['email_booking']) ? $_POST['email_booking'] : null;
 
-        $fields['fw_option:room_date'] = (isset($_POST['room_date']) && $_POST['room_date']) ? $_POST['room_date'] : null;
+        $fields['fw_option:room_date'] = (isset($_POST['room_date']) && $_POST['room_date']) ? DateTime::createFromFormat('d-m-Y', $_POST['room_date'])->format('d-m-Y') : null;
         $fields['fw_option:room_time'] = (isset($_POST['room_time']) && $_POST['room_time']) ? $_POST['room_time'] : null;
 
         $fields['fw_option:frozen'] = 'off';
@@ -578,6 +583,10 @@ function callback_create_booking(){
         }
 
         callback_post_options_update($post_id);
+
+        $response = get_all_meta_booking($post_id);
     }
+
+    wp_send_json(json_encode($response), 200);
 
 }

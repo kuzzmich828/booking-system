@@ -13,20 +13,20 @@
                 <table>
                     <tbody>
                     <tr>
-                        <td>משחק:</td>
-                        <td></td>
+                        <td >משחק:</td> <!-- Game -->
+                        <td id="order_game"></td>
                     </tr>
                     <tr>
-                        <td>תאריך:</td>
-                        <td></td>
+                        <td >תאריך:</td> <!-- Date -->
+                        <td id="order_date"></td>
                     </tr>
                     <tr>
-                        <td>שעה:</td>
-                        <td></td>
+                        <td >שעה:</td>   <!-- Time -->
+                        <td id="order_time"></td>
                     </tr>
                     <tr>
-                        <td>משתתפים:</td>
-                        <td></td>
+                        <td >משתתפים:</td>   <!--Quantity-->
+                        <td id="order_quantity"></td>
                     </tr>
                     </tbody>
                 </table>
@@ -35,20 +35,20 @@
                 <table>
                     <tbody>
                     <tr>
-                        <td>שם:</td>
-                        <td></td>
+                        <td>שם:</td>        <!-- Place -->
+                        <td id="order_place"></td>
                     </tr>
                     <tr>
-                        <td>דוא”ל:</td>
-                        <td></td>
+                        <td>דוא”ל:</td>     <!-- Mail -->
+                        <td id="order_mail"></td>
                     </tr>
                     <tr>
-                        <td>טלפון:</td>
-                        <td></td>
+                        <td>טלפון:</td>     <!-- Phone -->
+                        <td id="order_phone"> </td>
                     </tr>
                     <tr>
-                        <td>ערך:</td>
-                        <td></td>
+                        <td>ערך:</td>       <!-- Value -->
+                        <td id="order_value"></td>
                     </tr>
                     </tbody>
                 </table>

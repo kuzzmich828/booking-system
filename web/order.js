@@ -57,6 +57,8 @@ document.addEventListener("DOMContentLoaded", function () {
                     prices_table += '<option value="'+prices[index]['price']+'">'+prices[index]['quantity']+ ' - ' +prices[index]['price']+'</option>';
                 });
                 $("#quest__quantity").html(prices_table);
+                $(".wrapper-quest__descripription").html(response['description']);
+                $(".quest__room_name").html(response['room_name']);
 
             }
 
@@ -116,6 +118,17 @@ document.addEventListener("DOMContentLoaded", function () {
                 $(wrapperQuestContainer).addClass('show');
                 $(modal1).removeClass('show');
                 $(modal1).addClass('hide');
+
+                $('#order_game').html(response['room_name']);
+                $('#order_date').html(response['room_date']);
+                $('#order_time').html(response['room_time']);
+                $('#order_quantity').html(response['quantity']);
+                $('#order_place').html('order_place');
+                $('#order_mail').html(response['email']);
+                $('#order_phone').html(response['phone']);
+                $('#order_value').html('order_value');
+
+
                 $(modal3).addClass('show');
             }
 

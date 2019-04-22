@@ -147,7 +147,7 @@ html, body {
   width: 100%;
 }
 
-.wrapper-quest__background {
+/*.wrapper-quest__background {
   filter: progid:DXImageTransform.Microsoft.Alpha(opacity=35);
   position: absolute;
   -moz-opacity: 0.35;
@@ -155,7 +155,15 @@ html, body {
   opacity: 0.35;
   width: 100%;
   top: 50%;
-  transform: translateY(-50%)
+  transform: translateY(-50%);
+}*/
+
+.wrapper-quest__background {
+  filter: progid:DXImageTransform.Microsoft.Alpha(opacity=35);
+  position: fixed;
+  width: 100%;
+  top: 0;
+  z-index: 99;
 }
 
 .wrapper-quest__modal::-webkit-scrollbar {
@@ -163,13 +171,14 @@ html, body {
 }
 
 .wrapper-quest__modal {
-  height: 80%;
+  height: 95%;
+  margin-top: 40px;
   min-height: 500px;
   width: 1095px;
   position: fixed;
   z-index: 9999;
-  top: 10%;
-  top: calc(50% - 310px);
+  top: 1%;
+  /*top: calc(50% - 310px);*/
   left: calc(50% - 548px);
   color: #fff;
   overflow-y: visible;
