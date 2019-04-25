@@ -88,6 +88,7 @@ jQuery( document ).ready(function() {
     /********* Select a Time *********/
     jQuery(document).on("click", ".cell-time", function (event) {
 
+
         var booking_id = jQuery(this).attr('data-booking-id');
 
         hideNewBooking();
@@ -157,6 +158,7 @@ jQuery( document ).ready(function() {
 });
 
 function showNewBooking() {
+    jQuery(container_edit).fadeIn(300);
     jQuery(button_new_booking).fadeIn(300);
 }
 
