@@ -46,40 +46,33 @@
                 </div>
 
                 <div class="wrapper-quest__other-quest">
-                    <div class="wrapper-quest__item">
-                        <div class="wrapper-quest-other-quest__img"><img
-                            src="<?= plugin_dir_url(__FILE__); ?>img/escape-alcatrazgame1-smallthumbnail.png" alt=""></div>
-                        <div class="wrapper-quest-other-quest__title" style="color:#9c8c78">אלקטרז תא ראשון</div>
-                        <div class="wrapper-quest-other-quest__button"><a href="#">הזמן עכשיו</a></div>
-                    </div>
-                    <div class="wrapper-quest__item">
-                        <div class="wrapper-quest-other-quest__img"><img
-                            src="<?= plugin_dir_url(__FILE__); ?>img/escape-alcatrazgame2-smallthumbnail.png" alt=""></div>
-                        <div class="wrapper-quest-other-quest__title" style="color:#ffffff">אלקטרז תא שני</div>
-                        <div class="wrapper-quest-other-quest__button"><a href="#">הזמן עכשיו</a></div>
-                    </div>
-                    <div class="wrapper-quest__item">
-                        <div class="wrapper-quest-other-quest__img"><img src="<?= plugin_dir_url(__FILE__); ?>img/fearfactor.jpg" alt=""></div>
-                        <div class="wrapper-quest-other-quest__title" style="color: #d70303">אפקט הפחד</div>
-                        <div class="wrapper-quest-other-quest__button"><a href="#">הזמן עכשיו</a></div>
-                    </div>
-                    <div class="wrapper-quest__item">
-                        <div class="wrapper-quest-other-quest__img"><img src="<?= plugin_dir_url(__FILE__); ?>img/pirates.jpg" alt=""></div>
-                        <div class="wrapper-quest-other-quest__title" style="color:#402313">הרפתקאות הפיראטים</div>
-                        <div class="wrapper-quest-other-quest__button"><a href="#">הזמן עכשיו</a></div>
-                    </div>
+                    <?php
+                        $related_rooms = get_posts([
+                                                'post_type'=>'room',
+                                            ]);
+                        foreach ($related_rooms as $related_room):
+                    ?>
+                        <div class="wrapper-quest__item">
+                            <div class="wrapper-quest-other-quest__img">
+                                <?php $url_room_img = get_the_post_thumbnail_url($related_room->ID); ?>
+                                <img src="<?= ($url_room_img) ? $url_room_img : 'http://funeral-nsk.ru/wp-content/uploads/2018/06/thumbnail.png'; ?>" alt="<?= $related_room->post_title; ?>">
+                            </div>
+                            <div class="wrapper-quest-other-quest__title" style="color:#9c8c78"><?= $related_room->post_title; ?></div>
+                            <div class="wrapper-quest-other-quest__button"><a class="re-open-booking" data-room-id="<?= $related_room->ID; ?>" data-room-name="<?= $related_room->post_title; ?>" href="#">הזמן עכשיו</a></div>
+                        </div>
+                    <?php
+                        endforeach;
+                    ?>
                 </div>
 
             </div>
 
             <?php include __DIR__ . '/modal-1.php'; ?>
-
             <?php include __DIR__ . '/modal-2.php'; ?>
 
         </div>
 
         <?php include __DIR__ . '/modal-3.php'; ?>
-
 
     </div>
 

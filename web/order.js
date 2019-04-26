@@ -3,9 +3,9 @@ document.addEventListener("DOMContentLoaded", function () {
     var button1 = jQuery('.open-booking'),
         button2 = document.getElementById('button-step-1'),
         button3 = document.getElementById('button-step-2'),
-        wrapperQuestButtons = document.getElementById('wrapper-quest__buttons'),
+        // wrapperQuestButtons = document.getElementById('wrapper-quest__buttons'),
         wrapperQuestContainer = document.getElementById('wrapper-quest__container'),
-        wrapperQuestQuantity = document.getElementById('wrapper-quest__quantity'),
+        // wrapperQuestQuantity = document.getElementById('wrapper-quest__quantity'),
         wrapperQuestDisWrapper = document.getElementById('wrapper-quest__dis_wrapper'),
         modal1 = document.getElementById('wrapper-quest__modal1'),
         modal3 = document.getElementById('wrapper-quest__modal3'),
@@ -16,14 +16,25 @@ document.addEventListener("DOMContentLoaded", function () {
     button1.click(function(e){
 
         e.preventDefault();
-        $(wrapperQuestButtons).addClass('hide');
+
+        // $(wrapperQuestButtons).addClass('hide');
         $(wrapperQuestContainer).addClass('show');
         $(modal1).addClass('show');
         $(widget1).addClass('show');
+        // $(widget2).addClass('show');
 
         /* ****************************** */
         $('body').css('overflow-y','hidden');
         $post_id = $(this).attr('id');
+        $room_name = $(this).attr('data-room-name');
+        $room_id = $(this).attr('data-room-id');
+        console.log("room-name =", $room_name, "room_id =",$room_id);
+
+        if (!$room_id){
+            $room_id = false;
+        }else if($room_name){
+            alert("Error room");
+        }
 
         /*прокрутить содержимое окна бронирования вверх*/
         $('.booking-popup').scrollTop(0);
@@ -36,11 +47,17 @@ document.addEventListener("DOMContentLoaded", function () {
             url: '/wp-admin/admin-ajax.php',
             data: {
                 action: "get_room_attributes",
-                id: $post_id
+                id: $room_id,
+                room_name: $room_name
             },
             type:'POST',
             success: function(data){
                 var response = JSON.parse(data);
+
+                if ($.isEmptyObject(response)) {
+
+                    close_all_modal();
+                }
                 var times = response['times'];
                 var prices = response['prices'];
                 var time_table = '';
@@ -68,7 +85,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     button2.addEventListener('click', function (e) {
         e.preventDefault();
-        $(wrapperQuestButtons).addClass('hide');
+        // $(wrapperQuestButtons).addClass('hide');
         $(wrapperQuestContainer).addClass('show');
         $(modal1).addClass('show');
         $(widget1).removeClass('show');
@@ -114,7 +131,8 @@ document.addEventListener("DOMContentLoaded", function () {
             success: function(data){
                 var response = JSON.parse(data);
 
-                $(wrapperQuestButtons).addClass('hide');
+
+                // $(wrapperQuestButtons).addClass('hide');
                 $(wrapperQuestContainer).addClass('show');
                 $(modal1).removeClass('show');
                 $(modal1).addClass('hide');
@@ -139,18 +157,29 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
     close.addEventListener('click', function () {
+        close_all_modal();
+    });
+
+    function close_all_modal() {
         wrapperQuestContainer.classList.remove("show");
+
         modal1.classList.remove("show");
         modal3.classList.remove("show");
         widget1.classList.remove("show");
         widget2.classList.remove("show");
-        wrapperQuestButtons.classList.remove("hide");
-    });
+        // wrapperQuestButtons.classList.remove("show");
 
-    wrapperQuestQuantity.addEventListener('change', function (e) {
+        modal1.classList.remove('hide');
+        modal3.classList.remove("hide");
+        widget1.classList.remove("hide");
+        widget2.classList.remove("hide");
+        // wrapperQuestButtons.classList.remove("hide");
+    }
+    /*wrapperQuestQuantity.addEventListener('change', function (e) {
         wrapperQuestDisWrapper.innerHTML = e.target.value;
-    });
+    });*/
 });
+
 
 
 /********** Init Calendar ***********/

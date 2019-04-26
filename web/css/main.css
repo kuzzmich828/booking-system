@@ -508,6 +508,7 @@ html, body {
   background-repeat: no-repeat;
   background-position: bottom left;
   line-height: 1em;
+  margin-top: 14px;
 }
 
 .wrapper-quest strong {

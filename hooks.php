@@ -127,9 +127,29 @@ add_action( 'wp_ajax_get_room_attributes', 'callback_get_room_attributes' );
 add_action( 'wp_ajax_nopriv_get_room_attributes', 'callback_get_room_attributes' );
 function callback_get_room_attributes(){
 
-    $times = get_post_meta($_POST['id'], 'fw_option:times', 1);
-    $pq = get_post_meta($_POST['id'], 'fw_option:prices', 1);
-    $the_post = get_post($_POST['id']);
+    $room_id = false;
+    if (!isset($_POST['id']) || !$_POST['id'] || $_POST['id'] == '' || $_POST['id'] == 'false'){
+        if (isset($_POST['room_name'])){
+            $room_name =  ($_POST['room_name']);
+            global $wpdb;
+            $room_id = $wpdb->get_var( "SELECT ID FROM {$wpdb->posts} WHERE post_title = '{$room_name}' AND post_type = 'room'" );
+        }
+    } else {
+        $room_id = $_POST['id'];
+    }
+
+    if (!$room_id)
+        wp_send_json(json_encode([]), 200);
+
+    // TODO: Get time from last order for current room
+    //
+//    global $wpdb;
+//    $room_id = $wpdb->get_var( "SELECT post_date FROM {$wpdb->posts} WHERE ID = '{$room_id}' AND post_type = 'booking'" );
+
+
+    $times = get_post_meta($room_id, 'fw_option:times', 1);
+    $pq = get_post_meta($room_id, 'fw_option:prices', 1);
+    $the_post = get_post($room_id);
     $data = [];
     $data ['times'] = $times;
     $data ['prices'] = $pq;
