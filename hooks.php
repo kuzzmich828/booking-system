@@ -215,13 +215,20 @@ add_action('admin_footer', function (){
 <?php
 });
 
-function approveBookingData($booking_id){
+function approveBookingData($booking_id, $unapprove = false){
+
+    if ($unapprove){
+        update_post_meta($booking_id, "fw_option:approve_time", '');
+        update_post_meta($booking_id, "fw_option:approve_person", '');
+    }
+
     if (get_post_meta($booking_id, "fw_option:approve_time", 1) == '') {
         update_post_meta($booking_id, "fw_option:approve_time", date("Y/m/d H:i"));
     }
     if (get_post_meta($booking_id, "fw_option:approve_person", 1) == '') {
         update_post_meta($booking_id, "fw_option:approve_person", wp_get_current_user()->nickname);
     }
+
 }
 
 add_action('init', function (){

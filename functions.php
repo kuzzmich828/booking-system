@@ -21,7 +21,8 @@ function get_times_format(){
 function bkng_save_booking(){
     if (isset($_POST['save_booking'])){
 
-        $fields = [];
+
+
         $fields['booking_id'] = (isset($_POST['booking_id']) && $_POST['booking_id']) ? $_POST['booking_id'] : null;
         $fields['fw_option:name'] = (isset($_POST['name_booking']) && $_POST['name_booking']) ? $_POST['name_booking'] : null;
         $fields['fw_option:phone'] = (isset($_POST['phone_booking']) && $_POST['phone_booking']) ? $_POST['phone_booking'] : null;
@@ -30,13 +31,28 @@ function bkng_save_booking(){
         $fields['fw_option:comments'] = (isset($_POST['notes_booking']) && $_POST['notes_booking']) ? $_POST['notes_booking'] : null;
         $fields['fw_option:amount_price'] = (isset($_POST['price_booking'])) ? (float)$_POST['price_booking'] : null;
 
+        if (isset($_POST['approve_booking'])){
+            $fields['fw_option:approve'] = ($_POST['approve_booking'] == 'on') ? 'on' : 'off';
+            approveBookingData($fields['booking_id']);
+        }else{
+            $fields['fw_option:approve'] = 'off';
+            approveBookingData($fields['booking_id'], true);
+        }
+
+        if (isset($_POST['frozen_booking'])){
+            $fields['fw_option:frozen'] = ($_POST['frozen_booking'] == 'on') ? 'on' : 'off';
+        }else{
+            $fields['fw_option:frozen'] = 'off';
+        }
+
+
         foreach ($fields as $key => $val){
             if ($val !== null)
                 update_post_meta($fields['booking_id'], $key, $val);
         }
 
         add_action('admin_footer', function (){
-            ?><script> window.location.href = '<?= admin_url('edit.php').'?post_type=booking&page=booking-calendar&edit_booking='.$_POST['booking_id']; ?>'; </script><?php
+            ?><script> window.location.href = '<?= admin_url('edit.php').'?post_type=bookings&page=booking-calendar&edit_booking='.$_POST['booking_id']; ?>'; </script><?php
         });
 
 

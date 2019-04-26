@@ -148,9 +148,7 @@ jQuery( document ).ready(function() {
     jQuery(table_edit+" "+button_delete).on("click", function (event) {
 
         if (confirm(bkng_messages.message_confirm_before_delete_booking)){
-
             jQuery(container_rooms+", "+container_time+", "+container_edit).hide();
-
         }
 
     });
@@ -213,6 +211,16 @@ function fillBooking(data) {
     jQuery("#price_booking").html(
         '<option selected value="'+data['amount_price']+'">'+data['quantity'] + ' - ' +data['amount_price']+'</option>'
     );
+
+    if (data['frozen'] == 'on')
+        jQuery("#frozen_booking").prop("checked", true);
+    else
+        jQuery("#frozen_booking").prop("checked", false);
+
+    if (data['approve'] == 'on')
+        jQuery("#approve_booking").prop("checked", true);
+    else
+        jQuery("#approve_booking").prop("checked", false);
 
     var amount_price = data['amount_price'];
 
@@ -313,9 +321,6 @@ function fillTimes(data, room_id) {
         }
     });
 }
-
-
-
 
 function init_calendar(set_month) {
 

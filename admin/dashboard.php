@@ -32,7 +32,7 @@ function bkng_dashboard_widget_all_booking_handler() {
             <p>
                 <form action="" method="post" class="dashboard-form">
                     <input type="hidden" name="booking_id" value="<?= $booking['booking_id']; ?>" />
-                    <a href="<?= admin_url('edit.php'); ?>?post_type=booking&page=booking-calendar&edit_booking=<?= $booking['booking_id']; ?>"><button class="button button-primary">Edit</button></a>
+                    <a href="<?= admin_url('edit.php'); ?>?post_type=bookings&page=booking-calendar&edit_booking=<?= $booking['booking_id']; ?>"><button class="button button-primary">Edit</button></a>
                     <button class="button button-delete" name="delete_booking" type="submit" >Delete</button>
                 </form>
             </p>
@@ -74,7 +74,7 @@ function bkng_dashboard_widget_need_approve_handler() {
                 <form action="" method="post" class="dashboard-form">
                     <input type="hidden" name="booking_id" value="<?= $booking['booking_id']; ?>" />
                     <button class="button button-approve" name="approve_booking" type="submit">Approve</button>
-                    <a href="<?= admin_url('edit.php'); ?>?post_type=booking&page=booking-calendar&edit_booking=<?= $booking['booking_id']; ?>"><button type="button" class="button button-primary">Edit</button></a>
+                    <a href="<?= admin_url('edit.php'); ?>?post_type=bookings&page=booking-calendar&edit_booking=<?= $booking['booking_id']; ?>"><button type="button" class="button button-primary">Edit</button></a>
                     <button class="button button-delete" name="delete_booking" type="submit" >Delete</button>
                 </form>
             </p>
@@ -120,7 +120,7 @@ function bkng_dashboard_widget_frozen_handler() {
         <p>
             <form action="" method="post" class="dashboard-form">
                 <input type="hidden" name="booking_id" value="<?= $booking['booking_id']; ?>" />
-                <a href="<?= admin_url('edit.php'); ?>?post_type=booking&page=booking-calendar&edit_booking=<?= $booking['booking_id']; ?>"><button class="button button-primary">Edit</button></a>
+                <a href="<?= admin_url('edit.php'); ?>?post_type=bookings&page=booking-calendar&edit_booking=<?= $booking['booking_id']; ?>"><button class="button button-primary">Edit</button></a>
                 <button class="button button-delete" name="delete_booking" type="submit" >Delete</button>
             </form>
         </p>
@@ -139,7 +139,7 @@ function bkng_dashboard_widget_newbooking_handler() {
 ?>
         <div class="activity-block">
             <p>
-                <a href="<?= admin_url('post-new.php'); ?>?post_type=booking"><button class="button button-primary"><?= __('New Booking','bkng'); ?></button></a>
+                <a href="<?= admin_url('post-new.php'); ?>?post_type=bookings"><button class="button button-primary"><?= __('New Booking','bkng'); ?></button></a>
             </p>
         </div>
     <?php

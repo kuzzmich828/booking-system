@@ -131,7 +131,7 @@
                 </table>
                 </form>
 
-                <a class="href-new-booking" style="display: none;" href="<?= admin_url('post-new.php'); ?>?post_type=booking"><button class="button button-primary"><?= __('New Booking'); ?></button></a>
+                <a class="href-new-booking" style="display: none;" href="<?= admin_url('post-new.php'); ?>?post_type=bookings"><button class="button button-primary"><?= __('New Booking'); ?></button></a>
 
             </div>
         </div>
