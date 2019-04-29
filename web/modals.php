@@ -1,7 +1,5 @@
 
 <div class="wrapper-quest">
-
-
     <!-- BG -->
     <div id="wrapper-quest__container" >
         <img src="<?= plugin_dir_url(__FILE__); ?>/img/bg.jpg" alt="" class="wrapper-quest__background">
@@ -12,7 +10,7 @@
                 <div class="wrapper-quest__whiteline">
                     <div class="wrapper-quest__whiteline_header-left">
                         <span class="header">המשחק הוזמן לאחרונה לפני</span>
-                        <span class="time">2:57:2</span>
+                        <span class="time last-order-time-js">2:57:2</span>
                     </div>
                 </div>
                 <h2 class="quest__room_name">אלקטרז תא שני</h2>
@@ -47,11 +45,11 @@
 
                 <div class="wrapper-quest__other-quest">
                     <?php
-                        $related_rooms = get_posts([
-                                                'post_type'=>'room',
-                                            ]);
-                        foreach ($related_rooms as $related_room):
-                    ?>
+                    $related_rooms = get_posts([
+                        'post_type'=>'room',
+                    ]);
+                    foreach ($related_rooms as $related_room):
+                        ?>
                         <div class="wrapper-quest__item">
                             <div class="wrapper-quest-other-quest__img">
                                 <?php $url_room_img = get_the_post_thumbnail_url($related_room->ID); ?>
@@ -61,7 +59,7 @@
                             <div class="wrapper-quest-other-quest__button"><a class="re-open-booking" data-room-id="<?= $related_room->ID; ?>" data-room-name="<?= $related_room->post_title; ?>" href="#">הזמן עכשיו</a></div>
                         </div>
                     <?php
-                        endforeach;
+                    endforeach;
                     ?>
                 </div>
 

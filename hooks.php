@@ -116,12 +116,13 @@ function callback_get_booking_room_date(){
     $times = [];
 
     foreach ($posts as $post){
-         $times [] = get_post_meta($post->ID, "fw_option:room_time", true);
+        $times [] = get_post_meta($post->ID, "fw_option:room_time", true);
     }
 
     wp_send_json(json_encode($times), 200);
 
 }
+
 
 add_action( 'wp_ajax_get_room_attributes', 'callback_get_room_attributes' );
 add_action( 'wp_ajax_nopriv_get_room_attributes', 'callback_get_room_attributes' );
@@ -142,15 +143,28 @@ function callback_get_room_attributes(){
         wp_send_json(json_encode([]), 200);
 
     // TODO: Get time from last order for current room
-    //
-//    global $wpdb;
-//    $room_id = $wpdb->get_var( "SELECT post_date FROM {$wpdb->posts} WHERE ID = '{$room_id}' AND post_type = 'booking'" );
+
+    global $wpdb;
+
+    $the_last_date = $wpdb->get_var( "SELECT {$wpdb->posts}.post_date FROM {$wpdb->posts} LEFT JOIN {$wpdb->postmeta} ON {$wpdb->posts}.ID = {$wpdb->postmeta}.post_id 
+                                        WHERE {$wpdb->posts}.post_type = 'bookings' AND {$wpdb->posts}.post_status = 'publish' AND
+                                         {$wpdb->postmeta}.meta_key = 'fw_option:room' AND {$wpdb->postmeta}.meta_value = '{$room_id}' ORDER BY {$wpdb->posts}.post_date DESC;" );
+
+    $current_date = date('d.m.Y H:i:s', time());
+    $seconds = floor((strtotime($current_date) - strtotime($the_last_date)));
+    $minutes = floor($seconds / 60);      // Считаем минуты
+    $hours = floor($minutes / 60);        // Считаем количество полных часов
+    $seconds = $seconds - ($minutes * 60);      //Считаем количество оставшихся секунд
+    $minutes = $minutes - ($hours * 60);        // Считаем количество оставшихся минут
+
 
 
     $times = get_post_meta($room_id, 'fw_option:times', 1);
     $pq = get_post_meta($room_id, 'fw_option:prices', 1);
     $the_post = get_post($room_id);
     $data = [];
+    $data ['last_order'] = "$hours:$minutes:$seconds";
+    $data ['room_id'] = $room_id;
     $data ['times'] = $times;
     $data ['prices'] = $pq;
     $data ['description'] = apply_filters('the_content', $the_post->post_content);
@@ -232,7 +246,7 @@ add_action('admin_footer', function (){
         .wp-core-ui .button-delete{background: #d61111c4; color: #fff; border-color: #c70000; box-shadow: 0 1px 0 #ff3636;}
         .wp-core-ui .button-approve{background: #f7ff20b5; color: #4a4a4a; border-color: #4a4a4a; box-shadow: 0 1px 0 #0a7b00b5;}
     </style>
-<?php
+    <?php
 });
 
 function approveBookingData($booking_id, $unapprove = false){
@@ -366,7 +380,7 @@ add_action('admin_footer', function () {
             $summa = $summa + (float)get_post_meta($post->ID, 'amount', true);
         }
         wp_reset_query();
-?>
+        ?>
         <script type="application/javascript">
             var i, summ;
             var arr = jQuery('td.column-amount');

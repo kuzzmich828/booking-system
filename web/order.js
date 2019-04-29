@@ -1,3 +1,5 @@
+var selected_room_id = null;
+
 document.addEventListener("DOMContentLoaded", function () {
 
     var button1 = jQuery('.open-booking'),
@@ -28,11 +30,13 @@ document.addEventListener("DOMContentLoaded", function () {
         $post_id = $(this).attr('id');
         $room_name = $(this).attr('data-room-name');
         $room_id = $(this).attr('data-room-id');
-        console.log("room-name =", $room_name, "room_id =",$room_id);
+        console.log("Open modal. Room-name:", $room_name, "Room-id:", $room_id);
+
+        $this = $(this);
 
         if (!$room_id){
             $room_id = false;
-        }else if($room_name){
+        }else if(!$room_name){
             alert("Error room");
         }
 
@@ -54,10 +58,18 @@ document.addEventListener("DOMContentLoaded", function () {
             success: function(data){
                 var response = JSON.parse(data);
 
-                if ($.isEmptyObject(response)) {
 
+                selected_room_id = response['room_id'];
+                if (!$this.attr('data-room-id'))
+                    $this.attr('data-room-id', response['room_id']);
+
+                $(".last-order-time-js").html(response['last_order']);
+                console.log("Get room attributes:", response);
+
+                if ($.isEmptyObject(response)) {
                     close_all_modal();
                 }
+
                 var times = response['times'];
                 var prices = response['prices'];
                 var time_table = '';
@@ -230,11 +242,13 @@ jQuery(document).on("click", ".item_content", function(){
 jQuery(document).on("click", "div.vcal-date", function(){
 
     var date_calendar = $(this).attr("data-calendar-date");
-    var room_id = $('.open-booking').attr('id');
+    var room_id = selected_room_id;//$('.open-booking').attr('id');
     $("div.vcal-date").removeClass("reserv").removeClass("selected-day");
     $("div.item_content").removeClass("reserv").removeClass("selected-day");
 
     $(this).addClass("selected-day");
+
+    console.log("Get bookings by date:", date_calendar, "Room-id:", room_id);
 
     if (date_calendar){
         $.ajax({
@@ -247,6 +261,7 @@ jQuery(document).on("click", "div.vcal-date", function(){
             type:'POST',
             success: function(data){
                 var response = JSON.parse(data);
+                console.log("Get bookings response:", response);
                 $(response).each(function(index){
                     $(".item_content[data-time-room='"+response[index]+"']").addClass("reserv");
                     console.log(response[index])
