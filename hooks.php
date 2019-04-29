@@ -150,6 +150,8 @@ function callback_get_room_attributes(){
                                         WHERE {$wpdb->posts}.post_type = 'bookings' AND {$wpdb->posts}.post_status = 'publish' AND
                                          {$wpdb->postmeta}.meta_key = 'fw_option:room' AND {$wpdb->postmeta}.meta_value = '{$room_id}' ORDER BY {$wpdb->posts}.post_date DESC;" );
 
+
+    $the_last_date = (!$the_last_date) ? (date('d.m.Y H:i:s', time()-500)) : $the_last_date;
     $current_date = date('d.m.Y H:i:s', time());
     $seconds = floor((strtotime($current_date) - strtotime($the_last_date)));
     $minutes = floor($seconds / 60);      // Считаем минуты

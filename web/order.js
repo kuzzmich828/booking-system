@@ -5,6 +5,7 @@ document.addEventListener("DOMContentLoaded", function () {
     var button1 = jQuery('.open-booking'),
         button2 = document.getElementById('button-step-1'),
         button3 = document.getElementById('button-step-2'),
+        open_related_quest = jQuery('.re-open-booking'),
         // wrapperQuestButtons = document.getElementById('wrapper-quest__buttons'),
         wrapperQuestContainer = document.getElementById('wrapper-quest__container'),
         // wrapperQuestQuantity = document.getElementById('wrapper-quest__quantity'),
@@ -15,83 +16,19 @@ document.addEventListener("DOMContentLoaded", function () {
         widget2 = document.getElementById('modal-2'),
         close = document.getElementById('wrapper-quest__close');
 
+    open_related_quest.click(function(e){
+
+        e.preventDefault();
+        close_all_modal();
+        open_1_modal($(this));
+
+    });
+
     button1.click(function(e){
 
         e.preventDefault();
+        open_1_modal($(this));
 
-        // $(wrapperQuestButtons).addClass('hide');
-        $(wrapperQuestContainer).addClass('show');
-        $(modal1).addClass('show');
-        $(widget1).addClass('show');
-        // $(widget2).addClass('show');
-
-        /* ****************************** */
-        $('body').css('overflow-y','hidden');
-        $post_id = $(this).attr('id');
-        $room_name = $(this).attr('data-room-name');
-        $room_id = $(this).attr('data-room-id');
-        console.log("Open modal. Room-name:", $room_name, "Room-id:", $room_id);
-
-        $this = $(this);
-
-        if (!$room_id){
-            $room_id = false;
-        }else if(!$room_name){
-            alert("Error room");
-        }
-
-        /*прокрутить содержимое окна бронирования вверх*/
-        $('.booking-popup').scrollTop(0);
-        if ($(window).width()<769) $('body').scrollTop(0);
-
-        $('.time-grid').html('');
-        $('.time-grid').hide();
-
-        $.ajax({
-            url: '/wp-admin/admin-ajax.php',
-            data: {
-                action: "get_room_attributes",
-                id: $room_id,
-                room_name: $room_name
-            },
-            type:'POST',
-            success: function(data){
-                var response = JSON.parse(data);
-
-
-                selected_room_id = response['room_id'];
-                if (!$this.attr('data-room-id'))
-                    $this.attr('data-room-id', response['room_id']);
-
-                $(".last-order-time-js").html(response['last_order']);
-                console.log("Get room attributes:", response);
-
-                if ($.isEmptyObject(response)) {
-                    close_all_modal();
-                }
-
-                var times = response['times'];
-                var prices = response['prices'];
-                var time_table = '';
-                var prices_table = '';
-
-                /* *************************************** */
-                $(times).each(function(index){
-                    time_table += '<div class="item_content" data-time-room="'+times[index]+'">'+times[index]+'</div>';
-                });
-                $('.time-grid').html(time_table);
-
-                /* *************************************** */
-                $(prices).each(function(index){
-                    prices_table += '<option value="'+prices[index]['price']+'">'+prices[index]['quantity']+ ' - ' +prices[index]['price']+'</option>';
-                });
-                $("#quest__quantity").html(prices_table);
-                $(".wrapper-quest__descripription").html(response['description']);
-                $(".quest__room_name").html(response['room_name']);
-
-            }
-
-        });
 
     });
 
@@ -126,6 +63,17 @@ document.addEventListener("DOMContentLoaded", function () {
         var selected_time = $(".selected-time").attr("data-time-room");
         var room_id = $(button1).attr('id');
         var price = $('#quest__quantity').val();
+
+        if (!name){
+            alert('name');
+            return;
+        }else if (!email){
+            alert('email');
+            return;
+        }else if (!phone){
+            alert('phone');
+            return;
+        }
 
         $.ajax({
             url: '/wp-admin/admin-ajax.php',
@@ -190,6 +138,83 @@ document.addEventListener("DOMContentLoaded", function () {
     /*wrapperQuestQuantity.addEventListener('change', function (e) {
         wrapperQuestDisWrapper.innerHTML = e.target.value;
     });*/
+
+    function open_1_modal(element) {
+        // $(wrapperQuestButtons).addClass('hide');
+        $(wrapperQuestContainer).addClass('show');
+        $(modal1).addClass('show');
+        $(widget1).addClass('show');
+        // $(widget2).addClass('show');
+
+        /* ****************************** */
+        $('body').css('overflow-y','hidden');
+        $post_id = element.attr('id');
+        $room_name = element.attr('data-room-name');
+        $room_id = element.attr('data-room-id');
+        console.log("Open modal. Room-name:", $room_name, "Room-id:", $room_id);
+
+        $this = element;
+
+        if (!$room_id){
+            $room_id = false;
+        }else if(!$room_name){
+            alert("Error room");
+        }
+
+        /*прокрутить содержимое окна бронирования вверх*/
+        $('.booking-popup').scrollTop(0);
+        if ($(window).width()<769) $('body').scrollTop(0);
+
+        $('.time-grid').html('');
+        $('.time-grid').hide();
+
+        $.ajax({
+            url: '/wp-admin/admin-ajax.php',
+            data: {
+                action: "get_room_attributes",
+                id: $room_id,
+                room_name: $room_name
+            },
+            type:'POST',
+            success: function(data){
+                var response = JSON.parse(data);
+
+
+                selected_room_id = response['room_id'];
+                if (!$this.attr('data-room-id'))
+                    $this.attr('data-room-id', response['room_id']);
+
+                $(".last-order-time-js").html(response['last_order']);
+                console.log("Get room attributes:", response);
+
+                if ($.isEmptyObject(response)) {
+                    close_all_modal();
+                }
+
+                var times = response['times'];
+                var prices = response['prices'];
+                var time_table = '';
+                var prices_table = '';
+
+                /* *************************************** */
+                $(times).each(function(index){
+                    time_table += '<div class="item_content" data-time-room="'+times[index]+'">'+times[index]+'</div>';
+                });
+                $('.time-grid').html(time_table);
+
+                /* *************************************** */
+                $(prices).each(function(index){
+                    prices_table += '<option value="'+prices[index]['price']+'">'+prices[index]['quantity']+ ' - ' +prices[index]['price']+'</option>';
+                });
+                $("#quest__quantity").html(prices_table);
+                $(".wrapper-quest__descripription").html(response['description']);
+                $(".quest__room_name").html(response['room_name']);
+
+            }
+
+        });
+    }
+
 });
 
 
@@ -235,6 +260,7 @@ jQuery(document).on("click", ".item_content", function(){
 
     $(".booking-time").html(time_room);
     $(".booking-date").html($(".vcal-date.selected-day").attr("data-calendar-date"));
+    $("#button-step-1").css('display','block');
 
 });
 
@@ -243,6 +269,7 @@ jQuery(document).on("click", "div.vcal-date", function(){
 
     var date_calendar = $(this).attr("data-calendar-date");
     var room_id = selected_room_id;//$('.open-booking').attr('id');
+    $("#button-step-1").css('display','none');
     $("div.vcal-date").removeClass("reserv").removeClass("selected-day");
     $("div.item_content").removeClass("reserv").removeClass("selected-day");
 

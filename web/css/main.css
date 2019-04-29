@@ -1049,3 +1049,7 @@ footer {
   padding: 0;
   cursor: pointer;
 }
+
+#button-step-1{
+  display: none;
+}
