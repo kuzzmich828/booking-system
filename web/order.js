@@ -265,10 +265,13 @@ jQuery(document).on("click", ".item_content", function(){
 });
 
 /************ Click to DAY **********/
-jQuery(document).on("click", "div.vcal-date", function(){
+jQuery(document).on("click", "div.vcal-date", function(e){
 
+    e.preventDefault();
+    if ($(this).hasClass('vcal-date--disabled'))
+        return;
     var date_calendar = $(this).attr("data-calendar-date");
-    var room_id = selected_room_id;//$('.open-booking').attr('id');
+    var room_id = selected_room_id; //$('.open-booking').attr('id');
     $("#button-step-1").css('display','none');
     $("div.vcal-date").removeClass("reserv").removeClass("selected-day");
     $("div.item_content").removeClass("reserv").removeClass("selected-day");
