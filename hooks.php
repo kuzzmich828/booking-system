@@ -156,7 +156,7 @@ function callback_get_room_attributes(){
     $seconds = floor((strtotime($current_date) - strtotime($the_last_date)));
     $minutes = floor($seconds / 60);      // Считаем минуты
     $hours = floor($minutes / 60);        // Считаем количество полных часов
-    $seconds = $seconds - ($minutes * 60);      //Считаем количество оставшихся секунд
+    $seconds = $seconds - ($minutes * 60);      // Считаем количество оставшихся секунд
     $minutes = $minutes - ($hours * 60);        // Считаем количество оставшихся минут
 
 
@@ -171,6 +171,22 @@ function callback_get_room_attributes(){
     $data ['prices'] = $pq;
     $data ['description'] = apply_filters('the_content', $the_post->post_content);
     $data ['room_name'] = apply_filters('the_title', $the_post->post_title);
+
+    /********* Get room attributes ***********/
+    $data ['time_text'] = get_post_meta($room_id, 'wpcf-time', 1);
+    $data ['time_icon'] = get_post_meta($room_id, 'wpcf-order-time-icon', 1);
+
+    $data ['people_text'] = get_post_meta($room_id, 'wpcf-people', 1);
+    $data ['people_icon'] = get_post_meta($room_id, 'wpcf-people-icon', 1);
+
+    $data ['age_text'] = get_post_meta($room_id, 'wpcf-age', 1);
+    $data ['age_icon'] = get_post_meta($room_id, 'wpcf-order-age-icon', 1);
+
+    $data ['complexity_text'] = get_post_meta($room_id, 'wpcf-complexity', 1);
+    $data ['complexity_icon'] = get_post_meta($room_id, 'wpcf-order-complexity-icon', 1);
+    $data ['percent'] = get_post_meta($room_id, 'wpcf-percent-without-help', 1);
+
+
 
     wp_send_json(json_encode($data), 200);
 }

@@ -61,17 +61,17 @@ document.addEventListener("DOMContentLoaded", function () {
 
         var selected_date = $(".vcal-date.selected-day").attr("data-calendar-date");
         var selected_time = $(".selected-time").attr("data-time-room");
-        var room_id = $(button1).attr('id');
+        var room_id = selected_room_id;//$(button1).attr('id');
         var price = $('#quest__quantity').val();
 
         if (!name){
-            alert('name');
+            alert('Name is empty');
             return;
         }else if (!email){
-            alert('email');
+            alert('Email is empty');
             return;
         }else if (!phone){
-            alert('phone');
+            alert('Phone is empty');
             return;
         }
 
@@ -104,7 +104,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 $('#order_place').html('order_place');
                 $('#order_mail').html(response['email']);
                 $('#order_phone').html(response['phone']);
-                $('#order_value').html('order_value');
+                $('#order_value').html(response['amount_price']);
 
 
                 $(modal3).addClass('show');
@@ -133,6 +133,9 @@ document.addEventListener("DOMContentLoaded", function () {
         modal3.classList.remove("hide");
         widget1.classList.remove("hide");
         widget2.classList.remove("hide");
+
+        $('body').removeClass('overlay');
+
         // wrapperQuestButtons.classList.remove("hide");
     }
     /*wrapperQuestQuantity.addEventListener('change', function (e) {
@@ -179,6 +182,21 @@ document.addEventListener("DOMContentLoaded", function () {
             success: function(data){
                 var response = JSON.parse(data);
 
+                $('body').addClass('overlay');
+
+                /********** Fill icons ***********/
+
+                $('.time-text-js').html(response['time_text']);
+                $('.people-text-js').html(response['people_text']);
+                $('.age-text-js').html(response['age_text']);
+                $('.complexity-text-js').html(response['complexity_text']);
+
+                $('.time-icon-js').attr('src', response['time_icon']['url']);
+                $('.people-icon-js').attr('src', response['people_icon']['url']);
+                $('.age-icon-js').attr('src',response['age_icon']['url']);
+                $('.complexity-icon-js').attr('src',response['complexity_icon']['url']);
+                $('.percent-js').html(response['percent']);
+                /********** Fill icons ***********/
 
                 selected_room_id = response['room_id'];
                 if (!$this.attr('data-room-id'))
@@ -204,7 +222,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
                 /* *************************************** */
                 $(prices).each(function(index){
-                    prices_table += '<option value="'+prices[index]['price']+'">'+prices[index]['quantity']+ ' - ' +prices[index]['price']+'</option>';
+                    prices_table += '<option value="'+prices[index]['price']+'">'+prices[index]['quantity']+ ' - ' +prices[index]['price']+' ₪</option>';
                 });
                 $("#quest__quantity").html(prices_table);
                 $(".wrapper-quest__descripription").html(response['description']);
@@ -226,24 +244,6 @@ window.addEventListener('load', function () {
     });
 });
 
-/*************** ***********************/
-/*jQuery(document).on("click", ".booking-submit", function(){
-    alert();
-
-    var name = $("input[name='order_fullname']").val();
-    var email =$("input[name='order_email']").val();
-    var phone =$("input[name='order_phone']").val();
-
-    console.log(name);
-    console.log(email);
-    console.log(phone);
-    // $(".f-step").hide();
-    // $(".s-step").show();
-    // $(".second-step").show();
-    // var time_room = $(this).attr("data-time-room");
-    // var room_id = $('.open-booking').attr('id');
-});
-*/
 
 /************ Click to TIME **********/
 jQuery(document).on("click", ".item_content", function(){

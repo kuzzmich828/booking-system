@@ -2,6 +2,7 @@
 <div class="wrapper-quest">
     <!-- BG -->
     <div id="wrapper-quest__container" >
+
         <img src="<?= plugin_dir_url(__FILE__); ?>/img/bg.jpg" alt="" class="wrapper-quest__background">
         <div id="wrapper-quest__close"></div>
 
@@ -18,28 +19,28 @@
 
                 <div class="wrapper-quest__whiteline_bottom">
                     <div class="wrapper-quest__complexity">
-                        <img alt="" src="<?= plugin_dir_url(__FILE__); ?>img/escape-timeicon-gotgrey.png">
-                        רמת קושי גבוהה
+                        <img class="time-icon-js" alt="" src="<?= plugin_dir_url(__FILE__); ?>img/escape-timeicon-gotgrey.png">
+                        <div class="time-text-js"> רמת קושי גבוהה </div>
                     </div>
 
                     <div class="wrapper-quest__people">
-                        <img alt="" src="<?= plugin_dir_url(__FILE__); ?>img/escape-peopleicon-gotgrey.png">
-                        עד 6 משתתפים
+                        <img class="people-icon-js" alt="" src="<?= plugin_dir_url(__FILE__); ?>img/escape-peopleicon-gotgrey.png">
+                        <div class="people-text-js">  עד 6 משתתפים</div>
                     </div>
 
                     <div class="wrapper-quest__time">
-                        <img alt="" src="<?= plugin_dir_url(__FILE__); ?>img/escape-time-gotgray.png">
-                        60 דקות אתגר
+                        <img class="complexity-icon-js" alt="" src="<?= plugin_dir_url(__FILE__); ?>img/escape-time-gotgray.png">
+                        <div class="complexity-text-js"> 60 דקות אתגר</div>
                     </div>
 
                     <div class="wrapper-quest__age-info">
-                        <img alt="" src="<?= plugin_dir_url(__FILE__); ?>img/escape-ageicon-gotgrey.png">
-                        12+
+                        <img class="age-icon-js" alt="" src="<?= plugin_dir_url(__FILE__); ?>img/escape-ageicon-gotgrey.png">
+                        <div class="age-text-js">12+</div>
                     </div>
                 </div>
                 <div class="wrapper-quest__whiteline_header-right">
                     <div>רק<br><span>%</span></div>
-                    <div class="wrapper-quest__center">0</div>
+                    <div class="wrapper-quest__center percent-js">0</div>
                     <div>משחקנים יוצאים ללא רמז</div>
                 </div>
 
@@ -72,9 +73,11 @@
 
         <?php include __DIR__ . '/modal-3.php'; ?>
 
+
     </div>
 
 </div>
+
 
 <link href="https://fonts.googleapis.com/css?family=Assistant:300,400,700,800" rel="stylesheet">
 <link rel="stylesheet" type="text/css" href="/wp-content/plugins/booking-system/web/css/main.css"/>
