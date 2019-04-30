@@ -44,30 +44,34 @@
                     <div>משחקנים יוצאים ללא רמז</div>
                 </div>
 
-                <div class="wrapper-quest__other-quest">
-                    <?php
-                    $related_rooms = get_posts([
-                        'post_type'=>'room',
-                    ]);
-                    foreach ($related_rooms as $related_room):
-                        ?>
-                        <div class="wrapper-quest__item">
-                            <div class="wrapper-quest-other-quest__img">
-                                <?php $url_room_img = get_the_post_thumbnail_url($related_room->ID); ?>
-                                <img src="<?= ($url_room_img) ? $url_room_img : 'http://funeral-nsk.ru/wp-content/uploads/2018/06/thumbnail.png'; ?>" alt="<?= $related_room->post_title; ?>">
-                            </div>
-                            <div class="wrapper-quest-other-quest__title" style="color:#9c8c78"><?= $related_room->post_title; ?></div>
-                            <div class="wrapper-quest-other-quest__button"><a class="re-open-booking" data-room-id="<?= $related_room->ID; ?>" data-room-name="<?= $related_room->post_title; ?>" href="#">הזמן עכשיו</a></div>
-                        </div>
-                    <?php
-                    endforeach;
-                    ?>
-                </div>
+                <!-- RELATED ROOMS -->
+                <!-- RELATED ROOMS -->
+                <!-- RELATED ROOMS -->
 
             </div>
 
             <?php include __DIR__ . '/modal-1.php'; ?>
             <?php include __DIR__ . '/modal-2.php'; ?>
+
+            <div class="wrapper-quest__other-quest">
+                <?php
+                $related_rooms = get_posts([
+                    'post_type'=>'room',
+                ]);
+                foreach ($related_rooms as $related_room):
+                    ?>
+                    <div class="wrapper-quest__item">
+                        <div class="wrapper-quest-other-quest__img">
+                            <?php $url_room_img = get_the_post_thumbnail_url($related_room->ID); ?>
+                            <img src="<?= ($url_room_img) ? $url_room_img : 'http://funeral-nsk.ru/wp-content/uploads/2018/06/thumbnail.png'; ?>" alt="<?= $related_room->post_title; ?>">
+                        </div>
+                        <div class="wrapper-quest-other-quest__title" style="color:#9c8c78"><?= $related_room->post_title; ?></div>
+                        <div class="wrapper-quest-other-quest__button"><a class="re-open-booking" data-room-id="<?= $related_room->ID; ?>" data-room-name="<?= $related_room->post_title; ?>" href="#">הזמן עכשיו</a></div>
+                    </div>
+                <?php
+                endforeach;
+                ?>
+            </div>
 
         </div>
 

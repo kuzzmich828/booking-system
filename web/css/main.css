@@ -313,6 +313,9 @@ html, body {
   flex-wrap: wrap;
   padding-top: 32px;
   margin-bottom: 70px;
+
+  float: left;
+  margin-left: 8%;
 }
 
 .wrapper-quest__item {
@@ -504,7 +507,7 @@ html, body {
   color: #000;
   font-size: 24px;
   font-weight: 700;
-  background-image: url('../img/sh-bg.png');
+  /*background-image: url('../img/sh-bg.png');*/
   background-repeat: no-repeat;
   background-position: bottom left;
   line-height: 1em;
@@ -521,7 +524,7 @@ html, body {
   height: 32px;
   width: 278px;
   padding-right: 15px;
-  font-size: 18px;
+  font-size: 14px;
   position: relative;
   margin-top: -40px;
   -webkit-clip-path: polygon(13% 0%, 100% 0, 100% 100%, 0% 100%);
@@ -720,7 +723,7 @@ html, body {
     width: 90%;
     height: calc(100% - 50px);
     left: 5%;
-    top: 50px;
+    /*top: 50px;*/
   }
 
   .wrapper-quest__container-relative {
@@ -1062,7 +1065,7 @@ body.overlay:before {
   left: 0;
   height: 100%;
   width: 100%;
-  background: rgba(0, 0, 0, .4);
+  background: rgba(0, 0, 0, .8);
   z-index: 100;
   overflow: hidden;
 }
