@@ -1,4 +1,4 @@
-html, body {
+/*html, body {
   width: 100%;
   height: auto;
   padding: 0;
@@ -9,7 +9,7 @@ html, body {
   unicode-bidi: embed;
   font-size: 20px;
   background: #000;
-}
+}*/
 
 .clearfix {
   width: 100%;
@@ -1005,12 +1005,12 @@ html {
   font-size: 10px;
 }
 
-body {
+/*body {
   color: #333;
   font-size: 1.6rem;
   background-color: #FAFAFA;
   -webkit-font-smoothing: antialiased;
-}
+}*/
 
 footer {
   text-align: center;
@@ -1073,4 +1073,8 @@ body.overlay:before {
 body.overlay {
   position: fixed;
   overflow: hidden;
+}
+
+div.mobile-menu{
+  z-index: 99;
 }

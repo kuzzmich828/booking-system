@@ -28,7 +28,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
         e.preventDefault();
         open_1_modal($(this));
-        $('.mobile-menu').hide();
 
     });
 
@@ -136,7 +135,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
         $('body').removeClass('overlay');
 
-        $('.mobile-menu').show();
         // wrapperQuestButtons.classList.remove("hide");
     }
     /*wrapperQuestQuantity.addEventListener('change', function (e) {
