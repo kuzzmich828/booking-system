@@ -156,8 +156,8 @@ function callback_get_room_attributes(){
     $seconds = floor((strtotime($current_date) - strtotime($the_last_date)));
     $minutes = floor($seconds / 60);      // Считаем минуты
     $hours = floor($minutes / 60);        // Считаем количество полных часов
-    $seconds = $seconds - ($minutes * 60);      // Считаем количество оставшихся секунд
-    $minutes = $minutes - ($hours * 60);        // Считаем количество оставшихся минут
+    $seconds =  ((int)$seconds - (int)($minutes * 60));      // Считаем количество оставшихся секунд
+    $minutes = abs((int)$minutes - (int)($hours * 60));        // Считаем количество оставшихся минут
 
 
 
@@ -165,7 +165,7 @@ function callback_get_room_attributes(){
     $pq = get_post_meta($room_id, 'fw_option:prices', 1);
     $the_post = get_post($room_id);
     $data = [];
-    $data ['last_order'] = "$hours:$minutes:$seconds";
+    $data ['last_order'] = str_replace("-","","$hours:$minutes:$seconds");
     $data ['room_id'] = $room_id;
     $data ['times'] = $times;
     $data ['prices'] = $pq;
