@@ -180,7 +180,10 @@ function get_booking_after_date($from_date, $time, $frozen = null, $approve = nu
             continue;
         }
 
-        $timestamp = DateTime::createFromFormat('d-m-Y H:i', "$date $time")->getTimestamp();
+        $timestamp = false;
+        $timeformat = DateTime::createFromFormat('d-m-Y H:i', "$date $time");
+        if ($timeformat)
+            $timestamp = $timeformat->getTimestamp();
 
         if ($timestamp)
             if ($timestamp > time()){

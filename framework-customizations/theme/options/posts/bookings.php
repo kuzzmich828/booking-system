@@ -138,6 +138,25 @@ $options = array(
         ),
     ),
 
+
+    'subscription' => array(
+        'type'  => 'switch',
+        'label' =>  __('Subscription', 'bkng') ,
+        'value' => 'off',
+        'left-choice' => array(
+            'value' => 'on',
+            'label' => __('Yes', 'bkng'),
+        ),
+        'right-choice' => array(
+            'value' => 'off',
+            'label' => __('No', 'bkng'),
+        ),
+        'fw-storage' => array(
+            'type' => 'post-meta',
+            'post-meta' => 'fw_option:subscription',
+        ),
+    ),
+
     'approve' => array(
         'type'  => 'switch',
         'label' =>  __('Approve', 'bkng') ,

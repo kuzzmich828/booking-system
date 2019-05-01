@@ -69,6 +69,7 @@
   -ms-transition: 0.3s;
   -o-transition: 0.3s;
   transition: 0.3s;
+  width: 280px;
 }
 
 .wrapper-quest form {
@@ -555,8 +556,8 @@
   display: none;
   visibility: hidden;
   opacity: 0;
-  width: 1px;
-  height: 1px;
+  width: 26px;
+  height: 26px;
 }
 
 .wrapper-quest__pol_required a {
@@ -701,7 +702,7 @@
   background-size: 29px;
   position: absolute;
   top: auto;
-  right: 35%;
+  right: 16px;
   bottom: auto;
 }
 

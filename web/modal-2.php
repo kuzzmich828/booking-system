@@ -20,28 +20,20 @@
         <!--                    <div class="clearfix"></div>-->
 
 
-        <div id="wrapper-quest__dis_wrapper" class="wrapper-quest__dis_wrapper"> </div>
+        <div id="wrapper-quest__dis_wrapper" class="wrapper-quest__dis_wrapper">
+
+        </div>
         <div class="wrapper-quest__dis_block">סה”כ מחיר עבור משחק <strong>לפני</strong> הנחה</div>
 
-        <input id="pol" type="checkbox" name="quest_politics" checked>
+        <input id="pol" class="quest_politics-js" type="checkbox" name="quest_politics" checked>
         <label for="pol" class="wrapper-quest__pol_required">
             <span>מאשר שקראתי את <a href="/תנאי-ההזמנה/">תנאי ההזמנה</a> מאתר ומסכים איתם</span>
         </label>
         <br>
-        <input id="sub" type="checkbox" name="quest_subscription">
+        <input id="sub" type="checkbox" class="quest_subscription-js" name="quest_subscription">
         <label for="sub" class="wrapper-quest__want_to_subsc">
             <span>אני מעוניין לקבל עדכונים והטבות בדוא"ל</span>
         </label>
-
-        <!--<input type="hidden" name="quest_date" value="10.4.2019">-->
-        <!--<input type="hidden" name="quest_day" value="10">-->
-        <!--<input type="hidden" name="quest_month" value="4">-->
-        <!--<input type="hidden" name="quest_year" value="2019">-->
-        <!--<input type="hidden" name="quest_time" value="16:30">-->
-        <!--<input type="hidden" name="quest_room" value="המהלכים הלבנים">-->
-        <!--<input type="hidden" name="quest_room_name">-->
-        <!--<input type="hidden" name="quest_price" value="220">-->
-        <!--<input type="hidden" name="quest_duration" value="60 דקות אתגר">-->
 
         <input id="button-step-2" type="submit" name="quest_submit" class="wrapper-quest__widget_button" value="הזמן עכשיו">
     </form>

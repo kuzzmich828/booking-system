@@ -14,7 +14,7 @@ function add_views_column( $columns ){
 
         'approved_date' => __('Approved Date', 'bkng'),     // approved_date
         'approved_person' => __('Approved Person', 'bkng'), // approved_person
-        'subscribe' => __('Subscribe', 'bkng'),             // Subscribe
+        'subscription' => __('Subscription', 'bkng'),             // Subscribe
 
         'room' => __('Room', 'bkng'),
         'room_date' => __('Date', 'bkng'),
@@ -50,8 +50,8 @@ function fill_views_column( $colname, $post_id ){
         echo (get_post_meta($post_id, 'fw_option:approve_time', 1));
     }elseif ($colname === 'quantity'){
         echo (get_post_meta($post_id, 'fw_option:quantity', 1));
-    }elseif ($colname === 'subscribe'){
-        echo (get_post_meta($post_id, 'fw_option:subscribe', 1));
+    }elseif ($colname === 'subscription'){
+        echo (get_post_meta($post_id, 'fw_option:subscription', 1));
     }elseif ($colname === 'discount'){
         echo (get_post_meta($post_id, 'fw_option:discount', 1)) ."%";
     }elseif ($colname === 'status'){

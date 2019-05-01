@@ -321,7 +321,7 @@ function updateRoomTimestamp($booking_id){
     $time = get_post_meta($booking_id, 'fw_option:room_time', 1);
     if ($date && $time) {
         $timestamp = DateTime::createFromFormat('d-m-Y H:i:s',"$date $time:00");
-        if ($timestamp->getTimestamp()){
+        if ($timestamp){
             update_post_meta($booking_id, 'room_date:timestamp', $timestamp->getTimestamp());
         }
     }
@@ -624,6 +624,7 @@ function callback_create_booking(){
 
         $fields['fw_option:room_date'] = (isset($_POST['room_date']) && $_POST['room_date']) ? DateTime::createFromFormat('d-m-Y', $_POST['room_date'])->format('d-m-Y') : null;
         $fields['fw_option:room_time'] = (isset($_POST['room_time']) && $_POST['room_time']) ? $_POST['room_time'] : null;
+        $fields['fw_option:subscription'] = (isset($_POST['subscription']) && ($_POST['subscription']) == 'true') ? 'on' : 'off';
 
         $fields['fw_option:frozen'] = 'off';
         $fields['fw_option:approve'] = 'off';

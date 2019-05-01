@@ -57,7 +57,7 @@ document.addEventListener("DOMContentLoaded", function () {
         var name = $("input[name='quest_fullname']").val();
         var email =$("input[name='quest_email']").val();
         var phone =$("input[name='quest_phone']").val();
-
+        var subscription = $('.quest_subscription-js').prop('checked');
         var selected_date = $(".vcal-date.selected-day").attr("data-calendar-date");
         var selected_time = $(".selected-time").attr("data-time-room");
         var room_id = selected_room_id;//$(button1).attr('id');
@@ -72,6 +72,9 @@ document.addEventListener("DOMContentLoaded", function () {
         }else if (!phone){
             alert('Phone is empty');
             return;
+        }else if ($('.quest_politics-js').prop('checked') !== true){
+            alert('Policy not checked!');
+            return;
         }
 
         $.ajax({
@@ -85,6 +88,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 room_date: selected_date,
                 room_time: selected_time,
                 price: price,
+                subscription: subscription
             },
             type:'POST',
             success: function(data){
@@ -224,6 +228,8 @@ document.addEventListener("DOMContentLoaded", function () {
                     prices_table += '<option value="'+prices[index]['price']+'">'+prices[index]['quantity']+ ' - ' +prices[index]['price']+' ₪</option>';
                 });
                 $("#quest__quantity").html(prices_table);
+                $("#wrapper-quest__dis_wrapper").html('₪ '+prices[0]['price']);
+
                 $(".wrapper-quest__descripription").html(response['description']);
                 $(".quest__room_name").html(response['room_name']);
 
@@ -234,6 +240,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
 });
 
+jQuery(document).on("change", "#quest__quantity", function(){
+    $("#wrapper-quest__dis_wrapper").html('₪ '+ $(this).val());
+});
 
 
 /********** Init Calendar ***********/
