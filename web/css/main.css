@@ -476,6 +476,8 @@
 }
 
 .wrapper-quest select {
+
+  position: inherit;
   width: 164px;
   padding-right: 11px;
   float: left;
@@ -511,7 +513,8 @@
   background-repeat: no-repeat;
   background-position: bottom left;
   line-height: 1em;
-  margin-top: 14px;
+  position: inherit;
+  margin-top: 25px;
 }
 
 .wrapper-quest strong {

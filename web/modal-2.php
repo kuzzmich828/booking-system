@@ -20,7 +20,7 @@
         <!--                    <div class="clearfix"></div>-->
 
 
-        <div id="wrapper-quest__dis_wrapper" class="wrapper-quest__dis_wrapper">220</div>
+        <div id="wrapper-quest__dis_wrapper" class="wrapper-quest__dis_wrapper"> </div>
         <div class="wrapper-quest__dis_block">סה”כ מחיר עבור משחק <strong>לפני</strong> הנחה</div>
 
         <input id="pol" type="checkbox" name="quest_politics" checked>
