@@ -55,12 +55,16 @@ jQuery( document ).ready(function() {
     /********* Select a Day *********/
     jQuery(document).on("click", ".cell-day, .fc-today", function (event) {
 
+
+
         if (jQuery(this).attr('data-date-attr') == '')
             return;
 
         if (jQuery(this).attr('class').indexOf('past-date') > -1){
             return;
         }
+        jQuery(table_edit).hide();
+        showNewBooking();
 
         var days = jQuery("#calendar").find(".cell-day, .fc-today");
         jQuery( days ).each(function( index ) {
@@ -156,6 +160,12 @@ jQuery( document ).ready(function() {
 });
 
 function showNewBooking() {
+
+    var date = jQuery('.cell-day.selected-day').attr('data-date-attr');
+    var time = jQuery('.cell-time.selected-day').attr('data-time');
+    var room_id = jQuery('.choose-room').val();
+    jQuery(button_new_booking).attr('href',
+        '/wp-admin/post-new.php?post_type=bookings&room_id='+room_id+'&time='+time+'&date='+date);
     jQuery(container_edit).fadeIn(300);
     jQuery(button_new_booking).fadeIn(300);
 }
@@ -274,6 +284,14 @@ function fillRooms(data) {
             exclude.push(data[index]['room_id']);
         }
     });
+
+    // jQuery(all_rooms).each(function (index) {
+    //     console.log(exclude);
+    //     if (exclude.includes(all_rooms[index]['room_id'].toString()) === false){
+    //         options += '<option value = "' + all_rooms[index]['room_id'] + '">' + all_rooms[index]['room_name'] + ' - 0' + '</option>';
+    //     }
+    // });
+
     jQuery(input_rooms).html(options);
 }
 
@@ -288,7 +306,7 @@ function fillRezerved(room_id, data) {
 function countRooms(data, room_id) {
     var result = 0;
     jQuery(data).each(function (index) {
-        if (data[index]['room_id'] == room_id)
+        if (data[index]['id'] != null && data[index]['room_id'] == room_id)
             result++;
     });
     return result;

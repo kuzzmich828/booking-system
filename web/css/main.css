@@ -361,7 +361,7 @@
 }
 
 .wrapper-quest-other-quest__button a {
-  display: inline-block;
+  display: initial;
   text-align: center;
   text-decoration: none;
   background-color: #eee35e;

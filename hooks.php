@@ -214,14 +214,31 @@ function callback_get_booking_rooms_by_date(){
             ),
         ]);
 
+        $room_for_exclude = [];
         foreach ($bookings as $booking){
             $room_id = get_post_meta($booking->ID, 'fw_option:room', 1);
+            $room_for_exclude [] = $room_id;
             $response [] = [
                 'id'    => $booking->ID,
                 'room_id'    => $room_id,
                 'room_time' => get_post_meta($booking->ID, 'fw_option:room_time', 1),
                 'room_name'    => get_the_title(get_post_meta($booking->ID, 'fw_option:room', 1)),
                 'room_times'    => get_post_meta($room_id, 'fw_option:times', 1),
+            ];
+        }
+
+        $rooms = get_posts([
+            'post_type' => 'room',
+            'post_status' => 'publish',
+            'exclude' => $room_for_exclude,
+        ]);
+        foreach ($rooms as $room){
+            $response [] = [
+                'id'    => null,
+                'room_id'    => $room->ID,
+                'room_time' => null,
+                'room_name'    => get_the_title($room->ID),
+                'room_times'    => get_post_meta($room->ID, 'fw_option:times', 1),
             ];
         }
 
@@ -290,6 +307,19 @@ add_action('init', function (){
     wp_localize_script('jquery', 'bkng_messages', $array);
 });
 
+/*add_action('init', function (){
+    if (isset($_GET['page']) && $_GET['page'] == 'booking-calendar') {
+        $rooms = get_posts(['post_type'=>'room']);
+        $resp = [];
+        foreach ($rooms as $room){
+            $obj = new stdClass();
+            $obj->room_name = $room->post_title;
+            $obj->room_id = $room->ID;
+            $resp[] = $obj;
+        }
+        wp_localize_script('jquery', 'all_rooms', $resp);
+    }
+});*/
 
 add_action( 'updated_post_meta', 'callback_update_bookin_meta', 10, 4);
 
@@ -598,6 +628,8 @@ function bkng_export_xls($posts)
     echo get_template_directory_uri() . '/export.xls';
 }
 
+include __DIR__.'/mail_tpl/request.php';
+
 add_action( 'wp_ajax_create_booking', 'callback_create_booking' );
 add_action( 'wp_ajax_nopriv_create_booking', 'callback_create_booking' );
 function callback_create_booking(){
@@ -646,6 +678,20 @@ function callback_create_booking(){
 
         $response = get_all_meta_booking($post_id);
     }
+
+    mail_request(
+        $response['name'] ,
+        $response['email'] ,
+        $response['phone'] ,
+        $response['quantity'] ,
+        $response['room_date'] ,
+        $response['room_time'] ,
+        $response['room_name'] ,
+        $response['amount_price'] ,
+        'duration' ,
+        743,
+        1
+    );
 
     wp_send_json(json_encode($response), 200);
 
