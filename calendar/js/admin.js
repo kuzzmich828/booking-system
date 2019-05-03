@@ -28,6 +28,25 @@ jQuery( document ).ready(function() {
         }
 
     });
+
+
+
+    var url = new URL(document.location.href);
+    var query_string = url.search;
+    var search_params = new URLSearchParams(query_string);
+
+    var room_id = search_params.get('room_id');
+    var room_date = search_params.get('date');
+    var room_time = search_params.get('time');
+
+    if (room_id !== null && room_date !== null && room_time !== null &&
+            room_id != 'undefined' && room_date !== 'undefined' && room_time !== 'undefined'){
+        jQuery(input_room).val(room_id);
+        jQuery(input_room_date).val(room_date);
+        jQuery(input_room_time).val(room_time);
+    }
+
+
 });
 
 
