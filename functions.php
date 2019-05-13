@@ -115,6 +115,7 @@ function get_booking_count_by_date(){
 
 }
 
+
 function get_booking_after_date($from_date, $time, $frozen = null, $approve = null){
 
     $from_date = DateTime::createFromFormat('d-m-Y H:i', $from_date . " " . $time);

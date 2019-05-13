@@ -1,4 +1,63 @@
 <?php
+
+
+
+
+
+
+/********** Write widget for every room ************/
+
+add_action( 'wp_dashboard_setup', function () {
+
+    $posts = get_posts([
+            'post_type'=>'room',
+            'post_status'=> 'publish'
+    ]);
+
+    if ($posts)
+        foreach ($posts as $post) {
+
+            wp_add_dashboard_widget('bkng_dashboard_widget_room_' . $post->ID, __( 'Room', 'bkng' ).": ".$post->post_title, function () use ($post) {
+                $all_bookings = get_booking_after_date(date('d-m-Y'), date('H:i'));
+                foreach ($all_bookings as $booking):
+                    if ($booking['room_id'] != $post->ID)
+                        continue;
+                    ?>
+                    <div class="activity-block">
+                        <h3 style="font-weight: bold;"> <?= ($booking['room_name']) ? ($booking['room_name']) : "NO NAME"; ?>  </h3>
+
+                        <ul>
+                            <li>
+                                <i><?= $booking['room_date'] . ", " .$booking['room_time']; ?></i>
+                            </li>
+                        </ul>
+
+                        <div style="color: #000e14;">
+                            <p>
+                                <?= ($booking['name']) ? ($booking['name']) ." |" : ""; ?>
+                                <?= ($booking['phone']) ? ($booking['phone']) ." |" : ""; ?>
+                                <?= ($booking['comments']) ? ($booking['comments']) ." |" : ""; ?>
+                                <?= ($booking['amount_price']) ? ($booking['amount_price']) ." |" : ""; ?>
+                            </p>
+                        </div>
+
+
+                        <p>
+                        <form action="" method="post" class="dashboard-form">
+                            <input type="hidden" name="booking_id" value="<?= $booking['booking_id']; ?>" />
+                            <a href="<?= admin_url('edit.php'); ?>?post_type=bookings&page=booking-calendar&edit_booking=<?= $booking['booking_id']; ?>"><button type="button" class="button button-primary">Edit</button></a>
+                            <button class="button button-delete" name="delete_booking" type="submit" >Delete</button>
+                        </form>
+                        </p>
+                    </div>
+                <?php
+                endforeach;
+            });
+
+        }
+} );
+
+
 /***************** *********************/
 add_action( 'wp_dashboard_setup', 'bkng_dashboard_widget_all_booking' );
 function bkng_dashboard_widget_all_booking() {
@@ -162,7 +221,7 @@ add_action('admin_footer', function (){
             setTimeout(refresh, 2000);
     }
 
-    setTimeout(refresh, 2000);
+    setTimeout(refresh, 1000*60);
 </script>
 <?php
    }
