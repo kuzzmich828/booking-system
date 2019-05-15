@@ -2,7 +2,7 @@
 
 $options = array(
 
-     'room' => array(
+    'room' => array(
         'type'  => 'select',
         'choices' => array(),
         'label' =>  __('Room', 'bkng'),
@@ -41,15 +41,7 @@ $options = array(
         'desc' => __('Choose booking time', 'bkng'),
     ),
 
-    'email' => array(
-        'type'  => 'text',
-        'label' =>  __('Email', 'bkng') ,
-        'fw-storage' => array(
-            'type' => 'post-meta',
-            'post-meta' => 'fw_option:email',
-        ),
-        'desc' => __('Choose booking email', 'bkng'),
-    ),
+
 
     'name' => array(
         'type'  => 'text',
@@ -69,6 +61,16 @@ $options = array(
             'post-meta' => 'fw_option:phone',
         ),
         'desc' => __('Choose booking phone', 'bkng'),
+    ),
+
+    'email' => array(
+        'type'  => 'text',
+        'label' =>  __('Email', 'bkng') ,
+        'fw-storage' => array(
+            'type' => 'post-meta',
+            'post-meta' => 'fw_option:email',
+        ),
+        'desc' => __('Choose booking email', 'bkng'),
     ),
 
     'comments' => array(
@@ -110,16 +112,16 @@ $options = array(
         ),
     ),*/
 
-/*
-    'quantity' => array(
-        'type'  => 'select',
-        'label' =>  __('Quantity', 'bkng') ,
-        'fw-storage' => array(
-            'type' => 'post-meta',
-            'post-meta' => 'fw_option:quantity',
+    /*
+        'quantity' => array(
+            'type'  => 'select',
+            'label' =>  __('Quantity', 'bkng') ,
+            'fw-storage' => array(
+                'type' => 'post-meta',
+                'post-meta' => 'fw_option:quantity',
+            ),
         ),
-    ),
-*/
+    */
     'frozen' => array(
         'type'  => 'switch',
         'label' =>  __('Frozen', 'bkng') ,
@@ -135,25 +137,6 @@ $options = array(
         'fw-storage' => array(
             'type' => 'post-meta',
             'post-meta' => 'fw_option:frozen',
-        ),
-    ),
-
-
-    'subscription' => array(
-        'type'  => 'switch',
-        'label' =>  __('Subscription', 'bkng') ,
-        'value' => 'off',
-        'left-choice' => array(
-            'value' => 'on',
-            'label' => __('Yes', 'bkng'),
-        ),
-        'right-choice' => array(
-            'value' => 'off',
-            'label' => __('No', 'bkng'),
-        ),
-        'fw-storage' => array(
-            'type' => 'post-meta',
-            'post-meta' => 'fw_option:subscription',
         ),
     ),
 
@@ -198,8 +181,8 @@ $options = array(
 
 /*********** Rooms **********/
 $rooms = get_posts([
-   'post_type'=>'room',
-   'post_status'=>'publish'
+    'post_type'=>'room',
+    'post_status'=>'publish'
 ]);
 
 $options['room']['choices'][''] = '---';
@@ -250,5 +233,5 @@ for ($k = 0; $k < 100; $k++){
 }
 
 add_action('admin_enqueue_scripts', function (){
-   wp_enqueue_script('admin-booking-js',content_url('plugins/booking-system/').'/../calendar/js/admin.js', ['jquery']);
+    wp_enqueue_script('admin-booking-js',content_url('plugins/booking-system/').'/../calendar/js/admin.js', ['jquery']);
 });

@@ -1,10 +1,5 @@
 <?php
 
-
-
-
-
-
 /********** Write widget for every room ************/
 
 add_action( 'wp_dashboard_setup', function () {
@@ -41,14 +36,12 @@ add_action( 'wp_dashboard_setup', function () {
                             </p>
                         </div>
 
-
-                        <p>
-                        <form action="" method="post" class="dashboard-form">
+                        <a href="<?= admin_url('edit.php'); ?>?post_type=bookings&page=booking-calendar&edit_booking=<?= $booking['booking_id']; ?>"><button type="button" class="button button-primary">Edit</button></a>
+                        <form action="" method="post" class="dashboard-form-del">
                             <input type="hidden" name="booking_id" value="<?= $booking['booking_id']; ?>" />
-                            <a href="<?= admin_url('edit.php'); ?>?post_type=bookings&page=booking-calendar&edit_booking=<?= $booking['booking_id']; ?>"><button type="button" class="button button-primary">Edit</button></a>
                             <button class="button button-delete" name="delete_booking" type="submit" >Delete</button>
                         </form>
-                        </p>
+
                     </div>
                 <?php
                 endforeach;
@@ -87,14 +80,12 @@ function bkng_dashboard_widget_all_booking_handler() {
                 </p>
             </div>
 
+            <a href="<?= admin_url('edit.php'); ?>?post_type=bookings&page=booking-calendar&edit_booking=<?= $booking['booking_id']; ?>"><button type="button" class="button button-primary">Edit</button></a>
+            <form action="" method="post" class="dashboard-form-del">
+                <input type="hidden" name="booking_id" value="<?= $booking['booking_id']; ?>" />
+                <button class="button button-delete" name="delete_booking" type="submit" >Delete</button>
+            </form>
 
-            <p>
-                <form action="" method="post" class="dashboard-form">
-                    <input type="hidden" name="booking_id" value="<?= $booking['booking_id']; ?>" />
-                    <a href="<?= admin_url('edit.php'); ?>?post_type=bookings&page=booking-calendar&edit_booking=<?= $booking['booking_id']; ?>"><button type="button" class="button button-primary">Edit</button></a>
-                    <button class="button button-delete" name="delete_booking" type="submit" >Delete</button>
-                </form>
-            </p>
         </div>
     <?php
     endforeach;
@@ -128,15 +119,16 @@ function bkng_dashboard_widget_need_approve_handler() {
                 </p>
             </div>
 
+            <form action="" method="post" class="dashboard-form-approve">
+                <input type="hidden" name="booking_id" value="<?= $booking['booking_id']; ?>" />
+                <button class="button button-approve" name="approve_booking" type="submit">Approve</button>
+            </form>
+            <a href="<?= admin_url('edit.php'); ?>?post_type=bookings&page=booking-calendar&edit_booking=<?= $booking['booking_id']; ?>"><button type="button" class="button button-primary">Edit</button></a>
+            <form action="" method="post" class="dashboard-form-del">
+                <input type="hidden" name="booking_id" value="<?= $booking['booking_id']; ?>" />
+                <button class="button button-delete" name="delete_booking" type="submit" >Delete</button>
+            </form>
 
-            <p>
-                <form action="" method="post" class="dashboard-form">
-                    <input type="hidden" name="booking_id" value="<?= $booking['booking_id']; ?>" />
-                    <button class="button button-approve" name="approve_booking" type="submit">Approve</button>
-                    <a href="<?= admin_url('edit.php'); ?>?post_type=bookings&page=booking-calendar&edit_booking=<?= $booking['booking_id']; ?>"><button type="button" class="button button-primary">Edit</button></a>
-                    <button class="button button-delete" name="delete_booking" type="submit" >Delete</button>
-                </form>
-            </p>
         </div>
 
 
@@ -175,14 +167,12 @@ function bkng_dashboard_widget_frozen_handler() {
             </p>
         </div>
 
+        <input type="hidden" name="booking_id" value="<?= $booking['booking_id']; ?>" />
+        <a href="<?= admin_url('edit.php'); ?>?post_type=bookings&page=booking-calendar&edit_booking=<?= $booking['booking_id']; ?>"><button type="button" class="button button-primary">Edit</button></a>
+        <form action="" method="post" class="dashboard-form-del">
+            <button class="button button-delete" name="delete_booking" type="submit" >Delete</button>
+        </form>
 
-        <p>
-            <form action="" method="post" class="dashboard-form">
-                <input type="hidden" name="booking_id" value="<?= $booking['booking_id']; ?>" />
-                <a href="<?= admin_url('edit.php'); ?>?post_type=bookings&page=booking-calendar&edit_booking=<?= $booking['booking_id']; ?>"><button type="button" class="button button-primary">Edit</button></a>
-                <button class="button button-delete" name="delete_booking" type="submit" >Delete</button>
-            </form>
-        </p>
     </div>
     <?php
     endforeach;
@@ -207,6 +197,8 @@ function bkng_dashboard_widget_newbooking_handler() {
 
 /******************** AutoRefresh Dashboard *******************/
 add_action('admin_footer', function (){
+
+
    if (get_current_screen()->id === 'dashboard'){
        ?>
 <script>
@@ -220,9 +212,14 @@ add_action('admin_footer', function (){
         else
             setTimeout(refresh, 2000);
     }
-
     setTimeout(refresh, 1000*60);
 </script>
+<style>
+   .dashboard-form-del, .dashboard-form-approve {
+       float: left;
+       margin: 0 10px;
+   }
+</style>
 <?php
    }
 });

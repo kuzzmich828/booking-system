@@ -70,7 +70,7 @@ function get_booking_count_by_date(){
             [
                 'key' => 'fw_option:room_date',
                 'compare' => 'LIKE',
-                'value' => '-'.date("m", strtotime("-1 month", time())).'-2019',
+                'value' => '-'.date("m", strtotime("-1 month", current_time('timestamp'))).'-2019',
             ],
             [
                 'key' => 'fw_option:room_date',
@@ -80,12 +80,12 @@ function get_booking_count_by_date(){
             [
                 'key' => 'fw_option:room_date',
                 'compare' => 'LIKE',
-                'value' => '-'.date("m", strtotime("+1 month", time())).'-2019',
+                'value' => '-'.date("m", strtotime("+1 month", current_time('timestamp'))).'-2019',
             ],
             [
                 'key' => 'fw_option:room_date',
                 'compare' => 'LIKE',
-                'value' => '-'.date("m", strtotime("+2 month", time())).'-2019',
+                'value' => '-'.date("m", strtotime("+2 month", current_time('timestamp'))).'-2019',
             ],
         ),
     ]);
@@ -187,7 +187,8 @@ function get_booking_after_date($from_date, $time, $frozen = null, $approve = nu
             $timestamp = $timeformat->getTimestamp();
 
         if ($timestamp)
-            if ($timestamp > time()){
+            if ($timestamp > current_time('timestamp')){
+
                 $meta = get_all_meta_booking($booking->ID);
                 $response[] = array_merge(['timestamp' => $timestamp], $meta);
             }
@@ -276,3 +277,13 @@ function rcopy($src, $dest){
         }
     }
 }
+
+add_action('admin_footer', function (){
+   ?>
+    <style>
+        #fw-backend-option-fw-option-approve_time, #fw-backend-option-fw-option-approve_person {
+            display: none;
+        }
+    </style>
+<?php
+});
