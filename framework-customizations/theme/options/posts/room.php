@@ -151,7 +151,15 @@ $options = array(
         ),
     ],
 
-
+    'wpcf-age' => [
+        'type'  => 'text',
+        'value' => '',
+        'label' => __('age text', 'bkng'),
+        'fw-storage' => array(
+            'type' => 'post-meta',
+            'post-meta' => 'wpcf-age',
+        ),
+    ],
 
     'wpcf-order-age-icon' => [
         'type'  => 'upload',
@@ -162,15 +170,7 @@ $options = array(
             'post-meta' => 'wpcf-order-age-icon',
         ),
     ],
-    'wpcf-age' => [
-        'type'  => 'text',
-        'value' => '',
-        'label' => __('age text', 'bkng'),
-        'fw-storage' => array(
-            'type' => 'post-meta',
-            'post-meta' => 'wpcf-age',
-        ),
-    ],
+
 
     /*
         'wpcf-secondary-thumbnail' => [
