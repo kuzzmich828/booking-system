@@ -44,6 +44,7 @@ $options = array(
 
     /***********************************/
 
+    /*
     'wpcf-subtitle' => [
         'type'  => 'text',
         'value' => '',
@@ -53,7 +54,7 @@ $options = array(
             'post-meta' => 'wpcf-subtitle',
         ),
     ],
-    /*'wpcf-bg-color' => [
+    'wpcf-bg-color' => [
         'type'  => 'color-picker',
         'value' => '',
         'label' => __('Background color', 'bkng'),
