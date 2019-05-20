@@ -16,10 +16,42 @@ var button_new_booking = ".href-new-booking";
 
 jQuery( document ).ready(function() {
 
+
+    jQuery(document).on("click", button_new_booking, function (event) {
+
+        event.preventDefault();
+
+
+
+        var data = [];
+        data['room_id'] = jQuery('.choose-room').val();
+        data['booking_id'] = '';
+        data['room_time'] = jQuery('.cell-time.selected-day').attr('data-time');
+        data['room_date'] = jQuery('.cell-day.selected-day').attr('data-date-attr');
+        data['phone'] = '';
+        data['email'] = '';
+        data['name'] = '';
+        data['comments'] = '';
+        data['amount_price'] = 0;
+        data['quantity'] = 0;
+        data['frozen'] = 'off';
+        data['approve'] = 'off';
+
+        $("#room_id").val(data['room_id']);
+
+        fillBooking(data, true);
+
+        jQuery(this).hide();
+        jQuery(button_save).show();
+        jQuery(button_edit).hide();
+        jQuery(container_edit).show();
+        jQuery(table_edit).fadeIn(300);
+
+    });
+
     jQuery(document).on("click", "div.cell-day.past-date", function (event) {
         event.preventDefault();
     });
-
 
     /********* Select a Day *********/
     jQuery(document).on("click", ".cell-day, .fc-today", function (event) {
@@ -164,8 +196,8 @@ function showNewBooking() {
     var date = jQuery('.cell-day.selected-day').attr('data-date-attr');
     var time = jQuery('.cell-time.selected-day').attr('data-time');
     var room_id = jQuery('.choose-room').val();
-    jQuery(button_new_booking).attr('href',
-        '/wp-admin/post-new.php?post_type=bookings&room_id='+room_id+'&time='+time+'&date='+date);
+    // jQuery(button_new_booking).attr('href',
+    //     '/wp-admin/post-new.php?post_type=bookings&room_id='+room_id+'&time='+time+'&date='+date);
     jQuery(container_edit).fadeIn(300);
     jQuery(button_new_booking).fadeIn(300);
 }
@@ -209,7 +241,7 @@ function spinnerShow() {
     jQuery('div.loading').show();
 }
 
-function fillBooking(data) {
+function fillBooking(data, clear = false) {
 
     jQuery("#booking_id").val(data['booking_id']);
     jQuery("#room_time").val(data['room_time']);
@@ -256,7 +288,6 @@ function fillBooking(data) {
         }
     });
 
-
     if (data['frozen'] == 'on'){
         jQuery("#frozen_booking").prop('checked', true);
     }else{
@@ -267,8 +298,13 @@ function fillBooking(data) {
         jQuery("#discount_booking").val(data['discount']);
     else
         jQuery("#discount_booking").val('0');
-    jQuery(table_edit + " input, " + table_edit + " select, " + table_edit + " textarea").prop("disabled", true);
-    AutoFillDateTimeBooking(data['room_date']);
+
+    if (!clear) {
+        jQuery(table_edit + " input, " + table_edit + " select, " + table_edit + " textarea").prop("disabled", true);
+        AutoFillDateTimeBooking(data['room_date']);
+    } else {
+        jQuery(table_edit + " input, " + table_edit + " select, " + table_edit + " textarea").prop("disabled", false);
+    }
 }
 
 function spinnerHide() {

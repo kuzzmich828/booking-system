@@ -634,50 +634,29 @@ add_action( 'wp_ajax_create_booking', 'callback_create_booking' );
 add_action( 'wp_ajax_nopriv_create_booking', 'callback_create_booking' );
 function callback_create_booking(){
 
-    $response = [];
+    $fields = [];
+    $fields['fw_option:room'] = (isset($_POST['room_id']) && $_POST['room_id']) ? $_POST['room_id'] : null;
 
-    $post_data = array(
-        'post_status'   => 'publish',
-        'post_type'     => 'bookings',
-        'post_title'    => '',
-        'post_content'  => '',
-        'post_author'   => 1,
-    );
+    $fields['fw_option:name'] = (isset($_POST['name_booking']) && $_POST['name_booking']) ? $_POST['name_booking'] : null;
+    $fields['fw_option:phone'] = (isset($_POST['phone_booking']) && $_POST['phone_booking']) ? $_POST['phone_booking'] : null;
+    $fields['fw_option:email'] = (isset($_POST['email_booking']) && $_POST['email_booking']) ? $_POST['email_booking'] : null;
 
-    $post_id = wp_insert_post( $post_data );
-    if ($post_id){
+    $fields['fw_option:room_date'] = (isset($_POST['room_date']) && $_POST['room_date']) ? DateTime::createFromFormat('d-m-Y', $_POST['room_date'])->format('d-m-Y') : null;
+    $fields['fw_option:room_time'] = (isset($_POST['room_time']) && $_POST['room_time']) ? $_POST['room_time'] : null;
+    $fields['fw_option:subscription'] = (isset($_POST['subscription']) && ($_POST['subscription']) == 'true') ? 'on' : 'off';
 
-        $fields = [];
-        $fields['fw_option:room'] = (isset($_POST['room_id']) && $_POST['room_id']) ? $_POST['room_id'] : null;
+    $fields['fw_option:frozen'] = 'off';
+    $fields['fw_option:approve'] = 'off';
+    $fields['fw_option:approve_person'] = '';
+    $fields['fw_option:approve_time'] = '';
+    $fields['fw_option:quantity'] = 0;
+    $fields['fw_option:discount'] = 0;
+    $fields['fw_option:comments'] = '';
 
-        $fields['fw_option:name'] = (isset($_POST['name_booking']) && $_POST['name_booking']) ? $_POST['name_booking'] : null;
-        $fields['fw_option:phone'] = (isset($_POST['phone_booking']) && $_POST['phone_booking']) ? $_POST['phone_booking'] : null;
-        $fields['fw_option:email'] = (isset($_POST['email_booking']) && $_POST['email_booking']) ? $_POST['email_booking'] : null;
+    $fields['fw_option:amount'] = (isset($_POST['price']) && $_POST['price']) ? $_POST['price'] : null;
+    $fields['fw_option:amount_price'] = (isset($_POST['price']) && $_POST['price']) ? $_POST['price'] : null;
 
-        $fields['fw_option:room_date'] = (isset($_POST['room_date']) && $_POST['room_date']) ? DateTime::createFromFormat('d-m-Y', $_POST['room_date'])->format('d-m-Y') : null;
-        $fields['fw_option:room_time'] = (isset($_POST['room_time']) && $_POST['room_time']) ? $_POST['room_time'] : null;
-        $fields['fw_option:subscription'] = (isset($_POST['subscription']) && ($_POST['subscription']) == 'true') ? 'on' : 'off';
-
-        $fields['fw_option:frozen'] = 'off';
-        $fields['fw_option:approve'] = 'off';
-        $fields['fw_option:approve_person'] = '';
-        $fields['fw_option:approve_time'] = '';
-        $fields['fw_option:quantity'] = 0;
-        $fields['fw_option:discount'] = 0;
-        $fields['fw_option:comments'] = '';
-
-        $fields['fw_option:amount'] = (isset($_POST['price']) && $_POST['price']) ? $_POST['price'] : null;
-        $fields['fw_option:amount_price'] = (isset($_POST['price']) && $_POST['price']) ? $_POST['price'] : null;
-
-        foreach ($fields as $key => $val){
-            if ($val !== null)
-                update_post_meta($post_id, $key, $val);
-        }
-
-        callback_post_options_update($post_id);
-
-        $response = get_all_meta_booking($post_id);
-    }
+    $response = create_booking($fields);
 
     mail_request(
         $response['name'] ,
@@ -695,4 +674,34 @@ function callback_create_booking(){
 
     wp_send_json(json_encode($response), 200);
 
+}
+
+function create_booking($fields){
+
+    $response = [];
+
+    $post_data = array(
+        'post_status'   => 'publish',
+        'post_type'     => 'bookings',
+        'post_title'    => '',
+        'post_content'  => '',
+        'post_author'   => 1,
+    );
+
+    $post_id = wp_insert_post( $post_data );
+
+    if ($post_id){
+
+        foreach ($fields as $key => $val){
+            if ($val !== null)
+                update_post_meta($post_id, $key, $val);
+        }
+
+        callback_post_options_update($post_id);
+
+        $response = get_all_meta_booking($post_id);
+
+    }
+
+    return $response;
 }
