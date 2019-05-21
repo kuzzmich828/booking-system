@@ -74,9 +74,9 @@ function bkng_save_booking(){
             $booking_id = $response['booking_id'];
         }
 
-        add_action('admin_footer', function () use ($booking_id) {
-            ?><script>window.location.href = '<?= admin_url('edit.php') . '?post_type=bookings&page=booking-calendar&edit_booking=' . $booking_id; ?>'; </script><?php
-        });
+        /*add_action('admin_footer', function () use ($booking_id) {
+            */?><!--<script>window.location.href = '<?/*= admin_url('edit.php') . '?post_type=bookings&page=booking-calendar&edit_booking=' . $booking_id; */?>'; </script>--><?php
+/*        });*/
 
 
     }

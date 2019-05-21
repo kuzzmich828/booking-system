@@ -171,7 +171,7 @@
 
 <?php if (isset($_GET['edit_booking']) && $_GET['edit_booking']): ?>
     <script>
-        BookingInfoAjax(<?=$_GET['edit_booking']; ?>);
+        BookingInfoAjax(<?=$_GET['edit_booking']; ?>, true);
     </script>
 <?php else: ?>
     <script>
