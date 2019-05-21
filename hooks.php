@@ -185,6 +185,7 @@ function callback_get_room_attributes(){
     $data ['complexity_text'] = get_post_meta($room_id, 'wpcf-complexity', 1);
     $data ['complexity_icon'] = get_post_meta($room_id, 'wpcf-order-complexity-icon', 1);
     $data ['percent'] = get_post_meta($room_id, 'wpcf-percent-without-help', 1);
+    $data ['icon_text_color'] = get_post_meta($room_id, 'wpcf-icon-text-color', 1);
 
 
 

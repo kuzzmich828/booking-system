@@ -20,22 +20,22 @@
                 <div class="wrapper-quest__whiteline_bottom">
                     <div class="wrapper-quest__complexity">
                         <img class="time-icon-js" alt="" src="<?= plugin_dir_url(__FILE__); ?>img/escape-timeicon-gotgrey.png">
-                        <div class="time-text-js"> רמת קושי גבוהה </div>
+                        <div class="wpcf-icon-text-color time-text-js"> רמת קושי גבוהה </div>
                     </div>
 
                     <div class="wrapper-quest__people">
                         <img class="people-icon-js" alt="" src="<?= plugin_dir_url(__FILE__); ?>img/escape-peopleicon-gotgrey.png">
-                        <div class="people-text-js">  עד 6 משתתפים</div>
+                        <div class="wpcf-icon-text-color people-text-js">  עד 6 משתתפים</div>
                     </div>
 
                     <div class="wrapper-quest__time">
                         <img class="complexity-icon-js" alt="" src="<?= plugin_dir_url(__FILE__); ?>img/escape-time-gotgray.png">
-                        <div class="complexity-text-js"> 60 דקות אתגר</div>
+                        <div class="wpcf-icon-text-color complexity-text-js"> 60 דקות אתגר</div>
                     </div>
 
                     <div class="wrapper-quest__age-info">
                         <img class="age-icon-js" alt="" src="<?= plugin_dir_url(__FILE__); ?>img/escape-ageicon-gotgrey.png">
-                        <div class="age-text-js">12+</div>
+                        <div class="wpcf-icon-text-color age-text-js">12+</div>
                     </div>
                 </div>
                 <div class="wrapper-quest__whiteline_header-right">

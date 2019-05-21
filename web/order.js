@@ -199,6 +199,8 @@ document.addEventListener("DOMContentLoaded", function () {
                 $('.age-icon-js').attr('src',response['age_icon']['url']);
                 $('.complexity-icon-js').attr('src',response['complexity_icon']['url']);
                 $('.percent-js').html(response['percent']);
+
+                $('.wpcf-icon-text-color').css('color', response['icon_text_color']);
                 /********** Fill icons ***********/
 
                 selected_room_id = response['room_id'];

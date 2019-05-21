@@ -172,6 +172,15 @@ $options = array(
         ),
     ],
 
+    'wpcf-icon-text-color' => [
+        'type'  => 'color-picker',
+        'value' => '#ccc',
+        'label' => __('Text Color Icon', 'bkng'),
+        'fw-storage' => array(
+            'type' => 'post-meta',
+            'post-meta' => 'wpcf-icon-text-color',
+        ),
+    ],
 
     /*
         'wpcf-secondary-thumbnail' => [
