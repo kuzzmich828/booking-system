@@ -219,6 +219,9 @@ function BookingInfoAjax(booking_id) {
             data = JSON.parse(data);
             if (data) {
                 fillBooking(data);
+            } else {
+                jQuery(container_edit).hide();
+                init_calendar('m');
             }
             spinnerHide();
         }
@@ -233,7 +236,6 @@ function AutoFillDateTimeBooking(date){
         jQuery(days[index]).removeClass(SELECT_CELL);
     });
     jQuery("#calendar").find(".cell-day[data-date-attr='"+date+"']").toggleClass(SELECT_CELL);
-
 
 }
 
@@ -284,7 +286,8 @@ function fillBooking(data, clear = false) {
                 options += '<option '+selected+' value = "' + prices[index]['price'] + '">' + prices[index]['quantity'] + ' - ' + prices[index]['price'] + '</option>';
             });
             jQuery("#price_booking").html(options);
-
+            console.log(response['times'], response['room_id'] );
+            fillTimes(response['times'], response['room_id']);
         }
     });
 
@@ -302,6 +305,17 @@ function fillBooking(data, clear = false) {
     if (!clear) {
         jQuery(table_edit + " input, " + table_edit + " select, " + table_edit + " textarea").prop("disabled", true);
         AutoFillDateTimeBooking(data['room_date']);
+
+        jQuery(container_rooms).show();
+        jQuery(container_time).show();
+
+        jQuery('.choose-room').val(data['room_id']);
+
+
+        // console.log(response );
+        // console.log(data['room_id']);
+        // fillTimes(data['times'], data['room_id']);
+        // fillRezerved(jQuery(this).val(), ROOMS_DATES_TIMES);
     } else {
         jQuery(table_edit + " input, " + table_edit + " select, " + table_edit + " textarea").prop("disabled", false);
     }

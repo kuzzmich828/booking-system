@@ -25,6 +25,15 @@
                 <h4><?= __('Choose a room:','bkng'); ?></h4>
                 <select class="form-control choose-room">
                     <option selected="selected" disabled value="0">Choose a room</option>
+                    <?php
+                        $rooms = bkng_get_booking_rooms();
+                        foreach ($rooms as $room):
+                    ?>
+                        <option selected="selected" value="<?= $room->ID; ?>"><?= $room->post_title; ?></option>
+                    <?php
+                        endforeach;
+                    ?>
+
                 </select>
             </div>
 
@@ -160,7 +169,7 @@
 
 <div class="loading"><img src="<?= plugin_dir_url(__DIR__); ?>/calendar/img/spinner.svg"></div>
 
-<?php if (isset($_GET['edit_booking'])): ?>
+<?php if (isset($_GET['edit_booking']) && $_GET['edit_booking']): ?>
     <script>
         BookingInfoAjax(<?=$_GET['edit_booking']; ?>);
     </script>
