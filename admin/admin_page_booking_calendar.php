@@ -86,15 +86,15 @@
                             </td>
                         </tr>
                         <tr>
-                            <td><label><?= __('E-mail','bkng'); ?></label></td>
-                            <td>
-                                <input name="email_booking" id="email_booking" placeholder="<?= __('Email...','bkng'); ?>" type="email" value="" class="form-control" />
-                            </td>
-                        </tr>
-                        <tr>
                             <td><label><?= __('Phone','bkng'); ?></label></td>
                             <td>
                                 <input name="phone_booking" id="phone_booking"  placeholder="<?= __('Phone...','bkng'); ?>" type="text" value="" class="form-control" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><label><?= __('E-mail','bkng'); ?></label></td>
+                            <td>
+                                <input name="email_booking" id="email_booking" placeholder="<?= __('Email...','bkng'); ?>" type="email" value="" class="form-control" />
                             </td>
                         </tr>
                         <tr>
