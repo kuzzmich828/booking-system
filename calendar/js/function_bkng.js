@@ -47,6 +47,25 @@ jQuery( document ).ready(function() {
 
     });
 
+
+    jQuery(document).submit( button_save, function (event) {
+
+
+        if (!jQuery('#frozen_booking').prop('checked')){
+            if (jQuery('#name_booking').val() == ''){
+                event.preventDefault();
+                alert("Field 'Name' is empty");
+            }else if (jQuery('#email_booking').val() == ''){
+                event.preventDefault();
+                alert("Field 'Email' is empty");
+            }else if (jQuery('#phone_booking').val() == ''){
+                event.preventDefault();
+                alert("Field 'Phone' is empty");
+            }
+        }
+    });
+
+
     jQuery(document).on("click", "div.cell-day.past-date", function (event) {
         event.preventDefault();
     });
