@@ -111,7 +111,7 @@ jQuery( document ).ready(function() {
             return;
         }
         jQuery(table_edit).hide();
-        showNewBooking();
+        hideNewBooking();
 
         var days = jQuery("#calendar").find(".cell-day, .fc-today");
         jQuery( days ).each(function( index ) {
