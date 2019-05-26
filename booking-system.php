@@ -44,6 +44,19 @@ if (is_admin() && isset($_GET['page']) && $_GET['page'] == 'booking-calendar' ) 
         wp_enqueue_script('function-js', plugin_dir_url(__FILE__) . 'calendar/js/function_bkng.js', ['modernizr-js']);
 
     });
+
+    add_action('admin_head', function(){
+        ?>
+        <style>
+            body {
+                font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+                font-size: 13px;
+                line-height: 1.4em;
+                min-width: 600px;
+            }
+        </style>
+        <?php
+    });
 }
 
 add_action('admin_enqueue_scripts', function () {

@@ -17,7 +17,7 @@ function add_views_column( $columns ){
         'subscription' => __('Subscription', 'bkng'),             // Subscribe
 
         'room' => __('Room', 'bkng'),
-        'room_date' => __('Date', 'bkng'),
+        'room_date' => __('Game Date', 'bkng'),
         'week_day' => __('Day of Week', 'bkng'),
         'quantity' => __('Quantity', 'bkng'),
         'discount' => __('Discount', 'bkng'),

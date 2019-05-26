@@ -48,7 +48,9 @@ function bkng_register_posts_type(){
             'menu_name'          => __('Booking', 'bkng')
 
         ),
-
+        'capabilities' => array(
+            'create_posts' => 'do_not_allow', // false < WP 4.5, credit @Ewout
+        ),
         'public'             => true,
         'publicly_queryable' => true,
         'show_ui'            => true,
@@ -152,7 +154,7 @@ function callback_get_room_attributes(){
 
 
     $the_last_date = (!$the_last_date) ? (date('d.m.Y H:i:s', current_time('timestamp') - 500)) : $the_last_date;
-    $current_date = date('d.m.Y H:i:s', time());
+    $current_date = current_time('d.m.Y H:i:s');
     $seconds = floor((strtotime($current_date) - strtotime($the_last_date)));
     $minutes = floor($seconds / 60);      // Считаем минуты
     $hours = floor($minutes / 60);        // Считаем количество полных часов
@@ -293,7 +295,7 @@ function approveBookingData($booking_id, $unapprove = false){
     }
 
     if (get_post_meta($booking_id, "fw_option:approve_time", 1) == '') {
-        update_post_meta($booking_id, "fw_option:approve_time", date("Y/m/d H:i"));
+        update_post_meta($booking_id, "fw_option:approve_time", current_time("Y/m/d H:i"));
     }
     if (get_post_meta($booking_id, "fw_option:approve_person", 1) == '') {
         update_post_meta($booking_id, "fw_option:approve_person", wp_get_current_user()->nickname);
