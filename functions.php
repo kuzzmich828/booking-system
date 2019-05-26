@@ -41,25 +41,28 @@ function bkng_save_booking(){
         $fields['fw_option:approve_time'] = '';
         $fields['fw_option:amount'] = (isset($_POST['price']) && $_POST['price']) ? $_POST['price'] : null;
 
+        if (isset($_POST['frozen_booking'])) {
+            $fields['fw_option:frozen'] = ($_POST['frozen_booking'] == 'on') ? 'on' : 'off';
+        } else {
+            $fields['fw_option:frozen'] = 'off';
+        }
+
+        if (isset($_POST['approve_booking'])) {
+            $fields['fw_option:approve'] = ($_POST['approve_booking'] == 'on') ? 'on' : 'off';
+            approveBookingData($fields['booking_id']);
+        } else {
+            $fields['fw_option:approve'] = 'off';
+            approveBookingData($fields['booking_id'], true);
+        }
         /***************** ********************/
 
         if ($fields['booking_id'] != null) {
 
-            if (isset($_POST['approve_booking'])) {
-                $fields['fw_option:approve'] = ($_POST['approve_booking'] == 'on') ? 'on' : 'off';
+            if ($fields['fw_option:approve'] == 'on') {
                 approveBookingData($fields['booking_id']);
             } else {
-                $fields['fw_option:approve'] = 'off';
                 approveBookingData($fields['booking_id'], true);
             }
-
-
-            if (isset($_POST['frozen_booking'])) {
-                $fields['fw_option:frozen'] = ($_POST['frozen_booking'] == 'on') ? 'on' : 'off';
-            } else {
-                $fields['fw_option:frozen'] = 'off';
-            }
-
 
             foreach ($fields as $key => $val) {
                 if ($val !== null)
@@ -72,6 +75,11 @@ function bkng_save_booking(){
 
             $response = create_booking($fields);
             $booking_id = $response['booking_id'];
+
+            if ($fields['fw_option:approve'] == 'on') {
+                approveBookingData($booking_id);
+            }
+
         }
 
         /*add_action('admin_footer', function () use ($booking_id) {

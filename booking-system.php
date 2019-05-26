@@ -64,11 +64,13 @@ add_action('admin_enqueue_scripts', function () {
 });
 function admin_page_booking_calendar() {
 
-    bkng_save_booking();
+//    bkng_save_booking();
 
     include( __DIR__ . "/admin/admin_page_booking_calendar.php");
 }
 /* end Hook for adding admin menus */
+
+add_action('edit_booking_hook', 'bkng_save_booking');
 
 register_uninstall_hook(__FILE__, 'bkng_deactive');
 
