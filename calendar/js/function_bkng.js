@@ -14,6 +14,8 @@ var button_edit = ".edit-button";
 var button_delete = ".delete-button";
 var button_new_booking = ".href-new-booking";
 
+var is_change_datetime = false;
+
 jQuery( document ).ready(function() {
 
 
@@ -48,9 +50,7 @@ jQuery( document ).ready(function() {
     });
 
 
-    jQuery(document).submit( button_save, function (event) {
-
-
+    jQuery(document).submit(button_save, function (event) {
         if (!jQuery('#frozen_booking').prop('checked')){
             if (jQuery('#name_booking').val() == ''){
                 event.preventDefault();
@@ -65,6 +65,26 @@ jQuery( document ).ready(function() {
         }
     });
 
+
+    /**
+     * Change Date & Time button
+     */
+    jQuery(document).on("click", ".change-date-button", function (event) {
+
+        event.preventDefault();
+
+        jQuery(".alert-calendar").show();
+        jQuery(".cell-day").removeClass("selected-day");
+        jQuery(".cell-time").removeClass("selected-day");
+        is_change_datetime = true;
+        jQuery(this).attr('data-room-id', jQuery(input_rooms).val());
+        jQuery(this).hide();
+        jQuery(button_edit).hide();
+        jQuery(button_delete).hide();
+        jQuery(container_rooms).hide();
+        jQuery(container_time).hide();
+
+    });
 
     jQuery(document).on("click", "div.cell-day.past-date", function (event) {
         event.preventDefault();
@@ -92,12 +112,18 @@ jQuery( document ).ready(function() {
                 ROOMS_DATES_TIMES = JSON.parse(data);
                 fillRooms(ROOMS_DATES_TIMES);
                 spinnerHide();
+
+                if (is_change_datetime){
+                    var room_id = (jQuery(".change-date-button").attr('data-room-id'));
+                    jQuery(input_rooms).val(room_id).change();
+                } else {
+                    jQuery(container_rooms).fadeIn(300);
+                    jQuery(input_rooms).val(0);
+                    jQuery(container_time).hide();
+                }
+
             }
         });
-
-        jQuery(container_rooms).fadeIn(300);
-        jQuery(input_rooms).val(0);
-        jQuery(container_time).hide();
 
     });
 
@@ -110,8 +136,11 @@ jQuery( document ).ready(function() {
         if (jQuery(this).attr('class').indexOf('past-date') > -1){
             return;
         }
-        jQuery(table_edit).hide();
-        hideNewBooking();
+
+        if (!is_change_datetime) {
+            jQuery(table_edit).hide();
+            hideNewBooking();
+        }
 
         var days = jQuery("#calendar").find(".cell-day, .fc-today");
         jQuery( days ).each(function( index ) {
@@ -139,6 +168,17 @@ jQuery( document ).ready(function() {
     /********* Select a Time *********/
     jQuery(document).on("click", ".cell-time", function (event) {
 
+        jQuery("#room_time").val(jQuery('.cell-time.selected-day').attr('data-time'));
+        jQuery("#room_date").val(jQuery('.cell-day.selected-day').attr('data-date-attr'));
+
+        if (is_change_datetime) {
+            alert("You changed date to " + jQuery("#room_date").val() +", "+ jQuery("#room_time").val());
+
+            jQuery("#form-booking *").prop("disabled", false);
+            jQuery(button_save).click();
+
+            return;
+        }
         var booking_id = jQuery(this).attr('data-booking-id');
 
         jQuery("#booking_id").val(booking_id);
@@ -147,7 +187,6 @@ jQuery( document ).ready(function() {
 
         if (booking_id){
             spinnerShow();
-            // var sel_date = jQuery(this).attr("data-date-attr");
             BookingInfoAjax(booking_id);
             jQuery(table_edit).show();
         } else {
@@ -155,13 +194,12 @@ jQuery( document ).ready(function() {
             showNewBooking();
         }
 
-
         updateUrlBookingID();
     });
 
 
     /********* Select a Room *********/
-    jQuery(input_rooms).on("change", function (event) {
+    /*jQuery(input_rooms).on("change", function (event) {
         spinnerShow();
 
         fillTimes(ROOMS_DATES_TIMES, jQuery(this).val());
@@ -170,7 +208,7 @@ jQuery( document ).ready(function() {
         jQuery(container_time).fadeIn(300);
 
         spinnerHide();
-    });
+    });*/
     
     /********* Select a Room *********/
     jQuery(input_rooms).on("change", function (event) {
@@ -207,12 +245,6 @@ jQuery( document ).ready(function() {
 });
 
 function showNewBooking() {
-
-    var date = jQuery('.cell-day.selected-day').attr('data-date-attr');
-    var time = jQuery('.cell-time.selected-day').attr('data-time');
-    var room_id = jQuery('.choose-room').val();
-    // jQuery(button_new_booking).attr('href',
-    //     '/wp-admin/post-new.php?post_type=bookings&room_id='+room_id+'&time='+time+'&date='+date);
     jQuery(container_edit).fadeIn(300);
     jQuery(button_new_booking).fadeIn(300);
 }

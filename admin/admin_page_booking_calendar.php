@@ -1,5 +1,10 @@
 
 <div class="wrap">
+    <div class="row">
+        <div class="col-sm-12">
+            <span class="alert-calendar"><?= __('Please, chese new date & time','bkng'); ?></span>
+        </div>
+    </div>
     <h1><?= __('Booking Calendar'); ?></h1>
     <div class="row">
 
@@ -71,7 +76,7 @@
             <div class="step-4">
                 <h4><?= __('Booking details:','bkng'); ?></h4>
 
-                <form action="" method="post" >
+                <form action="" method="post" class="form-booking" id="form-booking">
                     <table class="table table-striped w-auto booking-table-edit">
                     <tbody>
                         <tr>
@@ -127,6 +132,12 @@
                             <td>
                                 <input name="frozen_booking" id="frozen_booking" type="checkbox" class="form-control" />
                             </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <button class="btn btn-success change-date-button" data-room-id="" type="button"><?= __('Change date/time','bkng'); ?></button>
+                            </td>
+                            <td></td>
                         </tr>
                         <tr>
                             <td>

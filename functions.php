@@ -34,12 +34,18 @@ function bkng_save_booking(){
         $fields['fw_option:approve'] = 'off';
         $fields['fw_option:frozen'] = 'off';
         $fields['fw_option:quantity'] = 0;
+
         $fields['fw_option:room_date'] = (isset($_POST['room_date']) && $_POST['room_date']) ? DateTime::createFromFormat('d-m-Y', $_POST['room_date'])->format('d-m-Y') : null;
         $fields['fw_option:room_time'] = (isset($_POST['room_time']) && $_POST['room_time']) ? $_POST['room_time'] : null;
+
+
+
         $fields['fw_option:subscription'] = (isset($_POST['subscription']) && ($_POST['subscription']) == 'true') ? 'on' : 'off';
         $fields['fw_option:approve_person'] = '';
         $fields['fw_option:approve_time'] = '';
         $fields['fw_option:amount'] = (isset($_POST['price']) && $_POST['price']) ? $_POST['price'] : null;
+
+
 
         if (isset($_POST['frozen_booking'])) {
             $fields['fw_option:frozen'] = ($_POST['frozen_booking'] == 'on') ? 'on' : 'off';
