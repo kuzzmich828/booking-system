@@ -42,54 +42,6 @@ $options = array(
         ),
     ),
 
-    /***********************************/
-
-    /*
-    'wpcf-subtitle' => [
-        'type'  => 'text',
-        'value' => '',
-        'label' => __('Subtitle', 'bkng'),
-        'fw-storage' => array(
-            'type' => 'post-meta',
-            'post-meta' => 'wpcf-subtitle',
-        ),
-    ],
-    'wpcf-bg-color' => [
-        'type'  => 'color-picker',
-        'value' => '',
-        'label' => __('Background color', 'bkng'),
-        'fw-storage' => array(
-            'type' => 'post-meta',
-            'post-meta' => 'wpcf-bg-color',
-        ),
-    ],
-    'wpcf-age-color' => [
-        'type'  => 'color-picker',
-        'value' => '',
-        'label' => __('age color', 'bkng'),
-        'fw-storage' => array(
-            'type' => 'post-meta',
-            'post-meta' => 'wpcf-age-color',
-        ),
-    ],
-    'wpcf-text-color' => [
-        'type'  => 'color-picker',
-        'value' => '',
-        'label' => __('text color', 'bkng'),
-        'fw-storage' => array(
-            'type' => 'post-meta',
-            'post-meta' => 'wpcf-text-color',
-        ),
-    ],
-    'wpcf-excerpt' => [
-        'type'  => 'wp-editor',
-        'value' => '',
-        'label' => __('Excerpt', 'bkng'),
-        'fw-storage' => array(
-            'type' => 'post-meta',
-            'post-meta' => 'wpcf-excerpt',
-        ),
-    ],*/
 
     /********* ICON ************/
     'wpcf-order-complexity-icon' => [
@@ -182,73 +134,6 @@ $options = array(
         ),
     ],
 
-    /*
-        'wpcf-secondary-thumbnail' => [
-            'type'  => 'upload',
-            'value' => '',
-            'label' => __('secondary thumbnail', 'bkng'),
-            'fw-storage' => array(
-                'type' => 'post-meta',
-                'post-meta' => 'wpcf-secondary-thumbnail',
-            ),
-        ],
-
-        'wpcf-mobile-thumbnail' => [
-            'type'  => 'upload',
-            'value' => '',
-            'label' => __('mobile thumbnail', 'bkng'),
-            'fw-storage' => array(
-                'type' => 'post-meta',
-                'post-meta' => 'wpcf-mobile-thumbnail',
-            ),
-        ],
-        'wpcf-background-thumbnail' => [
-            'type'  => 'upload',
-            'value' => '',
-            'label' => __('background thumbnail', 'bkng'),
-            'fw-storage' => array(
-                'type' => 'post-meta',
-                'post-meta' => 'wpcf-background-thumbnail',
-            ),
-        ],
-        'wpcf-button-text' => [
-            'type'  => 'text',
-            'value' => '',
-            'label' => __('button text', 'bkng'),
-            'fw-storage' => array(
-                'type' => 'post-meta',
-                'post-meta' => 'wpcf-button-text',
-            ),
-        ],
-        'wpcf-options' => [
-            'type'  => 'wp-editor',
-            'value' => '',
-            'label' => __('options', 'bkng'),
-            'fw-storage' => array(
-                'type' => 'post-meta',
-                'post-meta' => 'wpcf-options',
-            ),
-        ],
-
-        'wpcf-flag-image' => [
-            'type'  => 'upload',
-            'value' => '',
-            'label' => __('flag image', 'bkng'),
-            'fw-storage' => array(
-                'type' => 'post-meta',
-                'post-meta' => 'wpcf-flag-image',
-            ),
-        ],
-
-        'wpcf-new-text' => [
-            'type'  => 'text',
-            'value' => '',
-            'label' => __('new text', 'bkng'),
-            'fw-storage' => array(
-                'type' => 'post-meta',
-                'post-meta' => 'wpcf-new-text',
-            ),
-        ],*/
     'wpcf-percent-without-help' => [
         'type'  => 'text',
         'value' => '',
@@ -259,6 +144,15 @@ $options = array(
         ),
     ],
 
+    'order_room' => [
+        'type'  => 'text',
+        'value' => '10',
+        'label' => __('Order room on home page', 'bkng'),
+        'fw-storage' => array(
+            'type' => 'post-meta',
+            'post-meta' => 'order_room',
+        ),
+    ],
 
 );
 
