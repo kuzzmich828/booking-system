@@ -6,6 +6,7 @@ add_action( 'wp_dashboard_setup', function () {
 
     $posts = get_posts([
             'post_type'=>'room',
+            'numberposts'=> -1,
             'post_status'=> 'publish'
     ]);
 

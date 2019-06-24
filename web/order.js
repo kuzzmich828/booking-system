@@ -125,7 +125,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     function close_all_modal() {
         wrapperQuestContainer.classList.remove("show");
-
+        $('.booking-popup-right-agent').hide();
         modal1.classList.remove("show");
         modal3.classList.remove("show");
         widget1.classList.remove("show");
@@ -158,6 +158,19 @@ document.addEventListener("DOMContentLoaded", function () {
         $room_name = element.attr('data-room-name');
         $room_id = element.attr('data-room-id');
         console.log("Open modal. Room-name:", $room_name, "Room-id:", $room_id);
+
+        // ********* Set URL *******/
+        if ($room_name) {
+
+            if (!$room_id || $room_id == 'undefined')
+                $room_id = findRoomByName($room_name) ;
+            console.log($room_name,$room_id);
+            if (window.location.href.indexOf("room_id") < 0)
+                window.history.pushState("", "", window.location.href + '?room_id=' + $room_id);
+            else
+                window.history.pushState("", "", window.location.href.replace(/room_id=[0-9]{0,6}/gi, 'room_id=' + $room_id));
+        }
+
 
         $this = element;
 
@@ -278,6 +291,7 @@ jQuery(document).on("click", ".item_content", function(){
 jQuery(document).on("click", "div.vcal-date", function(e){
 
     e.preventDefault();
+    $('.booking-popup-right-agent').hide();
     if ($(this).hasClass('vcal-date--disabled'))
         return;
     var date_calendar = $(this).attr("data-calendar-date");
@@ -307,6 +321,7 @@ jQuery(document).on("click", "div.vcal-date", function(e){
                     console.log(response[index])
                 });
                 $('.time-grid').show();
+                $('.booking-popup-right-agent').show();
             }
 
         });

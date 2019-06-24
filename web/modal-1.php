@@ -37,6 +37,6 @@
         </div>
     </div>
 
-    <div class="booking-popup-right-agent">להזמנת משחק ב 01:00, מומלץ ליצור קשר עם הנציג</div>
+    <div class="booking-popup-right-agent" style="display: none;">להזמנת משחק ב 01:00, מומלץ ליצור קשר עם הנציג</div>
     <a href="#" class="wrapper-quest__widget_button " id="button-step-1">הזמן עכשיו</a>
 </div>
