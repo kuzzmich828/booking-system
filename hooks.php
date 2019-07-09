@@ -329,7 +329,7 @@ function approveBookingData($booking_id, $unapprove = false){
         update_post_meta($booking_id, "fw_option:approve_person", '');
     }
 
-    $meta_time = get_post_meta($booking_id, "fw_option:approve_time", 1) == '';
+    $meta_time = get_post_meta($booking_id, "fw_option:approve_time", 1);
     if (!$meta_time || $meta_time == '') {
         update_post_meta($booking_id, "fw_option:approve_time", current_time("Y/m/d H:i"));
     }

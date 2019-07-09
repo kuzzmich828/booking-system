@@ -19,81 +19,81 @@ function get_times_format(){
 }
 
 function bkng_save_booking(){
-if (isset($_POST['save_booking'])){
+    if (isset($_POST['save_booking'])){
 
 
-$booking_id = '';
-$fields['booking_id'] = (isset($_POST['booking_id']) && $_POST['booking_id']) ? $_POST['booking_id'] : null;
-$fields['fw_option:room'] = (isset($_POST['room_id']) && $_POST['room_id']) ? $_POST['room_id'] : null;
-$fields['fw_option:name'] = (isset($_POST['name_booking']) && $_POST['name_booking']) ? $_POST['name_booking'] : null;
-$fields['fw_option:phone'] = (isset($_POST['phone_booking']) && $_POST['phone_booking']) ? $_POST['phone_booking'] : null;
-$fields['fw_option:email'] = (isset($_POST['email_booking']) && $_POST['email_booking']) ? $_POST['email_booking'] : null;
-$fields['fw_option:discount'] = (isset($_POST['discount_booking'])) ? (int)$_POST['discount_booking'] : null;
-$fields['fw_option:comments'] = (isset($_POST['notes_booking']) && $_POST['notes_booking']) ? $_POST['notes_booking'] : null;
-$fields['fw_option:amount_price'] = (isset($_POST['price_booking'])) ? (float)$_POST['price_booking'] : null;
-$fields['fw_option:approve'] = 'off';
-$fields['fw_option:frozen'] = 'off';
-$fields['fw_option:quantity'] = 0;
+        $booking_id = '';
+        $fields['booking_id'] = (isset($_POST['booking_id']) && $_POST['booking_id']) ? $_POST['booking_id'] : null;
+        $fields['fw_option:room'] = (isset($_POST['room_id']) && $_POST['room_id']) ? $_POST['room_id'] : null;
+        $fields['fw_option:name'] = (isset($_POST['name_booking']) && $_POST['name_booking']) ? $_POST['name_booking'] : null;
+        $fields['fw_option:phone'] = (isset($_POST['phone_booking']) && $_POST['phone_booking']) ? $_POST['phone_booking'] : null;
+        $fields['fw_option:email'] = (isset($_POST['email_booking']) && $_POST['email_booking']) ? $_POST['email_booking'] : null;
+        $fields['fw_option:discount'] = (isset($_POST['discount_booking'])) ? (int)$_POST['discount_booking'] : null;
+        $fields['fw_option:comments'] = (isset($_POST['notes_booking']) && $_POST['notes_booking']) ? $_POST['notes_booking'] : null;
+        $fields['fw_option:amount_price'] = (isset($_POST['price_booking'])) ? (float)$_POST['price_booking'] : null;
+        $fields['fw_option:approve'] = 'off';
+        $fields['fw_option:frozen'] = 'off';
+        $fields['fw_option:quantity'] = 0;
 
-$fields['fw_option:room_date'] = (isset($_POST['room_date']) && $_POST['room_date']) ? DateTime::createFromFormat('d-m-Y', $_POST['room_date'])->format('d-m-Y') : null;
-$fields['fw_option:room_time'] = (isset($_POST['room_time']) && $_POST['room_time']) ? $_POST['room_time'] : null;
-
-
-
-$fields['fw_option:subscription'] = (isset($_POST['subscription']) && ($_POST['subscription']) == 'true') ? 'on' : 'off';
-$fields['fw_option:approve_person'] = '';
-$fields['fw_option:approve_time'] = '';
-$fields['fw_option:amount'] = (isset($_POST['price']) && $_POST['price']) ? $_POST['price'] : null;
+        $fields['fw_option:room_date'] = (isset($_POST['room_date']) && $_POST['room_date']) ? DateTime::createFromFormat('d-m-Y', $_POST['room_date'])->format('d-m-Y') : null;
+        $fields['fw_option:room_time'] = (isset($_POST['room_time']) && $_POST['room_time']) ? $_POST['room_time'] : null;
 
 
 
-if (isset($_POST['frozen_booking'])) {
-    $fields['fw_option:frozen'] = ($_POST['frozen_booking'] == 'on') ? 'on' : 'off';
-} else {
-    $fields['fw_option:frozen'] = 'off';
-}
+        $fields['fw_option:subscription'] = (isset($_POST['subscription']) && ($_POST['subscription']) == 'true') ? 'on' : 'off';
+        $fields['fw_option:approve_person'] = '';
+        $fields['fw_option:approve_time'] = '';
+        $fields['fw_option:amount'] = (isset($_POST['price']) && $_POST['price']) ? $_POST['price'] : null;
 
-if (isset($_POST['approve_booking'])) {
-    $fields['fw_option:approve'] = ($_POST['approve_booking'] == 'on') ? 'on' : 'off';
-    approveBookingData($fields['booking_id']);
-} else {
-    $fields['fw_option:approve'] = 'off';
-    approveBookingData($fields['booking_id'], true);
-}
-/***************** ********************/
 
-if ($fields['booking_id'] != null) {
 
-    if ($fields['fw_option:approve'] == 'on') {
-        approveBookingData($fields['booking_id']);
-    } else {
-        approveBookingData($fields['booking_id'], true);
+        if (isset($_POST['frozen_booking'])) {
+            $fields['fw_option:frozen'] = ($_POST['frozen_booking'] == 'on') ? 'on' : 'off';
+        } else {
+            $fields['fw_option:frozen'] = 'off';
+        }
+
+        if (isset($_POST['approve_booking'])) {
+            $fields['fw_option:approve'] = ($_POST['approve_booking'] == 'on') ? 'on' : 'off';
+            approveBookingData($fields['booking_id']);
+        } else {
+            $fields['fw_option:approve'] = 'off';
+            approveBookingData($fields['booking_id'], true);
+        }
+        /***************** ********************/
+
+        if ($fields['booking_id'] != null) {
+
+            if ($fields['fw_option:approve'] == 'on') {
+                approveBookingData($fields['booking_id']);
+            } else {
+                approveBookingData($fields['booking_id'], true);
+            }
+
+            foreach ($fields as $key => $val) {
+                if ($val !== null)
+                    update_post_meta($fields['booking_id'], $key, $val);
+            }
+
+            $booking_id = $_POST['booking_id'];
+
+        }elseif($fields['fw_option:room'] != null){
+
+            $response = create_booking($fields);
+            $booking_id = $response['booking_id'];
+
+            if ($fields['fw_option:approve'] == 'on') {
+                approveBookingData($booking_id);
+            }
+
+        }
+
+        /*add_action('admin_footer', function () use ($booking_id) {
+            */?><!--<script>window.location.href = '<?/*= admin_url('edit.php') . '?post_type=bookings&page=booking-calendar&edit_booking=' . $booking_id; */?>'; </script>--><?php
+        /*        });*/
+
+
     }
-
-    foreach ($fields as $key => $val) {
-        if ($val !== null)
-            update_post_meta($fields['booking_id'], $key, $val);
-    }
-
-    $booking_id = $_POST['booking_id'];
-
-}elseif($fields['fw_option:room'] != null){
-
-    $response = create_booking($fields);
-    $booking_id = $response['booking_id'];
-
-    if ($fields['fw_option:approve'] == 'on') {
-        approveBookingData($booking_id);
-    }
-
-}
-
-/*add_action('admin_footer', function () use ($booking_id) {
-    */?><!--<script>window.location.href = '<?/*= admin_url('edit.php') . '?post_type=bookings&page=booking-calendar&edit_booking=' . $booking_id; */?>'; </script>--><?php
-/*        });*/
-
-
-}
 }
 
 function get_booking_count_by_date(){
