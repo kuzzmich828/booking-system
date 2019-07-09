@@ -203,6 +203,8 @@ document.addEventListener("DOMContentLoaded", function () {
                 /********** Fill icons ***********/
 
                 $('.time-text-js').html(response['time_text']);
+                console.log($('.wrapper-quest__background').length);
+                $('.wrapper-quest__background').attr('src', response['room_image']);
                 $('.people-text-js').html(response['people_text']);
                 $('.age-text-js').html(response['age_text']);
                 $('.complexity-text-js').html(response['complexity_text']);

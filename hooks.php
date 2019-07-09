@@ -18,14 +18,41 @@ function bkng_register_posts_type(){
             'menu_name'          => __('Rooms', 'bkng')
 
         ),
+        'capabilities' => array(
+//            'edit_post'          => 'edit_room',
+//            'read_post'          => 'read_room',
+//            'delete_post'        => 'delete_room',
+//            'delete_private_posts'        => 'delete_private_room',
+//            'delete_published_posts'        => 'delete_published_room',
+//            'edit_posts'         => 'edit_room',
+//            'edit_others_posts'  => 'edit_others_room',
+//            'publish_posts'      => 'publish_room',
+//            'create_posts'       => 'edit_room',
+//            'read_private_posts'       => 'edit_room',
+
+
+            'edit_post'          => 'edit_room',
+            'read_post'          => 'read_room',
+            'delete_private_posts'        => 'delete_private_room',
+            'delete_published_posts'        => 'delete_published_room',
+            'delete_posts'        => 'delete_room',
+            'delete_others_posts' => 'delete_others_room',
+            'edit_posts'         => 'edit_room',
+            'edit_others_posts'  => 'edit_others_room',
+            'publish_posts'      => 'publish_room',
+            'create_posts'       => 'edit_room',
+            'read_private_posts' => 'read_private_room',
+
+        ),
+
         'public'             => true,
         'publicly_queryable' => true,
         'show_ui'            => true,
         'show_in_menu'       => true,
         'query_var'          => true,
         'rewrite'            => true,
-        'capability_type'    => 'post',
-        'has_archive'        => true,
+        'capability_type'    => 'room',
+//        'has_archive'        => true,
         'hierarchical'       => false,
         'menu_position'      => 4,
         'menu_icon'          => 'dashicons-grid-view',
@@ -49,7 +76,14 @@ function bkng_register_posts_type(){
 
         ),
         'capabilities' => array(
-            'create_posts' => 'do_not_allow', // false < WP 4.5, credit @Ewout
+            'edit_post'          => 'edit_booking',
+            'read_post'          => 'read_booking',
+            'delete_post'        => 'delete_booking',
+            'edit_posts'         => 'edit_booking',
+            'edit_others_posts'  => 'edit_others_booking',
+            'publish_posts'      => 'publish_booking',
+            'read_private_posts' => 'read_private_booking',
+            'create_posts'       => 'edit_booking',
         ),
         'public'             => true,
         'publicly_queryable' => true,
@@ -57,7 +91,7 @@ function bkng_register_posts_type(){
         'show_in_menu'       => true,
         'query_var'          => true,
         'rewrite'            => true,
-        'capability_type'    => 'post',
+        'capability_type'    => 'booking',
         'has_archive'        => true,
         'hierarchical'       => false,
         'menu_position'      => 4,
@@ -173,6 +207,7 @@ function callback_get_room_attributes(){
     $data ['prices'] = $pq;
     $data ['description'] = apply_filters('the_content', $the_post->post_content);
     $data ['room_name'] = apply_filters('the_title', $the_post->post_title);
+    $data ['room_image'] = get_post_meta($room_id, 'fw_option:room_bg_image', 1)['url'];
 
     /********* Get room attributes ***********/
     $data ['time_text'] = get_post_meta($room_id, 'wpcf-time', 1);

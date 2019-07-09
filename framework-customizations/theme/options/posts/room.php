@@ -153,6 +153,16 @@ $options = array(
             'post-meta' => 'order_room',
         ),
     ],
+    'room_bg_image' => [
+        'type'  => 'upload',
+        'value' => '',
+        'label' => __('Backgroung Modal Image', 'bkng'),
+        'fw-storage' => array(
+            'type' => 'post-meta',
+            'post-meta' => 'fw_option:room_bg_image',
+        ),
+    ],
+
 
 );
 
