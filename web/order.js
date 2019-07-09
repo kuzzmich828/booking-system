@@ -124,6 +124,9 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
     function close_all_modal() {
+
+        window.history.pushState("", "", "/" );
+
         wrapperQuestContainer.classList.remove("show");
         $('.booking-popup-right-agent').hide();
         modal1.classList.remove("show");

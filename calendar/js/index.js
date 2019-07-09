@@ -1,4 +1,4 @@
-;( function( $, window, undefined ) {	
+;( function( $, window, undefined ) {
 	'use strict';
 	$.Calendario = function( options, element ) {
 		this.$el = $( element );
@@ -14,12 +14,12 @@
 		displayWeekAbbr : false,
 		displayMonthAbbr : false,
 		startIn : true,
-		onDayClick : function( $el, $content, dateProperties ) { 
+		onDayClick : function( $el, $content, dateProperties ) {
 			return false;
 		}
 	};
 	$.Calendario.prototype = {
-		_init : function( options ) {			
+		_init : function( options ) {
 			// options
 			this.options = $.extend( true, {}, $.Calendario.defaults, options );
 			this.today = new Date();
@@ -62,7 +62,7 @@
 		},
 		_getHead : function() {
 
-			var html = '<div class="fc-head">';		
+			var html = '<div class="fc-head">';
 			for ( var i = 0; i <= 6; i++ ) {
 				var pos = i + this.options.startIn,
 					j = pos > 6 ? pos - 6 - 1 : pos;
@@ -87,8 +87,8 @@
 						p = pos < 0 ? 6 + pos + 1 : pos,
 						inner = '',
 						today = this.month === this.today.getMonth() && this.year === this.today.getFullYear() && day === this.today.getDate(),
-						content = '';	 
-									
+						content = '';
+
 					if ( day <= monthLength && ( i > 0 || j >= p ) ) {
 
 						var mon = this.month + 1;
@@ -121,7 +121,7 @@
 						}
 					}
 
-					html += cellClasses !== '' ? '<div class="' + cellClasses + '">' : '<div class="cell-day '+ past_class +'" data-date-attr="'+date_current+'">';
+					html += cellClasses !== '' ? '<div class="cell-day ' + cellClasses + '" data-date-attr="'+date_current+'">' : '<div class="cell-day '+ past_class +'" data-date-attr="'+date_current+'">';
 					html += inner;
 					html += '</div>';
 				}
@@ -130,7 +130,7 @@
 				if (day > monthLength) {
 					this.rowTotal = i + 1;
 					break;
-				} 
+				}
 				else {html += '</div><div class="fc-row">';}
 			}
 			html += '</div></div>';
@@ -158,7 +158,7 @@
 		},
 		_move : function( period, dir, callback ) {
 
-			if( dir === 'previous' ) {				
+			if( dir === 'previous' ) {
 				if( period === 'month' ) {
 					this.year = this.month > 0 ? this.year : --this.year;
 					this.month = this.month > 0 ? --this.month : 11;
@@ -220,28 +220,28 @@
 			this._move( 'year', 'next', callback );
 		}
 	};
-		var logError = function( message ) {
+	var logError = function( message ) {
 		if ( window.console ) {window.console.error( message );}
 	};
-		$.fn.calendario = function( options ) {
-		var instance = $.data( this, 'calendario' );		
-		if ( typeof options === 'string' ) {			
-			var args = Array.prototype.slice.call( arguments, 1 );			
-			this.each(function() {			
+	$.fn.calendario = function( options ) {
+		var instance = $.data( this, 'calendario' );
+		if ( typeof options === 'string' ) {
+			var args = Array.prototype.slice.call( arguments, 1 );
+			this.each(function() {
 				if ( !instance ) {
 					logError( "cannot call methods on calendario prior to initialization; " +
-					"attempted to call method '" + options + "'" );
-					return;				
+						"attempted to call method '" + options + "'" );
+					return;
 				}
 				if ( !$.isFunction( instance[options] ) || options.charAt(0) === "_" ) {
 					logError( "no such method '" + options + "' for calendario instance" );
-					return;				
+					return;
 				}
-				instance[ options ].apply( instance, args );			
-			});		
-		} 
-		else {		
-			this.each(function() {				
+				instance[ options ].apply( instance, args );
+			});
+		}
+		else {
+			this.each(function() {
 				if ( instance ) {instance._init();}
 				else {instance = $.data( this, 'calendario', new $.Calendario( options, this ) );}
 			});

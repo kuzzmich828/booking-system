@@ -46,6 +46,7 @@ jQuery( document ).ready(function() {
         jQuery(button_edit).hide();
         jQuery(container_edit).show();
         jQuery(table_edit).fadeIn(300);
+        jQuery('.change-date-button').hide();
 
     });
 
@@ -105,9 +106,9 @@ jQuery( document ).ready(function() {
         var sel_date = jQuery(this).attr("data-date-attr");
         /******* AJAX ******/
         jQuery.ajax({
-                url: '/wp-admin/admin-ajax.php',
-                type: 'POST',
-                data: {action:'get_booking_rooms_by_date', date:sel_date},
+            url: '/wp-admin/admin-ajax.php',
+            type: 'POST',
+            data: {action:'get_booking_rooms_by_date', date:sel_date},
             success: function( data ) {
                 ROOMS_DATES_TIMES = JSON.parse(data);
                 fillRooms(ROOMS_DATES_TIMES);
@@ -162,7 +163,7 @@ jQuery( document ).ready(function() {
         jQuery(button_delete).show();
         jQuery(button_edit).show();
         jQuery(button_save).hide();
-
+        jQuery('.change-date-button').show();
     });
 
     /********* Select a Time *********/
@@ -209,7 +210,7 @@ jQuery( document ).ready(function() {
 
         spinnerHide();
     });*/
-    
+
     /********* Select a Room *********/
     jQuery(input_rooms).on("change", function (event) {
         spinnerShow();
@@ -241,7 +242,7 @@ jQuery( document ).ready(function() {
         }
 
     });
-    
+
 });
 
 function showNewBooking() {
@@ -383,7 +384,7 @@ function fillBooking(data, clear = false) {
         jQuery("#discount_booking").val('0');
 
     if (!clear) {
-        
+
         jQuery(table_edit + " input, " + table_edit + " select, " + table_edit + " textarea").prop("disabled", true);
         AutoFillDateTimeBooking(data['room_date']);
         jQuery(container_rooms).show();
@@ -463,61 +464,61 @@ function fillTimes(data, room_id) {
 
 function init_calendar(set_month) {
 
-        var transEndEventNames = {
-                'WebkitTransition' : 'webkitTransitionEnd',
-                'MozTransition' : 'transitionend',
-                'OTransition' : 'oTransitionEnd',
-                'msTransition' : 'MSTransitionEnd',
-                'transition' : 'transitionend'
+    var transEndEventNames = {
+            'WebkitTransition' : 'webkitTransitionEnd',
+            'MozTransition' : 'transitionend',
+            'OTransition' : 'oTransitionEnd',
+            'msTransition' : 'MSTransitionEnd',
+            'transition' : 'transitionend'
+        },
+        transEndEventName = transEndEventNames[ Modernizr.prefixed( 'transition' ) ],
+        $wrapper = $( '#custom-inner' ),
+        $calendar = $( '#calendar' ),
+        cal = $calendar.calendario( {
+            onDayClick : function( $el, $contentEl, dateProperties ) {
+                console.log( dateProperties);
+                if( $contentEl.length > 0 ) {
+                    showEvents( $contentEl, dateProperties );
+                }
             },
-            transEndEventName = transEndEventNames[ Modernizr.prefixed( 'transition' ) ],
-            $wrapper = $( '#custom-inner' ),
-            $calendar = $( '#calendar' ),
-            cal = $calendar.calendario( {
-                onDayClick : function( $el, $contentEl, dateProperties ) {
-                    console.log( dateProperties);
-                    if( $contentEl.length > 0 ) {
-                        showEvents( $contentEl, dateProperties );
-                    }
-                },
-                caldata : codropsEvents,
-                displayWeekAbbr : true,
-                month : set_month
+            caldata : codropsEvents,
+            displayWeekAbbr : true,
+            month : set_month
 
-            } ),
-            $month = $( '#custom-month' ).html( cal.getMonthName() ),
-            $year = $( '#custom-year' ).html( cal.getYear() );
+        } ),
+        $month = $( '#custom-month' ).html( cal.getMonthName() ),
+        $year = $( '#custom-year' ).html( cal.getYear() );
 
 
-        $( '#custom-next' ).on( 'click', function() {
-            cal.gotoNextMonth( updateMonthYear );
-        } );
+    $( '#custom-next' ).on( 'click', function() {
+        cal.gotoNextMonth( updateMonthYear );
+    } );
 
-        $( '#custom-prev' ).on( 'click', function() {
-            cal.gotoPreviousMonth( updateMonthYear );
-        } );
+    $( '#custom-prev' ).on( 'click', function() {
+        cal.gotoPreviousMonth( updateMonthYear );
+    } );
 
-        function updateMonthYear() {
-            $month.html( cal.getMonthName() );
-            $year.html( cal.getYear() );
+    function updateMonthYear() {
+        $month.html( cal.getMonthName() );
+        $year.html( cal.getYear() );
+    }
+    // just an example..
+    function showEvents( $contentEl, dateProperties ) {
+
+        hideEvents();
+        var $events = $( '<div id="custom-content-reveal" class="custom-content-reveal"><h4>Events for ' + dateProperties.monthname + ' ' + dateProperties.day + ', ' + dateProperties.year + '</h4></div>' ),
+            $close = $( '<span class="custom-content-close"></span>' ).on( 'click', hideEvents );
+        $events.append( $contentEl.html() , $close ).insertAfter( $wrapper );
+        setTimeout( function() {
+            $events.css( 'top', '0%' );
+        }, 25 );
+    }
+    function hideEvents() {
+        var $events = $( '#custom-content-reveal' );
+        if( $events.length > 0 ) {
+            $events.css( 'top', '100%' );
+            Modernizr.csstransitions ? $events.on( transEndEventName, function() { $( this ).remove(); } ) : $events.remove();
         }
-        // just an example..
-        function showEvents( $contentEl, dateProperties ) {
+    }
 
-            hideEvents();
-            var $events = $( '<div id="custom-content-reveal" class="custom-content-reveal"><h4>Events for ' + dateProperties.monthname + ' ' + dateProperties.day + ', ' + dateProperties.year + '</h4></div>' ),
-                $close = $( '<span class="custom-content-close"></span>' ).on( 'click', hideEvents );
-            $events.append( $contentEl.html() , $close ).insertAfter( $wrapper );
-            setTimeout( function() {
-                $events.css( 'top', '0%' );
-            }, 25 );
-        }
-        function hideEvents() {
-            var $events = $( '#custom-content-reveal' );
-            if( $events.length > 0 ) {
-                $events.css( 'top', '100%' );
-                Modernizr.csstransitions ? $events.on( transEndEventName, function() { $( this ).remove(); } ) : $events.remove();
-            }
-        }
- 
 }
