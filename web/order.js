@@ -46,7 +46,7 @@ document.addEventListener("DOMContentLoaded", function () {
         var selected_time = $(".selected-time").attr("data-time-room");
 
         $('.quest__time-js').html(selected_time);
-        $('.quest__date-js').html(selected_date);
+        $('.quest__date-js').html(selected_date.replaceAll("-", "."));
     });
 
     button3.addEventListener('click', function (e) {

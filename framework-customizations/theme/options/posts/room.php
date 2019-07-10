@@ -144,15 +144,6 @@ $options = array(
         ),
     ],
 
-    'order_room' => [
-        'type'  => 'text',
-        'value' => '10',
-        'label' => __('Order room on home page', 'bkng'),
-        'fw-storage' => array(
-            'type' => 'post-meta',
-            'post-meta' => 'order_room',
-        ),
-    ],
     'room_bg_image' => [
         'type'  => 'upload',
         'value' => '',

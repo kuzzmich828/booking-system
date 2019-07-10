@@ -306,6 +306,22 @@ function callback_get_booking(){
 
 add_action('approve_booking_hook', function ($booking_id){
     update_post_meta($booking_id, 'fw_option:approve', 'on');
+
+    $response = get_all_meta_booking($booking_id);
+    mail_request(
+        $response['name'] ,
+        $response['email'] ,
+        $response['phone'] ,
+        $response['quantity'] ,
+        $response['room_date'] ,
+        $response['room_time'] ,
+        $response['room_name'] ,
+        $response['amount_price'] ,
+        'duration' ,
+        800,
+        1
+    );
+
     approveBookingData($booking_id);
 });
 
@@ -745,4 +761,27 @@ function create_booking($fields){
     }
 
     return $response;
+}
+
+
+add_action( 'before_delete_post', 'before_delete_booking' );
+function before_delete_booking( $booking_id ) {
+
+    if (get_post_type($booking_id) != 'booking')
+        return;
+
+    $response = get_all_meta_booking($booking_id);
+    mail_request(
+        $response['name'] ,
+        $response['email'] ,
+        $response['phone'] ,
+        $response['quantity'] ,
+        $response['room_date'] ,
+        $response['room_time'] ,
+        $response['room_name'] ,
+        $response['amount_price'] ,
+        'duration' ,
+        798
+    );
+
 }

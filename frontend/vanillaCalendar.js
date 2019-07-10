@@ -37,12 +37,13 @@ var vanillaCalendar = {
     },
     createMonth: function () {
         for (var t = this.date.getMonth(); this.date.getMonth() === t;)
-            this.createDay(this.date.getDate(), (this.date.getDay()+1) , this.date.getFullYear()),
+            this.createDay(this.date.getDate(), (this.date.getDay()) , this.date.getFullYear()),
                 this.date.setDate(this.date.getDate() + 1);
         this.date.setDate(1), this.date.setMonth(this.date.getMonth() - 1), this.label.innerHTML = this.monthsAsString(this.date.getMonth()) + " " + this.date.getFullYear(), this.dateClicked()
     },
     monthsAsString: function (t) {
-        return ["January", "Febuary", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"][t]
+        return ["יָנוּאַר", "פֶבּרוּאַר", "מֶרץ", "אַפּרִיל", "מַאי", "יוּנִי", "יוּלִי", "אוֹגוּסט", "סֶפּטֶמבֶּר", "אוֹקטוֹבֶּר", "נוֹבֶמבֶּר", "דֶצֶמבֶּר"][t]
+        // return ["January", "Febuary", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"][t]
     },
     clearCalendar: function () {
         vanillaCalendar.month.innerHTML = ""
