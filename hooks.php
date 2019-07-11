@@ -19,18 +19,6 @@ function bkng_register_posts_type(){
 
         ),
         'capabilities' => array(
-//            'edit_post'          => 'edit_room',
-//            'read_post'          => 'read_room',
-//            'delete_post'        => 'delete_room',
-//            'delete_private_posts'        => 'delete_private_room',
-//            'delete_published_posts'        => 'delete_published_room',
-//            'edit_posts'         => 'edit_room',
-//            'edit_others_posts'  => 'edit_others_room',
-//            'publish_posts'      => 'publish_room',
-//            'create_posts'       => 'edit_room',
-//            'read_private_posts'       => 'edit_room',
-
-
             'edit_post'          => 'edit_room',
             'read_post'          => 'read_room',
             'delete_private_posts'        => 'delete_private_room',
@@ -241,6 +229,7 @@ function callback_get_booking_rooms_by_date(){
 
         $bookings = get_posts([
             'post_type' => 'bookings',
+            'posts_per_page' => -1,
             'post_status' => 'publish',
             'meta_key' => 'fw_option:room_date',
             'meta_query' => array(
@@ -266,6 +255,7 @@ function callback_get_booking_rooms_by_date(){
         }
 
         $rooms = get_posts([
+            'posts_per_page' => -1,
             'post_type' => 'room',
             'post_status' => 'publish',
             'exclude' => $room_for_exclude,
