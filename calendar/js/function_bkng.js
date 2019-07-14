@@ -16,40 +16,34 @@ var button_new_booking = ".href-new-booking";
 
 var is_change_datetime = false;
 
+function newBooking(){
+    var data = [];
+    data['room_id'] = jQuery('.choose-room').val();
+    data['booking_id'] = '';
+    data['room_time'] = jQuery('.cell-time.selected-day').attr('data-time');
+    data['room_date'] = jQuery('.cell-day.selected-day').attr('data-date-attr');
+    data['phone'] = '';
+    data['email'] = '';
+    data['name'] = '';
+    data['comments'] = '';
+    data['amount_price'] = 0;
+    data['quantity'] = 0;
+    data['frozen'] = 'off';
+    data['approve'] = 'off';
+
+    $("#room_id").val(data['room_id']);
+
+    fillBooking(data, true);
+
+    jQuery(this).hide();
+    jQuery(button_save).show();
+    jQuery(button_edit).hide();
+    jQuery(container_edit).show();
+    jQuery(table_edit).fadeIn(300);
+    jQuery('.change-date-button').hide();
+}
+
 jQuery( document ).ready(function() {
-
-
-    jQuery(document).on("click", button_new_booking, function (event) {
-
-        event.preventDefault();
-
-        var data = [];
-        data['room_id'] = jQuery('.choose-room').val();
-        data['booking_id'] = '';
-        data['room_time'] = jQuery('.cell-time.selected-day').attr('data-time');
-        data['room_date'] = jQuery('.cell-day.selected-day').attr('data-date-attr');
-        data['phone'] = '';
-        data['email'] = '';
-        data['name'] = '';
-        data['comments'] = '';
-        data['amount_price'] = 0;
-        data['quantity'] = 0;
-        data['frozen'] = 'off';
-        data['approve'] = 'off';
-
-        $("#room_id").val(data['room_id']);
-
-        fillBooking(data, true);
-
-        jQuery(this).hide();
-        jQuery(button_save).show();
-        jQuery(button_edit).hide();
-        jQuery(container_edit).show();
-        jQuery(table_edit).fadeIn(300);
-        jQuery('.change-date-button').hide();
-
-    });
-
 
     jQuery(document).submit(button_save, function (event) {
         if (!jQuery('#frozen_booking').prop('checked')){
@@ -238,11 +232,12 @@ jQuery( document ).ready(function() {
 
 function showNewBooking() {
     jQuery(container_edit).fadeIn(300);
-    jQuery(button_new_booking).fadeIn(300);
+    newBooking();
+    // jQuery(button_new_booking).fadeIn(300);
 }
 
 function hideNewBooking() {
-    jQuery(button_new_booking).hide();
+    // jQuery(button_new_booking).hide();
 }
 
 function updateUrlBookingID() {
