@@ -154,6 +154,8 @@ jQuery( document ).ready(function() {
     /********* Select a Time *********/
     jQuery(document).on("click", ".cell-time", function (event) {
 
+        if (jQuery(this).hasClass('past-time'))
+            return;
         var days = jQuery("#calendar-time").find(".cell-time");
         jQuery( days ).each(function( index ) {
             jQuery(days[index]).removeClass('selected-day');
@@ -169,6 +171,8 @@ jQuery( document ).ready(function() {
     /********* Select a Time *********/
     jQuery(document).on("click", ".cell-time", function (event) {
 
+        if (jQuery(this).hasClass('past-time'))
+            return;
         jQuery("#room_time").val(jQuery('.cell-time.selected-day').attr('data-time'));
         jQuery("#room_date").val(jQuery('.cell-day.selected-day').attr('data-date-attr'));
 
@@ -198,19 +202,6 @@ jQuery( document ).ready(function() {
         updateUrlBookingID();
     });
 
-
-    /********* Select a Room *********/
-    /*jQuery(input_rooms).on("change", function (event) {
-        spinnerShow();
-
-        fillTimes(ROOMS_DATES_TIMES, jQuery(this).val());
-        fillRezerved(jQuery(this).val(), ROOMS_DATES_TIMES);
-
-        jQuery(container_time).fadeIn(300);
-
-        spinnerHide();
-    });*/
-
     /********* Select a Room *********/
     jQuery(input_rooms).on("change", function (event) {
         spinnerShow();
@@ -219,7 +210,7 @@ jQuery( document ).ready(function() {
         fillRezerved(jQuery(this).val(), ROOMS_DATES_TIMES);
 
         jQuery(container_time).fadeIn(300);
-
+        disableTodayTimeAdmin();
         spinnerHide();
     });
 
@@ -521,4 +512,23 @@ function init_calendar(set_month) {
         }
     }
 
+}
+
+function disableTodayTimeAdmin() {
+    var curr_date = new Date().getTime();
+    $('.cell-time').each (function() {
+        var item_date = convertToDate($('.selected-day').attr('data-date-attr') + ' ' + $(this).attr('data-time'));
+        if (curr_date > item_date){
+            $(this).addClass('past-time');
+        }
+    });
+}
+
+function convertToDate(dateString) {
+    dateTimeParts = dateString.split(' '),
+        timeParts = dateTimeParts[1].split(':'),
+        dateParts = dateTimeParts[0].split('-');
+
+    var date = new Date(dateParts[2], parseInt(dateParts[1], 10) - 1, dateParts[0], timeParts[0], timeParts[1]);
+    return date.getTime();
 }
