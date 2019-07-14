@@ -276,7 +276,7 @@ window.addEventListener('load', function () {
 /************ Click to TIME **********/
 jQuery(document).on("click", ".item_content", function(){
 
-    if ($(this).hasClass('reserv'))
+    if ($(this).hasClass('reserv') || $(this).hasClass('past-time'))
         return;
     var time_room = $(this).attr("data-time-room");
     var room_id = $('.open-booking').attr('id');
@@ -292,6 +292,7 @@ jQuery(document).on("click", ".item_content", function(){
 
 });
 
+var calendar_today = false;
 /************ Click to DAY **********/
 jQuery(document).on("click", "div.vcal-date", function(e){
 
@@ -299,6 +300,11 @@ jQuery(document).on("click", "div.vcal-date", function(e){
     $('.booking-popup-right-agent').hide();
     if ($(this).hasClass('vcal-date--disabled'))
         return;
+
+    calendar_today = false;
+    if ($(this).hasClass('vcal-date--today'))
+        calendar_today = true;
+
     var date_calendar = $(this).attr("data-calendar-date");
     var room_id = selected_room_id; //$('.open-booking').attr('id');
     $("#button-step-1").css('display','none');
@@ -325,12 +331,38 @@ jQuery(document).on("click", "div.vcal-date", function(e){
                     $(".item_content[data-time-room='"+response[index]+"']").addClass("reserv");
                     console.log(response[index])
                 });
+
+                if (calendar_today) {
+                    disableTodayTime();
+                } else {
+                    $('.item_content').removeClass('past-time');
+                }
+
                 $('.time-grid').show();
                 $('.booking-popup-right-agent').show();
+
             }
 
         });
     }
 });
 
+
+function disableTodayTime() {
+    var curr_date = new Date().getTime();
+    $('.item_content').each (function() {
+        var item_date = convertToDate($('.selected-day').attr('data-calendar-date') + ' ' + $(this).attr('data-time-room'));
+        if (curr_date > item_date){
+            $(this).addClass('past-time');
+        }
+    });
+}
+function convertToDate(dateString) {
+    dateTimeParts = dateString.split(' '),
+        timeParts = dateTimeParts[1].split(':'),
+        dateParts = dateTimeParts[0].split('-');
+
+    var date = new Date(dateParts[2], parseInt(dateParts[1], 10) - 1, dateParts[0], timeParts[0], timeParts[1]);
+    return date.getTime();
+}
 

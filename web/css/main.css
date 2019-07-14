@@ -69,7 +69,7 @@
   -ms-transition: 0.3s;
   -o-transition: 0.3s;
   transition: 0.3s;
-  width: 280px;
+  width: 340px;
 }
 
 .wrapper-quest form {
@@ -190,16 +190,19 @@
 }
 
 #wrapper-quest__close {
-  width: 32px;
-  height: 32px;
-  background-image: url('../img/add-review-popup-close.png');
+  width: 70px;
+  height: 29px;
+  background-image: url('https://www.kiyv.tk/wp-content/uploads/2019/06/add-review-popup-close2.png');
   background-repeat: no-repeat;
   position: fixed;
-  left: calc(50% - 595px);
-  top: 24px;
+  left: calc(50% - 549px);
+  top: 7px;
   z-index: 999;
   cursor: pointer;
-  background-size: 32px;
+
+}
+#wrapper-quest__close:hover{
+  background-image: url('https://www.kiyv.tk/wp-content/uploads/2019/06/add-review-popup-close-hover.png');
 }
 
 .wrapper-quest__content {
@@ -261,8 +264,8 @@
 }
 
 .wrapper-quest__whiteline_bottom > div {
-  margin-left: 12px;
-  margin-right: 12px;
+  margin-left: 14px;
+  margin-right: 14px;
   line-height: 1em;
   text-align: center;
   color: rgb(56, 58, 58);
@@ -314,9 +317,14 @@
   flex-wrap: wrap;
   padding-top: 32px;
   margin-bottom: 70px;
-
   float: left;
-  margin-left: 8%;
+  margin-left: 5px;
+  max-width: 64%;
+}
+@media (max-width: 1024px) {
+  .wrapper-quest__other-quest {
+    max-width: 100%;
+  }
 }
 
 .wrapper-quest__item {
@@ -325,6 +333,7 @@
   padding: 2px;
   width: 22%;
   position: relative;
+  margin-bottom: 70px;
 
 }
 
@@ -450,23 +459,22 @@
   padding-right: 55px;
   height: 37px;
   position: relative;
-  margin-top: -94px;
+  margin-top: -99px;
   float: left;
   margin-left: -2px;
   font-size: 16px;
   line-height: 30px;
+  padding-top: 5px;
 }
 
-.wrapper-quest__date {
-  font-weight: 700;
-}
 
 .wrapper-quest__strip {
   color: #eee35e;
+  margin: 10px;
 }
 
 .wrapper-quest__time {
-  font-weight: 700;
+  font-weight: 300;
 }
 
 .wrapper-quest__span {
@@ -593,7 +601,7 @@
   position: relative;
   justify-content: space-between;
   font-size: 24px;
-  font-weight: 300;
+  font-weight: 100;
   margin-top: 20px;
   display: block;
   -webkit-clip-path: polygon(0 0, 100% 0, 100% 88%, 48% 88%, 43% 100%, 0 100%);
@@ -684,7 +692,7 @@
   line-height: 1em;
   font-weight: 700;
   text-decoration: none;
-  padding: 15px 0 15px 0;
+  padding: 10px 0 15px 0;
   margin: 60px auto 40px;
   display: block;
   width: 100%;
@@ -694,16 +702,16 @@
 
 .wrapper-quest__button-back::after {
   content: '';
-  width: 29px;
-  height: 29px;
-  background-image: url('../img/thanks-page-button.png');
+  width: 210px;
+  height: 30px;
+  background-image: url(https://www.kiyv.tk/wp-content/uploads/2019/07/ty.png);
   background-repeat: no-repeat;
   -webkit-background-size: 29px;
-  background-size: 29px;
+  background-size: 200px;
   position: absolute;
   top: auto;
-  right: 16px;
-  bottom: auto;
+  right: 60px;
+  bottom: 16px;
 }
 
 /****************/
@@ -976,7 +984,7 @@
 /******************************************************/
 /******************************************************/
 .selected-day{
-  background: #ccc !important;
+  background: #eee35e !important;
 }
 
 .selected-time{
@@ -1001,6 +1009,12 @@
   left: 0;
 }
 
+.item_content.past-time{
+  background: #cccccc91;
+  color: white;
+  cursor: default;
+}
+
 #v-cal{
   color: #000;
 }
@@ -1018,7 +1032,7 @@ html {
 
 footer {
   text-align: center;
-  margin: 1.6rem 0;
+
 }
 
 .demo-picked {
@@ -1069,7 +1083,7 @@ body.overlay:before {
   left: 0;
   height: 100%;
   width: 100%;
-  background: rgba(0, 0, 0, .8);
+  background: rgba(0, 0, 0, .7);
   z-index: 100;
   overflow: hidden;
 }
