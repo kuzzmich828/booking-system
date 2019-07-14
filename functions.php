@@ -368,18 +368,20 @@ add_action('wp_footer', function (){
         }
 
 
-        jQuery( document ).ready(function() {
-            if (window.location.href.indexOf("room_id=") > 0){
+        jQuery(window).load(function(){
 
+            if (window.location.href.indexOf("room_id=") > 0){
                 var url = new URL(document.location.href);
                 var query_string = url.search;
                 var search_params = new URLSearchParams(query_string);
                 var url_room_id = search_params.get('room_id');
 
                 var room_name = findRoomByID(url_room_id);
+                console.log("room_name",room_name);
                 jQuery('a[data-room-name="'+room_name+'"]').click();
 
             }
+
         });
     </script>
     <?php
