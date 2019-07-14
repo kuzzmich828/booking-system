@@ -171,7 +171,7 @@ jQuery( document ).ready(function() {
         jQuery("#room_date").val(jQuery('.cell-day.selected-day').attr('data-date-attr'));
 
         if (is_change_datetime) {
-            alert("You changed date to " + jQuery("#room_date").val() +", "+ jQuery("#room_time").val());
+            alert("You changed date to " + jQuery("#room_date").val().replace(/\-/g, ".") +", "+ jQuery("#room_time").val());
 
             jQuery("#form-booking *").prop("disabled", false);
             jQuery(button_save).click();
