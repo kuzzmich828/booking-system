@@ -167,8 +167,10 @@
   z-index: 99;
 }
 
-.wrapper-quest__modal::-webkit-scrollbar {
+.wrapper-quest__thanks-left, .wrapper-quest__thanks-right {
   width: 0;
+  font-size: 24px;
+  font-family: 'assistantlight';
 }
 
 .wrapper-quest__modal {

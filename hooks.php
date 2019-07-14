@@ -211,6 +211,7 @@ function callback_get_room_attributes(){
     $data ['complexity_icon'] = get_post_meta($room_id, 'wpcf-order-complexity-icon', 1);
     $data ['percent'] = get_post_meta($room_id, 'wpcf-percent-without-help', 1);
     $data ['icon_text_color'] = get_post_meta($room_id, 'wpcf-icon-text-color', 1);
+    $data ['title_color'] = get_post_meta($room_id, 'fw_option:title_color', 1);
 
 
 
@@ -757,10 +758,11 @@ function create_booking($fields){
 add_action( 'before_delete_post', 'before_delete_booking' );
 function before_delete_booking( $booking_id ) {
 
-    if (get_post_type($booking_id) != 'booking')
+    if (get_post_type($booking_id) != 'bookings')
         return;
 
     $response = get_all_meta_booking($booking_id);
+
     mail_request(
         $response['name'] ,
         $response['email'] ,
@@ -771,7 +773,8 @@ function before_delete_booking( $booking_id ) {
         $response['room_name'] ,
         $response['amount_price'] ,
         'duration' ,
-        798
+        798,
+        1
     );
 
 }
