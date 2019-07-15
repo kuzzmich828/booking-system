@@ -120,6 +120,7 @@ function callback_get_booking_room_date(){
 
 
     $query = new WP_Query([
+        'posts_per_page' => -1,
         'post_type' =>  'bookings',
         'post_status' => 'publish',
         'meta_key' => 'fw_option:room_date',
@@ -578,7 +579,8 @@ function bkng_export_xls_callback()
 
     $args = array(
         'post_type' => 'bookings',
-        'post__in' => $ids
+        'post__in' => $ids,
+        'posts_per_page' => -1
     );
 
     $query = new WP_Query($dataquery);

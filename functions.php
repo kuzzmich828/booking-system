@@ -98,6 +98,7 @@ if ($fields['booking_id'] != null) {
 function get_booking_count_by_date(){
 
     $query = new WP_Query([
+        'posts_per_page' => -1,
         'post_type' =>  'bookings',
         'post_status' => 'publish',
         'meta_key' => 'fw_option:room_date',
