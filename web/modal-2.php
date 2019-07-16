@@ -23,14 +23,14 @@
         <div id="wrapper-quest__dis_wrapper" class="wrapper-quest__dis_wrapper">
 
         </div>
-        <div class="wrapper-quest__dis_block">סה”כ מחיר עבור משחק <strong>לפני</strong> הנחה</div>
+        <div class="wrapper-quest__dis_block">סה”כ מחיר עבור משחק</div>
 
-        <input id="pol" class="quest_politics-js" type="checkbox" name="quest_politics" checked>
+        <input id="pol" class="quest_politics-js" type="checkbox" name="quest_politics">
         <label for="pol" class="wrapper-quest__pol_required">
             <span>מאשר שקראתי את <a href="/תנאי-ההזמנה/">תנאי ההזמנה</a> מאתר ומסכים איתם</span>
         </label>
         <br>
-        <input id="sub" type="checkbox" class="quest_subscription-js" name="quest_subscription">
+        <input id="sub" type="checkbox" class="quest_subscription-js" name="quest_subscription" checked>
         <label for="sub" class="wrapper-quest__want_to_subsc">
             <span>אני מעוניין לקבל עדכונים והטבות בדוא"ל</span>
         </label>

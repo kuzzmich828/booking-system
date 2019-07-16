@@ -23,7 +23,7 @@ function bkng_active() {
 /* Hook for adding admin menus */
 add_action('admin_menu', 'add_to_admin_menu_bkng');
 function add_to_admin_menu_bkng(){
-    add_menu_page(__('Booking Calendar','bkng'), __('Booking Calendar','bkng'), 'administrator', 'booking-calendar', 'admin_page_booking_calendar', 'dashicons-calendar-alt', 5);
+    add_menu_page(__('Booking Calendar','bkng'), __('Booking Calendar','bkng'), 'edit_others_posts' , 'booking-calendar', 'admin_page_booking_calendar', 'dashicons-calendar-alt', 5);
 }
 
 if (is_admin() && isset($_GET['page']) && $_GET['page'] == 'booking-calendar' ) {

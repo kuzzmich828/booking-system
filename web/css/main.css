@@ -204,7 +204,7 @@
 
 }
 #wrapper-quest__close:hover{
-  background-image: url('https://www.kiyv.tk/wp-content/uploads/2019/06/add-review-popup-close-hover.png');
+	background-image: url('https://www.kiyv.tk/wp-content/uploads/2019/06/add-review-popup-close-hover.png');
 }
 
 .wrapper-quest__content {
@@ -314,19 +314,19 @@
 }
 
 .wrapper-quest__other-quest {
-  display: flex;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  padding-top: 32px;
-  margin-bottom: 70px;
-  float: left;
-  margin-left: 5px;
-  max-width: 64%;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    padding-top: 32px;
+    margin-bottom: 70px;
+    float: left;
+    margin-left: 5px;
+    max-width: 64%;
 }
 @media (max-width: 1024px) {
-  .wrapper-quest__other-quest {
+.wrapper-quest__other-quest {
     max-width: 100%;
-  }
+}
 }
 
 .wrapper-quest__item {
@@ -455,24 +455,24 @@
 .wrapper-quest__datetime_block {
   -webkit-clip-path: polygon(0 0, 100% 0, 94.5% 100%, 0% 100%);
   clip-path: polygon(0 0, 100% 0, 94.5% 100%, 0% 100%);
-  background-color: #a30f0f;
-  width: 230px;
-  padding-left: 25px;
-  padding-right: 55px;
-  height: 37px;
-  position: relative;
-  margin-top: -99px;
-  float: left;
-  margin-left: -2px;
-  font-size: 16px;
-  line-height: 30px;
-  padding-top: 5px;
+ 	background-color: #a30f0f;
+    width: 230px;
+    padding-left: 25px;
+    padding-right: 55px;
+    height: 37px;
+    position: relative;
+    margin-top: -99px;
+    float: left;
+    margin-left: -2px;
+    font-size: 16px;
+    line-height: 30px;
+    padding-top: 5px;
 }
 
 
 .wrapper-quest__strip {
   color: #eee35e;
-  margin: 10px;
+	margin: 10px;
 }
 
 .wrapper-quest__time {
@@ -703,17 +703,17 @@
 }
 
 .wrapper-quest__button-back::after {
-  content: '';
-  width: 210px;
-  height: 30px;
-  background-image: url(https://www.kiyv.tk/wp-content/uploads/2019/07/ty.png);
-  background-repeat: no-repeat;
-  -webkit-background-size: 29px;
-  background-size: 200px;
-  position: absolute;
-  top: auto;
-  right: 60px;
-  bottom: 16px;
+      content: '';
+    width: 210px;
+    height: 30px;
+    background-image: url(https://www.kiyv.tk/wp-content/uploads/2019/07/ty.png);
+    background-repeat: no-repeat;
+    -webkit-background-size: 29px;
+    background-size: 200px;
+    position: absolute;
+    top: auto;
+    right: 60px;
+    bottom: 16px;
 }
 
 /****************/

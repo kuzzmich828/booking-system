@@ -46,7 +46,7 @@ document.addEventListener("DOMContentLoaded", function () {
         var selected_time = $(".selected-time").attr("data-time-room");
 
         $('.quest__time-js').html(selected_time);
-        $('.quest__date-js').html(selected_date.replaceAll("-", "."));
+        $('.quest__date-js').html(selected_date.replace(/\-/g, "."));
     });
 
     button3.addEventListener('click', function (e) {
@@ -142,6 +142,12 @@ document.addEventListener("DOMContentLoaded", function () {
 
         $('body').removeClass('overlay');
 
+        // button2.classList.addClass('hide');
+        // button3.classList.addClass('hide');
+
+
+        $("#button-step-1").css('display','none');
+        $("#button-step-2").css('display','none');
         // wrapperQuestButtons.classList.remove("hide");
     }
     /*wrapperQuestQuantity.addEventListener('change', function (e) {
@@ -252,6 +258,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
                 $(".wrapper-quest__descripription").html(response['description']);
                 $(".quest__room_name").html(response['room_name']);
+                $(".quest__room_name").css("color", response['title_color']);
 
             }
 
@@ -358,7 +365,8 @@ function disableTodayTime() {
     });
 }
 function convertToDate(dateString) {
-    dateTimeParts = dateString.split(' '),
+    // var dateString = '17-09-2013 10:08',
+        dateTimeParts = dateString.split(' '),
         timeParts = dateTimeParts[1].split(':'),
         dateParts = dateTimeParts[0].split('-');
 

@@ -14,15 +14,7 @@
                 </svg>
             </button>
         </div>
-        <div class="vcal-week">
-<!--            <span>ב</span>-->
-<!--            <span>ג</span>-->
-<!--            <span>ד</span>-->
-<!--            <span>ה</span>-->
-<!--            <span>ו</span>-->
-<!--            <span>ש</span>-->
-<!--            <span>א</span>-->
-
+        <div class="vcal-week"> 
             <!-- <span>Mon</span>
             <span>Tue</span>
             <span>Wed</span>
@@ -166,32 +158,32 @@
         $('.time-grid').hide();
 
         $.ajax({
-              url: '<?= admin_url(); ?>/admin-ajax.php',
-              data: {
-                  action: "get_room_attributes",
-                  id: $post_id
-              },
-              type:'POST',
-              success: function(data){
-                  var response = JSON.parse(data);
-                  var times = response['times'];
-                  var prices = response['prices'];
-                  var time_table = '';
-                  var prices_table = '';
+            url: '<?= admin_url(); ?>/admin-ajax.php',
+            data: {
+                action: "get_room_attributes",
+                id: $post_id
+            },
+            type:'POST',
+            success: function(data){
+                var response = JSON.parse(data);
+                var times = response['times'];
+                var prices = response['prices'];
+                var time_table = '';
+                var prices_table = '';
 
-                  /* *************************************** */
-                  $(times).each(function(index){
-                      time_table += '<div class="item_content" data-time-room="'+times[index]+'">'+times[index]+'</div>';
-                  });
-                  $('.time-grid').html(time_table);
+                /* *************************************** */
+                $(times).each(function(index){
+                    time_table += '<div class="item_content" data-time-room="'+times[index]+'">'+times[index]+'</div>';
+                });
+                $('.time-grid').html(time_table);
 
-                  /* *************************************** */
-                  $(prices).each(function(index){
-                      prices_table += '<option value="'+prices[index]['price']+'">'+prices[index]['price']+'</option>';
-                  });
-                  $("select[name='order_quantity']").html(prices_table);
+                /* *************************************** */
+                $(prices).each(function(index){
+                    prices_table += '<option value="'+prices[index]['price']+'">'+prices[index]['price']+'</option>';
+                });
+                $("select[name='order_quantity']").html(prices_table);
 
-              }
+            }
 
         });
 

@@ -16,13 +16,21 @@
             </button>
         </div>
         <div class="vcal-week">
-            <span>Mon</span>
-            <span>Tue</span>
-            <span>Wed</span>
-            <span>Thu</span>
-            <span>Fri</span>
-            <span>Sat</span>
-            <span>Sun</span>
+
+            <span>ב</span>
+            <span>ג</span>
+            <span>ד</span>
+            <span>ה</span>
+            <span>ו</span>
+            <span>ש</span>
+            <span>א</span>
+<!--            <span>Mon</span>-->
+<!--            <span>Tue</span>-->
+<!--            <span>Wed</span>-->
+<!--            <span>Thu</span>-->
+<!--            <span>Fri</span>-->
+<!--            <span>Sat</span>-->
+<!--            <span>Sun</span>-->
         </div>
         <div class="vcal-body" data-calendar-area="month"></div>
     </div>
@@ -37,6 +45,7 @@
         </div>
     </div>
 
-    <div class="booking-popup-right-agent" style="display: none;">להזמנת משחק ב 01:00, מומלץ ליצור קשר עם הנציג</div>
+    <div class="booking-popup-right-agent" style="display: none;">להזמנת משחק ל 00:00 ויותר מאוחר, מומלץ להתייעץ עם הנציג
+</div>
     <a href="#" class="wrapper-quest__widget_button " id="button-step-1">הזמן עכשיו</a>
 </div>

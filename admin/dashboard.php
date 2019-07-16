@@ -49,6 +49,7 @@ add_action( 'wp_dashboard_setup', function () {
             });
 
         }
+    
 } );
 
 
@@ -225,18 +226,19 @@ add_action('admin_footer', function (){
    }
 });
 
+
 /******************** Hide Admin Menu for manager *******************/
 add_action('admin_head', function (){
-    $user_meta=get_userdata(get_current_user_id());
-    $user_roles=$user_meta->roles;
-    if (!in_array('manager', $user_roles))
-        return true;
-    ?>
-    <style>
-        #adminmenu li:not(#menu-dashboard):not(#toplevel_page_booking-calendar)
-        {
-            display: none;
-        }
-    </style>
-    <?php
+        $user_meta=get_userdata(get_current_user_id());
+        $user_roles=$user_meta->roles;
+        if (!in_array('manager', $user_roles))
+            return true;
+        ?>
+        <style>
+            #adminmenu li:not(#menu-dashboard):not(#toplevel_page_booking-calendar)
+            {
+                display: none;
+            }
+        </style>
+        <?php
 });
