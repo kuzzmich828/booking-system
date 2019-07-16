@@ -243,11 +243,13 @@ function callback_get_booking_rooms_by_date(){
             ),
         ]);
 
+        $bookings_all = [];
+
         $room_for_exclude = [];
         foreach ($bookings as $booking){
             $room_id = get_post_meta($booking->ID, 'fw_option:room', 1);
             $room_for_exclude [] = $room_id;
-            $response [] = [
+            $bookings_all [] = [
                 'id'    => $booking->ID,
                 'room_id'    => $room_id,
                 'room_time' => get_post_meta($booking->ID, 'fw_option:room_time', 1),
@@ -260,16 +262,29 @@ function callback_get_booking_rooms_by_date(){
             'posts_per_page' => -1,
             'post_type' => 'room',
             'post_status' => 'publish',
-            'exclude' => $room_for_exclude,
+//            'exclude' => $room_for_exclude,
         ]);
+
         foreach ($rooms as $room){
-            $response [] = [
-                'id'    => null,
-                'room_id'    => $room->ID,
-                'room_time' => null,
-                'room_name'    => get_the_title($room->ID),
-                'room_times'    => get_post_meta($room->ID, 'fw_option:times', 1),
-            ];
+            $find_room_booking = false;
+
+            foreach ($bookings_all as $booking_room){
+                if ((int)$booking_room['room_id'] == (int)$room->ID){
+
+                    $response [] = $booking_room;
+                    $find_room_booking = true;
+                }
+            }
+
+            if (!$find_room_booking) {
+                $response [] = [
+                    'id' => null,
+                    'room_id' => $room->ID,
+                    'room_time' => null,
+                    'room_name' => get_the_title($room->ID),
+                    'room_times' => get_post_meta($room->ID, 'fw_option:times', 1),
+                ];
+            }
         }
 
     }
