@@ -22,8 +22,17 @@ var vanillaCalendar = {
         })
     },
     createDay: function (t, e, a) {
-        var n = document.createElement("div"), s = document.createElement("span");
-        s.innerHTML = t, n.className = "vcal-date", n.setAttribute("data-calendar-date", (this.date.getUTCDate()) + '-' + (this.date.getMonth()+1) + '-' + this.date.getUTCFullYear()    ), 1 === t && (n.style.marginLeft = 0 === e ? 6 * 14.28 + "%" : 14.28 * (e - 1) + "%"), this.options.disablePastDays && this.date.getTime() <= this.todaysDate.getTime() - 1 ? n.classList.add("vcal-date--disabled") : (n.classList.add("vcal-date--active"), n.setAttribute("data-calendar-status", "active")), this.date.toString() === this.todaysDate.toString() && n.classList.add("vcal-date--today"), n.appendChild(s), this.month.appendChild(n)
+        var n = document.createElement("div"),
+            s = document.createElement("span");
+        s.innerHTML = t,
+            n.className = "vcal-date",
+            n.setAttribute("data-calendar-date", (this.date.getUTCDate()) + '-' + (this.date.getMonth()+1) + '-' + this.date.getUTCFullYear()    ),
+            1 === t && (n.style.marginRight = 0 === e ? 6 * 14.28 + "%" : 14.28 * (e - 1) + "%"),
+            this.options.disablePastDays && this.date.getTime() <= this.todaysDate.getTime() - 1 ? n.classList.add("vcal-date--disabled") : (n.classList.add("vcal-date--active"),
+            n.setAttribute("data-calendar-status", "active")),
+            this.date.toString() === this.todaysDate.toString() && n.classList.add("vcal-date--today"),
+            n.appendChild(s),
+            this.month.appendChild(n)
     },
     dateClicked: function () {
         // var t = this;
@@ -37,9 +46,13 @@ var vanillaCalendar = {
     },
     createMonth: function () {
         for (var t = this.date.getMonth(); this.date.getMonth() === t;)
-            this.createDay(this.date.getDate(), (this.date.getDay()) , this.date.getFullYear()),
-            this.date.setDate(this.date.getDate() + 1);
-            this.date.setDate(1), this.date.setMonth(this.date.getMonth() - 1), this.label.innerHTML = this.monthsAsString(this.date.getMonth()) + " " + this.date.getFullYear(), this.dateClicked()
+            this.createDay(this.date.getDate(), (this.date.getDay()+1) , this.date.getFullYear()),
+
+        this.date.setDate(this.date.getDate() + 1);
+        this.date.setDate(1),
+        this.date.setMonth(this.date.getMonth() - 1),
+        this.label.innerHTML = this.monthsAsString(this.date.getMonth()) + " " + this.date.getFullYear(),
+        this.dateClicked()
     },
     monthsAsString: function (t) {
         return ["יָנוּאַר", "פֶבּרוּאַר", "מֶרץ", "אַפּרִיל", "מַאי", "יוּנִי", "יוּלִי", "אוֹגוּסט", "סֶפּטֶמבֶּר", "אוֹקטוֹבֶּר", "נוֹבֶמבֶּר", "דֶצֶמבֶּר"][t]

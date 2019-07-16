@@ -401,7 +401,7 @@
 
 .wrapper-quest__widget {
   display: none;
-  direction: ltr;
+  direction: rtl;
   z-index: 1;
   width: 360px;
   margin-top: 18px;

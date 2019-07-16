@@ -16,21 +16,13 @@
             </button>
         </div>
         <div class="vcal-week">
-
+            <span>א</span>
             <span>ב</span>
             <span>ג</span>
             <span>ד</span>
             <span>ה</span>
             <span>ו</span>
             <span>ש</span>
-            <span>א</span>
-<!--            <span>Mon</span>-->
-<!--            <span>Tue</span>-->
-<!--            <span>Wed</span>-->
-<!--            <span>Thu</span>-->
-<!--            <span>Fri</span>-->
-<!--            <span>Sat</span>-->
-<!--            <span>Sun</span>-->
         </div>
         <div class="vcal-body" data-calendar-area="month"></div>
     </div>

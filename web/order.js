@@ -39,6 +39,7 @@ document.addEventListener("DOMContentLoaded", function () {
         $(widget1).removeClass('show');
         $(widget1).addClass('hide');
         $(widget2).addClass('show');
+        $(button3).addClass('show');
         /* ****************************************** */
         /* ****************************************** */
         /* ****************************************** */
@@ -47,6 +48,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
         $('.quest__time-js').html(selected_time);
         $('.quest__date-js').html(selected_date.replace(/\-/g, "."));
+
     });
 
     button3.addEventListener('click', function (e) {
@@ -64,16 +66,16 @@ document.addEventListener("DOMContentLoaded", function () {
         var price = $('#quest__quantity').val();
 
         if (!name){
-            alert('Name is empty');
+            alert("השם לא מלא");
             return;
         }else if (!email){
-            alert('Email is empty');
+            alert("הדואר לא מולא");
             return;
         }else if (!phone){
-            alert('Phone is empty');
+            alert("הטלפון אינו מלא");
             return;
         }else if ($('.quest_politics-js').prop('checked') !== true){
-            alert('Policy not checked!');
+            alert('המדיניות לא מסומנת');
             return;
         }
 

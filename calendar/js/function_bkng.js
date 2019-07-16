@@ -49,13 +49,13 @@ jQuery( document ).ready(function() {
         if (!jQuery('#frozen_booking').prop('checked')){
             if (jQuery('#name_booking').val() == ''){
                 event.preventDefault();
-                alert("Field 'Name' is empty");
+                alert("השם לא מלא");
             }else if (jQuery('#email_booking').val() == ''){
                 event.preventDefault();
-                alert("Field 'Email' is empty");
+                alert("הדואר לא מולא");
             }else if (jQuery('#phone_booking').val() == ''){
                 event.preventDefault();
-                alert("Field 'Phone' is empty");
+                alert("הטלפון אינו מלא");
             }
         }
     });
