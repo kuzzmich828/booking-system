@@ -172,10 +172,12 @@ document.addEventListener("DOMContentLoaded", function () {
 
         // ********* Set URL *******/
         if ($room_name) {
+            jQuery('.wrapper-quest__item').show();
+            if (!$room_id || $room_id == 'undefined') {
+                $room_id = findRoomByName($room_name);
 
-            if (!$room_id || $room_id == 'undefined')
-                $room_id = findRoomByName($room_name) ;
-            console.log($room_name,$room_id);
+            }
+            console.log($room_name, $room_id);
             if (window.location.href.indexOf("room_id") < 0)
                 window.history.pushState("", "", window.location.href + '?room_id=' + $room_id);
             else
@@ -190,7 +192,8 @@ document.addEventListener("DOMContentLoaded", function () {
         }else if(!$room_name){
             alert("Error room");
         }
-
+        jQuery('.wrapper-quest__item[data-room-id='+$room_id+']').hide();
+        console.log("Hide related=", $room_id);
         /*прокрутить содержимое окна бронирования вверх*/
         $('.booking-popup').scrollTop(0);
         if ($(window).width()<769) $('body').scrollTop(0);

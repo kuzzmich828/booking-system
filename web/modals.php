@@ -57,16 +57,25 @@
                 <?php
                 $related_rooms = get_posts([
                     'post_type'=>'room',
+                    'posts_per_page'=>-1,
+                    'post_status'=>'publish',
                 ]);
                 foreach ($related_rooms as $related_room):
-                    ?>
-                    <div class="wrapper-quest__item">
+
+                    $bg_color = get_post_meta($related_room->ID,'fw_option:background_color',true);
+                    $rest = (!$bg_color) ? "8e7878" : mb_substr($bg_color, 1);
+                    $split = str_split($rest, 2);
+                    $r = hexdec($split[0]);
+                    $g = hexdec($split[1]);
+                    $b = hexdec($split[2]);
+            ?>
+                    <div class="wrapper-quest__item" data-room-id="<?= $related_room->ID; ?>" data-room-name="<?= $related_room->post_title; ?>">
                         <div class="wrapper-quest-other-quest__img">
                             <?php $url_room_img = get_the_post_thumbnail_url($related_room->ID); ?>
                             <img src="<?= ($url_room_img) ? $url_room_img : 'http://funeral-nsk.ru/wp-content/uploads/2018/06/thumbnail.png'; ?>" alt="<?= $related_room->post_title; ?>">
                         </div>
                         <div class="wrapper-quest-other-quest__title" style="color:#9c8c78"><?= $related_room->post_title; ?></div>
-                        <div class="wrapper-quest-other-quest__button"><a class="re-open-booking" data-room-id="<?= $related_room->ID; ?>" data-room-name="<?= $related_room->post_title; ?>" href="#">הזמן עכשיו</a></div>
+                        <div class="wrapper-quest-other-quest__button" style=" <?php echo "background: rgba(" . $r . ", " . $g . ", " . $b . ", 0.7);"; ?>"><a class="re-open-booking" data-room-id="<?= $related_room->ID; ?>" data-room-name="<?= $related_room->post_title; ?>" href="#">הזמן עכשיו</a></div>
                     </div>
                 <?php
                 endforeach;

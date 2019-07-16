@@ -154,13 +154,13 @@ $options = array(
         ),
     ],
 
-    'title_color' => [
+    'background_color' => [
         'type'  => 'color-picker',
         'value' => '#ccc',
-        'label' => __('Title Color', 'bkng'),
+        'label' => __('Background Color', 'bkng'),
         'fw-storage' => array(
             'type' => 'post-meta',
-            'post-meta' => 'fw_option:title_color',
+            'post-meta' => 'fw_option:background_color',
         ),
     ],
 
