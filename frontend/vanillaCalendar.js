@@ -55,7 +55,7 @@ var vanillaCalendar = {
         this.dateClicked()
     },
     monthsAsString: function (t) {
-        return ["יָנוּאַר", "פֶבּרוּאַר", "מֶרץ", "אַפּרִיל", "מַאי", "יוּנִי", "יוּלִי", "אוֹגוּסט", "סֶפּטֶמבֶּר", "אוֹקטוֹבֶּר", "נוֹבֶמבֶּר", "דֶצֶמבֶּר"][t]
+        return ["ינואר", "פברואר", "מרץ", "אפריל", "מאי", "יוני", "יולי", "אוגוסט", "ספטמבר", "אוקטובר", "נובמבר", "דצמבר"][t]
         // return ["January", "Febuary", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"][t]
     },
     clearCalendar: function () {
