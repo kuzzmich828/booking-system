@@ -242,7 +242,7 @@ function callback_get_booking_rooms_by_date(){
                 ],
             ),
         ]);
-
+        
         $bookings_all = [];
 
         $room_for_exclude = [];

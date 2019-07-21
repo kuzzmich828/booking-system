@@ -315,13 +315,12 @@
 
 .wrapper-quest__other-quest {
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-start;
     flex-wrap: wrap;
     padding-top: 32px;
     margin-bottom: 70px;
     float: left;
-    margin-left: 5px;
-    max-width: 64%;
+    max-width: 66%;
 }
 @media (max-width: 1024px) {
 .wrapper-quest__other-quest {
@@ -336,6 +335,7 @@
   width: 22%;
   position: relative;
   margin-bottom: 70px;
+	margin-right: 16px;
 
 }
 
@@ -1056,6 +1056,7 @@ footer {
 .item {
   display: inline-block;
   margin: 3px 0;
+	    direction: ltr;
 }
 
 .item_content {
