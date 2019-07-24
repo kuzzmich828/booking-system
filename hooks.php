@@ -324,7 +324,7 @@ add_action('approve_booking_hook', function ($booking_id){
         $response['room_time'] ,
         $response['room_name'] ,
         $response['amount_price'] ,
-        'duration' ,
+        $response['wpcf_time'] ,
         800,
         1
     );
@@ -732,7 +732,7 @@ function callback_create_booking(){
         $response['room_time'] ,
         $response['room_name'] ,
         $response['amount_price'] ,
-        'duration' ,
+        $response['wpcf_time'] ,
         743,
         1
     );
@@ -789,7 +789,7 @@ function before_delete_booking( $booking_id ) {
         $response['room_time'] ,
         $response['room_name'] ,
         $response['amount_price'] ,
-        'duration' ,
+        $response['wpcf_time'] ,
         798,
         1
     );
