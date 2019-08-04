@@ -100,6 +100,7 @@ function callback_get_booking_rooms(){
     $rooms = get_posts([
         'post_type'=>'bookings',
         'post_status'=>'publish',
+        'posts_per_page'=>-1,
     ]);
 
     wp_send_json(json_encode($rooms), 200);
@@ -301,6 +302,7 @@ add_action( 'wp_ajax_nopriv_get_booking', 'callback_get_booking' );
 function callback_get_booking(){
 
     $bookings = get_posts([
+        'posts_per_page'=>-1,
         'post_type'=>'bookings',
         'post__in' => [$_POST['booking_id']]
     ]);

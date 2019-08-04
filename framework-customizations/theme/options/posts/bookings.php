@@ -181,6 +181,7 @@ $options = array(
 
 /*********** Rooms **********/
 $rooms = get_posts([
+    'posts_per_page'=>-1,
     'post_type'=>'room',
     'post_status'=>'publish'
 ]);
