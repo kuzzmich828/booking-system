@@ -470,7 +470,7 @@ function callback_post_options_update($booking_id){
 add_action('save_post', '_action_theme_fw_post_options_update', 100, 1);
 function _action_theme_fw_post_options_update($booking_id) {
 
-    if ( ! wp_is_post_revision( $booking_id ) && get_post_type($booking_id) == 'bookings'){
+    if ( ! wp_is_post_revision( $booking_id ) && get_post_type($booking_id) == 'bookings' && wp_post_ac){
 
         remove_action('save_post', '_action_theme_fw_post_options_update');
 
