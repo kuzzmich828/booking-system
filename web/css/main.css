@@ -194,7 +194,7 @@
 #wrapper-quest__close {
   width: 70px;
   height: 29px;
-  background-image: url('https://www.kiyv.tk/wp-content/uploads/2019/06/add-review-popup-close2.png');
+  background-image: url('/wp-content/uploads/2019/06/add-review-popup-close2.png');
   background-repeat: no-repeat;
   position: fixed;
   left: calc(50% - 549px);
@@ -204,7 +204,7 @@
 
 }
 #wrapper-quest__close:hover{
-	background-image: url('https://www.kiyv.tk/wp-content/uploads/2019/06/add-review-popup-close-hover.png');
+	background-image: url('/wp-content/uploads/2019/06/add-review-popup-close-hover.png');
 }
 
 .wrapper-quest__content {
@@ -706,7 +706,7 @@
       content: '';
     width: 210px;
     height: 30px;
-    background-image: url(https://www.kiyv.tk/wp-content/uploads/2019/07/ty.png);
+    background-image: url(/wp-content/uploads/2019/07/ty.png);
     background-repeat: no-repeat;
     -webkit-background-size: 29px;
     background-size: 200px;
