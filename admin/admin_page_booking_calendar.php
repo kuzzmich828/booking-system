@@ -145,7 +145,7 @@
                                 <button name="save_booking" style="display:none;" class="btn btn-primary save-button" type="submit"><?= __('Save','bkng'); ?></button>
                             </td>
                             <td>
-                                <button class="btn btn-danger delete-button" type="button"><?= __('Delete','bkng'); ?></button>
+                                <button id="delete_booking" name="delete_booking" value="" class="btn btn-danger delete-button" type="submit"><?= __('Delete','bkng'); ?></button>
                             </td>
                         </tr>
                     </tbody>

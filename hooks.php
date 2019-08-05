@@ -348,7 +348,11 @@ add_action('admin_footer', function (){
         .wp-core-ui .button-delete{background: #d61111c4; color: #fff; border-color: #c70000; box-shadow: 0 1px 0 #ff3636;}
         .wp-core-ui .button-approve{background: #f7ff20b5; color: #4a4a4a; border-color: #4a4a4a; box-shadow: 0 1px 0 #0a7b00b5;}
     </style>
-    <?php
+    <?php if (get_locale() == 'he_IL'): ?>
+    <style>
+        .col-sm-4, .col-sm-3, .col-sm-6, .col-sm-8{float: right;}
+    </style>
+    <?php endif;
 });
 
 function approveBookingData($booking_id, $unapprove = false){
@@ -472,7 +476,7 @@ function callback_post_options_update($booking_id){
 add_action('save_post', '_action_theme_fw_post_options_update', 100, 1);
 function _action_theme_fw_post_options_update($booking_id) {
 
-    if ( ! wp_is_post_revision( $booking_id ) && get_post_type($booking_id) == 'bookings' && wp_post_ac){
+    if ( ! wp_is_post_revision( $booking_id ) && get_post_type($booking_id) == 'bookings'){
 
         remove_action('save_post', '_action_theme_fw_post_options_update');
 

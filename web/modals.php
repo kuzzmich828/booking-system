@@ -93,7 +93,7 @@
 
 
 <link href="https://fonts.googleapis.com/css?family=Assistant:300,400,700,800" rel="stylesheet">
-<link rel="stylesheet" type="text/css" href="/wp-content/plugins/booking-system/web/css/main.css"/>
-<link href="<?= plugin_dir_url(__FILE__); ?>../frontend/vanillaCalendar.css" rel="stylesheet">
-<script src="<?= plugin_dir_url(__FILE__); ?>../frontend/vanillaCalendar.js" type="text/javascript"></script>
-<script src="<?= plugin_dir_url(__FILE__); ?>../web/order.js" type="text/javascript"></script>
+<link rel="stylesheet" type="text/css" href="/wp-content/plugins/booking-system/web/css/main.css?ver=<?= EDIT_VER; ?>"/>
+<link href="<?= plugin_dir_url(__FILE__); ?>../frontend/vanillaCalendar.css?ver=<?= EDIT_VER; ?>" rel="stylesheet">
+<script src="<?= plugin_dir_url(__FILE__); ?>../frontend/vanillaCalendar.js?ver=<?= EDIT_VER; ?>" type="text/javascript"></script>
+<script src="<?= plugin_dir_url(__FILE__); ?>../web/order.js?ver=<?= EDIT_VER; ?>" type="text/javascript"></script>

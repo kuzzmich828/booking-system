@@ -181,6 +181,7 @@ jQuery( document ).ready(function() {
         var booking_id = jQuery(this).attr('data-booking-id');
 
         jQuery("#booking_id").val(booking_id);
+        jQuery("#delete_booking").val(booking_id);
 
         hideNewBooking();
 
@@ -312,6 +313,7 @@ function spinnerShow() {
 function fillBooking(data, clear = false) {
 
     jQuery("#booking_id").val(data['booking_id']);
+    jQuery("#delete_booking").val(data['booking_id']);
     jQuery("#room_time").val(data['room_time']);
     jQuery("#room_date").val(data['room_date']);
     jQuery("#phone_booking").val(data['phone']);
@@ -511,9 +513,12 @@ function init_calendar(set_month) {
 
 function disableTodayTimeAdmin() {
     var curr_date = new Date().getTime();
+    var curr_hours = new Date().getHours();
     $('.cell-time').each (function() {
-        var item_date = convertToDate($('.selected-day').attr('data-date-attr') + ' ' + $(this).attr('data-time'));
-        if (curr_date > item_date){
+        var item_date = parseInt(convertToDate($('.selected-day').attr('data-date-attr') + ' ' + $(this).attr('data-time')));
+        var item_hours = new Date(parseInt(item_date)).getHours();
+        if (curr_date > item_date && curr_hours > item_hours){
+            console.log("BLOCK");
             $(this).addClass('past-time');
         }
     });
@@ -524,6 +529,6 @@ function convertToDate(dateString) {
         timeParts = dateTimeParts[1].split(':'),
         dateParts = dateTimeParts[0].split('-');
 
-    var date = new Date(dateParts[2], parseInt(dateParts[1], 10) - 1, dateParts[0], timeParts[0], timeParts[1]);
+    var date = new Date(dateParts[2], (parseInt(dateParts[1], 10) - 1), dateParts[0], timeParts[0], timeParts[1]);
     return date.getTime();
 }

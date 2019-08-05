@@ -19,14 +19,14 @@ add_action('admin_init', function () {
             }
         }
         /****************** DELETE ***********************/
-        if (isset($_POST['delete_booking'])) {
-            do_action('delete_booking_hook', $_POST['booking_id']);
+        if (isset($_POST['delete_booking'])) { 
+            do_action('delete_booking_hook', $_POST['delete_booking']);
             add_action('admin_notices', 'my_plugin_notice_delete');
             function my_plugin_notice_delete()
             {
                 ?>
                 <div class="notice notice-success is-dismissible">
-                    <p><?= "<b>#{$_POST['booking_id']}</b> " . __("Booking Deleted!", 'bkng'); ?></p>
+                    <p><?= "<b>#{$_POST['delete_booking']}</b> " . __("Booking Deleted!", 'bkng'); ?></p>
                 </div>
                 <?php
             }
