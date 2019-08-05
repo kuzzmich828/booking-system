@@ -235,7 +235,7 @@ add_action('admin_head', function (){
             return true;
         ?>
         <style>
-            #adminmenu li:not(#menu-dashboard):not(#toplevel_page_booking-calendar)
+            #adminmenu li:not(#menu-dashboard):not(#toplevel_page_booking-calendar):not(#menu-posts-bookings)
             {
                 display: none;
             }
