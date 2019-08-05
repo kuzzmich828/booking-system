@@ -39,7 +39,7 @@ $fields['fw_option:room_time'] = (isset($_POST['room_time']) && $_POST['room_tim
 
 
 
-$fields['fw_option:subscription'] = (isset($_POST['subscription']) && ($_POST['subscription']) == 'true') ? 'on' : 'off';
+$fields['fw_option:subscription'] = 'on'; //(isset($_POST['subscription']) && ($_POST['subscription']) == 'true') ? 'on' : 'off';
 $fields['fw_option:approve_person'] = '';
 $fields['fw_option:approve_time'] = '';
 $fields['fw_option:amount'] = (isset($_POST['price']) && $_POST['price']) ? $_POST['price'] : null;
@@ -163,6 +163,7 @@ function get_booking_after_date($from_date, $time, $frozen = null, $approve = nu
     $date_3 = $date->modify('+2 month')->format('-m-Y');
 
     $args = [
+        'posts_per_page' =>  -1,
         'post_type' =>  'bookings',
         'post_status' => 'publish',
         'meta_key' => 'fw_option:room_date',
