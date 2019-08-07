@@ -809,3 +809,28 @@ function before_delete_booking( $booking_id ) {
     );
 
 }
+
+function check_room_for_booking($room_id, $date, $time){
+    $query = new WP_Query([
+        'posts_per_page' => -1,
+        'post_type' =>  'bookings',
+        'post_status' => 'publish',
+        'meta_key' => 'fw_option:room_date',
+        'meta_query' => array(
+            'relation' => 'AND',
+            [
+                'key' => 'fw_option:room_date',
+                'value' => $date,
+            ],
+            [
+                'key' => 'fw_option:room_time',
+                'value' => $time,
+            ],
+            [
+                'key' => 'fw_option:room',
+                'value' => $room_id,
+            ],
+        ),
+    ]);
+    return $query->post_count;
+}

@@ -6,13 +6,20 @@ add_action('admin_init', function () {
         if (isset($_POST['bkng_action'])) {
             if ($_POST['bkng_action'] == 'save_booking') {
 
-                do_action('edit_booking_hook', $_POST['booking_id']);
+//                do_action('edit_booking_hook', $_POST['booking_id']);
+                global $is_saved;
+                $is_saved = bkng_save_booking();
                 add_action('admin_notices', 'my_plugin_notice_save');
                 function my_plugin_notice_save()
                 {
+                    global $is_saved;
+                    if ($is_saved)
+                        $message = __("Booking Saved!", 'bkng');
+                    else
+                        $message = __("ERROR during the saving! This time already exist!", 'bkng');
                     ?>
                     <div class="notice notice-success is-dismissible">
-                        <p><?= "<b>#{$_POST['booking_id']}</b> ". __("Booking Saved!", 'bkng'); ?></p>
+                        <p><?= "<b>#{$_POST['booking_id']}</b> ". $message; ?></p>
                     </div>
                     <?php
                 }
