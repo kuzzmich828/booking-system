@@ -69,7 +69,7 @@ document.addEventListener("DOMContentLoaded", function () {
             alert("השם לא מלא");
             return;
         }else if (!email){
-            alert("הדואר לא מולא");
+            alert("נא למלא את הדוא”ל!");
             return;
         }else if (!phone){
             alert("הטלפון אינו מלא");

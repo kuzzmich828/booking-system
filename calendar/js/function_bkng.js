@@ -52,7 +52,7 @@ jQuery( document ).ready(function() {
                 alert("השם לא מלא");
             }else if (jQuery('#email_booking').val() == ''){
                 event.preventDefault();
-                alert("הדואר לא מולא");
+                alert("נא למלא את הדוא”ל!");
             }else if (jQuery('#phone_booking').val() == ''){
                 event.preventDefault();
                 alert("הטלפון אינו מלא");

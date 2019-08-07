@@ -349,9 +349,13 @@ add_action('admin_footer', function (){
         .wp-core-ui .button-approve{background: #f7ff20b5; color: #4a4a4a; border-color: #4a4a4a; box-shadow: 0 1px 0 #0a7b00b5;}
     </style>
     <?php if (get_locale() == 'he_IL'): ?>
-    <style>
-        .col-sm-4, .col-sm-3, .col-sm-6, .col-sm-8{float: right;}
-    </style>
+        <style>
+            .col-sm-4, .col-sm-3, .col-sm-6, .col-sm-8{float: right;}
+            @media screen and (max-width: 782px){
+                .col-sm-4, .col-sm-3, .col-sm-6, .col-sm-8{float: none;}
+                #wpbody{width: 60%;}
+            }
+        </style>
     <?php endif;
 });
 

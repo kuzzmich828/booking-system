@@ -24,7 +24,7 @@ add_action( 'wp_dashboard_setup', function () {
 
                         <ul>
                             <li>
-                                <i><?= $booking['room_date'] . ", " .$booking['room_time']; ?></i>
+                                <i><?= str_replace("-",".", $booking['room_date']) . ", " .$booking['room_time']; ?></i>
                             </li>
                         </ul>
 
@@ -33,7 +33,7 @@ add_action( 'wp_dashboard_setup', function () {
                                 <?= ($booking['name']) ? ($booking['name']) ." |" : ""; ?>
                                 <?= ($booking['phone']) ? ($booking['phone']) ." |" : ""; ?>
                                 <?= ($booking['comments']) ? ($booking['comments']) ." |" : ""; ?>
-                                <?= ($booking['amount_price']) ? ($booking['amount_price']) ." |" : ""; ?>
+                                <?= ($booking['amount_price']) ? ($booking['amount_price'] - $booking['amount_price']*$booking['discount']/100) ." |" : ""; ?>
                             </p>
                         </div>
 
@@ -69,7 +69,7 @@ function bkng_dashboard_widget_all_booking_handler() {
 
             <ul>
                 <li>
-                    <i><?= $booking['room_date'] . ", " .$booking['room_time']; ?></i>
+                    <i><?= str_replace("-",".", $booking['room_date']) . ", " .$booking['room_time']; ?></i>
                 </li>
             </ul>
 
@@ -78,7 +78,7 @@ function bkng_dashboard_widget_all_booking_handler() {
                     <?= ($booking['name']) ? ($booking['name']) ." |" : ""; ?>
                     <?= ($booking['phone']) ? ($booking['phone']) ." |" : ""; ?>
                     <?= ($booking['comments']) ? ($booking['comments']) ." |" : ""; ?>
-                    <?= ($booking['amount_price']) ? ($booking['amount_price']) ." |" : ""; ?>
+                    <?= ($booking['amount_price']) ? (($booking['amount_price'] - $booking['amount_price']*$booking['discount']/100)) ." |" : ""; ?>
                 </p>
             </div>
 
@@ -108,7 +108,7 @@ function bkng_dashboard_widget_need_approve_handler() {
 
             <ul>
                 <li>
-                    <i><?= $booking['room_date'] . ", " .$booking['room_time']; ?></i>
+                    <i><?= str_replace("-",".", $booking['room_date']) . ", " .$booking['room_time']; ?></i>
                 </li>
             </ul>
 
@@ -117,7 +117,7 @@ function bkng_dashboard_widget_need_approve_handler() {
                     <?= ($booking['name']) ? ($booking['name']) ." |" : ""; ?>
                     <?= ($booking['phone']) ? ($booking['phone']) ." |" : ""; ?>
                     <?= ($booking['comments']) ? ($booking['comments']) ." |" : ""; ?>
-                    <?= ($booking['amount_price']) ? ($booking['amount_price']) ." |" : ""; ?>
+                    <?= ($booking['amount_price']) ? (($booking['amount_price'] - $booking['amount_price']*$booking['discount']/100)) ." |" : ""; ?>
                 </p>
             </div>
 
@@ -156,7 +156,7 @@ function bkng_dashboard_widget_frozen_handler() {
 
             <ul>
                 <li>
-                    <i><?= $booking['room_date'] . ", " .$booking['room_time']; ?></i>
+                    <i><?= str_replace("-",".", $booking['room_date']) . ", " .$booking['room_time']; ?></i>
                 </li>
             </ul>
 
@@ -165,7 +165,7 @@ function bkng_dashboard_widget_frozen_handler() {
                     <?= ($booking['name']) ? ($booking['name']) ." |" : ""; ?>
                     <?= ($booking['phone']) ? ($booking['phone']) ." |" : ""; ?>
                     <?= ($booking['comments']) ? ($booking['comments']) ." |" : ""; ?>
-                    <?= ($booking['amount_price']) ? ($booking['amount_price']) ." |" : ""; ?>
+                    <?= ($booking['amount_price']) ? (($booking['amount_price'] - $booking['amount_price']*$booking['discount']/100)) ." |" : ""; ?>
                 </p>
             </div>
 
