@@ -339,6 +339,9 @@ add_action('approve_booking_hook', function ($booking_id){
 });
 
 add_action('delete_booking_hook', function ($booking_id){
+    $user_id = get_current_user_id();
+    $attr = get_all_meta_booking($booking_id);
+    bkng_write_log("User #{$user_id} delete booking #{$booking_id}| Attr:".json_encode($attr));
     wp_delete_post($booking_id);
 });
 
@@ -348,7 +351,7 @@ add_action('admin_footer', function (){
         .wp-core-ui .button-delete{background: #d61111c4; color: #fff; border-color: #c70000; box-shadow: 0 1px 0 #ff3636;}
         .wp-core-ui .button-approve{background: #f7ff20b5; color: #4a4a4a; border-color: #4a4a4a; box-shadow: 0 1px 0 #0a7b00b5;}
     </style>
-    <?php if (get_locale() == 'he_IL'): ?>
+    <?php if (get_locale() == 'he_IL' && isset($_GET['page']) && $_GET['page'] == 'booking-calendar'): ?>
         <style>
             .col-sm-4, .col-sm-3, .col-sm-6, .col-sm-8{float: right;}
             @media screen and (max-width: 782px){
@@ -810,27 +813,3 @@ function before_delete_booking( $booking_id ) {
 
 }
 
-function check_room_for_booking($room_id, $date, $time){
-    $query = new WP_Query([
-        'posts_per_page' => -1,
-        'post_type' =>  'bookings',
-        'post_status' => 'publish',
-        'meta_key' => 'fw_option:room_date',
-        'meta_query' => array(
-            'relation' => 'AND',
-            [
-                'key' => 'fw_option:room_date',
-                'value' => $date,
-            ],
-            [
-                'key' => 'fw_option:room_time',
-                'value' => $time,
-            ],
-            [
-                'key' => 'fw_option:room',
-                'value' => $room_id,
-            ],
-        ),
-    ]);
-    return $query->post_count;
-}

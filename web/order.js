@@ -72,10 +72,10 @@ document.addEventListener("DOMContentLoaded", function () {
             alert("נא למלא את הדוא”ל!");
             return;
         }else if (!phone){
-            alert("הטלפון אינו מלא");
+            alert("נא למלא את מס’ הטלפון!");
             return;
         }else if ($('.quest_politics-js').prop('checked') !== true){
-            alert('המדיניות לא מסומנת');
+            alert('נא לקרוא את תנאי ביצוע הזמנה ולאשר אותם!');
             return;
         }
 
@@ -106,7 +106,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 $('#order_date').html(response['room_date']);
                 $('#order_time').html(response['room_time']);
                 $('#order_quantity').html(response['quantity']);
-                $('#order_place').html('order_place');
+                $('#order_place').html(response['name']);
                 $('#order_mail').html(response['email']);
                 $('#order_phone').html(response['phone']);
                 $('#order_value').html(response['amount_price']);

@@ -55,7 +55,7 @@ jQuery( document ).ready(function() {
                 alert("נא למלא את הדוא”ל!");
             }else if (jQuery('#phone_booking').val() == ''){
                 event.preventDefault();
-                alert("הטלפון אינו מלא");
+                alert("נא למלא את מס’ הטלפון!");
             }
         }
     });
