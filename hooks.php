@@ -767,7 +767,6 @@ function create_booking($fields){
         'post_type'     => 'bookings',
         'post_title'    => '',
         'post_content'  => '',
-        'post_author'   => 1,
     );
 
     $post_id = wp_insert_post( $post_data );
