@@ -197,7 +197,6 @@ function bkng_dashboard_widget_newbooking_handler() {
 /******************** AutoRefresh Dashboard *******************/
 add_action('admin_footer', function (){
 
-
     if (get_current_screen()->id === 'dashboard'){
         ?>
         <script>
@@ -220,6 +219,8 @@ add_action('admin_footer', function (){
             }
         </style>
         <?php
+    }elseif (get_current_screen()->id === 'edit-bookings'){
+        ?><style>li.publish{display: none !important;}</style><?php
     }
 });
 

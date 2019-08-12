@@ -345,7 +345,7 @@ function fillBooking(data, clear = false) {
             var response = JSON.parse(data);
             var prices = response['prices'];
             /********* Fill Input Price & Quantity ******/
-            var options = '';
+            var options = '<option disabled selected>----</option>';
             jQuery( prices ).each(function( index ) {
                 var selected = '';
                 if (amount_price == prices[index]['price']) {

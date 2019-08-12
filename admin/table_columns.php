@@ -1,24 +1,40 @@
 <?php
 
+add_filter('manage_bookings_posts_columns', 'column_order', 9999);
+function column_order($columns) {
+    $n_columns = array();
+    $move = 'date'; // what to move
+    $before = 'name'; // move before this
+    foreach($columns as $key => $value) {
+        if ($key==$before){
+            $n_columns[$move] = $move;
+        }
+        $n_columns[$key] = $value;
+    }
+    return $n_columns;
+}
+
+add_filter('months_dropdown_results', '__return_empty_array');
+
 // создаем новую колонку
 add_filter( 'manage_'.'bookings'.'_posts_columns', 'add_views_column', 4 );
 function add_views_column( $columns ){
     $num = 2; // после какой по счету колонки вставлять новые
 
     $new_columns = array(
+        'room' => __('Room', 'bkng'),
+        'room_date' => __('Game Date', 'bkng'),
+        'room_time' => __('Game Time', 'bkng'),
+        /******************/
+        'week_day' => __('Day of Week', 'bkng'),
+        'status' => __('Status', 'bkng'),   // status
+        'approved_date' => __('Approved Date', 'bkng'),     // approved_date
+        'approved_person' => __('Approved Person', 'bkng'), // approved_person
+        'booking_created' => __('Created Date', 'bkng'),
         'name' => __('Name', 'bkng'),       // name
         'phone' => __('Phone', 'bkng'),     // phone
         'email' => __('Email', 'bkng'),     // email
-        'status' => __('Status', 'bkng'),   // status
-
-
-        'approved_date' => __('Approved Date', 'bkng'),     // approved_date
-        'approved_person' => __('Approved Person', 'bkng'), // approved_person
         'subscription' => __('Subscription', 'bkng'),             // Subscribe
-
-        'room' => __('Room', 'bkng'),
-        'room_date' => __('Game Date', 'bkng'),
-        'week_day' => __('Day of Week', 'bkng'),
         'quantity' => __('Quantity', 'bkng'),
         'discount' => __('Discount', 'bkng'),
         'amount_price' => __('Price', 'bkng'),
@@ -46,7 +62,9 @@ function fill_views_column( $colname, $post_id ){
     }elseif ($colname === 'approved_person'){
         echo (get_post_meta($post_id, 'fw_option:approve_person', 1));
     }elseif ($colname === 'approved_date'){
-        echo (get_post_meta($post_id, 'fw_option:approve_time', 1));
+        $approve_time = get_post_meta($post_id, 'fw_option:approve_time', 1);
+        if ($approve_time)
+            echo date("d-m-Y H:i", strtotime($approve_time));
     }elseif ($colname === 'quantity'){
         echo (get_post_meta($post_id, 'fw_option:quantity', 1));
     }elseif ($colname === 'subscription'){
@@ -70,7 +88,12 @@ function fill_views_column( $colname, $post_id ){
         echo get_post_meta($post_id, 'amount', 1);
     }elseif ($colname === 'subscribe'){
         echo get_post_meta($post_id, 'subscribe', 1);
+    }elseif ($colname === 'room_time'){
+        echo get_post_meta($post_id, 'fw_option:room_time', 1);
+    }elseif ($colname === 'booking_created'){
+        echo get_the_date('d-m-Y H:i',$post_id);
     }
+
 }
 
 /***************************************** *****************************************/

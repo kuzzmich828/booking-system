@@ -15,7 +15,7 @@ function add_post_formats_filter_to_post_administration(){
         </select>
 
         <!--  ***********************************************************   -->
-        <input  type="date" name="room_date" id="room_date" class="postform" />
+        <input type="text" onfocus="(this.type='date')"  name="room_date" id="room_date" class="postform" placeholder="תאריך משחק"/>
 
         <!--  ***********************************************************   -->
         <select name="week_day" id="week_day" class="postform">
@@ -115,20 +115,34 @@ function add_post_format_filter_to_posts($query){
                 if ($status == 'approved'){
                     $metakey = 'fw_option:approve';
                     $metaval = 'on';
-                }elseif ($status == 'needapprove') {
-                    $metakey = 'fw_option:approve';
-                    $metaval = 'off';
-                }else{
+                }elseif($status == 'frozen'){
                     $metakey = 'fw_option:frozen';
                     $metaval = 'on';
                 }
 
-                $meta_queries [] =
-                    array(
-                        'key'     => $metakey,
-                        'value'   => $metaval,
-                        'compare' => '=',
-                    );
+
+                if($status == 'needapprove') {
+                    $meta_queries [] = [
+                        array('AND'),
+                        array(
+                            'key'     => 'fw_option:approve',
+                            'value'   => 'off',
+                            'compare' => '=',
+                        ),
+                        array(
+                            'key'     => 'fw_option:frozen',
+                            'value'   => 'off',
+                            'compare' => '=',
+                        )
+                    ];
+                } else {
+                    $meta_queries [] =
+                        array(
+                            'key'     => $metakey,
+                            'value'   => $metaval,
+                            'compare' => '=',
+                        );
+                }
 
             }
         }

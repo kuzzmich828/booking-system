@@ -277,6 +277,7 @@ function bkng_get_booking_rooms(){
 
     remove_action('pre_get_posts','add_post_format_filter_to_posts');
     $rooms = get_posts([
+        'posts_per_page'=>-1,
         'post_type'=>'room',
         'post_status'=>'publish',
     ]);
