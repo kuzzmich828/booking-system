@@ -358,6 +358,10 @@ add_action('admin_footer', function (){
                 .col-sm-4, .col-sm-3, .col-sm-6, .col-sm-8{float: none;}
                 #wpbody{width: 60%;}
             }
+
+            .fc-calendar .fc-row > div, .fc-calendar .fc-head > div, .fc-calendar .fc-row > div {
+                float: right;
+            }
         </style>
     <?php endif;
 });
