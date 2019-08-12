@@ -131,6 +131,9 @@ function get_booking_count_by_date(){
 
     foreach ($posts as $post){
         $date = get_post_meta($post->ID, "fw_option:room_date", true);
+        $frozen = get_post_meta($post->ID, "fw_option:frozen", true);
+        if ($frozen == 'on')
+            continue;
         if (isset($response[$date])){
             $response[$date]++;
         } else {
