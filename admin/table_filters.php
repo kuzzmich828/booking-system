@@ -18,7 +18,7 @@ function add_post_formats_filter_to_post_administration(){
         <input  type="date" name="room_date" id="room_date" class="postform" />
 
         <!--  ***********************************************************   -->
-        <select name="room_day" id="room_day" class="postform">
+        <select name="week_day" id="week_day" class="postform">
             <option value=""><?= __('Day...', 'bkng'); ?></option>
             <?php
                 $days = [

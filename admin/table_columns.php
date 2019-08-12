@@ -40,7 +40,6 @@ function fill_views_column( $colname, $post_id ){
     }elseif ($colname === 'amount_price'){
         echo get_post_meta($post_id, 'fw_option:amount_price', 1);
     }elseif ($colname === 'room_date'){
-//        echo get_post_meta($post_id, 'room_date:timestamp', 1);
         echo get_post_meta($post_id, 'fw_option:room_date', 1) ." ". get_post_meta($post_id, 'fw_option:room_time', 1);
     }elseif ($colname === 'room'){
         echo get_the_title(get_post_meta($post_id, 'fw_option:room', 1));
@@ -64,8 +63,7 @@ function fill_views_column( $colname, $post_id ){
             echo "need approve";
         }
     }elseif ($colname === 'week_day'){
-        $date = get_post_meta($post_id, 'room_date:timestamp', 1);
-        echo date("D", $date);
+        echo get_post_meta($post_id, 'room_date:week_day', 1);
     }elseif ($colname === 'room'){
         echo  (get_post_meta($post_id, 'fw_option:room', 1));
     }elseif ($colname === 'amount'){
@@ -115,4 +113,29 @@ function add_column_room_date_request( $query ){
     $query->set( 'orderby', 'meta_value_num' );
 
 }
+
+add_action( 'pre_get_posts', 'add_column_week_day_request' );
+function add_column_week_day_request( $query ){
+    if(  is_admin()
+        && isset($_GET['week_day'])
+        && $_GET['week_day']
+    ) {
+        $query->set('meta_key', 'room_date:week_day');
+        $query->set('meta_value', $_GET['week_day']);
+    }
+}
+
+add_action( 'pre_get_posts', 'add_column_subscribe_request' );
+function add_column_subscribe_request( $query ){
+    if(  is_admin()
+        && isset($_GET['subscribe'])
+        && $_GET['subscribe']
+    ) {
+        $query->set('meta_key', 'fw_option:subscription');
+        $query->set('meta_value', $_GET['subscribe']);
+    }
+}
+
+
+
 

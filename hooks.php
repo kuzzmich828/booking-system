@@ -388,19 +388,6 @@ add_action('init', function (){
     wp_localize_script('jquery', 'bkng_messages', $array);
 });
 
-/*add_action('init', function (){
-    if (isset($_GET['page']) && $_GET['page'] == 'booking-calendar') {
-        $rooms = get_posts(['post_type'=>'room']);
-        $resp = [];
-        foreach ($rooms as $room){
-            $obj = new stdClass();
-            $obj->room_name = $room->post_title;
-            $obj->room_id = $room->ID;
-            $resp[] = $obj;
-        }
-        wp_localize_script('jquery', 'all_rooms', $resp);
-    }
-});*/
 
 add_action( 'updated_post_meta', 'callback_update_bookin_meta', 10, 4);
 
@@ -434,6 +421,7 @@ function updateRoomTimestamp($booking_id){
         $timestamp = DateTime::createFromFormat('d-m-Y H:i:s',"$date $time:00");
         if ($timestamp){
             update_post_meta($booking_id, 'room_date:timestamp', $timestamp->getTimestamp());
+            update_post_meta($booking_id, 'room_date:week_day', $timestamp->format("D"));
         }
     }
 }
