@@ -99,10 +99,6 @@ HTML;
         </table></body>
 HTML;
 
-    if (isset($subscription) && $subscription == '1') {
-        $message .= 'This person want to subscribe';
-    }
-
     remove_all_filters('wp_mail_from');
     remove_all_filters('wp_mail_from_name');
 
