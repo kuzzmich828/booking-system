@@ -553,16 +553,17 @@ add_action('admin_footer', function () {
 });
 
 add_action('restrict_manage_posts', function () {
-    global $wp_query, $query;
-
-    $posts = $wp_query->get_posts();
+    global $wp_query;
+    $query=$wp_query;
+    $query->set('posts_per_page', 99999);
+    $posts = $query->get_posts();
     $arr = [];
     foreach ($posts as $post) {
 
         $arr [] = $post->ID;
     }
 
-    echo "<button class='button export-xls'  data-query='".base64_encode(serialize($wp_query->query))."' data-export='" . json_encode($arr) . "'>Export to XLS</button>";
+    echo "<button class='button export-xls' all-count='".count($posts)."'  data-query='".base64_encode(serialize($query->query))."' data-export='" . json_encode($arr) . "'>Export to XLS</button>";
 
     ?>
     <script>
