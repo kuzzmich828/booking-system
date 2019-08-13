@@ -77,6 +77,9 @@ document.addEventListener("DOMContentLoaded", function () {
         }else if ($('.quest_politics-js').prop('checked') !== true){
             alert('נא לקרוא את תנאי ביצוע הזמנה ולאשר אותם!');
             return;
+        }else if (price == '' || !price){
+            alert('בחר את מספר השחקנים!');
+            return;
         }
 
         $.ajax({
@@ -246,7 +249,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 var times = response['times'];
                 var prices = response['prices'];
                 var time_table = '';
-                var prices_table = '';
+                var prices_table = '<option value="" disabled selected>---</option>';
 
                 /* *************************************** */
                 $(times).each(function(index){
