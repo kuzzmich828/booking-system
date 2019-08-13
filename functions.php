@@ -32,7 +32,7 @@ function bkng_save_booking(){
         $fields['fw_option:amount_price'] = (isset($_POST['price_booking'])) ? (float)$_POST['price_booking'] : null;
         $fields['fw_option:approve'] = 'off';
         $fields['fw_option:frozen'] = 'off';
-        $fields['fw_option:quantity'] = 0;
+        $fields['fw_option:quantity'] = (isset($_POST['price_booking'])) ? (float)$_POST['price_booking'] : null;
 
         $fields['fw_option:room_date'] = (isset($_POST['room_date']) && $_POST['room_date']) ? DateTime::createFromFormat('d-m-Y', $_POST['room_date'])->format('d-m-Y') : null;
         $fields['fw_option:room_time'] = (isset($_POST['room_time']) && $_POST['room_time']) ? $_POST['room_time'] : null;
@@ -71,6 +71,8 @@ function bkng_save_booking(){
             }
 
             $booking_id = $_POST['booking_id'];
+
+            updateRoomQuantity($booking_id, $fields['fw_option:room'], $fields['fw_option:amount_price']);
 
         }elseif($fields['fw_option:room'] != null){
 

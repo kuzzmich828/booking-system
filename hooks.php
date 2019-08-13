@@ -418,6 +418,19 @@ function updateRoomAmount($booking_id){
     }
 }
 
+function updateRoomQuantity($booking_id, $room_id, $amount_price){
+    /**************************** Update Quantity *****************************/
+    if ($amount_price){
+        $prices = get_post_meta($room_id, "fw_option:prices", 1);
+        foreach ($prices as $price){
+            if ($price['price'] == $amount_price){
+                update_post_meta($booking_id, "fw_option:quantity", $price['quantity']);
+                break;
+            }
+        }
+    }
+}
+
 function updateRoomTimestamp($booking_id){
     $date = get_post_meta($booking_id, 'fw_option:room_date', 1);
     $time = get_post_meta($booking_id, 'fw_option:room_time', 1);
@@ -449,8 +462,11 @@ function callback_post_options_update($booking_id){
     updateRoomTimestamp($booking_id);
 
     updateRoomAmount($booking_id);
-    /**************************** Update Quantity *****************************/
-    if ($amount_price){
+
+    if ($amount_price)
+        updateRoomQuantity($booking_id, $room_id, $amount_price);
+
+    /*if ($amount_price){
         $prices = get_post_meta($room_id, "fw_option:prices", 1);
         foreach ($prices as $price){
             if ($price['price'] == $amount_price){
@@ -458,7 +474,8 @@ function callback_post_options_update($booking_id){
                 break;
             }
         }
-    }
+    }*/
+
     /**************************** Update Title *****************************/
     global $wpdb;
     $wpdb->update( $wpdb->posts, array( 'post_title' =>  "$room_name $room_date $room_time $name $phone" ), array( 'ID' => $booking_id ) );
