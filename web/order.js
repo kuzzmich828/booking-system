@@ -54,8 +54,6 @@ document.addEventListener("DOMContentLoaded", function () {
     button3.addEventListener('click', function (e) {
         e.preventDefault();
 
-
-
         var name = $("input[name='quest_fullname']").val();
         var email =$("input[name='quest_email']").val();
         var phone =$("input[name='quest_phone']").val();
@@ -81,6 +79,8 @@ document.addEventListener("DOMContentLoaded", function () {
             alert('בחר את מספר השחקנים!');
             return;
         }
+
+        jQuery(this).addClass('hide');
 
         $.ajax({
             url: '/wp-admin/admin-ajax.php',
@@ -147,17 +147,14 @@ document.addEventListener("DOMContentLoaded", function () {
 
         $('body').removeClass('overlay');
 
-        // button2.classList.addClass('hide');
+        jQuery("#button-step-2").removeClass('hide');
         // button3.classList.addClass('hide');
 
 
-        $("#button-step-1").css('display','none');
-        $("#button-step-2").css('display','none');
+        jQuery("#button-step-1").css('display','none');
+        jQuery("#button-step-2").css('display','none');
         // wrapperQuestButtons.classList.remove("hide");
     }
-    /*wrapperQuestQuantity.addEventListener('change', function (e) {
-        wrapperQuestDisWrapper.innerHTML = e.target.value;
-    });*/
 
     function open_1_modal(element) {
         // $(wrapperQuestButtons).addClass('hide');

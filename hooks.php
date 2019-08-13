@@ -751,6 +751,9 @@ function callback_create_booking(){
     $fields['fw_option:amount'] = (isset($_POST['price']) && $_POST['price']) ? $_POST['price'] : null;
     $fields['fw_option:amount_price'] = (isset($_POST['price']) && $_POST['price']) ? $_POST['price'] : null;
 
+    if (check_room_for_booking($fields['fw_option:room'], $fields['fw_option:room_date'], $fields['fw_option:room_time'])) {
+        return wp_send_json([], 400);
+    }
     $response = create_booking($fields);
 
     mail_request(
