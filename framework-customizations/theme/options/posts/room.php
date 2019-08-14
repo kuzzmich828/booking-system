@@ -164,6 +164,16 @@ $options = array(
         ),
     ],
 
+    'modal_corner_color' => [
+        'type'  => 'color-picker',
+        'value' => '#ccc',
+        'label' => __('Modal Corner Color', 'bkng'),
+        'fw-storage' => array(
+            'type' => 'post-meta',
+            'post-meta' => 'fw_option:modal_corner_color',
+        ),
+    ],
+
 );
 
 

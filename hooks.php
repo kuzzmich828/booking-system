@@ -218,6 +218,7 @@ function callback_get_room_attributes(){
     $data ['percent'] = get_post_meta($room_id, 'wpcf-percent-without-help', 1);
     $data ['icon_text_color'] = get_post_meta($room_id, 'wpcf-icon-text-color', 1);
     $data ['title_color'] = get_post_meta($room_id, 'fw_option:title_color', 1);
+    $data ['modal_corner_color'] = get_post_meta($room_id, 'fw_option:modal_corner_color', 1);
 
 
 

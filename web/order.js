@@ -217,7 +217,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 /********** Fill icons ***********/
 
                 $('.time-text-js').html(response['time_text']);
-                console.log($('.wrapper-quest__background').length);
+
                 $('.wrapper-quest__background').attr('src', response['room_image']);
                 $('.people-text-js').html(response['people_text']);
                 $('.age-text-js').html(response['age_text']);
@@ -230,6 +230,8 @@ document.addEventListener("DOMContentLoaded", function () {
                 $('.percent-js').html(response['percent']);
 
                 $('.wpcf-icon-text-color').css('color', response['icon_text_color']);
+                var c_color = ((response['modal_corner_color'])) ? hexToRgbA(response['modal_corner_color']) : 'rgba(135, 183, 234, 0.7)';
+                $('.wrapper-quest__whiteline_header-left, .wrapper-quest__whiteline_header-right').css('background', c_color);
                 /********** Fill icons ***********/
 
                 selected_room_id = response['room_id'];
@@ -379,3 +381,15 @@ function convertToDate(dateString) {
     return date.getTime();
 }
 
+function hexToRgbA(hex){
+    var c;
+    if(/^#([A-Fa-f0-9]{3}){1,2}$/.test(hex)){
+        c= hex.substring(1).split('');
+        if(c.length== 3){
+            c= [c[0], c[0], c[1], c[1], c[2], c[2]];
+        }
+        c= '0x'+c.join('');
+        return 'rgba('+[(c>>16)&255, (c>>8)&255, c&255].join(',')+',1)';
+    }
+    throw new Error('Bad Hex');
+}
