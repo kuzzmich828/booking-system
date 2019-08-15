@@ -512,7 +512,7 @@ function _action_theme_fw_post_options_update($booking_id) {
 
 add_action('admin_footer', function () {
 
-    if ($_GET['post_type'] == 'bookings') {
+    if (isset($_GET['post_type']) && $_GET['post_type'] == 'bookings') {
 
         global $wp_query;
         $attr = $wp_query->query;
