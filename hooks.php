@@ -357,7 +357,7 @@ add_action('admin_footer', function (){
             .col-sm-4, .col-sm-3, .col-sm-6, .col-sm-8{float: right;}
             @media screen and (max-width: 782px){
                 .col-sm-4, .col-sm-3, .col-sm-6, .col-sm-8{float: none;}
-                #wpbody{width: 90%;}
+                #wpbody{width: 100%;}
             }
 
             .fc-calendar .fc-row > div, .fc-calendar .fc-head > div, .fc-calendar .fc-row > div {

@@ -72,7 +72,7 @@
                     <div class="wrapper-quest__item" data-room-id="<?= $related_room->ID; ?>" data-room-name="<?= $related_room->post_title; ?>">
                         <div class="wrapper-quest-other-quest__img">
                             <?php $url_room_img = get_the_post_thumbnail_url($related_room->ID); ?>
-                            <img src="<?= ($url_room_img) ? $url_room_img : 'http://funeral-nsk.ru/wp-content/uploads/2018/06/thumbnail.png'; ?>" alt="<?= $related_room->post_title; ?>">
+                            <img src="<?= ($url_room_img) ? $url_room_img : '//funeral-nsk.ru/wp-content/uploads/2018/06/thumbnail.png'; ?>" alt="<?= $related_room->post_title; ?>">
                         </div>
                         <div class="wrapper-quest-other-quest__title" style="color:<?php echo "rgba(" . $r . ", " . $g . ", " . $b . ");"; ?>"><?= $related_room->post_title; ?></div>
                         <div class="wrapper-quest-other-quest__button" style="<?php echo "background: rgba(" . $r . ", " . $g . ", " . $b . ", 0.7);"; ?>"><a class="re-open-booking" data-room-id="<?= $related_room->ID; ?>" data-room-name="<?= $related_room->post_title; ?>" href="#">הזמן עכשיו</a></div>
