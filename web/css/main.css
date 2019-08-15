@@ -771,7 +771,7 @@
   }
 
   .wrapper-quest__button-back::after {
-    right: 30%;
+    right: 0%;
   }
 }
 
