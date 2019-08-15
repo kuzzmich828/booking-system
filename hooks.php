@@ -337,9 +337,12 @@ add_action('approve_booking_hook', function ($booking_id){
     );
 
     approveBookingData($booking_id);
+    bkng_write_log("User #".get_current_user_id()." approve booking #{$booking_id}| Attr:".json_encode($response));
 });
 
 add_action('delete_booking_hook', function ($booking_id){
+    if (!$booking_id)
+        return;
     $user_id = get_current_user_id();
     $attr = get_all_meta_booking($booking_id);
     bkng_write_log("User #{$user_id} delete booking #{$booking_id}| Attr:".json_encode($attr));
@@ -800,6 +803,9 @@ function create_booking($fields){
         $response = get_all_meta_booking($post_id);
 
     }
+
+    $user = get_current_user_id();
+    bkng_write_log("User #".$user." create booking #".$post_id." | Attr:".json_encode($response));
 
     return $response;
 }

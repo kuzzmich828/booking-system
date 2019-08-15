@@ -423,7 +423,7 @@ function bkng_write_log($str){
         return;
 
     $f = fopen(WP_CONTENT_DIR."/log_booking.txt", 'a');
-    fwrite($f, date('d.m.Y H:i:s')."{$str}\n");
+    fwrite($f, date('d.m.Y H:i:s')." {$str}\n");
     fclose($f);
     return;
 }
