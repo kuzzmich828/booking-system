@@ -54,9 +54,14 @@ function fill_views_column( $colname, $post_id ){
     }elseif ($colname === 'email'){
         echo  (get_post_meta($post_id, 'fw_option:email', 1));
     }elseif ($colname === 'amount_price'){
-        echo get_post_meta($post_id, 'fw_option:amount_price', 1);
+        $frozen = get_post_meta($post_id, 'fw_option:frozen', 1);
+        if ($frozen == 'on') {
+            echo '0';
+        }else {
+            echo get_post_meta($post_id, 'fw_option:amount_price', 1);
+        }
     }elseif ($colname === 'room_date'){
-        echo get_post_meta($post_id, 'fw_option:room_date', 1) ." ". get_post_meta($post_id, 'fw_option:room_time', 1);
+        echo str_replace("-", ".", get_post_meta($post_id, 'fw_option:room_date', 1));
     }elseif ($colname === 'room'){
         echo get_the_title(get_post_meta($post_id, 'fw_option:room', 1));
     }elseif ($colname === 'approved_person'){
@@ -64,7 +69,7 @@ function fill_views_column( $colname, $post_id ){
     }elseif ($colname === 'approved_date'){
         $approve_time = get_post_meta($post_id, 'fw_option:approve_time', 1);
         if ($approve_time)
-            echo date("d-m-Y H:i", strtotime($approve_time));
+            echo date("d.m.Y H:i", strtotime($approve_time));
     }elseif ($colname === 'quantity'){
         echo (get_post_meta($post_id, 'fw_option:quantity', 1));
     }elseif ($colname === 'subscription'){
@@ -85,13 +90,18 @@ function fill_views_column( $colname, $post_id ){
     }elseif ($colname === 'room'){
         echo  (get_post_meta($post_id, 'fw_option:room', 1));
     }elseif ($colname === 'amount'){
-        echo get_post_meta($post_id, 'amount', 1);
+        $frozen = get_post_meta($post_id, 'fw_option:frozen', 1);
+        if ($frozen == 'on') {
+            echo '0';
+        }else {
+            echo get_post_meta($post_id, 'amount', 1);
+        }
     }elseif ($colname === 'subscribe'){
         echo get_post_meta($post_id, 'subscribe', 1);
     }elseif ($colname === 'room_time'){
         echo get_post_meta($post_id, 'fw_option:room_time', 1);
     }elseif ($colname === 'booking_created'){
-        echo get_the_date('d-m-Y H:i',$post_id);
+        echo get_the_date('d.m.Y H:i',$post_id);
     }
 
 }

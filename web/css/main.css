@@ -69,7 +69,7 @@
   -ms-transition: 0.3s;
   -o-transition: 0.3s;
   transition: 0.3s;
-  width: 340px;
+  width: 260px;
 }
 
 .wrapper-quest form {
@@ -691,10 +691,11 @@
   background-color: #eee35e;
   color: #860000;
   font-size: 34px;
+  font-family: 'assistantbold';
   line-height: 1em;
   font-weight: 700;
   text-decoration: none;
-  padding: 10px 0 15px 0;
+  padding: 10px 48px 15px 0px;
   margin: 60px auto 40px;
   display: block;
   width: 100%;
@@ -703,17 +704,17 @@
 }
 
 .wrapper-quest__button-back::after {
-      content: '';
-    width: 210px;
-    height: 30px;
-    background-image: url(/wp-content/uploads/2019/07/ty.png);
-    background-repeat: no-repeat;
-    -webkit-background-size: 29px;
-    background-size: 200px;
-    position: absolute;
-    top: auto;
-    right: 60px;
-    bottom: 16px;
+  content: '';
+  width: 90px;
+  height: 42px;
+  background-image: url(/wp-content/uploads/2019/07/ty.png);
+  background-repeat: no-repeat;
+  -webkit-background-size: 29px;
+  background-size: 40px;
+  position: absolute;
+  top: auto;
+  right: -14px;
+  bottom: 9px;
 }
 
 /****************/

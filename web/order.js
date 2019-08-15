@@ -76,7 +76,7 @@ document.addEventListener("DOMContentLoaded", function () {
             alert('נא לקרוא את תנאי ביצוע הזמנה ולאשר אותם!');
             return;
         }else if (price == '' || !price){
-            alert('בחר את מספר השחקנים!');
+            alert('נא לציין כמות המשתתפים!');
             return;
         }
 

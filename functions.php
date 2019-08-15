@@ -281,12 +281,10 @@ function get_all_meta_booking($id){
 function bkng_get_booking_rooms(){
 
     remove_action('pre_get_posts','add_post_format_filter_to_posts');
-    $rooms = get_posts([
-        'posts_per_page'=>-1,
-        'post_type'=>'room',
-        'post_status'=>'publish',
-    ]);
+    global $wpdb;
+    $rooms = $wpdb->get_results("SELECT * FROM {$wpdb->posts} WHERE `post_type` = 'room' AND `post_status` = 'publish';");
     add_action('pre_get_posts','add_post_format_filter_to_posts');
+
     return $rooms;
 }
 

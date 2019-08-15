@@ -37,7 +37,7 @@
         </div>
     </div>
 
-    <div class="booking-popup-right-agent" style="display: none;">להזמנת משחק ל 00:00 ויותר מאוחר, מומלץ להתייעץ עם הנציג
+    <div class="booking-popup-right-agent" style="display: none;"><?= fw_get_db_settings_option('text_under_timetable'); ?>
 </div>
     <a href="#" class="wrapper-quest__widget_button " id="button-step-1">הזמן עכשיו</a>
 </div>
