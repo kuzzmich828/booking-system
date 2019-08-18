@@ -319,6 +319,8 @@ function callback_get_booking(){
 }
 
 add_action('approve_booking_hook', function ($booking_id){
+    if (!$booking_id)
+        return;
     update_post_meta($booking_id, 'fw_option:approve', 'on');
 
     $response = get_all_meta_booking($booking_id);

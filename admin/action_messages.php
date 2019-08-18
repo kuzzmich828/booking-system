@@ -26,7 +26,7 @@ add_action('admin_init', function () {
             }
         }
         /****************** DELETE ***********************/
-        if (isset($_POST['delete_booking'])) { 
+        if (isset($_POST['delete_booking']) && $_POST['delete_booking']) {
             do_action('delete_booking_hook', $_POST['delete_booking']);
             add_action('admin_notices', 'my_plugin_notice_delete');
             function my_plugin_notice_delete()
@@ -39,7 +39,7 @@ add_action('admin_init', function () {
             }
         }
         /****************** APPROVE ***********************/
-        if (isset($_POST['approve_booking'])) {
+        if (isset($_POST['approve_booking']) && isset($_POST['booking_id']) && isset($_POST['booking_id'])) {
             do_action('approve_booking_hook', $_POST['booking_id']);
             add_action('admin_notices', 'my_plugin_notice_approve');
             function my_plugin_notice_approve()
