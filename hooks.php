@@ -337,7 +337,7 @@ add_action('approve_booking_hook', function ($booking_id){
     );
 
     approveBookingData($booking_id);
-    bkng_write_log("User #".get_current_user_id()." approve booking #{$booking_id}| Attr:".json_encode($response));
+    bkng_write_log("User #".get_current_user_id()." APPROVE booking #{$booking_id}| Attr:".json_encode($response));
 });
 
 add_action('delete_booking_hook', function ($booking_id){
@@ -345,7 +345,7 @@ add_action('delete_booking_hook', function ($booking_id){
         return;
     $user_id = get_current_user_id();
     $attr = get_all_meta_booking($booking_id);
-    bkng_write_log("User #{$user_id} delete booking #{$booking_id}| Attr:".json_encode($attr));
+    bkng_write_log("User #{$user_id} DELETE booking #{$booking_id}| Attr:".json_encode($attr));
     wp_delete_post($booking_id);
 });
 
@@ -805,7 +805,7 @@ function create_booking($fields){
     }
 
     $user = get_current_user_id();
-    bkng_write_log("User #".$user." create booking #".$post_id." | Attr:".json_encode($response));
+    bkng_write_log("User #".$user." CREATE booking #".$post_id." | Attr:".json_encode($response));
 
     return $response;
 }

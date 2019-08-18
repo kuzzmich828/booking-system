@@ -73,7 +73,7 @@ function bkng_save_booking(){
             $booking_id = $_POST['booking_id'];
 
             updateRoomQuantity($booking_id, $fields['fw_option:room'], $fields['fw_option:amount_price']);
-
+            bkng_write_log("User #".get_current_user_id()." UPDATE booking #".$booking_id." | Attr:".json_encode($fields));
         }elseif($fields['fw_option:room'] != null){
 
             if (check_room_for_booking($fields['fw_option:room'], $fields['fw_option:room_date'], $fields['fw_option:room_time']))
