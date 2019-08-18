@@ -164,15 +164,19 @@ jQuery( document ).ready(function() {
 
     /********* Select a Time *********/
     jQuery(document).on("click", ".cell-time", function (event) {
-
         if (jQuery(this).hasClass('past-time'))
             return;
+
+        if (jQuery(this).hasClass('reserved') && is_change_datetime){
+            alert("Date already reserved");
+            return;
+        }
+
         jQuery("#room_time").val(jQuery('.cell-time.selected-day').attr('data-time'));
         jQuery("#room_date").val(jQuery('.cell-day.selected-day').attr('data-date-attr'));
 
         if (is_change_datetime) {
             alert("You changed date to " + jQuery("#room_date").val().replace(/\-/g, ".") +", "+ jQuery("#room_time").val());
-
             jQuery("#form-booking *").prop("disabled", false);
             jQuery(button_save).click();
 
@@ -397,13 +401,6 @@ function fillRooms(data) {
         }
     });
 
-    // jQuery(all_rooms).each(function (index) {
-    //     console.log(exclude);
-    //     if (exclude.includes(all_rooms[index]['room_id'].toString()) === false){
-    //         options += '<option value = "' + all_rooms[index]['room_id'] + '">' + all_rooms[index]['room_name'] + ' - 0' + '</option>';
-    //     }
-    // });
-
     jQuery(input_rooms).html(options);
 }
 
@@ -411,6 +408,9 @@ function fillRezerved(room_id, data) {
     jQuery(data).each(function (index) {
         if (data[index]['room_id'] == room_id){
             jQuery('#calendar-time .cell-time[data-time="'+data[index]['room_time']+'"]').addClass('reserved').attr('data-booking-id', data[index]['id']);
+            if (is_change_datetime){
+                jQuery('#calendar-time .reserved').remove();
+            }
         }
     });
 }
