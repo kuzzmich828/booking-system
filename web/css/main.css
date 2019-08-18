@@ -695,7 +695,7 @@
   line-height: 1em;
   font-weight: 700;
   text-decoration: none;
-  padding: 10px 48px 15px 0px;
+  padding: 12px 48px 15px 0px;
   margin: 60px auto 40px;
   display: block;
   width: 100%;
@@ -713,8 +713,8 @@
   background-size: 40px;
   position: absolute;
   top: auto;
-  right: -14px;
-  bottom: 9px;
+  right: -6px;
+  bottom: 7px;
 }
 
 /****************/

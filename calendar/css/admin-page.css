@@ -57,7 +57,7 @@ select.form-control {
 }
 
 .fc-calendar .fc-row  .selected-day, .fc-calendar .fc-row > div.fc-today.selected-day{
-    background: #201186ba !important;
+    background: #eee35e !important;
 }
 
 .fc-calendar .fc-row > div.selected-day > span.fc-date {

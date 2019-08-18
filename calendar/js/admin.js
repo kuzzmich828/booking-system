@@ -76,7 +76,7 @@ jQuery(document).on("change", input_room, function (event) {
             // var quantity = response['quantity'];
             console.log(prices);
             /********* Fill Input Time ******/
-            var options = '';
+            var options = '<option value = "no">---</option>';
             jQuery(input_room_date).prop("disabled", false);
             jQuery( times ).each(function( index ) {
                 options += '<option value = "'+times[index]+'">'+times[index]+'</option>';

@@ -582,12 +582,12 @@ add_action('admin_footer', function () {
 
 add_action('restrict_manage_posts', function () {
     global $wp_query;
-    $query=$wp_query;
-    $query->set('posts_per_page', 99999);
+
+    $query = clone $wp_query;
+//    $query->query['posts_per_page'] = 99999;
     $posts = $query->get_posts();
     $arr = [];
     foreach ($posts as $post) {
-
         $arr [] = $post->ID;
     }
 

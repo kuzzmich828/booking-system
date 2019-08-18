@@ -48,16 +48,48 @@ if (is_admin() && isset($_GET['page']) && $_GET['page'] == 'booking-calendar' ) 
     add_action('admin_head', function(){
         ?>
         <style>
+            @font-face {
+                font-family: 'assistantregular';
+                src: url('<?= get_template_directory_uri(); ?>/fonts/assistant-regular-webfont.eot');
+                src: url('<?= get_template_directory_uri(); ?>/fonts/assistant-regular-webfont.eot?#iefix') format('embedded-opentype'),
+                url('<?= get_template_directory_uri(); ?>/fonts/assistant-regular-webfont.woff2') format('woff2'),
+                url('<?= get_template_directory_uri(); ?>/fonts/assistant-regular-webfont.woff') format('woff'),
+                url('<?= get_template_directory_uri(); ?>/fonts/assistant-regular-webfont.ttf') format('truetype'),
+                url('<?= get_template_directory_uri(); ?>/fonts/assistant-regular-webfont.svg#assistantregular') format('svg');
+                font-weight: normal;
+                font-style: normal;
+            }
             body {
                 font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
                 font-size: 13px;
                 line-height: 1.4em;
                 min-width: 600px;
             }
+
+            .wrap-calendar-admin{
+                font-family: 'assistantregular' !important;
+            }
+
+            .btn {
+                border-radius: 0 !important;
+            }
         </style>
         <?php
     });
 }
+
+
+    add_action('admin_head', function(){
+        if (get_current_screen()->id != 'dashboard')
+            return;
+        ?><style>
+            .button {
+                border-radius: 0 !important;
+                box-shadow: none !important;
+            }
+        </style>
+        <?php
+    });
 
 add_action('admin_enqueue_scripts', function () {
     wp_enqueue_script('dashboard-bkng-js', plugin_dir_url(__FILE__) . 'calendar/js/dashboard_bkng.js', ['jquery'], EDIT_VER);

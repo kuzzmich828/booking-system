@@ -6,7 +6,7 @@
         </div>
     </div>
     <h1><?= __('Booking Calendar'); ?></h1>
-    <div class="row">
+    <div class="row wrap-calendar-admin">
 
         <div class="col-sm-4">
                 <div class="custom-calendar-wrap">

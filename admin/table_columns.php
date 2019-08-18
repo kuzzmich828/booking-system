@@ -56,7 +56,7 @@ function fill_views_column( $colname, $post_id ){
     }elseif ($colname === 'amount_price'){
         $frozen = get_post_meta($post_id, 'fw_option:frozen', 1);
         if ($frozen == 'on') {
-            echo '0';
+            echo '-';
         }else {
             echo get_post_meta($post_id, 'fw_option:amount_price', 1);
         }
