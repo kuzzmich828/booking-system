@@ -30,7 +30,7 @@ $options = array(
 
     'room_time' => array(
         'type'  => 'select',
-        'choices' => array(),
+        'choices' => array('no'=>'---'),
         'label' =>  __('Time', 'bkng'),
         'value' => '',
 //        'attr'  => array(  'disabled' => 'true' ),
