@@ -2,7 +2,7 @@
 
 function mail_request($fullname, $email, $phone, $quantity, $date, $time, $room, $price, $duration, $action, $subscription)
 {
-    return;
+    bkng_write_log("SEND MAIL $action: $fullname|$email|$phone|$quantity|$date|$time|$room|$price");
     $admin_email = get_option('admin_email');
     $query = new WP_Query('post_type=mails&p=' . $action);
     if ($query->have_posts()):
