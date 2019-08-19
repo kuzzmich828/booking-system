@@ -366,7 +366,7 @@ add_action('admin_footer', function (){
             }
 
             .fc-calendar .fc-row > div, .fc-calendar .fc-head > div, .fc-calendar .fc-row > div {
-                float: right;
+                float: left;
             }
             body {
                 min-width: auto !important;
