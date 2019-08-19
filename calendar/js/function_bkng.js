@@ -109,8 +109,9 @@ jQuery( document ).ready(function() {
                 spinnerHide();
 
                 if (is_change_datetime){
-                    var room_id = (jQuery(".change-date-button").attr('data-room-id'));
-                    jQuery(input_rooms).val(room_id).change();
+                    // var room_id = (jQuery(".change-date-button").attr('data-room-id'));
+                    jQuery(container_rooms).fadeIn(300);
+                    // jQuery(input_rooms).val(room_id).change();
                 } else {
                     jQuery(container_rooms).fadeIn(300);
                     jQuery(input_rooms).val(0);
@@ -178,6 +179,8 @@ jQuery( document ).ready(function() {
         if (is_change_datetime) {
             alert("You changed date to " + jQuery("#room_date").val().replace(/\-/g, ".") +", "+ jQuery("#room_time").val());
             jQuery("#form-booking *").prop("disabled", false);
+            jQuery('#room_id').val(jQuery('.choose-room').val());
+            console.log(jQuery('.choose-room').val());
             jQuery(button_save).click();
 
             return;

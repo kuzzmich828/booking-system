@@ -53,14 +53,8 @@
                             <div class="fc-calendar fc-five-rows">
                                 <div class="fc-body calendar-time-body">
                                     <div class="fc-row">
-
                                         <div class="cell-time" data-date-attr="4/2/2019"><span class="fc-date">4:30</span></div>
-                                        <div class="cell-time" data-date-attr="5/2/2019"><span class="fc-date">5:50</span></div>
-                                        <div class="cell-time" data-date-attr="5/2/2019"><span class="fc-date">5:50</span></div>
-                                        <div class="cell-time" data-date-attr="5/2/2019"><span class="fc-date">5:50</span></div>
-
                                     </div>
-
                                 </div>
                             </div>
                         </div>
@@ -135,7 +129,7 @@
                         </tr>
                         <tr>
                             <td>
-                                <button class="btn btn-success change-date-button" data-room-id="" type="button"><?= __('Change date/time','bkng'); ?></button>
+                                <button class="btn btn-success change-date-button" data-room-id="" type="button"><?= __('Change date/time/room','bkng'); ?></button>
                             </td>
                             <td></td>
                         </tr>
@@ -145,7 +139,9 @@
                                 <button name="save_booking" style="display:none;" class="btn btn-primary save-button" type="submit"><?= __('Save','bkng'); ?></button>
                             </td>
                             <td>
-                                <button id="delete_booking" name="delete_booking" value="" class="btn btn-danger delete-button" type="submit"><?= __('Delete','bkng'); ?></button>
+                                <?php if (check_capability_delete_button()): ?>
+                                    <button id="delete_booking" name="delete_booking" value="" class="btn btn-danger delete-button" type="submit"><?= __('Delete','bkng'); ?></button>
+                                <?php endif; ?>
                             </td>
                         </tr>
                     </tbody>
