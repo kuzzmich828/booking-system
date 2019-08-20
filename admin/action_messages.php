@@ -6,7 +6,6 @@ add_action('admin_init', function () {
         if (isset($_POST['bkng_action'])) {
             if ($_POST['bkng_action'] == 'save_booking') {
 
-//                do_action('edit_booking_hook', $_POST['booking_id']);
                 global $is_saved;
                 $is_saved = bkng_save_booking();
                 add_action('admin_notices', 'my_plugin_notice_save');
@@ -39,7 +38,8 @@ add_action('admin_init', function () {
             }
         }
         /****************** APPROVE ***********************/
-        if (isset($_POST['approve_booking']) && isset($_POST['booking_id']) && isset($_POST['booking_id'])) {
+        if (isset($_POST['approve_booking']) && isset($_POST['booking_id']) && isset($_POST['booking_id'])
+                && $_POST['booking_id'] && $_POST['approve_booking']) {
             do_action('approve_booking_hook', $_POST['booking_id']);
             add_action('admin_notices', 'my_plugin_notice_approve');
             function my_plugin_notice_approve()

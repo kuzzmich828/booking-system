@@ -81,8 +81,35 @@ function bkng_save_booking(){
             $response = create_booking($fields);
             $booking_id = $response['booking_id'];
 
+            $response = get_all_meta_booking($booking_id);
+            mail_request(
+                $response['name'] ,
+                $response['email'] ,
+                $response['phone'] ,
+                $response['quantity'] ,
+                $response['room_date'] ,
+                $response['room_time'] ,
+                $response['room_name'] ,
+                $response['amount_price'] ,
+                $response['wpcf_time'] ,
+                743,
+                1
+            );
             if ($fields['fw_option:approve'] == 'on') {
                 approveBookingData($booking_id);
+                mail_request(
+                    $response['name'] ,
+                    $response['email'] ,
+                    $response['phone'] ,
+                    $response['quantity'] ,
+                    $response['room_date'] ,
+                    $response['room_time'] ,
+                    $response['room_name'] ,
+                    $response['amount_price'] ,
+                    $response['wpcf_time'] ,
+                    800,
+                    1
+                );
             }
 
         }
@@ -426,5 +453,5 @@ function bkng_write_log($str){
 }
 
 function check_capability_delete_button(){
-    return  in_array(wp_get_current_user()->user_login, ['admin_user', ]);
+    return  in_array(wp_get_current_user()->user_login, ['admin_user', 'amos' ]);
 }
