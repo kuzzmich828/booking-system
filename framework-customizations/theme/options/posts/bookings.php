@@ -187,6 +187,7 @@ $rooms = get_posts([
 ]);
 
 $options['room']['choices'][''] = '---';
+$options['amount_price']['choices'][''] = '-';
 foreach ($rooms as $room){
     $options['room']['choices'][$room->ID] = $room->post_title;
 
