@@ -12,14 +12,20 @@ add_action('admin_init', function () {
                 function my_plugin_notice_save()
                 {
                     global $is_saved;
-                    if ($is_saved)
+                    $class = '';
+                    if ($is_saved) {
                         $message = __("Booking Saved!", 'bkng');
-                    else
+                    }else {
+                        $class = 'error-admin';
                         $message = __("ERROR during the saving! This time already exist!", 'bkng');
+                    }
                     ?>
-                    <div class="notice notice-success is-dismissible">
+                    <div class="notice notice-success is-dismissible <?= $class; ?>">
                         <p><?= "<b>#{$_POST['booking_id']}</b> ". $message; ?></p>
                     </div>
+                    <style>
+                        .error-admin, .error-admin p{background: #ff0000bf;color: white;}
+                    </style>
                     <?php
                 }
             }
