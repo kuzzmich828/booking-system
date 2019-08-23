@@ -447,7 +447,7 @@ function check_room_for_booking($room_id, $date, $time){
 
 function bkng_write_log($str){
     $f = fopen(WP_CONTENT_DIR."/log_booking.txt", 'a');
-    fwrite($f, date('d.m.Y H:i:s')." {$str}\n");
+    fwrite($f, date('d.m.Y H:i:s', current_time('timestamp'))." {$str}\n");
     fclose($f);
     return;
 }
