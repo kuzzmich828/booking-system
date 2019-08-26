@@ -13,7 +13,7 @@ add_action( 'wp_dashboard_setup', function () {
     if ($posts)
         foreach ($posts as $post) {
 
-            wp_add_dashboard_widget('bkng_dashboard_widget_room_' . $post->ID, __( 'Room', 'bkng' ).": ".$post->post_title, function () use ($post) {
+            wp_add_dashboard_widget('bkng_dashboard_widget_room_' . $post->ID, __( 'Room', 'booking-system' ).": ".$post->post_title, function () use ($post) {
                 $all_bookings = get_booking_after_date(current_time('d-m-Y'), current_time('H:i'), 'off', 'on');
                 foreach ($all_bookings as $booking):
                     if ($booking['room_id'] != $post->ID)
@@ -37,10 +37,10 @@ add_action( 'wp_dashboard_setup', function () {
                             </p>
                         </div>
 
-                        <a href="<?= admin_url('edit.php'); ?>?post_type=bookings&page=booking-calendar&edit_booking=<?= $booking['booking_id']; ?>"><button type="button" class="button button-primary">Edit</button></a>
+                        <a href="<?= admin_url('edit.php'); ?>?post_type=bookings&page=booking-calendar&edit_booking=<?= $booking['booking_id']; ?>"><button type="button" class="button button-primary"><?= __( 'Edit', 'booking-system' ); ?></button></a>
                         <form action="" method="post" class="dashboard-form-del">
                             <?php if (check_capability_delete_button()): ?>
-                                <button class="button button-delete" value="<?= $booking['booking_id']; ?>" name="delete_booking" type="submit" >Delete</button>
+                                <button class="button button-delete" value="<?= $booking['booking_id']; ?>" name="delete_booking" type="submit" ><?= __( 'Delete', 'booking-system' ); ?></button>
                             <?php endif; ?>
                         </form>
 
@@ -57,7 +57,7 @@ add_action( 'wp_dashboard_setup', function () {
 /***************** *********************/
 add_action( 'wp_dashboard_setup', 'bkng_dashboard_widget_all_booking' );
 function bkng_dashboard_widget_all_booking() {
-    wp_add_dashboard_widget( 'bkng_dashboard_widget_all_booking', __( 'All Booking', 'bkng' ), 'bkng_dashboard_widget_all_booking_handler' );
+    wp_add_dashboard_widget( 'bkng_dashboard_widget_all_booking', __( 'All Booking', 'booking-system' ), 'bkng_dashboard_widget_all_booking_handler' );
 }
 
 function bkng_dashboard_widget_all_booking_handler() {
@@ -83,10 +83,10 @@ function bkng_dashboard_widget_all_booking_handler() {
                 </p>
             </div>
 
-            <a href="<?= admin_url('edit.php'); ?>?post_type=bookings&page=booking-calendar&edit_booking=<?= $booking['booking_id']; ?>"><button type="button" class="button button-primary">Edit</button></a>
+            <a href="<?= admin_url('edit.php'); ?>?post_type=bookings&page=booking-calendar&edit_booking=<?= $booking['booking_id']; ?>"><button type="button" class="button button-primary"><?= __( 'Edit', 'booking-system' ); ?></button></a>
             <form action="" method="post" class="dashboard-form-del">
                 <?php if (check_capability_delete_button()): ?>
-                    <button class="button button-delete" value="<?= $booking['booking_id']; ?>" name="delete_booking" type="submit" >Delete</button>
+                    <button class="button button-delete" value="<?= $booking['booking_id']; ?>" name="delete_booking" type="submit" ><?= __( 'Delete', 'booking-system' ); ?></button>
                 <?php endif; ?>
             </form>
 
@@ -98,7 +98,7 @@ function bkng_dashboard_widget_all_booking_handler() {
 /******************** ************************/
 add_action( 'wp_dashboard_setup', 'bkng_dashboard_widget_need_approve' );
 function bkng_dashboard_widget_need_approve() {
-    wp_add_dashboard_widget( 'bkng_dashboard_widget_need_approve', __( 'Need Approve', 'bkng' ), 'bkng_dashboard_widget_need_approve_handler' );
+    wp_add_dashboard_widget( 'bkng_dashboard_widget_need_approve', __( 'Need Approve', 'booking-system' ), 'bkng_dashboard_widget_need_approve_handler' );
 }
 
 function bkng_dashboard_widget_need_approve_handler() {
@@ -125,12 +125,12 @@ function bkng_dashboard_widget_need_approve_handler() {
 
             <form action="" method="post" class="dashboard-form-approve">
                 <input type="hidden" name="booking_id" value="<?= $booking['booking_id']; ?>" />
-                <button class="button button-approve" name="approve_booking" type="submit">Approve</button>
+                <button class="button button-approve" name="approve_booking" type="submit"><?= __( 'Approve', 'booking-system' ); ?></button>
             </form>
-            <a href="<?= admin_url('edit.php'); ?>?post_type=bookings&page=booking-calendar&edit_booking=<?= $booking['booking_id']; ?>"><button type="button" class="button button-primary">Edit</button></a>
+            <a href="<?= admin_url('edit.php'); ?>?post_type=bookings&page=booking-calendar&edit_booking=<?= $booking['booking_id']; ?>"><button type="button" class="button button-primary"><?= __( 'Edit', 'booking-system' ); ?></button></a>
             <form action="" method="post" class="dashboard-form-del">
                 <?php if (check_capability_delete_button()): ?>
-                    <button class="button button-delete" value="<?= $booking['booking_id']; ?>" name="delete_booking" type="submit" >Delete</button>
+                    <button class="button button-delete" value="<?= $booking['booking_id']; ?>" name="delete_booking" type="submit" ><?= __( 'Delete', 'booking-system' ); ?></button>
                 <?php endif; ?>
             </form>
 
@@ -146,7 +146,7 @@ function bkng_dashboard_widget_need_approve_handler() {
 /******************** ************************/
 add_action( 'wp_dashboard_setup', 'bkng_dashboard_widget_frozen' );
 function bkng_dashboard_widget_frozen() {
-    wp_add_dashboard_widget( 'bkng_dashboard_widget_frozen', __( 'Frozen', 'bkng' ), 'bkng_dashboard_widget_frozen_handler' );
+    wp_add_dashboard_widget( 'bkng_dashboard_widget_frozen', __( 'Frozen', 'booking-system' ), 'bkng_dashboard_widget_frozen_handler' );
 }
 
 function bkng_dashboard_widget_frozen_handler() {
@@ -173,10 +173,10 @@ function bkng_dashboard_widget_frozen_handler() {
             </div>
 
 
-            <a href="<?= admin_url('edit.php'); ?>?post_type=bookings&page=booking-calendar&edit_booking=<?= $booking['booking_id']; ?>"><button type="button" class="button button-primary">Edit</button></a>
+            <a href="<?= admin_url('edit.php'); ?>?post_type=bookings&page=booking-calendar&edit_booking=<?= $booking['booking_id']; ?>"><button type="button" class="button button-primary"><?= __( 'Edit', 'booking-system' ); ?></button></a>
             <form action="" method="post" class="dashboard-form-del">
                 <?php if (check_capability_delete_button()): ?>
-                    <button class="button button-delete" value="<?= $booking['booking_id']; ?>" name="delete_booking" type="submit" >Delete</button>
+                    <button class="button button-delete" value="<?= $booking['booking_id']; ?>" name="delete_booking" type="submit" ><?= __( 'Delete', 'booking-system' ); ?></button>
                 <?php endif; ?>
             </form>
 
@@ -188,14 +188,14 @@ function bkng_dashboard_widget_frozen_handler() {
 /******************** ************************/
 add_action( 'wp_dashboard_setup', 'bkng_dashboard_widget_newbooking' );
 function bkng_dashboard_widget_newbooking() {
-    wp_add_dashboard_widget( 'bkng_dashboard_widget_newbooking', __( 'New Booking', 'bkng' ), 'bkng_dashboard_widget_newbooking_handler' );
+    wp_add_dashboard_widget( 'bkng_dashboard_widget_newbooking', __( 'New Booking', 'booking-system' ), 'bkng_dashboard_widget_newbooking_handler' );
 }
 
 function bkng_dashboard_widget_newbooking_handler() {
     ?>
     <div class="activity-block">
         <p>
-            <a href="<?= admin_url('admin.php?page=booking-calendar'); ?>"><button class="button button-primary"><?= __('New Booking','bkng'); ?></button></a>
+            <a href="<?= admin_url('admin.php?page=booking-calendar'); ?>"><button class="button button-primary"><?= __('New Booking','booking-system'); ?></button></a>
         </p>
     </div>
     <?php

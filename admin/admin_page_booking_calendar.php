@@ -2,7 +2,7 @@
 <div class="wrap">
     <div class="row">
         <div class="col-sm-12">
-            <span class="alert-calendar"><?= __('Please, chese new date & time','bkng'); ?></span>
+            <span class="alert-calendar"><?= __('Please, chese new date & time','booking-system'); ?></span>
         </div>
     </div>
     <h1><?= __('Booking Calendar'); ?></h1>
@@ -27,7 +27,7 @@
         <div class="col-sm-4">
 
             <div class="step-2">
-                <h4><?= __('Choose a room:','bkng'); ?></h4>
+                <h4><?= __('Choose a room:','booking-system'); ?></h4>
                 <select class="form-control choose-room">
                     <option selected="selected" disabled value="0">Choose a room</option>
                     <?php
@@ -68,79 +68,79 @@
         <div class="col-sm-4">
 
             <div class="step-4">
-                <h4><?= __('Booking details:','bkng'); ?></h4>
+                <h4><?= __('Booking details:','booking-system'); ?></h4>
 
                 <form action="" method="post" class="form-booking" id="form-booking">
                     <table class="table table-striped w-auto booking-table-edit">
                     <tbody>
                         <tr>
-                            <td><label><?= __('Name','bkng'); ?></label></td>
+                            <td><label><?= __('Name','booking-system'); ?></label></td>
                             <td>
                                 <input name="bkng_action" type="hidden" value="save_booking" class="form-control" />
                                 <input name="room_id" id="room_id"    type="hidden" value="" class="form-control" />
                                 <input name="booking_id" id="booking_id"    type="hidden" value="" class="form-control" />
                                 <input name="room_time"  id="room_time"     type="hidden" value="" class="form-control" />
                                 <input name="room_date"  id="room_date"     type="hidden" value="" class="form-control" />
-                                <input id="name_booking" name="name_booking" placeholder="<?= __('Name...','bkng'); ?>" type="text" value="" class="form-control" />
+                                <input id="name_booking" name="name_booking" placeholder="<?= __('Name...','booking-system'); ?>" type="text" value="" class="form-control" />
                             </td>
                         </tr>
                         <tr>
-                            <td><label><?= __('Phone','bkng'); ?></label></td>
+                            <td><label><?= __('Phone','booking-system'); ?></label></td>
                             <td>
-                                <input name="phone_booking" id="phone_booking"  placeholder="<?= __('Phone...','bkng'); ?>" type="text" value="" class="form-control" />
+                                <input name="phone_booking" id="phone_booking"  placeholder="<?= __('Phone...','booking-system'); ?>" type="text" value="" class="form-control" />
                             </td>
                         </tr>
                         <tr>
-                            <td><label><?= __('E-mail','bkng'); ?></label></td>
+                            <td><label><?= __('E-mail','booking-system'); ?></label></td>
                             <td>
-                                <input name="email_booking" id="email_booking" placeholder="<?= __('Email...','bkng'); ?>" type="email" value="" class="form-control" />
+                                <input name="email_booking" id="email_booking" placeholder="<?= __('Email...','booking-system'); ?>" type="email" value="" class="form-control" />
                             </td>
                         </tr>
                         <tr>
-                            <td><label><?= __('Price & Quantity','bkng'); ?></label></td>
+                            <td><label><?= __('Price & Quantity','booking-system'); ?></label></td>
                             <td>
                                 <select name="price_booking" id="price_booking"  class="form-control">
                                 </select>
                             </td>
                         </tr>
                         <tr>
-                            <td><label><?= __('Discount','bkng'); ?></label></td>
+                            <td><label><?= __('Discount','booking-system'); ?></label></td>
                             <td>
-                                <input name="discount_booking" id="discount_booking"  placeholder="<?= __('Discount...','bkng'); ?>" type="number" min="0" max="100" value="" class="form-control" />
+                                <input name="discount_booking" id="discount_booking"  placeholder="<?= __('Discount...','booking-system'); ?>" type="number" min="0" max="100" value="" class="form-control" />
                             </td>
                         </tr>
                         <tr>
-                            <td><label><?= __('Notes','bkng'); ?></label></td>
+                            <td><label><?= __('Notes','booking-system'); ?></label></td>
                             <td>
-                                <textarea name="notes_booking" id="notes_booking" placeholder="<?= __('Your comments...','bkng'); ?>" class="form-control"></textarea>
+                                <textarea name="notes_booking" id="notes_booking" placeholder="<?= __('Your comments...','booking-system'); ?>" class="form-control"></textarea>
                             </td>
                         </tr>
                         <tr>
-                            <td><label><?= __('Approve','bkng'); ?></label></td>
+                            <td><label><?= __('Approve','booking-system'); ?></label></td>
                             <td>
                                 <input name="approve_booking" id="approve_booking" type="checkbox" class="form-control" />
                             </td>
                         </tr>
                         <tr>
-                            <td><label><?= __('Frozen','bkng'); ?></label></td>
+                            <td><label><?= __('Frozen','booking-system'); ?></label></td>
                             <td>
                                 <input name="frozen_booking" id="frozen_booking" type="checkbox" class="form-control" />
                             </td>
                         </tr>
                         <tr>
                             <td>
-                                <button class="btn btn-success change-date-button" data-room-id="" type="button"><?= __('Change date/time/room','bkng'); ?></button>
+                                <button class="btn btn-success change-date-button" data-room-id="" type="button"><?= __('Change date/time/room','booking-system'); ?></button>
                             </td>
                             <td></td>
                         </tr>
                         <tr>
                             <td>
-                                <button class="btn btn-success edit-button " type="button"><?= __('Edit','bkng'); ?></button>
-                                <button name="save_booking" style="display:none;" class="btn btn-primary save-button" type="submit"><?= __('Save','bkng'); ?></button>
+                                <button class="btn btn-success edit-button " type="button"><?= __('Edit','booking-system'); ?></button>
+                                <button name="save_booking" style="display:none;" class="btn btn-primary save-button" type="submit"><?= __('Save','booking-system'); ?></button>
                             </td>
                             <td>
                                 <?php if (check_capability_delete_button()): ?>
-                                    <button id="delete_booking" name="delete_booking" value="" class="btn btn-danger delete-button" type="submit"><?= __('Delete','bkng'); ?></button>
+                                    <button id="delete_booking" name="delete_booking" value="" class="btn btn-danger delete-button" type="submit"><?= __('Delete','booking-system'); ?></button>
                                 <?php endif; ?>
                             </td>
                         </tr>

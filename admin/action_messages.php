@@ -14,10 +14,10 @@ add_action('admin_init', function () {
                     global $is_saved;
                     $class = '';
                     if ($is_saved) {
-                        $message = __("Booking Saved!", 'bkng');
+                        $message = __("Booking Saved!", 'booking-system');
                     }else {
                         $class = 'error-admin';
-                        $message = __("ERROR during the saving! This time already exist!", 'bkng');
+                        $message = __("ERROR during the saving! This time already exist!", 'booking-system');
                     }
                     ?>
                     <div class="notice notice-success is-dismissible <?= $class; ?>">
@@ -38,7 +38,7 @@ add_action('admin_init', function () {
             {
                 ?>
                 <div class="notice notice-success is-dismissible">
-                    <p><?= "<b>#{$_POST['delete_booking']}</b> " . __("Booking Deleted!", 'bkng'); ?></p>
+                    <p><?= "<b>#{$_POST['delete_booking']}</b> " . __("Booking Deleted!", 'booking-system'); ?></p>
                 </div>
                 <?php
             }
@@ -52,7 +52,7 @@ add_action('admin_init', function () {
             {
                 ?>
                 <div class="notice notice-success is-dismissible">
-                    <p><?= "<b>#{$_POST['booking_id']}</b> ". __("Booking Approved!", 'bkng'); ?></p>
+                    <p><?= "<b>#{$_POST['booking_id']}</b> ". __("Booking Approved!", 'booking-system'); ?></p>
                 </div>
                 <?php
             }

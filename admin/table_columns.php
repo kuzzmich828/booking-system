@@ -22,23 +22,23 @@ function add_views_column( $columns ){
     $num = 2; // после какой по счету колонки вставлять новые
 
     $new_columns = array(
-        'room' => __('Room', 'bkng'),
-        'room_date' => __('Game Date', 'bkng'),
-        'room_time' => __('Game Time', 'bkng'),
+        'room' => __('Room', 'booking-system'),
+        'room_date' => __('Game Date', 'booking-system'),
+        'room_time' => __('Game Time', 'booking-system'),
         /******************/
-        'week_day' => __('Day of Week', 'bkng'),
-        'status' => __('Status', 'bkng'),   // status
-        'approved_date' => __('Approved Date', 'bkng'),     // approved_date
-        'approved_person' => __('Approved Person', 'bkng'), // approved_person
-        'booking_created' => __('Created Date', 'bkng'),
-        'name' => __('Name', 'bkng'),       // name
-        'phone' => __('Phone', 'bkng'),     // phone
-        'email' => __('Email', 'bkng'),     // email
-        'subscription' => __('Subscription', 'bkng'),             // Subscribe
-        'quantity' => __('Quantity', 'bkng'),
-        'discount' => __('Discount', 'bkng'),
-        'amount_price' => __('Price', 'bkng'),
-        'amount' => __('Amount', 'bkng'),
+        'week_day' => __('Day of Week', 'booking-system'),
+        'status' => __('Status', 'booking-system'),   // status
+        'approved_date' => __('Approved Date', 'booking-system'),     // approved_date
+        'approved_person' => __('Approved Person', 'booking-system'), // approved_person
+        'booking_created' => __('Created Date', 'booking-system'),
+        'name' => __('Name', 'booking-system'),       // name
+        'phone' => __('Phone', 'booking-system'),     // phone
+        'email' => __('Email', 'booking-system'),     // email
+        'subscription' => __('Subscription', 'booking-system'),             // Subscribe
+        'quantity' => __('Quantity', 'booking-system'),
+        'discount' => __('Discount', 'booking-system'),
+        'amount_price' => __('Price', 'booking-system'),
+        'amount' => __('Amount', 'booking-system'),
     );
 
     return array_slice( $columns, 0, $num ) + $new_columns + array_slice( $columns, $num );

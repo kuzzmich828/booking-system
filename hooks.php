@@ -4,18 +4,18 @@ add_action('init', 'bkng_register_posts_type');
 function bkng_register_posts_type(){
     register_post_type('room', array(
         'labels'             => array(
-            'name'               => __('Rooms', 'bkng'),
-            'singular_name'      => __('Room', 'bkng'),
-            'add_new'            => __('Add new', 'bkng'),
-            'add_new_item'       => __('Add new', 'bkng'),
-            'edit_item'          => __('Edit', 'bkng'),
-            'new_item'           => __('New room', 'bkng'),
-            'view_item'          => __('View', 'bkng'),
-            'search_items'       => __('Find', 'bkng'),
-            'not_found'          =>  __('Not found', 'bkng'),
-            'not_found_in_trash' => __('Not found', 'bkng'),
+            'name'               => __('Rooms', 'booking-system'),
+            'singular_name'      => __('Room', 'booking-system'),
+            'add_new'            => __('Add new', 'booking-system'),
+            'add_new_item'       => __('Add new', 'booking-system'),
+            'edit_item'          => __('Edit', 'booking-system'),
+            'new_item'           => __('New room', 'booking-system'),
+            'view_item'          => __('View', 'booking-system'),
+            'search_items'       => __('Find', 'booking-system'),
+            'not_found'          =>  __('Not found', 'booking-system'),
+            'not_found_in_trash' => __('Not found', 'booking-system'),
             'parent_item_colon'  => '',
-            'menu_name'          => __('Rooms', 'bkng')
+            'menu_name'          => __('Rooms', 'booking-system')
 
         ),
         'capabilities' => array(
@@ -49,18 +49,18 @@ function bkng_register_posts_type(){
 
     register_post_type('bookings', array(
         'labels'             => array(
-            'name'               => __('Booking', 'bkng'),
-            'singular_name'      => __('Booking', 'bkng'),
-            'add_new'            => __('Add new', 'bkng'),
-            'add_new_item'       => __('Add new', 'bkng'),
-            'edit_item'          => __('Edit', 'bkng'),
-            'new_item'           => __('New', 'bkng'),
-            'view_item'          => __('View', 'bkng'),
-            'search_items'       => __('Find', 'bkng'),
-            'not_found'          =>  __('Not found', 'bkng'),
-            'not_found_in_trash' => __('Not found', 'bkng'),
+            'name'               => __('Booking', 'booking-system'),
+            'singular_name'      => __('Booking', 'booking-system'),
+            'add_new'            => __('Add new', 'booking-system'),
+            'add_new_item'       => __('Add new', 'booking-system'),
+            'edit_item'          => __('Edit', 'booking-system'),
+            'new_item'           => __('New', 'booking-system'),
+            'view_item'          => __('View', 'booking-system'),
+            'search_items'       => __('Find', 'booking-system'),
+            'not_found'          =>  __('Not found', 'booking-system'),
+            'not_found_in_trash' => __('Not found', 'booking-system'),
             'parent_item_colon'  => '',
-            'menu_name'          => __('Booking', 'bkng')
+            'menu_name'          => __('Booking', 'booking-system')
 
         ),
         'capabilities' => array(

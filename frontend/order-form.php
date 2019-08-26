@@ -8,16 +8,16 @@
             שעה: <span class="booking-time">12:00</span></div>
 
 
-        <input required type="text" name="order_fullname" placeholder="<?= __('Name','bkng'); ?> *"/>
-        <input required type="email" name="order_email" placeholder="<?= __('E-mail','bkng'); ?> *"/>
-        <input required type="tel" name="order_phone" placeholder="<?= __('Phone','bkng'); ?> *"/>
-        <span class="booking-span"><?= __('Participants of the game','bkng'); ?> *</span>
+        <input required type="text" name="order_fullname" placeholder="<?= __('Name','booking-system'); ?> *"/>
+        <input required type="email" name="order_email" placeholder="<?= __('E-mail','booking-system'); ?> *"/>
+        <input required type="tel" name="order_phone" placeholder="<?= __('Phone','booking-system'); ?> *"/>
+        <span class="booking-span"><?= __('Participants of the game','booking-system'); ?> *</span>
         <select name="order_quantity"></select>
 
         <div class="clearfix"></div>
 
         <div class="booking-pr-without-dis-wrapper">booking-pr-without-dis-wrapper</div>
-        <div class="booking-pr-without-dis-block"><?= __('Participants of the game','bkng'); ?></div>
+        <div class="booking-pr-without-dis-block"><?= __('Participants of the game','booking-system'); ?></div>
 
         <div class="booking-pr-with-dis-wrapper">booking-pr-with-dis-wrapper</div>
         <div class="booking-pr-with-dis-block">סה”כ מחיר עבור משחק <strong>אחרי</strong> הנחה</div>

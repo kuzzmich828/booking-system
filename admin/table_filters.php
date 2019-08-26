@@ -8,7 +8,7 @@ function add_post_formats_filter_to_post_administration(){
         $rooms = bkng_get_booking_rooms();
         ?>
         <select name="room_name" id="room_name" class="postform" >
-            <option value=""><?= __('Room name...', 'bkng'); ?></option>
+            <option value=""><?= __('Room name...', 'booking-system'); ?></option>
             <?php foreach ($rooms as $room): ?>
                 <option value="<?= $room->ID; ?>"><?= $room->post_title; ?></option>
             <?php endforeach; ?>
@@ -19,16 +19,16 @@ function add_post_formats_filter_to_post_administration(){
 
         <!--  ***********************************************************   -->
         <select name="week_day" id="week_day" class="postform">
-            <option value=""><?= __('Day...', 'bkng'); ?></option>
+            <option value=""><?= __('Day...', 'booking-system'); ?></option>
             <?php
                 $days = [
-                        __('Sun', 'bkng'),
-                        __('Mon', 'bkng'),
-                        __('Tue', 'bkng'),
-                        __('Wed', 'bkng'),
-                        __('Thu', 'bkng'),
-                        __('Fri', 'bkng'),
-                        __('Sat', 'bkng')
+                        __('Sun', 'booking-system'),
+                        __('Mon', 'booking-system'),
+                        __('Tue', 'booking-system'),
+                        __('Wed', 'booking-system'),
+                        __('Thu', 'booking-system'),
+                        __('Fri', 'booking-system'),
+                        __('Sat', 'booking-system')
                     ];
             ?>
             <?php foreach ($days as $day): ?>
@@ -38,17 +38,17 @@ function add_post_formats_filter_to_post_administration(){
 
         <!--   ***********************************************************   -->
         <select name="status" id="status" class="postform">
-            <option value=""><?= __('Status...', 'bkng'); ?></option>
-            <option value="frozen"><?= __('Frozen', 'bkng'); ?></option>
-            <option value="needapprove"><?= __('Need Approve', 'bkng'); ?></option>
-            <option value="approved"><?= __('Approved', 'bkng'); ?></option>
+            <option value=""><?= __('Status...', 'booking-system'); ?></option>
+            <option value="frozen"><?= __('Frozen', 'booking-system'); ?></option>
+            <option value="needapprove"><?= __('Need Approve', 'booking-system'); ?></option>
+            <option value="approved"><?= __('Approved', 'booking-system'); ?></option>
         </select>
 
         <!--   ***********************************************************   -->
         <select name="subscribe" id="subscribe" class="postform">
-            <option value=""><?= __('Subscribe...', 'bkng'); ?></option>
-            <option value="on"><?= __('Subscribe', 'bkng'); ?></option>
-            <option value="off"><?= __('Not subscribe', 'bkng'); ?></option>
+            <option value=""><?= __('Subscribe...', 'booking-system'); ?></option>
+            <option value="on"><?= __('Subscribe', 'booking-system'); ?></option>
+            <option value="off"><?= __('Not subscribe', 'booking-system'); ?></option>
         </select>
 
 <?php
@@ -58,7 +58,7 @@ function add_post_formats_filter_to_post_administration(){
             'echo' => true,
             'name' => 'approved_person',
             'selected' => '',
-            'show_option_none' => __('Approved person...','bkng')
+            'show_option_none' => __('Approved person...','booking-system')
         ]);
 
     }

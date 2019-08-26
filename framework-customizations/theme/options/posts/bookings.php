@@ -5,18 +5,18 @@ $options = array(
     'room' => array(
         'type'  => 'select',
         'choices' => array(),
-        'label' =>  __('Room', 'bkng'),
+        'label' =>  __('Room', 'booking-system'),
         'value' => '',
         'fw-storage' => array(
             'type' => 'post-meta',
             'post-meta' => 'fw_option:room',
         ),
-        'desc' => __('Choose a room from list', 'bkng'),
+        'desc' => __('Choose a room from list', 'booking-system'),
     ),
 
     'room_date' => array(
         'type'  => 'date-picker',
-        'label' =>  __('Date', 'bkng') ,
+        'label' =>  __('Date', 'booking-system') ,
         'min-date' => "01-01-2019",
         'max-date' => null,
 
@@ -25,77 +25,77 @@ $options = array(
             'type' => 'post-meta',
             'post-meta' => 'fw_option:room_date',
         ),
-        'desc' => __('Choose booking date', 'bkng'),
+        'desc' => __('Choose booking date', 'booking-system'),
     ),
 
     'room_time' => array(
         'type'  => 'select',
         'choices' => array('no'=>'---'),
-        'label' =>  __('Time', 'bkng'),
+        'label' =>  __('Time', 'booking-system'),
         'value' => '',
 //        'attr'  => array(  'disabled' => 'true' ),
         'fw-storage' => array(
             'type' => 'post-meta',
             'post-meta' => 'fw_option:room_time',
         ),
-        'desc' => __('Choose booking time', 'bkng'),
+        'desc' => __('Choose booking time', 'booking-system'),
     ),
 
 
 
     'name' => array(
         'type'  => 'text',
-        'label' =>  __('Name', 'bkng') ,
+        'label' =>  __('Name', 'booking-system') ,
         'fw-storage' => array(
             'type' => 'post-meta',
             'post-meta' => 'fw_option:name',
         ),
-        'desc' => __('Choose booking name', 'bkng'),
+        'desc' => __('Choose booking name', 'booking-system'),
     ),
 
     'phone' => array(
         'type'  => 'text',
-        'label' =>  __('Phone', 'bkng') ,
+        'label' =>  __('Phone', 'booking-system') ,
         'fw-storage' => array(
             'type' => 'post-meta',
             'post-meta' => 'fw_option:phone',
         ),
-        'desc' => __('Choose booking phone', 'bkng'),
+        'desc' => __('Choose booking phone', 'booking-system'),
     ),
 
     'email' => array(
         'type'  => 'text',
-        'label' =>  __('Email', 'bkng') ,
+        'label' =>  __('Email', 'booking-system') ,
         'fw-storage' => array(
             'type' => 'post-meta',
             'post-meta' => 'fw_option:email',
         ),
-        'desc' => __('Choose booking email', 'bkng'),
+        'desc' => __('Choose booking email', 'booking-system'),
     ),
 
     'comments' => array(
         'type'  => 'textarea',
-        'label' =>  __('Comments', 'bkng') ,
+        'label' =>  __('Comments', 'booking-system') ,
         'fw-storage' => array(
             'type' => 'post-meta',
             'post-meta' => 'fw_option:comments',
         ),
-        'desc' => __('Type your comment', 'bkng'),
+        'desc' => __('Type your comment', 'booking-system'),
     ),
 
     'discount' => array(
         'type'  => 'select',
-        'label' =>  __('Discount', 'bkng') ,
+        'label' =>  __('Discount', 'booking-system') ,
         'fw-storage' => array(
             'type' => 'post-meta',
             'post-meta' => 'fw_option:discount',
         ),
-        'desc' => __('Choose discount', 'bkng'),
+        'desc' => __('Choose discount', 'booking-system'),
     ),
 
     'amount_price' => array(
         'type'  => 'select',
-        'label' =>  __('Amount Price', 'bkng') ,
+        'label' =>  __('Amount Price', 'booking-system') ,
         'fw-storage' => array(
             'type' => 'post-meta',
             'post-meta' => 'fw_option:amount_price',
@@ -105,7 +105,7 @@ $options = array(
     /*'amount' => array(
         'type'  => 'text',
         'attr'  => array(  'disabled' => 'true' ),
-        'label' =>  __('Amount', 'bkng') ,
+        'label' =>  __('Amount', 'booking-system') ,
         'fw-storage' => array(
             'type' => 'post-meta',
             'post-meta' => 'fw_option:amount',
@@ -115,7 +115,7 @@ $options = array(
     /*
         'quantity' => array(
             'type'  => 'select',
-            'label' =>  __('Quantity', 'bkng') ,
+            'label' =>  __('Quantity', 'booking-system') ,
             'fw-storage' => array(
                 'type' => 'post-meta',
                 'post-meta' => 'fw_option:quantity',
@@ -124,15 +124,15 @@ $options = array(
     */
     'frozen' => array(
         'type'  => 'switch',
-        'label' =>  __('Frozen', 'bkng') ,
+        'label' =>  __('Frozen', 'booking-system') ,
         'value' => 'off',
         'left-choice' => array(
             'value' => 'on',
-            'label' => __('Yes', 'bkng'),
+            'label' => __('Yes', 'booking-system'),
         ),
         'right-choice' => array(
             'value' => 'off',
-            'label' => __('No', 'bkng'),
+            'label' => __('No', 'booking-system'),
         ),
         'fw-storage' => array(
             'type' => 'post-meta',
@@ -142,16 +142,16 @@ $options = array(
 
     'approve' => array(
         'type'  => 'switch',
-        'label' =>  __('Approve', 'bkng') ,
+        'label' =>  __('Approve', 'booking-system') ,
         'value' => 'off',
 
         'right-choice' => array(
             'value' => 'off',
-            'label' => __('No', 'bkng'),
+            'label' => __('No', 'booking-system'),
         ),
         'left-choice' => array(
             'value' => 'on',
-            'label' => __('Yes', 'bkng'),
+            'label' => __('Yes', 'booking-system'),
         ),
         'fw-storage' => array(
             'type' => 'post-meta',
@@ -161,7 +161,7 @@ $options = array(
 
     'approve_time' => array(
         'type'  => 'text',
-        'label' =>  __('Approve Time', 'bkng') ,
+        'label' =>  __('Approve Time', 'booking-system') ,
         'fw-storage' => array(
             'type' => 'post-meta',
             'post-meta' => 'fw_option:approve_time',
@@ -170,7 +170,7 @@ $options = array(
 
     'approve_person' => array(
         'type'  => 'text',
-        'label' =>  __('Approve Person', 'bkng'),
+        'label' =>  __('Approve Person', 'booking-system'),
         'fw-storage' => array(
             'type' => 'post-meta',
             'post-meta' => 'fw_option:approve_person',
