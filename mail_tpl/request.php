@@ -93,7 +93,7 @@ HTML;
         <a href="https://www.instagram.com/escape.room.eilat/" target="_blank"><img src="http://escape.get-great.site/wp-content/themes/escape/images/s-2.png" alt="" style="margin-left:7px; margin-right:7px; margin-bottom:5px;"/></a>
         <a href="https://www.facebook.com/escapegameilat/" target="_blank"><img src="http://escape.get-great.site/wp-content/themes/escape/images/s-1.png" alt="" style="margin-left:7px; margin-right:7px; margin-bottom:5px;"/></a>
         <table style="text-align:center; margin-left:auto; margin-right:auto;"><tr>
-        <td style='font-size:24px; border-right:2px solid #eee35e; padding-right:15px; color:#fff; margin-bottom:5px; padding-top:0px; padding-bottom:0px;'>050-2368420</td>
+        <td style='font-size:24px; border-right:2px solid #eee35e; padding-right:15px; color:#fff; margin-bottom:5px; padding-top:0px; padding-bottom:0px;'>053-3555049</td>
         <td style='font-size:24px; padding-left:8px; color:#fff; padding-top:0px; padding-bottom:0px;'>053-8843555</td>
         </tr></table>
         </td></tr>
