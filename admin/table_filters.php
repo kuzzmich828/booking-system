@@ -163,6 +163,39 @@ function add_post_format_filter_to_posts($query){
         }
         $query->set( 'meta_query', [ array_merge(['AND'], $meta_queries) ] );
 
+        /************************************ ***************************/
+        if(isset($_GET['subscribe'])){
+            $subscribe = sanitize_text_field($_GET['subscribe']);
+            if($subscribe){
+
+                $meta_queries [] =
+                    array(
+                        'key'     => 'fw_option:subscription',
+                        'value'   => $subscribe,
+                        'compare' => '=',
+                    );
+
+            }
+        }
+        $query->set( 'meta_query', [ array_merge(['AND'], $meta_queries) ] );
+
+        /************************************ ***************************/
+        if(isset($_GET['week_day'])){
+            $week_day = sanitize_text_field($_GET['week_day']);
+            if($week_day){
+
+                $meta_queries [] =
+                    array(
+                        'key'     => 'room_date:week_day',
+                        'value'   => $week_day,
+                        'compare' => '=',
+                    );
+
+            }
+        }
+        $query->set( 'meta_query', [ array_merge(['AND'], $meta_queries) ] );
+
+
     }
 
     return $query;

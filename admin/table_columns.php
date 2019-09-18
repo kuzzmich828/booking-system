@@ -146,7 +146,7 @@ function add_column_room_date_request( $query ){
     $query->set( 'orderby', 'meta_value_num' );
 
 }
-
+/*
 add_action( 'pre_get_posts', 'add_column_week_day_request' );
 function add_column_week_day_request( $query ){
     if(  is_admin()
@@ -167,7 +167,7 @@ function add_column_subscribe_request( $query ){
         $query->set('meta_key', 'fw_option:subscription');
         $query->set('meta_value', $_GET['subscribe']);
     }
-}
+}*/
 
 
 
