@@ -73,6 +73,7 @@ function bkng_save_booking(){
             $booking_id = $_POST['booking_id'];
 
             updateRoomQuantity($booking_id, $fields['fw_option:room'], $fields['fw_option:amount_price']);
+            callback_post_options_update($booking_id);
             bkng_write_log("User #".get_current_user_id()." UPDATE booking #".$booking_id." | Attr:".json_encode($fields));
         }elseif($fields['fw_option:room'] != null){
 
@@ -113,10 +114,6 @@ function bkng_save_booking(){
             }
 
         }
-
-        /*add_action('admin_footer', function () use ($booking_id) {
-            */?><!--<script>window.location.href = '<?/*= admin_url('edit.php') . '?post_type=bookings&page=booking-calendar&edit_booking=' . $booking_id; */?>'; </script>--><?php
-        /*        });*/
 
         return true;
     }
