@@ -22,14 +22,4 @@ $rooms = get_posts([
 $options['review_room']['choices'][''] = '---';
 foreach ($rooms as $room){
     $options['review_room']['choices'][$room->ID] = $room->post_title;
-
-    $times = get_post_meta($room->ID, 'fw_option:times', 1);
-    $prices = get_post_meta($room->ID, 'fw_option:prices', 1);
-
-    if (is_array($times)) {
-        foreach ($times as $t => $v) {
-            $options['room_time']['choices'][$v] = $v;
-        }
-    }
-
 }

@@ -450,5 +450,5 @@ function bkng_write_log($str){
 }
 
 function check_capability_delete_button(){
-    return  in_array(wp_get_current_user()->user_login, ['admin_user', 'amos', 'kuzin' ]);
+    return  in_array(wp_get_current_user()->user_login, ['admin_user', 'amos', 'kuzin', 'adir' ]);
 }

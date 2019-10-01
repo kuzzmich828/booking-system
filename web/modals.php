@@ -3,7 +3,7 @@
     <!-- BG -->
     <div id="wrapper-quest__container" >
 
-        <img src="<?= plugin_dir_url(__FILE__); ?>/img/bg.jpg" alt="" class="wrapper-quest__background">
+        <img  src="" alt="" class="wrapper-quest__background">
         <div id="wrapper-quest__close"></div>
 
         <div id="wrapper-quest__modal1" class="wrapper-quest__modal">

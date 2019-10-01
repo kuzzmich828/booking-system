@@ -15,24 +15,24 @@ function add_post_formats_filter_to_post_administration(){
         </select>
 
         <!--  ***********************************************************   -->
-        <input type="text" onfocus="(this.type='date')"  name="room_date" id="room_date" class="postform" placeholder="תאריך משחק"/>
+<!--        <input type="text" onfocus="(this.type='date')"  name="room_date" id="room_date" class="postform" placeholder="תאריך משחק"/>-->
 
         <!--  ***********************************************************   -->
         <select name="week_day" id="week_day" class="postform">
             <option value=""><?= __('Day...', 'booking-system'); ?></option>
             <?php
-                $days = [
-                        __('Sun', 'booking-system'),
-                        __('Mon', 'booking-system'),
-                        __('Tue', 'booking-system'),
-                        __('Wed', 'booking-system'),
-                        __('Thu', 'booking-system'),
-                        __('Fri', 'booking-system'),
-                        __('Sat', 'booking-system')
-                    ];
+            $days = [
+                'Sun',
+                'Mon',
+                'Tue',
+                'Wed',
+                'Thu',
+                'Fri',
+                'Sat'
+            ];
             ?>
             <?php foreach ($days as $day): ?>
-                <option value="<?= $day; ?>"><?= $day; ?></option>.
+                <option value="<?= $day; ?>"><?= __($day, 'booking-system'); ?></option>.
             <?php endforeach; ?>
         </select>
 
@@ -51,6 +51,53 @@ function add_post_formats_filter_to_post_administration(){
             <option value="off"><?= __('Not subscribe', 'booking-system'); ?></option>
         </select>
 
+        <input type="text"  autocomplete="off" name="room_date"  placeholder="תאריך משחק" id="datepicker">
+
+        <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css"> 
+<!--        <script src="https://jqueryui.com/resources/demos/datepicker/i18n/datepicker-he.js"></script>-->
+        <script>
+            /* Hebrew initialisation for the UI Datepicker extension. */
+            /* Written by Amir Hardon (ahardon at gmail dot com). */
+            ( function( factory ) {
+                if ( typeof define === "function" && define.amd ) {
+
+                    // AMD. Register as an anonymous module.
+                    define( [ "../widgets/datepicker" ], factory );
+                } else {
+
+                    // Browser globals
+                    factory( jQuery.datepicker );
+                }
+            }( function( datepicker ) {
+
+                datepicker.regional.he = {
+                    closeText: "סגור",
+                    prevText: "&#x3C;הקודם",
+                    nextText: "הבא&#x3E;",
+                    currentText: "היום",
+                    monthNames: [ "ינואר","פברואר","מרץ","אפריל","מאי","יוני",
+                        "יולי","אוגוסט","ספטמבר","אוקטובר","נובמבר","דצמבר" ],
+                    monthNamesShort: [ "ינו","פבר","מרץ","אפר","מאי","יוני",
+                        "יולי","אוג","ספט","אוק","נוב","דצמ" ],
+                    dayNames: [ "ראשון","שני","שלישי","רביעי","חמישי","שישי","שבת" ],
+                    dayNamesShort: [ "א'","ב'","ג'","ד'","ה'","ו'","שבת" ],
+                    dayNamesMin: [ "א'","ב'","ג'","ד'","ה'","ו'","שבת" ],
+                    weekHeader: "Wk",
+                    dateFormat: "dd/mm/yy",
+                    firstDay: 0,
+                    isRTL: true,
+                    showMonthAfterYear: false,
+                    yearSuffix: "" };
+                datepicker.setDefaults( datepicker.regional.he );
+
+                return datepicker.regional.he;
+
+            } ) );
+
+            $( function() {
+                $( "#datepicker" ).datepicker( $.datepicker.regional[ "he" ] );
+            } );
+        </script>
 <?php
 
         wp_dropdown_users([
@@ -94,7 +141,7 @@ function add_post_format_filter_to_posts($query){
             $room_date = sanitize_text_field($_GET['room_date']);
             if($room_date){
 
-                $room_date = DateTime::createFromFormat("Y-m-d", $room_date);
+                $room_date = DateTime::createFromFormat('d/m/Y', $room_date);
                 if ($room_date){
                     $meta_queries [] =
                         array(

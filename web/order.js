@@ -157,11 +157,9 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     function open_1_modal(element) {
-        // $(wrapperQuestButtons).addClass('hide');
-        $(wrapperQuestContainer).addClass('show');
-        $(modal1).addClass('show');
-        $(widget1).addClass('show');
-        // $(widget2).addClass('show');
+        // $(wrapperQuestContainer).addClass('show');
+        // $(modal1).addClass('show');
+        // $(widget1).addClass('show');
 
         /* ****************************** */
         $('body').css('overflow-y','hidden');
@@ -266,6 +264,14 @@ document.addEventListener("DOMContentLoaded", function () {
                 $(".wrapper-quest__descripription").html(response['description']);
                 $(".quest__room_name").html(response['room_name']);
                 // $(".quest__room_name").css("color", response['title_color']);
+
+
+
+
+                $(wrapperQuestContainer).addClass('show');
+                $(modal1).addClass('show');
+                $(widget1).addClass('show');
+
 
             }
 
