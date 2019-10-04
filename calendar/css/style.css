@@ -23,7 +23,7 @@ html { height: 100%; }
 }
 .fc-calendar {
 	width: 100%;
-	height: 100%;
+	height: auto;
 }
 .fc-calendar .fc-head {
 	height: 30px;
@@ -244,7 +244,7 @@ html { height: 100%; }
 
 /* Modifications */
 .fc-calendar-container {
-	height: 400px;
+	height: 340px;
 	width: auto;
 	padding: 15px 5px;
 	background: #f6f6f6;
