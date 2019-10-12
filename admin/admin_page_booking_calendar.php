@@ -9,19 +9,19 @@
     <div class="row wrap-calendar-admin">
 
         <div class="col-sm-4">
-                <div class="custom-calendar-wrap">
-                    <div id="custom-inner" class="custom-inner">
-                        <div class="custom-header clearfix">
-                            <nav>
-                                <span id="custom-prev" class="custom-prev"></span>
-                                <span id="custom-next" class="custom-next"></span>
-                            </nav>
-                            <h2 id="custom-month" class="custom-month"></h2>
-                            <h3 id="custom-year" class="custom-year"></h3>
-                        </div>
-                        <div id="calendar" class="fc-calendar-container"></div>
+            <div class="custom-calendar-wrap">
+                <div id="custom-inner" class="custom-inner">
+                    <div class="custom-header clearfix">
+                        <nav>
+                            <span id="custom-prev" class="custom-prev"></span>
+                            <span id="custom-next" class="custom-next"></span>
+                        </nav>
+                        <h2 id="custom-month" class="custom-month"></h2>
+                        <h3 id="custom-year" class="custom-year"></h3>
                     </div>
+                    <div id="calendar" class="fc-calendar-container"></div>
                 </div>
+            </div>
         </div>
 
         <div class="col-sm-4">
@@ -34,12 +34,12 @@
                     <select class="form-control choose-room">
                         <option selected="selected" disabled value="0"><?= __('Choose a room:','booking-system'); ?></option>
                         <?php
-                            $rooms = bkng_get_booking_rooms();
-                            foreach ($rooms as $room):
-                        ?>
+                        $rooms = bkng_get_booking_rooms();
+                        foreach ($rooms as $room):
+                            ?>
                             <option selected="selected" value="<?= $room->ID; ?>"><?= $room->post_title; ?></option>
                         <?php
-                            endforeach;
+                        endforeach;
                         ?>
 
                     </select>
@@ -80,11 +80,10 @@
                     </div>
 
                     <form action="" method="post" class="form-booking" id="form-booking">
-                        <table class="table table-striped w-auto booking-table-edit">
-                        <tbody>
+                        <table style="background:#f6f6f6" class="table  w-auto booking-table-edit">
+                            <tbody>
                             <tr>
-                                <td><label><?= __('Name','booking-system'); ?></label></td>
-                                <td>
+                                <td colspan="2">
                                     <input name="bkng_action" type="hidden" value="save_booking" class="form-control" />
                                     <input name="room_id" id="room_id"    type="hidden" value="" class="form-control" />
                                     <input name="booking_id" id="booking_id"    type="hidden" value="" class="form-control" />
@@ -94,39 +93,34 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td><label><?= __('Phone','booking-system'); ?></label></td>
-                                <td>
+                                <td colspan="2">
                                     <input name="phone_booking" id="phone_booking"  placeholder="<?= __('Phone...','booking-system'); ?>" type="text" value="" class="form-control" />
                                 </td>
                             </tr>
                             <tr>
-                                <td><label><?= __('E-mail','booking-system'); ?></label></td>
-                                <td>
+                                <td colspan="2">
                                     <input name="email_booking" id="email_booking" placeholder="<?= __('Email...','booking-system'); ?>" type="email" value="" class="form-control" />
                                 </td>
                             </tr>
                             <tr>
-                                <td><label><?= __('Price & Quantity','booking-system'); ?></label></td>
-                                <td>
+                                <td colspan="2">
                                     <select name="price_booking" id="price_booking"  class="form-control">
                                     </select>
                                 </td>
                             </tr>
                             <tr>
-                                <td><label><?= __('Discount','booking-system'); ?></label></td>
-                                <td>
+                                <td colspan="2">
                                     <input name="discount_booking" id="discount_booking"  placeholder="<?= __('Discount...','booking-system'); ?>" type="number" min="0" max="100" value="" class="form-control" />
                                 </td>
                             </tr>
                             <tr>
-                                <td><label><?= __('Notes','booking-system'); ?></label></td>
-                                <td>
+                                <td colspan="2">
                                     <textarea name="notes_booking" id="notes_booking" placeholder="<?= __('Your comments...','booking-system'); ?>" class="form-control"></textarea>
                                 </td>
                             </tr>
                             <tr>
                                 <td><input name="approve_booking" id="approve_booking" type="checkbox" class="form-control" /> <label><?= __('Approve','booking-system'); ?></label></td>
-                                <td>
+                                <td colspan="2">
                                     <input name="frozen_booking" id="frozen_booking" type="checkbox" class="form-control" /> <label><?= __('Frozen','booking-system'); ?></label>
                                 </td>
                             </tr>
@@ -147,8 +141,8 @@
                                     <?php endif; ?>
                                 </td>
                             </tr>
-                        </tbody>
-                    </table>
+                            </tbody>
+                        </table>
                     </form>
 
                     <a class="href-new-booking" style="display: none;" href="<?= admin_url('post-new.php'); ?>?post_type=bookings"><button class="button button-primary"><?= __('New Booking'); ?></button></a>
@@ -190,8 +184,9 @@
     </script>
 <?php endif; ?>
 
-
-
-
-
-
+<style>
+    .table>tbody>tr>td, .table>tbody>tr>th, .table>tfoot>tr>td, .table>tfoot>tr>th, .table>thead>tr>td, .table>thead>tr>th{
+        border-top: none;
+        padding: 6px;
+    }
+</style>

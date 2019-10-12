@@ -204,3 +204,7 @@ select.form-control {
     top: -54px;
     display: none;
 }
+
+input.form-control, textarea.form-control, select.form-control {
+    border-radius: 0px;
+}
