@@ -125,20 +125,23 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td>
-                                    <button class="btn btn-success change-date-button" data-room-id="" type="button"><?= __('Change date/time/room','booking-system'); ?></button>
-                                </td>
-                                <td></td>
-                            </tr>
-                            <tr>
+
                                 <td>
                                     <button class="btn btn-success edit-button " type="button"><?= __('Edit','booking-system'); ?></button>
                                     <button name="save_booking" style="display:none;" class="btn btn-primary save-button" type="submit"><?= __('Save','booking-system'); ?></button>
-                                </td>
-                                <td>
                                     <?php if (check_capability_delete_button()): ?>
                                         <button id="delete_booking" name="delete_booking" value="" class="btn btn-danger delete-button" type="submit"><?= __('Delete','booking-system'); ?></button>
                                     <?php endif; ?>
+                                </td>
+                                <td>
+                                    <button class="btn btn-success change-date-button" data-room-id="" type="button"><?= __('Change date/time/room','booking-system'); ?></button>
+                                </td>
+
+                            </tr>
+                            <tr>
+                                <td>
+                                </td>
+                                <td>
                                 </td>
                             </tr>
                             </tbody>

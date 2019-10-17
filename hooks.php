@@ -431,12 +431,13 @@ function updateRoomQuantity($booking_id, $room_id, $amount_price){
     /**************************** Update Quantity *****************************/
     if ($amount_price){
         $prices = get_post_meta($room_id, "fw_option:prices", 1);
-        foreach ($prices as $price){
-            if ($price['price'] == $amount_price){
-                update_post_meta($booking_id, "fw_option:quantity", $price['quantity']);
-                break;
+        if ($prices)
+            foreach ($prices as $price){
+                if ($price['price'] == $amount_price){
+                    update_post_meta($booking_id, "fw_option:quantity", $price['quantity']);
+                    break;
+                }
             }
-        }
     }
 }
 
