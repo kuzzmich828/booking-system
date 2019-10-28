@@ -72,7 +72,9 @@ if (is_admin() && isset($_GET['page']) && $_GET['page'] == 'booking-calendar' ) 
 
             .btn {
                 border-radius: 0 !important;
+                font-weight: bold;
             }
+
         </style>
         <?php
     });
@@ -126,23 +128,3 @@ require __DIR__ . '/admin/table_columns.php';
 require __DIR__ . '/admin/table_filters.php';
 
 require __DIR__ . '/frontend/shortcode.php';
-
-
-
-
-
-
-
-
-/** Add GitHub Updater **/
-/*require __DIR__.'/plugin-update-checker/plugin-update-checker.php';
-
-$myUpdateChecker = Puc_v4_Factory::buildUpdateChecker(
-    'https://github.com/boosta-ltd/clone-detection-tt',
-    __FILE__,
-    'clone-detection-tt'
-);
-$myUpdateChecker->setAuthentication('b925e6124b99244e1109946f362217e9abbdf049');
-$myUpdateChecker->setBranch('master');*/
-
-

@@ -269,16 +269,13 @@ function bkng_dashboard_widget_newbooking() {
 function bkng_dashboard_widget_newbooking_handler() {
     ?>
     <div class="activity-block">
-        <p>
-            <a style="float: inherit;" href="<?= admin_url('admin.php?page=booking-calendar'); ?>"><button style=" background: #e6ec2ab5;" class="button button-primary"><?= __('New Booking','booking-system'); ?></button></a>
-        </p>
+        <a style="float: inherit;" href="<?= admin_url('admin.php?page=booking-calendar'); ?>"><button style=" background: #e6ec2ab5;" class="button button-primary"><?= __('New Booking','booking-system'); ?></button></a>
     </div>
     <?php
 }
 
-
 /******************** AutoRefresh Dashboard *******************/
-add_action('admin_footer', function (){
+add_action('admin_head', function (){
 
     if (get_current_screen()->id === 'dashboard'){
         ?>
@@ -298,7 +295,7 @@ add_action('admin_footer', function (){
         <style>
             .dashboard-form-del, .dashboard-form-approve {
                 float: right;
-                margin: 0 10px;
+                margin: 0 0 0 10px;
             }
         </style>
         <style>
@@ -323,9 +320,9 @@ add_action('admin_footer', function (){
                 color: black;
                 text-decoration: none;
                 text-shadow: none;
-                padding: 3px 19px;
-                font-size: 16px;
-                height: 100%;
+                padding: 5px 25px;
+                font-size: 18px;
+                height: auto;
             }
             .wp-core-ui .button-primary:focus, .wp-core-ui .button-primary:hover {
                 background: #a5a5a540;
@@ -333,14 +330,14 @@ add_action('admin_footer', function (){
                 color: black;
                 text-decoration: none;
                 text-shadow: none;
-                padding: 3px 19px;
-                font-size: 16px;
-                height: 100%;
+                padding: 5px 25px;
+                font-size: 18px;
+                height: auto;
             }
             .wp-core-ui .button-delete{
-                font-size: 16px;
-                padding: 3px 19px;
-                height: 100%;
+                padding: 5px 25px;
+                font-size: 18px;
+                height: auto;
                 border-color: black;
                 background: #d61111c4;
                 color: #fff;
@@ -361,14 +358,21 @@ add_action('admin_footer', function (){
                 color: #4a4a4a;
                 border-color: #4a4a4a;
                 box-shadow: 0 1px 0 #0a7b00b5;
-                font-size: 16px;
-                padding: 3px 19px;
-                height: 100%;
+                padding: 5px 25px;
+                font-size: 18px;
+                height: auto;
             }
             .activity-block{
                 padding-bottom: 30px;
                 border-bottom: 4px solid #eee;
             }
+            .button {
+                font-weight: bold !important;
+            }
+            .activity-block{
+                margin-top: 14px;
+            }
+
         </style>
         <?php
     }elseif (get_current_screen()->id === 'edit-bookings'){
@@ -376,14 +380,20 @@ add_action('admin_footer', function (){
     }else{
         ?>
         <style>
+            .wp-admin select{
+                max-width: none;
+            }
+            .btn-success{
+                padding: 9px 4px;
+            }
             .edit-button{
                 background: #a5a5a5;
                 border-color: black;
                 color: black;
                 text-decoration: none;
                 text-shadow: none;
-                padding: 5px 15px;
-                font-size: 16px;
+                padding: 6px 15px;
+                font-size: 18px;
             }
             .edit-button:hover{
                 background: #a5a5a5;
@@ -393,8 +403,8 @@ add_action('admin_footer', function (){
             }
 
             button.btn-danger.delete-button{
-                font-size: 16px;
-                padding: 5px 15px;
+                font-size: 18px;
+                padding: 6px 15px;
                 border-color: black;
                 background: #d61111c4;
                 color: white;
@@ -406,16 +416,16 @@ add_action('admin_footer', function (){
                 color: white;
             }
             button.btn-primary.save-button {
-                  background: #a5a5a5;
+                  background: #e6ec2ab5;
                   border-color: black;
                   color: black;
                   text-decoration: none;
                   text-shadow: none;
-                  padding: 5px 19px;
-                  font-size: 16px;
+                  padding: 6px 19px;
+                  font-size: 18px;
               }
             button.btn-primary.save-button:hover {
-                background: #a5a5a5;
+                background: #e6ec2ab5;
                 border-color: black;
                 color: black;
             }
@@ -423,7 +433,6 @@ add_action('admin_footer', function (){
         <?php
     }
 });
-
 
 /******************** Hide Admin Menu for manager *******************/
 add_action('admin_head', function (){

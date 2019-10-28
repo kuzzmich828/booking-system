@@ -119,8 +119,9 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td><input name="approve_booking" id="approve_booking" type="checkbox" class="form-control" /> <label><?= __('Approve','booking-system'); ?></label></td>
-                                <td colspan="2">
+                                <td>
+                                    <input name="approve_booking" id="approve_booking" type="checkbox" class="form-control" /> <label><?= __('Approve','booking-system'); ?></label>
+                                    &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
                                     <input name="frozen_booking" id="frozen_booking" type="checkbox" class="form-control" /> <label><?= __('Frozen','booking-system'); ?></label>
                                 </td>
                             </tr>
