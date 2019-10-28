@@ -1,12 +1,11 @@
 <?php
 /*
-Plugin Name: Booking System
-Plugin URI:
-Description:
+Plugin Name: Booking System Esc
+Plugin URI: https://wordpress.com
+Description: Booking System Esc
 Author: Kuzin E.
-Version: 0.1
+Version: 1.0
 */
-?><?php
 
 register_activation_hook(__FILE__, 'bkng_active');
 
@@ -33,11 +32,9 @@ if (is_admin() && isset($_GET['page']) && $_GET['page'] == 'booking-calendar' ) 
         wp_enqueue_style('bootstrapcdn-css', 'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css', [], EDIT_VER);
         wp_enqueue_style('admin-page-css', plugin_dir_url(__FILE__) . 'calendar/css/admin-page.css', [], EDIT_VER);
 
-
         wp_enqueue_script('prefixfree-js', '//cdnjs.cloudflare.com/ajax/libs/prefixfree/1.0.7/prefixfree.min.js', ['jquery'], EDIT_VER);
         wp_enqueue_script('jquery213', '//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js', ['prefixfree-js'], EDIT_VER);
         wp_enqueue_script('jquery1112', '//ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js', ['jquery213'], EDIT_VER);
-
 
         wp_enqueue_script('modernizr-js', plugin_dir_url(__FILE__) . 'calendar/js/modernizr-custom.js', ['jquery1112'], EDIT_VER);
         wp_enqueue_script('calendar-index-js', plugin_dir_url(__FILE__) . 'calendar/js/index.js', ['modernizr-js'], EDIT_VER);
@@ -74,32 +71,28 @@ if (is_admin() && isset($_GET['page']) && $_GET['page'] == 'booking-calendar' ) 
                 border-radius: 0 !important;
                 font-weight: bold;
             }
-
         </style>
         <?php
     });
 }
 
 
-    add_action('admin_head', function(){
-        if (get_current_screen()->id != 'dashboard')
-            return;
-        ?><style>
-            .button {
-                border-radius: 0 !important;
-                box-shadow: none !important;
-            }
-        </style>
-        <?php
-    });
+add_action('admin_head', function(){
+    if (get_current_screen()->id != 'dashboard')
+        return;
+    ?><style>
+        .button {
+            border-radius: 0 !important;
+            box-shadow: none !important;
+        }
+    </style>
+    <?php
+});
 
 add_action('admin_enqueue_scripts', function () {
     wp_enqueue_script('dashboard-bkng-js', plugin_dir_url(__FILE__) . 'calendar/js/dashboard_bkng.js', ['jquery'], EDIT_VER);
 });
 function admin_page_booking_calendar() {
-
-//    bkng_save_booking();
-
     include( __DIR__ . "/admin/admin_page_booking_calendar.php");
 }
 /* end Hook for adding admin menus */
@@ -115,6 +108,7 @@ function bkng_deactive(){
 add_action( 'plugins_loaded', function () {
     load_plugin_textdomain('booking-system', false, dirname(plugin_basename(__FILE__)) . '/languages/');
 });
+
 require __DIR__.'/functions.php';
 
 require __DIR__.'/hooks.php';
