@@ -321,6 +321,7 @@
     margin-bottom: 70px;
     float: left;
     max-width: 66%;
+    min-width: 500px;
 }
 @media (max-width: 1024px) {
 .wrapper-quest__other-quest {
