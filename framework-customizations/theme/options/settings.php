@@ -22,4 +22,14 @@ $options = array(
         'label' => __('Text for agreement', 'booking-system'),
     ],
 
+    'logo_mail' => [
+        'type'  => 'upload',
+        'label' => __('Email Logo', 'booking-system'),
+    ],
+
+    'email_phone' => [
+        'type'  => 'text',
+        'label' => __('Phone in footer E-Mail', 'booking-system'),
+    ],
+
 );
