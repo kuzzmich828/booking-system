@@ -1,7 +1,7 @@
 <?php
 
 /********** Write widget for every room ************/
-
+global  $all_bookings;
 add_action( 'wp_dashboard_setup', function () {
 
     $posts = get_posts([
@@ -14,7 +14,9 @@ add_action( 'wp_dashboard_setup', function () {
         foreach ($posts as $post) {
 
             wp_add_dashboard_widget('bkng_dashboard_widget_room_' . $post->ID, $post->post_title, function () use ($post) {
-                $all_bookings = get_booking_after_date(current_time('d-m-Y'), current_time('H:i'), 'off', 'on');
+                global $all_bookings;
+                if (!$all_bookings)
+                    $all_bookings = get_booking_after_date(current_time('d-m-Y'), current_time('H:i'), 'off', 'on');
                 foreach ($all_bookings as $booking):
                     if ($booking['room_id'] != $post->ID)
                         continue;
@@ -82,8 +84,9 @@ function bkng_dashboard_widget_all_booking() {
 }
 
 function bkng_dashboard_widget_all_booking_handler() {
-
-    $all_bookings = get_booking_after_date(current_time('d-m-Y'), current_time('H:i'), 'off', 'on');
+    global $all_bookings;
+    if (!$all_bookings)
+        $all_bookings = get_booking_after_date(current_time('d-m-Y'), current_time('H:i'), 'off', 'on');
     foreach ($all_bookings as $booking):
         ?>
         <div class="activity-block">
@@ -211,7 +214,7 @@ function bkng_dashboard_widget_frozen() {
 
 function bkng_dashboard_widget_frozen_handler() {
 
-    $frozen_bookings = get_booking_after_date(current_time('d-m-Y'), current_time('H:i'), 'on');
+    $frozen_bookings = get_booking_after_date(current_time('d-m-Y'), current_time('H:i'), 'on', 'off');
     foreach ($frozen_bookings as $booking):
         ?>
         <div class="activity-block">
