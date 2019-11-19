@@ -450,5 +450,9 @@ function bkng_write_log($str){
 }
 
 function check_capability_delete_button(){
-    return  in_array(wp_get_current_user()->user_login, ['admin_user', 'amos', 'kuzin', 'adir' ]);
+    $users = fw_get_db_settings_option('user_can_delete');
+    if (in_array(get_current_user_id(), $users))
+        return true;
+    return false;
+//    return  in_array(wp_get_current_user()->user_login, ['admin_user', 'amos', 'kuzin', 'adir' ]);
 }

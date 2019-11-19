@@ -1,7 +1,7 @@
 <?php
 
 /********** Write widget for every room ************/
-global  $all_bookings;
+
 add_action( 'wp_dashboard_setup', function () {
 
     $posts = get_posts([
@@ -14,9 +14,7 @@ add_action( 'wp_dashboard_setup', function () {
         foreach ($posts as $post) {
 
             wp_add_dashboard_widget('bkng_dashboard_widget_room_' . $post->ID, $post->post_title, function () use ($post) {
-                global $all_bookings;
-                if (!$all_bookings)
-                    $all_bookings = get_booking_after_date(current_time('d-m-Y'), current_time('H:i'), 'off', 'on');
+                $all_bookings = get_booking_after_date(current_time('d-m-Y'), current_time('H:i'), 'off', 'on');
                 foreach ($all_bookings as $booking):
                     if ($booking['room_id'] != $post->ID)
                         continue;
@@ -54,19 +52,19 @@ add_action( 'wp_dashboard_setup', function () {
                         <div style="margin: 10px -10px; display:flex; border-bottom: 1px solid #eee;"></div>
 
                         <div class="comment-booking">
-<!--                            --><?//= ($booking['amount_price']) ? (($booking['amount_price'] - $booking['amount_price']*$booking['discount']/100))  : ""; ?>
-                                    <?= ($booking['comments']) ? ($booking['comments'])  : ""; ?>
+                            <!--                            --><?//= ($booking['amount_price']) ? (($booking['amount_price'] - $booking['amount_price']*$booking['discount']/100))  : ""; ?>
+                            <?= ($booking['comments']) ? ($booking['comments'])  : ""; ?>
                         </div>
 
 
-
-                        <form action="" method="post" class="dashboard-form-del">
-                            <?php if (check_capability_delete_button()): ?>
-                                <button class="button button-delete" value="<?= $booking['booking_id']; ?>" name="delete_booking" type="submit" ><?= __( 'Delete', 'booking-system' ); ?></button>
-                            <?php endif; ?>
-                        </form>
-                        <a href="<?= admin_url('edit.php'); ?>?post_type=bookings&page=booking-calendar&edit_booking=<?= $booking['booking_id']; ?>"><button type="button" class="button button-primary button-edit"><?= __( 'Edit', 'booking-system' ); ?></button></a>
-
+                        <div style="display:flex; direction: rtl;">
+                            <form action="" method="post" class="dashboard-form-del">
+                                <?php if (check_capability_delete_button()): ?>
+                                    <button class="button button-delete" value="<?= $booking['booking_id']; ?>" name="delete_booking" type="submit" ><?= __( 'Delete', 'booking-system' ); ?></button>
+                                <?php endif; ?>
+                            </form>
+                            <a href="<?= admin_url('edit.php'); ?>?post_type=bookings&page=booking-calendar&edit_booking=<?= $booking['booking_id']; ?>"><button type="button" class="button button-primary button-edit"><?= __( 'Edit', 'booking-system' ); ?></button></a>
+                        </div>
                     </div>
                 <?php
                 endforeach;
@@ -84,9 +82,8 @@ function bkng_dashboard_widget_all_booking() {
 }
 
 function bkng_dashboard_widget_all_booking_handler() {
-    global $all_bookings;
-    if (!$all_bookings)
-        $all_bookings = get_booking_after_date(current_time('d-m-Y'), current_time('H:i'), 'off', 'on');
+
+    $all_bookings = get_booking_after_date(current_time('d-m-Y'), current_time('H:i'), 'off', 'on');
     foreach ($all_bookings as $booking):
         ?>
         <div class="activity-block">
@@ -121,19 +118,19 @@ function bkng_dashboard_widget_all_booking_handler() {
             <div style="margin: 10px -10px; display:flex; border-bottom: 1px solid #eee;"></div>
 
             <div class="comment-booking">
-<!--                --><?//= ($booking['amount_price']) ? (($booking['amount_price'] - $booking['amount_price']*$booking['discount']/100))  : ""; ?>
+                <!--                --><?//= ($booking['amount_price']) ? (($booking['amount_price'] - $booking['amount_price']*$booking['discount']/100))  : ""; ?>
                 <?= ($booking['comments']) ? ($booking['comments'])  : ""; ?>
             </div>
 
+            <div style="display:flex; direction: rtl;">
+                <form action="" method="post" class="dashboard-form-del">
+                    <?php if (check_capability_delete_button()): ?>
+                        <button class="button button-delete" value="<?= $booking['booking_id']; ?>" name="delete_booking" type="submit" ><?= __( 'Delete', 'booking-system' ); ?></button>
+                    <?php endif; ?>
+                </form>
+                <a href="<?= admin_url('edit.php'); ?>?post_type=bookings&page=booking-calendar&edit_booking=<?= $booking['booking_id']; ?>"><button type="button" class="button button-primary button-edit"><?= __( 'Edit', 'booking-system' ); ?></button></a>
 
-
-            <form action="" method="post" class="dashboard-form-del">
-                <?php if (check_capability_delete_button()): ?>
-                    <button class="button button-delete" value="<?= $booking['booking_id']; ?>" name="delete_booking" type="submit" ><?= __( 'Delete', 'booking-system' ); ?></button>
-                <?php endif; ?>
-            </form>
-            <a href="<?= admin_url('edit.php'); ?>?post_type=bookings&page=booking-calendar&edit_booking=<?= $booking['booking_id']; ?>"><button type="button" class="button button-primary button-edit"><?= __( 'Edit', 'booking-system' ); ?></button></a>
-
+            </div>
         </div>
     <?php
     endforeach;
@@ -181,22 +178,22 @@ function bkng_dashboard_widget_need_approve_handler() {
             <div style="margin: 10px -10px; display:flex; border-bottom: 1px solid #eee;"></div>
 
             <div class="comment-booking">
-<!--                --><?//= ($booking['amount_price']) ? (($booking['amount_price'] - $booking['amount_price']*$booking['discount']/100))  : ""; ?>
-                        <?= ($booking['comments']) ? ($booking['comments'])  : ""; ?>
+                <!--                --><?//= ($booking['amount_price']) ? (($booking['amount_price'] - $booking['amount_price']*$booking['discount']/100))  : ""; ?>
+                <?= ($booking['comments']) ? ($booking['comments'])  : ""; ?>
             </div>
 
-
-            <form action="" method="post" class="dashboard-form-approve">
-                <input type="hidden" name="booking_id" value="<?= $booking['booking_id']; ?>" />
-                <button class="button button-approve" name="approve_booking" type="submit"><?= __( 'Approve', 'booking-system' ); ?></button>
-            </form>
-            <form action="" method="post" class="dashboard-form-del">
-                <?php if (check_capability_delete_button()): ?>
-                    <button class="button button-delete" value="<?= $booking['booking_id']; ?>" name="delete_booking" type="submit" ><?= __( 'Delete', 'booking-system' ); ?></button>
-                <?php endif; ?>
-            </form>
-            <a href="<?= admin_url('edit.php'); ?>?post_type=bookings&page=booking-calendar&edit_booking=<?= $booking['booking_id']; ?>"><button type="button" class="button button-primary button-edit"><?= __( 'Edit', 'booking-system' ); ?></button></a>
-
+            <div style="display:flex; direction: rtl;">
+                <form action="" method="post" class="dashboard-form-approve">
+                    <input type="hidden" name="booking_id" value="<?= $booking['booking_id']; ?>" />
+                    <button class="button button-approve" name="approve_booking" type="submit"><?= __( 'Approve', 'booking-system' ); ?></button>
+                </form>
+                <form action="" method="post" class="dashboard-form-del">
+                    <?php if (check_capability_delete_button()): ?>
+                        <button class="button button-delete" value="<?= $booking['booking_id']; ?>" name="delete_booking" type="submit" ><?= __( 'Delete', 'booking-system' ); ?></button>
+                    <?php endif; ?>
+                </form>
+                <a href="<?= admin_url('edit.php'); ?>?post_type=bookings&page=booking-calendar&edit_booking=<?= $booking['booking_id']; ?>"><button type="button" class="button button-primary button-edit"><?= __( 'Edit', 'booking-system' ); ?></button></a>
+            </div>
         </div>
 
 
@@ -214,7 +211,7 @@ function bkng_dashboard_widget_frozen() {
 
 function bkng_dashboard_widget_frozen_handler() {
 
-    $frozen_bookings = get_booking_after_date(current_time('d-m-Y'), current_time('H:i'), 'on', 'off');
+    $frozen_bookings = get_booking_after_date(current_time('d-m-Y'), current_time('H:i'), 'on');
     foreach ($frozen_bookings as $booking):
         ?>
         <div class="activity-block">
@@ -248,16 +245,17 @@ function bkng_dashboard_widget_frozen_handler() {
             <div style="margin: 10px -10px; display:flex; border-bottom: 1px solid #eee;"></div>
 
             <div class="comment-booking">
-<!--                --><?//= ($booking['amount_price']) ? (($booking['amount_price'] - $booking['amount_price']*$booking['discount']/100))  : ""; ?>
-                        <?= ($booking['comments']) ? ($booking['comments'])  : ""; ?>
+                <!--                --><?//= ($booking['amount_price']) ? (($booking['amount_price'] - $booking['amount_price']*$booking['discount']/100))  : ""; ?>
+                <?= ($booking['comments']) ? ($booking['comments'])  : ""; ?>
             </div>
-
-            <form action="" method="post" class="dashboard-form-del">
-                <?php if (check_capability_delete_button()): ?>
-                    <button class="button button-delete" value="<?= $booking['booking_id']; ?>" name="delete_booking" type="submit" ><?= __( 'Delete', 'booking-system' ); ?></button>
-                <?php endif; ?>
-            </form>
-            <a href="<?= admin_url('edit.php'); ?>?post_type=bookings&page=booking-calendar&edit_booking=<?= $booking['booking_id']; ?>"><button type="button" class="button button-primary button-edit"><?= __( 'Edit', 'booking-system' ); ?></button></a>
+            <div style="display:flex; direction: rtl;">
+                <form action="" method="post" class="dashboard-form-del">
+                    <?php if (check_capability_delete_button()): ?>
+                        <button class="button button-delete" value="<?= $booking['booking_id']; ?>" name="delete_booking" type="submit" ><?= __( 'Delete', 'booking-system' ); ?></button>
+                    <?php endif; ?>
+                </form>
+                <a href="<?= admin_url('edit.php'); ?>?post_type=bookings&page=booking-calendar&edit_booking=<?= $booking['booking_id']; ?>"><button type="button" class="button button-primary button-edit"><?= __( 'Edit', 'booking-system' ); ?></button></a>
+            </div>
         </div>
     <?php
     endforeach;
@@ -298,7 +296,7 @@ add_action('admin_head', function (){
         <style>
             .dashboard-form-del, .dashboard-form-approve {
                 float: right;
-                margin: 0 0 0 10px;
+                margin: 0 0 0 5px;
             }
         </style>
         <style>
@@ -366,7 +364,7 @@ add_action('admin_head', function (){
                 height: auto;
             }
             .activity-block{
-                padding-bottom: 30px;
+                padding-bottom: 10px;
                 border-bottom: 4px solid #eee;
             }
             .button {
@@ -419,14 +417,14 @@ add_action('admin_head', function (){
                 color: white;
             }
             button.btn-primary.save-button {
-                  background: #e6ec2ab5;
-                  border-color: black;
-                  color: black;
-                  text-decoration: none;
-                  text-shadow: none;
-                  padding: 6px 19px;
-                  font-size: 18px;
-              }
+                background: #e6ec2ab5;
+                border-color: black;
+                color: black;
+                text-decoration: none;
+                text-shadow: none;
+                padding: 6px 19px;
+                font-size: 18px;
+            }
             button.btn-primary.save-button:hover {
                 background: #e6ec2ab5;
                 border-color: black;

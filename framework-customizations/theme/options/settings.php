@@ -22,6 +22,11 @@ $options = array(
         'label' => __('Text for agreement', 'booking-system'),
     ],
 
+    'logo_site' => [
+        'type'  => 'upload',
+        'label' => __('Site Logo', 'booking-system'),
+    ],
+
     'logo_mail' => [
         'type'  => 'upload',
         'label' => __('Email Logo', 'booking-system'),
@@ -32,4 +37,20 @@ $options = array(
         'label' => __('Phone in footer E-Mail', 'booking-system'),
     ],
 
+    'email_phone_1' => [
+        'type'  => 'text',
+        'label' => __('Phone 2 in footer E-Mail', 'booking-system'),
+    ],
+
+    'user_can_delete' => [
+        'type'  => 'select-multiple',
+        'choices' => array(
+        ),
+        'label' => __('Users can DELETE', 'booking-system'),
+    ],
 );
+
+$wp_users = get_users();
+foreach ($wp_users as $wp_user){
+    $options['user_can_delete']['choices'][$wp_user->ID] = $wp_user->display_name;
+}
