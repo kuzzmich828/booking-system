@@ -382,6 +382,11 @@ add_action('admin_footer', function (){
             }
         </style>
     <?php endif;
+
+    if (!check_capability_delete_button()): ?>
+    <style>.trash{display: none;}</style>
+    <?php
+    endif;
 });
 
 function approveBookingData($booking_id, $unapprove = false){
