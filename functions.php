@@ -456,3 +456,11 @@ function check_capability_delete_button(){
     return false;
 //    return  in_array(wp_get_current_user()->user_login, ['admin_user', 'amos', 'kuzin', 'adir' ]);
 }
+
+function check_capability_other_button(){
+
+    if (wp_get_current_user()->roles[0] == 'out-side')
+        return true;
+    return false;
+
+}

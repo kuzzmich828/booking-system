@@ -384,9 +384,14 @@ add_action('admin_footer', function (){
     <?php endif;
 
     if (!check_capability_delete_button()): ?>
-    <style>.trash{display: none;}</style>
+        <style>.trash{display: none;}</style>
     <?php
     endif;
+    if (check_capability_other_button()): ?>
+        <style>.btn-success, .edit-button, .change-date-button {display: none !important;}</style>
+    <?php
+    endif;
+
 });
 
 function approveBookingData($booking_id, $unapprove = false){

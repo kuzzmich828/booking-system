@@ -4,6 +4,9 @@
 
 add_action( 'wp_dashboard_setup', function () {
 
+    if (check_capability_other_button())
+        return;
+
     $posts = get_posts([
         'post_type'=>'room',
         'numberposts'=> -1,
@@ -78,6 +81,8 @@ add_action( 'wp_dashboard_setup', function () {
 /***************** *********************/
 add_action( 'wp_dashboard_setup', 'bkng_dashboard_widget_all_booking' );
 function bkng_dashboard_widget_all_booking() {
+    if (check_capability_other_button())
+        return;
     wp_add_dashboard_widget( 'bkng_dashboard_widget_all_booking', __( 'All Booking', 'booking-system' ), 'bkng_dashboard_widget_all_booking_handler' );
 }
 
@@ -139,6 +144,8 @@ function bkng_dashboard_widget_all_booking_handler() {
 /******************** ************************/
 add_action( 'wp_dashboard_setup', 'bkng_dashboard_widget_need_approve' );
 function bkng_dashboard_widget_need_approve() {
+    if (check_capability_other_button())
+        return;
     wp_add_dashboard_widget( 'bkng_dashboard_widget_need_approve', __( 'Need Approve', 'booking-system' ), 'bkng_dashboard_widget_need_approve_handler' );
 }
 
@@ -206,6 +213,8 @@ function bkng_dashboard_widget_need_approve_handler() {
 /******************** ************************/
 add_action( 'wp_dashboard_setup', 'bkng_dashboard_widget_frozen' );
 function bkng_dashboard_widget_frozen() {
+    if (check_capability_other_button())
+        return;
     wp_add_dashboard_widget( 'bkng_dashboard_widget_frozen', __( 'Frozen', 'booking-system' ), 'bkng_dashboard_widget_frozen_handler' );
 }
 
@@ -439,11 +448,11 @@ add_action('admin_head', function (){
 add_action('admin_head', function (){
     $user_meta=get_userdata(get_current_user_id());
     $user_roles=$user_meta->roles;
-    if (!in_array('manager', $user_roles))
+    if (!in_array('manager', $user_roles) && !check_capability_other_button())
         return true;
     ?>
     <style>
-        #adminmenu li:not(#menu-dashboard):not(#toplevel_page_booking-calendar):not(#menu-posts-bookings)
+        #wp-admin-bar-new-content, #adminmenu li:not(#menu-dashboard):not(#toplevel_page_booking-calendar):not(#menu-posts-bookings)
         {
             display: none;
         }
