@@ -142,7 +142,8 @@ function callback_get_booking_room_date(){
         ),
     ]);
 
-    $posts = $query->get_posts();
+//    $posts = $query->get_posts();
+    $posts = $query->posts;
     $times = [];
 
     foreach ($posts as $post){
@@ -541,7 +542,8 @@ add_action('admin_footer', function () {
         $attr['posts_per_page'] = -1;
         $query = new WP_Query($attr);
 
-        $posts = $query->get_posts();
+//        $posts = $query->get_posts();
+        $posts = $query->posts;
         $summa = 0;
         foreach ($posts as $post) {
             $summa = $summa + (float)get_post_meta($post->ID, 'amount', true);
@@ -656,7 +658,8 @@ function bkng_export_xls_callback()
 
     $query = new WP_Query($dataquery);
 
-    bkng_export_xls($query->get_posts());
+//    bkng_export_xls($query->get_posts());
+    bkng_export_xls($query->posts);
 
     wp_die();
 }

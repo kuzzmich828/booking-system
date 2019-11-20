@@ -1,5 +1,5 @@
 <?php
-
+global $all_bookings;
 /********** Write widget for every room ************/
 
 add_action( 'wp_dashboard_setup', function () {
@@ -17,7 +17,10 @@ add_action( 'wp_dashboard_setup', function () {
         foreach ($posts as $post) {
 
             wp_add_dashboard_widget('bkng_dashboard_widget_room_' . $post->ID, $post->post_title, function () use ($post) {
-                $all_bookings = get_booking_after_date(current_time('d-m-Y'), current_time('H:i'), 'off', 'on');
+                global $all_bookings;
+                if (!$all_bookings)
+                    $all_bookings = get_booking_after_date(current_time('d-m-Y'), current_time('H:i'), 'off', 'on');
+
                 foreach ($all_bookings as $booking):
                     if ($booking['room_id'] != $post->ID)
                         continue;
@@ -87,8 +90,9 @@ function bkng_dashboard_widget_all_booking() {
 }
 
 function bkng_dashboard_widget_all_booking_handler() {
-
-    $all_bookings = get_booking_after_date(current_time('d-m-Y'), current_time('H:i'), 'off', 'on');
+    global $all_bookings;
+    if (!$all_bookings)
+        $all_bookings = get_booking_after_date(current_time('d-m-Y'), current_time('H:i'), 'off', 'on');
     foreach ($all_bookings as $booking):
         ?>
         <div class="activity-block">
@@ -151,61 +155,62 @@ function bkng_dashboard_widget_need_approve() {
 
 function bkng_dashboard_widget_need_approve_handler() {
     $need_approve_bookings = get_booking_after_date(current_time('d-m-Y'), current_time('H:i'), 'off', 'off');
-    foreach ($need_approve_bookings as $booking):
-        ?>
-        <div class="activity-block">
+    if (is_array($need_approve_bookings))
+        foreach ($need_approve_bookings as $booking):
+            ?>
+            <div class="activity-block">
 
-            <div style="display:flex;">
-                <div class="col1">
-                    <span style="color:#a00000; font-weight: bold;"><?= ($booking['room_name']) ? ($booking['room_name']) : "NO NAME"; ?></span>
+                <div style="display:flex;">
+                    <div class="col1">
+                        <span style="color:#a00000; font-weight: bold;"><?= ($booking['room_name']) ? ($booking['room_name']) : "NO NAME"; ?></span>
+                    </div>
+                    <div class="col2">
+                        <?= str_replace("-",".", $booking['room_date']) ?>
+                    </div>
                 </div>
-                <div class="col2">
-                    <?= str_replace("-",".", $booking['room_date']) ?>
+
+                <div style="display:flex;">
+                    <div class="col1">
+                        <?= ($booking['name']) ? ($booking['name']) : ""; ?>
+                    </div>
+                    <div class="col2">
+                        <?= str_replace("-",".", $booking['room_time']) ?>
+                    </div>
+                </div>
+
+                <div style="display:flex;  ">
+                    <div class="col1">
+                        <?= $booking['phone'] ?>
+                    </div>
+                    <div class="col2">
+
+                    </div>
+                </div>
+
+                <div style="margin: 10px -10px; display:flex; border-bottom: 1px solid #eee;"></div>
+
+                <div class="comment-booking">
+                    <!--                --><?//= ($booking['amount_price']) ? (($booking['amount_price'] - $booking['amount_price']*$booking['discount']/100))  : ""; ?>
+                    <?= ($booking['comments']) ? ($booking['comments'])  : ""; ?>
+                </div>
+
+                <div style="display:flex; direction: rtl;">
+                    <form action="" method="post" class="dashboard-form-approve">
+                        <input type="hidden" name="booking_id" value="<?= $booking['booking_id']; ?>" />
+                        <button class="button button-approve" name="approve_booking" type="submit"><?= __( 'Approve', 'booking-system' ); ?></button>
+                    </form>
+                    <form action="" method="post" class="dashboard-form-del">
+                        <?php if (check_capability_delete_button()): ?>
+                            <button class="button button-delete" value="<?= $booking['booking_id']; ?>" name="delete_booking" type="submit" ><?= __( 'Delete', 'booking-system' ); ?></button>
+                        <?php endif; ?>
+                    </form>
+                    <a href="<?= admin_url('edit.php'); ?>?post_type=bookings&page=booking-calendar&edit_booking=<?= $booking['booking_id']; ?>"><button type="button" class="button button-primary button-edit"><?= __( 'Edit', 'booking-system' ); ?></button></a>
                 </div>
             </div>
 
-            <div style="display:flex;">
-                <div class="col1">
-                    <?= ($booking['name']) ? ($booking['name']) : ""; ?>
-                </div>
-                <div class="col2">
-                    <?= str_replace("-",".", $booking['room_time']) ?>
-                </div>
-            </div>
 
-            <div style="display:flex;  ">
-                <div class="col1">
-                    <?= $booking['phone'] ?>
-                </div>
-                <div class="col2">
-
-                </div>
-            </div>
-
-            <div style="margin: 10px -10px; display:flex; border-bottom: 1px solid #eee;"></div>
-
-            <div class="comment-booking">
-                <!--                --><?//= ($booking['amount_price']) ? (($booking['amount_price'] - $booking['amount_price']*$booking['discount']/100))  : ""; ?>
-                <?= ($booking['comments']) ? ($booking['comments'])  : ""; ?>
-            </div>
-
-            <div style="display:flex; direction: rtl;">
-                <form action="" method="post" class="dashboard-form-approve">
-                    <input type="hidden" name="booking_id" value="<?= $booking['booking_id']; ?>" />
-                    <button class="button button-approve" name="approve_booking" type="submit"><?= __( 'Approve', 'booking-system' ); ?></button>
-                </form>
-                <form action="" method="post" class="dashboard-form-del">
-                    <?php if (check_capability_delete_button()): ?>
-                        <button class="button button-delete" value="<?= $booking['booking_id']; ?>" name="delete_booking" type="submit" ><?= __( 'Delete', 'booking-system' ); ?></button>
-                    <?php endif; ?>
-                </form>
-                <a href="<?= admin_url('edit.php'); ?>?post_type=bookings&page=booking-calendar&edit_booking=<?= $booking['booking_id']; ?>"><button type="button" class="button button-primary button-edit"><?= __( 'Edit', 'booking-system' ); ?></button></a>
-            </div>
-        </div>
-
-
-    <?php
-    endforeach;
+        <?php
+        endforeach;
 
 }
 
@@ -221,53 +226,54 @@ function bkng_dashboard_widget_frozen() {
 function bkng_dashboard_widget_frozen_handler() {
 
     $frozen_bookings = get_booking_after_date(current_time('d-m-Y'), current_time('H:i'), 'on');
-    foreach ($frozen_bookings as $booking):
-        ?>
-        <div class="activity-block">
-            <div style="display:flex;">
-                <div class="col1">
-                    <span style="color:#a00000; font-weight: bold;"><?= ($booking['room_name']) ? ($booking['room_name']) : "NO NAME"; ?></span>
+    if (is_array($frozen_bookings))
+        foreach ($frozen_bookings as $booking):
+            ?>
+            <div class="activity-block">
+                <div style="display:flex;">
+                    <div class="col1">
+                        <span style="color:#a00000; font-weight: bold;"><?= ($booking['room_name']) ? ($booking['room_name']) : "NO NAME"; ?></span>
+                    </div>
+                    <div class="col2">
+                        <?= str_replace("-",".", $booking['room_date']) ?>
+                    </div>
                 </div>
-                <div class="col2">
-                    <?= str_replace("-",".", $booking['room_date']) ?>
+
+                <div style="display:flex;">
+                    <div class="col1">
+                        <?= ($booking['name']) ? ($booking['name']) : ""; ?>
+                    </div>
+                    <div class="col2">
+                        <?= str_replace("-",".", $booking['room_time']) ?>
+                    </div>
+                </div>
+
+                <div style="display:flex;  ">
+                    <div class="col1">
+                        <?= $booking['phone'] ?>
+                    </div>
+                    <div class="col2">
+
+                    </div>
+                </div>
+
+                <div style="margin: 10px -10px; display:flex; border-bottom: 1px solid #eee;"></div>
+
+                <div class="comment-booking">
+                    <!--                --><?//= ($booking['amount_price']) ? (($booking['amount_price'] - $booking['amount_price']*$booking['discount']/100))  : ""; ?>
+                    <?= ($booking['comments']) ? ($booking['comments'])  : ""; ?>
+                </div>
+                <div style="display:flex; direction: rtl;">
+                    <form action="" method="post" class="dashboard-form-del">
+                        <?php if (check_capability_delete_button()): ?>
+                            <button class="button button-delete" value="<?= $booking['booking_id']; ?>" name="delete_booking" type="submit" ><?= __( 'Delete', 'booking-system' ); ?></button>
+                        <?php endif; ?>
+                    </form>
+                    <a href="<?= admin_url('edit.php'); ?>?post_type=bookings&page=booking-calendar&edit_booking=<?= $booking['booking_id']; ?>"><button type="button" class="button button-primary button-edit"><?= __( 'Edit', 'booking-system' ); ?></button></a>
                 </div>
             </div>
-
-            <div style="display:flex;">
-                <div class="col1">
-                    <?= ($booking['name']) ? ($booking['name']) : ""; ?>
-                </div>
-                <div class="col2">
-                    <?= str_replace("-",".", $booking['room_time']) ?>
-                </div>
-            </div>
-
-            <div style="display:flex;  ">
-                <div class="col1">
-                    <?= $booking['phone'] ?>
-                </div>
-                <div class="col2">
-
-                </div>
-            </div>
-
-            <div style="margin: 10px -10px; display:flex; border-bottom: 1px solid #eee;"></div>
-
-            <div class="comment-booking">
-                <!--                --><?//= ($booking['amount_price']) ? (($booking['amount_price'] - $booking['amount_price']*$booking['discount']/100))  : ""; ?>
-                <?= ($booking['comments']) ? ($booking['comments'])  : ""; ?>
-            </div>
-            <div style="display:flex; direction: rtl;">
-                <form action="" method="post" class="dashboard-form-del">
-                    <?php if (check_capability_delete_button()): ?>
-                        <button class="button button-delete" value="<?= $booking['booking_id']; ?>" name="delete_booking" type="submit" ><?= __( 'Delete', 'booking-system' ); ?></button>
-                    <?php endif; ?>
-                </form>
-                <a href="<?= admin_url('edit.php'); ?>?post_type=bookings&page=booking-calendar&edit_booking=<?= $booking['booking_id']; ?>"><button type="button" class="button button-primary button-edit"><?= __( 'Edit', 'booking-system' ); ?></button></a>
-            </div>
-        </div>
-    <?php
-    endforeach;
+        <?php
+        endforeach;
 }
 
 /******************** ************************/

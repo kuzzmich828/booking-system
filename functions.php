@@ -152,7 +152,8 @@ function get_booking_count_by_date(){
         ),
     ]);
 
-    $posts = $query->get_posts();
+//    $posts = $query->get_posts();
+    $posts = $query->posts;
     $response = [];
 
     foreach ($posts as $post){
@@ -188,7 +189,7 @@ function get_booking_after_date($from_date, $time, $frozen = null, $approve = nu
     $date = $from_date;
     $date_1 = $date->format('-m-Y');
     $date_2 = $date->modify('+1 month')->format('-m-Y');
-    $date_3 = $date->modify('+2 month')->format('-m-Y');
+    $date_3 = $date->modify('+1 month')->format('-m-Y');
 
     $args = [
         'posts_per_page' =>  -1,
@@ -209,11 +210,11 @@ function get_booking_after_date($from_date, $time, $frozen = null, $approve = nu
                     'compare' => 'LIKE',
                     'value' => $date_2,
                 ],
-                [
-                    'key' => 'fw_option:room_date',
-                    'compare' => 'LIKE',
-                    'value' => $date_3,
-                ],
+//                [
+//                    'key' => 'fw_option:room_date',
+//                    'compare' => 'LIKE',
+//                    'value' => $date_3,
+//                ],
             ],
 
         ),
@@ -236,10 +237,13 @@ function get_booking_after_date($from_date, $time, $frozen = null, $approve = nu
 
     $query = new WP_Query($args);
 
-    $posts = $query->get_posts();
+//    $posts = get_posts($args);
+    $posts = $query->posts;
+
     $response = [];
 
     foreach ($posts as $booking){
+
         $date = get_post_meta($booking->ID, "fw_option:room_date", true);
         $time = get_post_meta($booking->ID, "fw_option:room_time", true);
 
@@ -252,12 +256,16 @@ function get_booking_after_date($from_date, $time, $frozen = null, $approve = nu
         if ($timeformat)
             $timestamp = $timeformat->getTimestamp();
 
+
         if ($timestamp)
             if ($timestamp > current_time('timestamp')){
 
                 $meta = get_all_meta_booking($booking->ID);
+
                 $response[] = array_merge(['timestamp' => $timestamp], $meta);
             }
+
+
     }
 
     usort($response, 'sort_by_timestamp');
@@ -267,6 +275,8 @@ function get_booking_after_date($from_date, $time, $frozen = null, $approve = nu
 }
 
 function sort_by_timestamp($a, $b){
+
+
     if ($a['timestamp'] == $b['timestamp']) {
         return 0;
     }
