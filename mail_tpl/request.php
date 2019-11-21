@@ -19,7 +19,7 @@ function mail_request($fullname, $email, $phone, $quantity, $date, $time, $room,
     $name  = get_bloginfo( 'name' );
     $url  = site_url();
     $logo  = wp_get_attachment_image_url(fw_get_db_settings_option('logo_mail')['attachment_id']);
-    $phone  = fw_get_db_settings_option('email_phone');
+    $phone_0  = fw_get_db_settings_option('email_phone');
     $phone_1  = fw_get_db_settings_option('email_phone_1');
     $is_phone_2 = ($phone_1) ? 'border-right:2px solid #eee35e;' : '';
     $message =
@@ -96,7 +96,7 @@ HTML;
                 <td style="padding-top:30px; padding-bottom:10px; text-align:center; border-top:1px solid #fff;  padding-left:100px; padding-right:100px;">
                     <table style="text-align:center; margin-left:auto; margin-right:auto;">
                         <tr>
-                            <td style='font-size:24px; $is_phone_2 padding-right:15px; color:#fff; margin-bottom:5px; padding-top:0px; padding-bottom:0px;'>$phone</td>
+                            <td style='font-size:24px; $is_phone_2 padding-right:15px; color:#fff; margin-bottom:5px; padding-top:0px; padding-bottom:0px;'>$phone_0</td>
                             <td style='font-size:24px; padding-left:8px; color:#fff; padding-top:0px; padding-bottom:0px;'>$phone_1</td>
                         </tr>
                     </table>
