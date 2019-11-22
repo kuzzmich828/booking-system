@@ -469,7 +469,7 @@ function check_capability_delete_button(){
 
 function check_capability_other_button(){
 
-    if (wp_get_current_user()->roles[0] == 'out-side')
+    if (in_array('out-side', wp_get_current_user()->roles))
         return true;
     return false;
 

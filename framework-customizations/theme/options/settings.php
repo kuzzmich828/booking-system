@@ -44,7 +44,7 @@ $options = array(
 
     'user_can_delete' => [
         'type'  => 'select-multiple',
-        'choices' => array(
+        'choices' => array( 
         ),
         'label' => __('Users can DELETE', 'booking-system'),
     ],
