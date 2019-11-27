@@ -445,6 +445,9 @@ add_action('admin_head', function (){
                 border-color: black;
                 color: black;
             }
+            .fw-option-type-addable-box > .fw-option-boxes.ui-sortable > .fw-option-box > .fw-postbox > .hndle > span{
+                padding-right: 45px;
+            }
         </style>
         <?php
     }
