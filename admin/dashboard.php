@@ -457,8 +457,21 @@ add_action('admin_head', function (){
 add_action('admin_head', function (){
     $user_meta=get_userdata(get_current_user_id());
     $user_roles=$user_meta->roles;
-    if (!in_array('manager', $user_roles) && !check_capability_other_button())
+    if (check_capability_other_button() && get_current_screen()->id == 'edit-bookings'){
+        die;
+    }
+    if (!in_array('manager', $user_roles) && !check_capability_other_button()):
         return true;
+    elseif (check_capability_other_button()):
+        ?>
+        <style>
+            #menu-posts-bookings
+            {
+                display: none;
+            }
+        </style>
+    <?php
+    endif;
     ?>
     <style>
         #wp-admin-bar-new-content, #adminmenu li:not(#menu-dashboard):not(#toplevel_page_booking-calendar):not(#menu-posts-bookings)
