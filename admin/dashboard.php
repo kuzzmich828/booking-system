@@ -24,9 +24,7 @@ add_action( 'wp_dashboard_setup', function () {
                 foreach ($all_bookings as $booking):
                     if ($booking['room_id'] != $post->ID)
                         continue;
-                    ?>
-
-
+                ?>
                     <div class="activity-block">
                         <div style="display:flex;">
                             <div class="col1">
@@ -58,10 +56,8 @@ add_action( 'wp_dashboard_setup', function () {
                         <div style="margin: 10px -10px; display:flex; border-bottom: 1px solid #eee;"></div>
 
                         <div class="comment-booking">
-<!--                            --><?//= ($booking['amount_price']) ? (($booking['amount_price'] - $booking['amount_price']*$booking['discount']/100))  : ""; ?>
-                                    <?= ($booking['comments']) ? ($booking['comments'])  : ""; ?>
+                            <?= ($booking['comments']) ? ($booking['comments'])  : ""; ?>
                         </div>
-
 
                         <div style="display:flex; direction: rtl;">
                             <form action="" method="post" class="dashboard-form-del">
@@ -94,7 +90,7 @@ function bkng_dashboard_widget_all_booking_handler() {
     if (!$all_bookings)
         $all_bookings = get_booking_after_date(current_time('d-m-Y'), current_time('H:i'), 'off', 'on');
     foreach ($all_bookings as $booking):
-        ?>
+?>
         <div class="activity-block">
 
             <div style="display:flex;">
@@ -115,7 +111,7 @@ function bkng_dashboard_widget_all_booking_handler() {
                 </div>
             </div>
 
-            <div style="display:flex;  ">
+            <div style="display:flex;">
                 <div class="col1">
                     <?= $booking['phone'] ?>
                 </div>
@@ -127,7 +123,6 @@ function bkng_dashboard_widget_all_booking_handler() {
             <div style="margin: 10px -10px; display:flex; border-bottom: 1px solid #eee;"></div>
 
             <div class="comment-booking">
-<!--                --><?//= ($booking['amount_price']) ? (($booking['amount_price'] - $booking['amount_price']*$booking['discount']/100))  : ""; ?>
                 <?= ($booking['comments']) ? ($booking['comments'])  : ""; ?>
             </div>
 
@@ -157,7 +152,7 @@ function bkng_dashboard_widget_need_approve_handler() {
     $need_approve_bookings = get_booking_after_date(current_time('d-m-Y'), current_time('H:i'), 'off', 'off');
     if (is_array($need_approve_bookings))
     foreach ($need_approve_bookings as $booking):
-        ?>
+?>
         <div class="activity-block">
 
             <div style="display:flex;">
@@ -183,15 +178,13 @@ function bkng_dashboard_widget_need_approve_handler() {
                     <?= $booking['phone'] ?>
                 </div>
                 <div class="col2">
-
                 </div>
             </div>
 
             <div style="margin: 10px -10px; display:flex; border-bottom: 1px solid #eee;"></div>
 
             <div class="comment-booking">
-<!--                --><?//= ($booking['amount_price']) ? (($booking['amount_price'] - $booking['amount_price']*$booking['discount']/100))  : ""; ?>
-                        <?= ($booking['comments']) ? ($booking['comments'])  : ""; ?>
+                <?= ($booking['comments']) ? ($booking['comments'])  : ""; ?>
             </div>
 
             <div style="display:flex; direction: rtl;">
@@ -207,13 +200,9 @@ function bkng_dashboard_widget_need_approve_handler() {
                 <a href="<?= admin_url('edit.php'); ?>?post_type=bookings&page=booking-calendar&edit_booking=<?= $booking['booking_id']; ?>"><button type="button" class="button button-primary button-edit"><?= __( 'Edit', 'booking-system' ); ?></button></a>
             </div>
         </div>
-
-
     <?php
     endforeach;
-
 }
-
 
 /******************** ************************/
 add_action( 'wp_dashboard_setup', 'bkng_dashboard_widget_frozen' );
@@ -260,8 +249,7 @@ function bkng_dashboard_widget_frozen_handler() {
             <div style="margin: 10px -10px; display:flex; border-bottom: 1px solid #eee;"></div>
 
             <div class="comment-booking">
-<!--                --><?//= ($booking['amount_price']) ? (($booking['amount_price'] - $booking['amount_price']*$booking['discount']/100))  : ""; ?>
-                        <?= ($booking['comments']) ? ($booking['comments'])  : ""; ?>
+                <?= ($booking['comments']) ? ($booking['comments'])  : ""; ?>
             </div>
             <div style="display:flex; direction: rtl;">
                 <form action="" method="post" class="dashboard-form-del">

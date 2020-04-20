@@ -178,7 +178,6 @@ function get_booking_count_by_date(){
         ),
     ]);
 
-//    $posts = $query->get_posts();
     $posts = $query->posts;
     $response = [];
 
@@ -202,7 +201,6 @@ function get_booking_count_by_date(){
         ];
     }
 
-
     return (json_encode($dates));
 
 }
@@ -222,9 +220,6 @@ function get_booking_after_date($from_date, $time, $frozen = null, $approve = nu
         $date_2 = $date->modify('+1 month')->format('-m-Y');
         $date_3 = $date->modify('+1 month')->format('-m-Y');
     }
-
-
-
 
     $args = [
         'posts_per_page' =>  -1,
@@ -271,8 +266,6 @@ function get_booking_after_date($from_date, $time, $frozen = null, $approve = nu
     }
 
     $query = new WP_Query($args);
-
-//    $posts = get_posts($args);
     $posts = $query->posts;
 
     $response = [];
@@ -299,8 +292,6 @@ function get_booking_after_date($from_date, $time, $frozen = null, $approve = nu
 
                 $response[] = array_merge(['timestamp' => $timestamp], $meta);
             }
-
-
     }
 
     usort($response, 'sort_by_timestamp');
@@ -310,8 +301,6 @@ function get_booking_after_date($from_date, $time, $frozen = null, $approve = nu
 }
 
 function sort_by_timestamp($a, $b){
-
-
     if ($a['timestamp'] == $b['timestamp']) {
         return 0;
     }
@@ -353,7 +342,6 @@ function bkng_get_booking_rooms(){
     global $wpdb;
     $rooms = $wpdb->get_results("SELECT * FROM {$wpdb->posts} WHERE `post_type` = 'room' AND `post_status` = 'publish';");
     add_action('pre_get_posts','add_post_format_filter_to_posts');
-
     return $rooms;
 }
 
@@ -416,7 +404,6 @@ add_action('wp_footer', function (){
         var rooms_JSON = <?= json_encode($rooms); ?>;
 
         function findRoomByID(url_room_id){
-
             var name  = false;
             jQuery(rooms_JSON).each(function(key, data) {
                 var one = data.split('|||');
@@ -426,11 +413,9 @@ add_action('wp_footer', function (){
                 }
             });
             return name;
-
         }
 
         function findRoomByName(room_name){
-
             var id = false;
             jQuery(rooms_JSON).each(function(key, data) {
                 var one = data.split('|||');
@@ -444,7 +429,6 @@ add_action('wp_footer', function (){
 
 
         jQuery(window).load(function(){
-
             if (window.location.href.indexOf("room_id=") > 0){
                 var url = new URL(document.location.href);
                 var query_string = url.search;
@@ -454,9 +438,7 @@ add_action('wp_footer', function (){
                 var room_name = findRoomByID(url_room_id);
                 console.log("room_name",room_name);
                 jQuery('a[data-room-name="'+room_name+'"]').click();
-
             }
-
         });
     </script>
     <?php
@@ -498,14 +480,13 @@ function check_capability_delete_button(){
     $users = fw_get_db_settings_option('user_can_delete');
     if (in_array(get_current_user_id(), $users))
         return true;
+
     return false;
-//    return  in_array(wp_get_current_user()->user_login, ['admin_user', 'amos', 'kuzin', 'adir' ]);
 }
 
 function check_capability_other_button(){
-
     if (in_array('out-side', wp_get_current_user()->roles))
         return true;
-    return false;
 
+    return false;
 }

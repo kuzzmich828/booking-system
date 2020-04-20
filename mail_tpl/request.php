@@ -79,7 +79,6 @@ HTML;
             </tr>
 HTML;
 
-
     if ($mail_title_5 != '') {
         $message .= '<tr style="background:#efe45e; text-align:center; font-size:18px; line-height:36px; margin-top:15px; margin-bottom:15px;"><td style="direction:rtl; padding-left:20px; padding-right:20px;">';
         $message .= $mail_title_5;

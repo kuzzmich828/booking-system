@@ -167,7 +167,6 @@ function callback_get_booking_room_date(){
         $date = DateTime::createFromFormat("d-m-Y", $_POST['date'])->format("d-m-Y");
     }
 
-
     $query = new WP_Query([
         'posts_per_page' => -1,
         'post_type' =>  'bookings',
@@ -186,7 +185,6 @@ function callback_get_booking_room_date(){
         ),
     ]);
 
-//    $posts = $query->get_posts();
     $posts = $query->posts;
     $times = [];
 
@@ -195,7 +193,6 @@ function callback_get_booking_room_date(){
     }
 
     wp_send_json(json_encode($times), 200);
-
 }
 
 
@@ -216,8 +213,6 @@ function callback_get_room_attributes(){
 
     if (!$room_id)
         wp_send_json(json_encode([]), 200);
-
-    // TODO: Get time from last order for current room
 
     global $wpdb;
 
@@ -273,8 +268,6 @@ function callback_get_room_attributes(){
     $data ['icon_text_color'] = get_post_meta($room_id, 'wpcf-icon-text-color', 1);
     $data ['title_color'] = get_post_meta($room_id, 'fw_option:title_color', 1);
     $data ['modal_corner_color'] = get_post_meta($room_id, 'fw_option:modal_corner_color', 1);
-
-
 
     wp_send_json(json_encode($data), 200);
 }
@@ -479,7 +472,6 @@ add_action( 'updated_post_meta', 'callback_update_bookin_meta', 10, 4);
 
 function callback_update_bookin_meta($meta_id, $post_id, $meta_key, $meta_value ){
 
-
     remove_action('updated_post_meta', 'callback_update_bookin_meta');
 
     if ($meta_key == 'fw_option:amount_price' || $meta_key == 'fw_option:discount'){
@@ -594,8 +586,6 @@ add_action('admin_footer', function () {
         $attr = $wp_query->query;
         $attr['posts_per_page'] = -1;
         $query = new WP_Query($attr);
-
-//        $posts = $query->get_posts();
         $posts = $query->posts;
         $summa = 0;
         foreach ($posts as $post) {
@@ -683,7 +673,6 @@ add_action('restrict_manage_posts', function () {
                     ids: arr,
                     dataquery: dataquery
                 }, function (result) {
-                    // console.log(result);
                     window.location.href = result;
                 });
 
@@ -710,8 +699,6 @@ function bkng_export_xls_callback()
     );
 
     $query = new WP_Query($dataquery);
-
-//    bkng_export_xls($query->get_posts());
     bkng_export_xls($query->posts);
 
     wp_die();
@@ -727,7 +714,6 @@ function bkng_export_xls($posts)
     $sheet = $xls->getActiveSheet();
     $sheet->setTitle("Booking");
 
-
     $sheet->setCellValue("A1", "חדרים"); // name
     $sheet->setCellValue("B1", "שם");   // name
     $sheet->setCellValue("C1", "טלפון");  // phone
@@ -736,8 +722,8 @@ function bkng_export_xls($posts)
     $sheet->setCellValue("F1", "תאריך הזמנה"); // date
     $sheet->setCellValue("G1", "תאריך אישור הזמנה"); // date confirm
     $sheet->setCellValue("H1", "רשימת תפוצה"); // Invite רשימת תפוצה
-    $sheet->setCellValue("I1", "מאשר הזמנה"); // Mailing
-    $sheet->setCellValue("J1", "מחיר"); // Price  מחיר
+    $sheet->setCellValue("I1", "מאשר הזמנה");   // Mailing
+    $sheet->setCellValue("J1", "מחיר");         // Price  מחיר
 
     $sheet->getColumnDimension('A')->setAutoSize(true);
     $sheet->getColumnDimension('B')->setAutoSize(true);
@@ -781,13 +767,10 @@ function bkng_export_xls($posts)
 
         if ($meta['frozen'] == 'on') $subscr = 'כן'; else $subscr = 'לא';
 
-
-
         $sheet->setCellValue("A" . $row, $meta['room_name']);
         $sheet->setCellValue("B" . $row, $meta['name']);
         $sheet->setCellValue("C" . $row, $meta['phone']);
         $sheet->setCellValue("D" . $row, $meta['email']);
-
 
         $sheet->setCellValue("E" . $row, $post_status);
         $sheet->setCellValue("F" . $row, $post->post_date);
@@ -912,4 +895,3 @@ function before_delete_booking( $booking_id ) {
     );
 
 }
-

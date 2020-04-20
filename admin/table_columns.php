@@ -168,7 +168,3 @@ function add_column_subscribe_request( $query ){
         $query->set('meta_value', $_GET['subscribe']);
     }
 }*/
-
-
-
-

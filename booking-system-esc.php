@@ -1,10 +1,10 @@
 <?php
 /*
 Plugin Name: Booking System Esc
-Plugin URI: https://wordpress.com
+Plugin URI:
 Description: Booking System Esc
-Author: Kuzin E.
-Version: 1.0
+Author: kuzzmich
+Version: 2.0
 */
 
 register_activation_hook(__FILE__, 'bkng_active');
@@ -15,8 +15,6 @@ function bkng_active() {
     rcopy(plugin_dir_path(__FILE__).'framework-customizations', get_template_directory().'/framework-customizations');
 
 }
-
-
 /* end add func on activate plugin */
 
 /* Hook for adding admin menus */
