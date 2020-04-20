@@ -23,7 +23,7 @@ function mail_request($fullname, $email, $phone, $quantity, $date, $time, $room,
     $phone_1  = fw_get_db_settings_option('email_phone_1');
     $is_phone_2 = ($phone_1) ? 'border-right:2px solid #eee35e;' : '';
     $message =
-<<< HTML
+        <<< HTML
         <body style="text-align:right; font-size:18px;">
         <table border="0" cellpadding="0" cellspacing="0"  style="width:600px; margin-left:auto; margin-right:auto;">
         <tr style="background-color:#000; color:#efe45e;  text-align:center; border-bottom:1px solid #efe45e;">
@@ -52,7 +52,7 @@ HTML;
         $message .= "<tr><td style='padding-top:30px; padding-bottom:0px; font-size:24px; direction:rtl; border-top:2px solid #efe45e;'>" . $mail_title_4 . "</td></tr>";
     }
     $message .=
-<<< HTML
+        <<< HTML
             <tr>
             <table style='width:100%;' border='0' cellpadding='0' cellspacing='0'>
             <tr>
@@ -88,7 +88,7 @@ HTML;
     $message .= "<tr style=''><td style='padding-top:20px; padding-bottom:20px; border-top:2px solid #eee35e; '>";
     $message .= $mail_text;
     $message .=
-<<< HTML
+        <<< HTML
         </td></tr>
         </table> 
         <table border="0" cellpadding="0" cellspacing="0"  style="width:600px; margin-left:auto; margin-right:auto; border-top:1px solid #efe45e;">

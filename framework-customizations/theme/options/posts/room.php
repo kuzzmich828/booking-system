@@ -34,7 +34,7 @@ $options = array(
             'quantity' => array( 'type' => 'text' ),
             'price' => array( 'type' => 'text' ),
         ),
-        'template' => 'Quantity:{{- quantity }}    Price:{{- price }}',
+        'template' => 'Quantity {{- quantity}} Price {{- price}}',
         'limit' => 10,
         'fw-storage' => array(
             'type' => 'post-meta',
@@ -42,6 +42,15 @@ $options = array(
         ),
     ),
 
+    'roomcontent' => array(
+        'type'  => 'select',
+        'label' =>  __('Room Content', 'booking-system') ,
+        'choices' => array( ),
+        'fw-storage' => array(
+            'type' => 'post-meta',
+            'post-meta' => 'fw_option-room-content',
+        ),
+    ),
 
     /********* ICON ************/
     'wpcf-order-complexity-icon' => [
@@ -182,4 +191,13 @@ $times = get_times_format();
 
 foreach ($times as $v) {
     $options['times']['choices'][$v] = $v;
+}
+
+$roomcontents = get_posts([
+    'post_type'  =>  'roomcontent',
+    'status'    =>  'publish'
+]);
+$options['roomcontent']['choices']['-'] = '-';
+foreach ($roomcontents as $roomcontent) {
+    $options['roomcontent']['choices'][$roomcontent->ID] = $roomcontent->post_title;
 }
