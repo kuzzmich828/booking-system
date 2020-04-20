@@ -295,7 +295,7 @@ function BookingInfoAjax(booking_id, onload = false) {
                 }
             } else {
                 jQuery(container_edit).hide();
-                init_calendar('m');
+                init_calendar('m', 'Y');
             }
             spinnerHide();
         }
@@ -304,11 +304,13 @@ function BookingInfoAjax(booking_id, onload = false) {
 }
 
 function AutoFillDateTimeBooking(date){
-    init_calendar(date.split('-')[1]);
+    init_calendar(date.split('-')[1],date.split('-')[2]);
     var days = jQuery("#calendar").find(".cell-day, .fc-today");
     jQuery( days ).each(function( index ) {
         jQuery(days[index]).removeClass(SELECT_CELL);
     });
+    console.log("Find date = "+date);
+    console.log("Find date = "+date);
     jQuery("#calendar").find(".cell-day[data-date-attr='"+date+"']").toggleClass(SELECT_CELL);
 
 }
@@ -408,13 +410,29 @@ function fillRooms(data) {
 }
 
 function fillRezerved(room_id, data) {
+    var old_time = [];
+
     jQuery(data).each(function (index) {
         if (data[index]['room_id'] == room_id){
+            if (jQuery('#calendar-time .cell-time[data-time="'+data[index]['room_time']+'"]').length < 1 && data[index]['room_time']){
+                var obj = {};
+                obj.id = data[index]['id'];
+                obj.room_time = data[index]['room_time'];
+                old_time.push(obj);
+                console.log("Not find time: "+data[index]['room_time']+"="+data[index]['id']);
+            }
+
             jQuery('#calendar-time .cell-time[data-time="'+data[index]['room_time']+'"]').addClass('reserved').attr('data-booking-id', data[index]['id']);
             if (is_change_datetime){
                 jQuery('#calendar-time .reserved').remove();
             }
         }
+    });
+    if (old_time.length < 1)
+        return;
+    jQuery('.fc-body.calendar-time-body').append('<div class="fc-row old-time"></div>')
+    jQuery(old_time).each(function (index) {
+        jQuery('.fc-row.old-time').append('<div class="cell-time reserved" data-booking-id="'+old_time[index].id+'" data-time="'+old_time[index].room_time+'"><span class="fc-date">'+old_time[index].room_time+'</span></div>')
     });
 }
 
@@ -453,7 +471,7 @@ function fillTimes(data, room_id) {
     });
 }
 
-function init_calendar(set_month) {
+function init_calendar(set_month, set_year) {
 
     var transEndEventNames = {
             'WebkitTransition' : 'webkitTransitionEnd',
@@ -474,7 +492,8 @@ function init_calendar(set_month) {
             },
             caldata : codropsEvents,
             displayWeekAbbr : true,
-            month : set_month
+            month : set_month,
+            year: set_year
 
         } ),
         $month = $( '#custom-month' ).html( cal.getMonthName() ),

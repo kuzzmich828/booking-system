@@ -91,6 +91,50 @@ function bkng_register_posts_type(){
         'supports'           => array('title','author', )
     ) );
 
+    register_post_type('roomcontent', array(
+        'labels'             => array(
+            'name'               => __('Room content', 'booking-system'),
+            'singular_name'      => __('Room content', 'booking-system'),
+            'add_new'            => __('Add new', 'booking-system'),
+            'add_new_item'       => __('Add new', 'booking-system'),
+            'edit_item'          => __('Edit', 'booking-system'),
+            'new_item'           => __('New Room Content', 'booking-system'),
+            'view_item'          => __('View', 'booking-system'),
+            'search_items'       => __('Find', 'booking-system'),
+            'not_found'          =>  __('Not found', 'booking-system'),
+            'not_found_in_trash' => __('Not found', 'booking-system'),
+            'parent_item_colon'  => '',
+            'menu_name'          => __('Room content', 'booking-system')
+
+        ),
+        'capabilities' => array(
+            'edit_post'          => 'edit_room',
+            'read_post'          => 'read_room',
+            'delete_private_posts'        => 'delete_private_room',
+            'delete_published_posts'        => 'delete_published_room',
+            'delete_posts'        => 'delete_room',
+            'delete_others_posts' => 'delete_others_room',
+            'edit_posts'         => 'edit_room',
+            'edit_others_posts'  => 'edit_others_room',
+            'publish_posts'      => 'publish_room',
+            'create_posts'       => 'edit_room',
+            'read_private_posts' => 'read_private_room',
+
+        ),
+
+        'public'             => true,
+        'publicly_queryable' => true,
+        'show_ui'            => true,
+        'show_in_menu'       => true,
+        'query_var'          => true,
+        'rewrite'            => true,
+        'capability_type'    => 'room',
+        'hierarchical'       => false,
+        'menu_position'      => 4,
+        'menu_icon'          => 'dashicons-grid-view',
+        'supports'           => array('title','author','thumbnail', 'editor')
+    ) );
+
 }
 
 add_action( 'wp_ajax_get_booking_rooms', 'callback_get_booking_rooms' );
@@ -142,7 +186,8 @@ function callback_get_booking_room_date(){
         ),
     ]);
 
-    $posts = $query->get_posts();
+//    $posts = $query->get_posts();
+    $posts = $query->posts;
     $times = [];
 
     foreach ($posts as $post){
@@ -199,7 +244,16 @@ function callback_get_room_attributes(){
     $data ['room_id'] = $room_id;
     $data ['times'] = $times;
     $data ['prices'] = $pq;
-    $data ['description'] = apply_filters('the_content', $the_post->post_content);
+
+    $data ['roomcontent'] = (integer) get_post_meta($room_id, 'fw_option-room-content', 1);
+    if ($data['roomcontent']){
+        $elementor = new \Elementor\Frontend();
+        $data ['description'] = ' ';
+        $data ['description'] .= apply_filters('the_content', $elementor->get_builder_content_for_display($data['roomcontent']));
+        $data ['description'] .= ' ';
+    }else {
+        $data ['description'] = apply_filters('the_content', $the_post->post_content);
+    }
     $data ['room_name'] = apply_filters('the_title', $the_post->post_title);
     $data ['room_image'] = get_post_meta($room_id, 'fw_option:room_bg_image', 1)['url'];
 
@@ -382,6 +436,16 @@ add_action('admin_footer', function (){
             }
         </style>
     <?php endif;
+
+    if (!check_capability_delete_button()): ?>
+        <style>.trash{display: none;}</style>
+    <?php
+    endif;
+    if (check_capability_other_button()): ?>
+        <style>.btn-success, .edit-button, .change-date-button {display: none !important;}</style>
+    <?php
+    endif;
+
 });
 
 function approveBookingData($booking_id, $unapprove = false){
@@ -531,7 +595,8 @@ add_action('admin_footer', function () {
         $attr['posts_per_page'] = -1;
         $query = new WP_Query($attr);
 
-        $posts = $query->get_posts();
+//        $posts = $query->get_posts();
+        $posts = $query->posts;
         $summa = 0;
         foreach ($posts as $post) {
             $summa = $summa + (float)get_post_meta($post->ID, 'amount', true);
@@ -646,7 +711,8 @@ function bkng_export_xls_callback()
 
     $query = new WP_Query($dataquery);
 
-    bkng_export_xls($query->get_posts());
+//    bkng_export_xls($query->get_posts());
+    bkng_export_xls($query->posts);
 
     wp_die();
 }

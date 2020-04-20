@@ -307,3 +307,7 @@ html { height: 100%; }
 	.fc-calendar-container {		height: 300px;	}
 	.fc-calendar .fc-row > div > span.fc-date {		font-size: 15px;	}
 }
+
+.old-time{
+	border-top: solid #ff0707 5px;
+}

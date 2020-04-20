@@ -180,11 +180,11 @@
 
 <?php if (isset($_GET['edit_booking']) && $_GET['edit_booking']): ?>
     <script>
-        BookingInfoAjax(<?=$_GET['edit_booking']; ?>, true);
+        jQuery(document).ready(function(){ BookingInfoAjax(<?=$_GET['edit_booking']; ?>, true); });
     </script>
 <?php else: ?>
     <script>
-        init_calendar(<?= date('m'); ?>);
+        jQuery(document).ready(function(){ init_calendar(<?= date('m'); ?>); });
     </script>
 <?php endif; ?>
 

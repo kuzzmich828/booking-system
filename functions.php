@@ -115,12 +115,33 @@ function bkng_save_booking(){
 
         }
 
-        return true;
+        return $booking_id;
     }
     return false;
 }
 
 function get_booking_count_by_date(){
+
+
+    if (date("m") == '01'){
+        $date_1 = date("m", strtotime("-1 month", current_time('timestamp'))).date('-Y');
+        $date_2 = date('01-Y');
+        $date_3 = date("02-Y");
+        $date_4 = date("03-Y");
+        $date_5 = date("04-Y");
+    } elseif (date("m") == '02') {
+        $date_1 = date('01-Y');
+        $date_2 = date('02-Y');
+        $date_3 = date("03-Y");
+        $date_4 = date("04-Y");
+        $date_5 = date("05-Y");
+    }else{
+        $date_1 = date("m", strtotime("-1 month", current_time('timestamp'))) . date('-Y');
+        $date_2 = date('m-Y');
+        $date_3 = date("m-Y", strtotime("+1 month", current_time('timestamp')));
+        $date_4 = date("m-Y", strtotime("+2 month", current_time('timestamp')));
+        $date_5 = date("m-Y", strtotime("+3 month", current_time('timestamp')));
+    }
 
     $query = new WP_Query([
         'posts_per_page' => -1,
@@ -132,27 +153,33 @@ function get_booking_count_by_date(){
             [
                 'key' => 'fw_option:room_date',
                 'compare' => 'LIKE',
-                'value' => '-'.date("m", strtotime("-1 month", current_time('timestamp'))).'-2019',
+                'value' => '-'.$date_1,
             ],
             [
                 'key' => 'fw_option:room_date',
                 'compare' => 'LIKE',
-                'value' => '-'.( date('m') ).'-2019',
+                'value' => '-'.$date_2,
             ],
             [
                 'key' => 'fw_option:room_date',
                 'compare' => 'LIKE',
-                'value' => '-'.date("m", strtotime("+1 month", current_time('timestamp'))).'-2019',
+                'value' => '-'.$date_3,
             ],
             [
                 'key' => 'fw_option:room_date',
                 'compare' => 'LIKE',
-                'value' => '-'.date("m", strtotime("+2 month", current_time('timestamp'))).'-2019',
+                'value' => '-'.$date_4,
+            ],
+            [
+                'key' => 'fw_option:room_date',
+                'compare' => 'LIKE',
+                'value' => '-'.$date_5,
             ],
         ),
     ]);
 
-    $posts = $query->get_posts();
+//    $posts = $query->get_posts();
+    $posts = $query->posts;
     $response = [];
 
     foreach ($posts as $post){
@@ -187,8 +214,17 @@ function get_booking_after_date($from_date, $time, $frozen = null, $approve = nu
 
     $date = $from_date;
     $date_1 = $date->format('-m-Y');
-    $date_2 = $date->modify('+1 month')->format('-m-Y');
-    $date_3 = $date->modify('+2 month')->format('-m-Y');
+
+    if (date("m") == '01' && date("d") > 27) {
+        $date_2 = $date->modify('+27 day')->format('-m-Y');
+        $date_3 = $date->modify('+1 month')->format('-m-Y');
+    }else{
+        $date_2 = $date->modify('+1 month')->format('-m-Y');
+        $date_3 = $date->modify('+1 month')->format('-m-Y');
+    }
+
+
+
 
     $args = [
         'posts_per_page' =>  -1,
@@ -209,11 +245,11 @@ function get_booking_after_date($from_date, $time, $frozen = null, $approve = nu
                     'compare' => 'LIKE',
                     'value' => $date_2,
                 ],
-                [
-                    'key' => 'fw_option:room_date',
-                    'compare' => 'LIKE',
-                    'value' => $date_3,
-                ],
+//                [
+//                    'key' => 'fw_option:room_date',
+//                    'compare' => 'LIKE',
+//                    'value' => $date_3,
+//                ],
             ],
 
         ),
@@ -236,10 +272,13 @@ function get_booking_after_date($from_date, $time, $frozen = null, $approve = nu
 
     $query = new WP_Query($args);
 
-    $posts = $query->get_posts();
+//    $posts = get_posts($args);
+    $posts = $query->posts;
+
     $response = [];
 
     foreach ($posts as $booking){
+
         $date = get_post_meta($booking->ID, "fw_option:room_date", true);
         $time = get_post_meta($booking->ID, "fw_option:room_time", true);
 
@@ -252,12 +291,16 @@ function get_booking_after_date($from_date, $time, $frozen = null, $approve = nu
         if ($timeformat)
             $timestamp = $timeformat->getTimestamp();
 
+
         if ($timestamp)
             if ($timestamp > current_time('timestamp')){
 
                 $meta = get_all_meta_booking($booking->ID);
+
                 $response[] = array_merge(['timestamp' => $timestamp], $meta);
             }
+
+
     }
 
     usort($response, 'sort_by_timestamp');
@@ -267,6 +310,8 @@ function get_booking_after_date($from_date, $time, $frozen = null, $approve = nu
 }
 
 function sort_by_timestamp($a, $b){
+
+
     if ($a['timestamp'] == $b['timestamp']) {
         return 0;
     }
@@ -450,5 +495,17 @@ function bkng_write_log($str){
 }
 
 function check_capability_delete_button(){
-    return  in_array(wp_get_current_user()->user_login, ['admin_user', 'amos', 'kuzin', 'adir' ]);
+    $users = fw_get_db_settings_option('user_can_delete');
+    if (in_array(get_current_user_id(), $users))
+        return true;
+    return false;
+//    return  in_array(wp_get_current_user()->user_login, ['admin_user', 'amos', 'kuzin', 'adir' ]);
+}
+
+function check_capability_other_button(){
+
+    if (in_array('out-side', wp_get_current_user()->roles))
+        return true;
+    return false;
+
 }

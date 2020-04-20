@@ -21,8 +21,15 @@ add_action('admin_init', function () {
                     }
                     ?>
                     <div class="notice notice-success is-dismissible <?= $class; ?>">
-                        <p><?= "<b>#{$_POST['booking_id']}</b> ". $message; ?></p>
+                        <p><?= "<b>#{$is_saved}</b> ". $message; ?></p>
                     </div>
+                    <script>
+                        jQuery(document).ready(function(){
+                            setTimeout(function () {
+                                window.location.href = 'https://'+window.location.hostname + '/wp-admin/admin.php?page=booking-calendar&edit_booking=<?= $is_saved; ?>';
+                            }, 500);
+                        });
+                    </script>
                     <style>
                         .error-admin, .error-admin p{background: #ff0000bf;color: white;}
                     </style>
@@ -40,6 +47,13 @@ add_action('admin_init', function () {
                 <div class="notice notice-success is-dismissible">
                     <p><?= "<b>#{$_POST['delete_booking']}</b> " . __("Booking Deleted!", 'booking-system'); ?></p>
                 </div>
+                <script>
+                    jQuery(document).ready(function(){
+                        setTimeout(function () {
+                            window.location.href = 'https://'+window.location.hostname + '/wp-admin/admin.php?page=booking-calendar';
+                        }, 500);
+                    });
+                </script>
                 <?php
             }
         }

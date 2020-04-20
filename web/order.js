@@ -273,6 +273,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 $(widget1).addClass('show');
 
 
+                elementorFrontend.init();
             }
 
         });

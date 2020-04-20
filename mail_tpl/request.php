@@ -16,14 +16,20 @@ function mail_request($fullname, $email, $phone, $quantity, $date, $time, $room,
         endwhile;
     endif;
     $subject = 'Booking Escapequest ' . $date;
+    $name  = get_bloginfo( 'name' );
+    $url  = site_url();
+    $logo  = wp_get_attachment_image_url(fw_get_db_settings_option('logo_mail')['attachment_id']);
+    $phone_0  = fw_get_db_settings_option('email_phone');
+    $phone_1  = fw_get_db_settings_option('email_phone_1');
+    $is_phone_2 = ($phone_1) ? 'border-right:2px solid #eee35e;' : '';
     $message =
 <<< HTML
         <body style="text-align:right; font-size:18px;">
         <table border="0" cellpadding="0" cellspacing="0"  style="width:600px; margin-left:auto; margin-right:auto;">
         <tr style="background-color:#000; color:#efe45e;  text-align:center; border-bottom:1px solid #efe45e;">
-        <td style="padding-top:35px; padding-bottom:35px; border-bottom:1px solid #fff;  padding-left:200px; padding-right:200px;">
-            <img src="http://escape.get-great.site/wp-content/themes/escape/images/logo.png" alt="" style="width:200px; height:auto; display:block; margin-left:auto; margin-right:auto; margin-bottom:5px;"/>
-            <a href="http://www.escapeilat.com" style="color:#efe45e; text-decoration:none; font-size:14px;">www.escapeilat.com</a></td>
+        <td style="padding-top:35px; padding-bottom:35px; border-bottom:1px solid #fff;  padding-left:100px; padding-right:100px;">
+            <img src="$logo" alt="" style="width:200px; height:auto; display:block; margin-left:auto; margin-right:auto; margin-bottom:5px;"/>
+            <a href="$url" style="color:#efe45e; text-decoration:none; font-size:14px;">$name</a></td>
         </tr>
         </table>
         <table border="0" cellpadding="0" cellspacing="0" style="width:600px; margin-left:auto; margin-right:auto; table-layout:fixed;  border-left:1px solid #c0c0c0; border-right:1px solid #c0c0c0; padding-left:32px; padding-right:32px; border-top:1px solid #efe45e;">
@@ -86,17 +92,16 @@ HTML;
         </td></tr>
         </table> 
         <table border="0" cellpadding="0" cellspacing="0"  style="width:600px; margin-left:auto; margin-right:auto; border-top:1px solid #efe45e;">
-        <tr style="background-color:#000; border-top:1px solid #fff"><td style="padding-top:30px; padding-bottom:10px; text-align:center; border-top:1px solid #fff;  padding-left:100px; padding-right:100px;">
-        <a href="https://www.waze.com/ru/location?ll=29.54853057%2C34.96459007&navigate=yes&zoom=17" target="_blank"><img src="http://escape.get-great.site/wp-content/themes/escape/images/s-4.png" alt="" style="margin-left:7px; margin-right:7px; margin-bottom:5px;"/></a>
-        <a href="#" target="_blank"><img src="http://escape.get-great.site/wp-content/themes/escape/images/s-5.png" alt="" style="margin-left:7px; margin-right:7px; margin-bottom:5px;"/></a>
-        <a href="https://www.google.com/maps/place/%D7%90%D7%A1%D7%A7%D7%99%D7%99%D7%A4+%D7%A8%D7%95%D7%9D+-+%D7%97%D7%93%D7%A8%D7%99+%D7%94%D7%91%D7%A8%D7%99%D7%97%D7%94+%D7%94%D7%92%D7%93%D7%95%D7%9C%D7%99%D7%9D+%D7%91%D7%90%D7%99%D7%9C%D7%AA%E2%80%AD/@29.5483911,34.964738,19z/data=!4m5!3m4!1s0x0:0x2a7565760e253354!8m2!3d29.5482777!4d34.9644348" target="_blank"><img src="http://escape.get-great.site/wp-content/themes/escape/images/s-3.png" alt="" style="margin-left:7px; margin-right:7px; margin-bottom:5px;"/></a>
-        <a href="https://www.instagram.com/escape.room.eilat/" target="_blank"><img src="http://escape.get-great.site/wp-content/themes/escape/images/s-2.png" alt="" style="margin-left:7px; margin-right:7px; margin-bottom:5px;"/></a>
-        <a href="https://www.facebook.com/escapegameilat/" target="_blank"><img src="http://escape.get-great.site/wp-content/themes/escape/images/s-1.png" alt="" style="margin-left:7px; margin-right:7px; margin-bottom:5px;"/></a>
-        <table style="text-align:center; margin-left:auto; margin-right:auto;"><tr>
-        <td style='font-size:24px; border-right:2px solid #eee35e; padding-right:15px; color:#fff; margin-bottom:5px; padding-top:0px; padding-bottom:0px;'>053-3555049</td>
-        <td style='font-size:24px; padding-left:8px; color:#fff; padding-top:0px; padding-bottom:0px;'>053-8843555</td>
-        </tr></table>
-        </td></tr>
+            <tr style="background-color:#000; border-top:1px solid #fff">
+                <td style="padding-top:30px; padding-bottom:10px; text-align:center; border-top:1px solid #fff;  padding-left:100px; padding-right:100px;">
+                    <table style="text-align:center; margin-left:auto; margin-right:auto;">
+                        <tr>
+                            <td style='font-size:24px; $is_phone_2 padding-right:15px; color:#fff; margin-bottom:5px; padding-top:0px; padding-bottom:0px;'>$phone_0</td>
+                            <td style='font-size:24px; padding-left:8px; color:#fff; padding-top:0px; padding-bottom:0px;'>$phone_1</td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
         </table></body>
 HTML;
 

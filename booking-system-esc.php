@@ -22,6 +22,7 @@ function bkng_active() {
 /* Hook for adding admin menus */
 add_action('admin_menu', 'add_to_admin_menu_bkng');
 function add_to_admin_menu_bkng(){
+
     add_menu_page(__('Booking Calendar','booking-system'), __('Booking Calendar','booking-system'), 'edit_others_posts' , 'booking-calendar', 'admin_page_booking_calendar', 'dashicons-calendar-alt', 5);
 }
 
