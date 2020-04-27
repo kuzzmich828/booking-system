@@ -272,8 +272,8 @@ document.addEventListener("DOMContentLoaded", function () {
                 $(modal1).addClass('show');
                 $(widget1).addClass('show');
 
-
-                elementorFrontend.init();
+                if (typeof elementorFrontend != 'undefined')
+                    elementorFrontend.init();
             }
 
         });
