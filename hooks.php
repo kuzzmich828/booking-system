@@ -308,6 +308,7 @@ function callback_get_booking_rooms_by_date(){
                 'room_time' => get_post_meta($booking->ID, 'fw_option:room_time', 1),
                 'room_name'    => get_the_title(get_post_meta($booking->ID, 'fw_option:room', 1)),
                 'room_times'    => get_post_meta($room_id, 'fw_option:times', 1),
+                'booking_frozen' => get_post_meta($booking->ID, 'fw_option:frozen', 1),
             ];
         }
 

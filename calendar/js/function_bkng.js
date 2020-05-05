@@ -15,6 +15,7 @@ var button_delete = ".delete-button";
 var button_new_booking = ".href-new-booking";
 
 var is_change_datetime = false;
+var is_edited = true;
 
 function newBooking(){
     var data = [];
@@ -82,7 +83,7 @@ jQuery( document ).ready(function() {
     });
 
     jQuery(document).on("click", "div.cell-day.past-date", function (event) {
-        event.preventDefault();
+
     });
 
     /********* Select a Day *********/
@@ -92,7 +93,10 @@ jQuery( document ).ready(function() {
             return;
 
         if (jQuery(this).attr('class').indexOf('past-date') > -1){
-            return;
+            // return;
+            is_edited = false;
+        }else{
+            is_edited = true;
         }
 
         spinnerShow();
@@ -130,7 +134,10 @@ jQuery( document ).ready(function() {
             return;
 
         if (jQuery(this).attr('class').indexOf('past-date') > -1){
-            return;
+            // return;
+            is_edited = false;
+        }else{
+            is_edited = true;
         }
 
         if (!is_change_datetime) {
@@ -149,14 +156,22 @@ jQuery( document ).ready(function() {
     /********* Select a Time *********/
     jQuery(document).on("click", ".cell-time", function (event) {
 
-        if (jQuery(this).hasClass('past-time'))
+        if (!jQuery(this).hasClass('reserved') && jQuery(this).hasClass('past-time')) {
+            event.preventDefault();
             return;
+        }
+
+        if (jQuery(this).hasClass('past-time')){
+            is_edited = false;
+        }else{
+            is_edited = true;
+        }
+
         var days = jQuery("#calendar-time").find(".cell-time");
         jQuery( days ).each(function( index ) {
             jQuery(days[index]).removeClass('selected-day');
         });
         jQuery(this).toggleClass("selected-day");
-
         jQuery(button_delete).show();
         jQuery(button_edit).show();
         jQuery(button_save).hide();
@@ -165,8 +180,17 @@ jQuery( document ).ready(function() {
 
     /********* Select a Time *********/
     jQuery(document).on("click", ".cell-time", function (event) {
-        if (jQuery(this).hasClass('past-time'))
+
+        if (!jQuery(this).hasClass('reserved') && jQuery(this).hasClass('past-time')) {
+            event.preventDefault();
             return;
+        }
+
+        if (jQuery(this).hasClass('past-time')) {
+            is_edited = false;
+        }else{
+            is_edited = true;
+        }
 
         if (jQuery(this).hasClass('reserved') && is_change_datetime){
             alert("Date already reserved");
@@ -175,6 +199,8 @@ jQuery( document ).ready(function() {
 
         jQuery("#room_time").val(jQuery('.cell-time.selected-day').attr('data-time'));
         jQuery("#room_date").val(jQuery('.cell-day.selected-day').attr('data-date-attr'));
+
+
 
         if (is_change_datetime) {
             alert("You changed date to " + jQuery("#room_date").val().replace(/\-/g, ".") +", "+ jQuery("#room_time").val());
@@ -200,6 +226,8 @@ jQuery( document ).ready(function() {
             jQuery(table_edit).hide();
             showNewBooking();
         }
+
+        setEditable(is_edited);
 
         updateUrlBookingID();
     });
@@ -242,6 +270,15 @@ function showNewBooking() {
     jQuery(container_edit).fadeIn(300);
     newBooking();
     // jQuery(button_new_booking).fadeIn(300);
+}
+
+
+function setEditable(editable) {
+    if (!editable){
+        jQuery("#delete_booking, .edit-button, .save-button, .change-date-button").hide();
+    }else{
+        jQuery("#delete_booking, .edit-button, .save-button, .change-date-button").show();
+    }
 }
 
 function hideNewBooking() {
@@ -439,7 +476,7 @@ function fillRezerved(room_id, data) {
 function countRooms(data, room_id) {
     var result = 0;
     jQuery(data).each(function (index) {
-        if (data[index]['id'] != null && data[index]['room_id'] == room_id)
+        if (data[index]['id'] != null && data[index]['room_id'] == room_id && (typeof data[index]['booking_frozen'] != 'undefined' && data[index]['booking_frozen'] !== 'on') )
             result++;
     });
     return result;
@@ -539,8 +576,8 @@ function disableTodayTimeAdmin() {
     $('.cell-time').each (function() {
         var item_date = parseInt(convertToDate($('.selected-day').attr('data-date-attr') + ' ' + $(this).attr('data-time')));
         var item_hours = new Date(parseInt(item_date)).getHours();
-        if (curr_date > item_date && curr_hours > item_hours){
-            console.log("BLOCK");
+        if (curr_date > item_date /*&& curr_hours > item_hours*/){
+            // console.log("BLOCK " + curr_date + "=" + item_date);
             $(this).addClass('past-time');
         }
     });

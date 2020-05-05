@@ -21,6 +21,16 @@ body{background: #f1f1f1}
     cursor: default;
 }
 
+.fc-calendar .fc-row > div.cell-time.past-time.reserved {
+    background: #d2de9b !important;
+    cursor: pointer;
+}
+
+
+.fc-calendar .fc-row > div.cell-time.past-time.reserved > .fc-date {
+    color: #2d2d2d;
+}
+
 .step-2, .step-3, .step-4{
     display: none;
 }
