@@ -46,7 +46,8 @@ function newBooking(){
 
 jQuery( document ).ready(function() {
 
-    jQuery(document).submit(button_save, function (event) {
+    jQuery(document).on("click", "#form-booking .save-button", function (event) {
+
         if (!jQuery('#frozen_booking').prop('checked')){
             if (jQuery('#name_booking').val() == ''){
                 event.preventDefault();
@@ -57,6 +58,14 @@ jQuery( document ).ready(function() {
             }else if (jQuery('#phone_booking').val() == ''){
                 event.preventDefault();
                 alert("נא למלא את מס’ הטלפון!");
+            }else if (jQuery('#price_booking').val() == null || jQuery('#price_booking').val() == '' || jQuery('#price_booking').length < 1){
+                event.preventDefault();
+                alert("המחיר ומספר המשתתפים אינם צוינו!");
+            }
+        } else {
+            if (jQuery('#price_booking').val() == null || jQuery('#price_booking').val() == '' || jQuery('#price_booking').length < 1){
+                event.preventDefault();
+                alert("המחיר ומספר המשתתפים אינם צוינו!");
             }
         }
     });
@@ -391,7 +400,7 @@ function fillBooking(data, clear = false) {
             var response = JSON.parse(data);
             var prices = response['prices'];
             /********* Fill Input Price & Quantity ******/
-            var options = '<option disabled selected>----</option>';
+            var options = '<option disabled selected value="">----</option>';
             jQuery( prices ).each(function( index ) {
                 var selected = '';
                 if (amount_price == prices[index]['price']) {
