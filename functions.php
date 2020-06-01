@@ -21,6 +21,10 @@ function get_times_format(){
 function bkng_save_booking(){
     if (isset($_POST['save_booking'])){
 
+        if (!$_POST['price_booking'] || !$_POST['room_id']){
+            return false;
+        }
+
         $booking_id = '';
         $fields['booking_id'] = (isset($_POST['booking_id']) && $_POST['booking_id']) ? $_POST['booking_id'] : null;
         $fields['fw_option:room'] = (isset($_POST['room_id']) && $_POST['room_id']) ? $_POST['room_id'] : null;
