@@ -27,16 +27,16 @@ function add_to_admin_menu_bkng(){
 if (is_admin() && isset($_GET['page']) && $_GET['page'] == 'booking-calendar' ) {
     add_action('admin_enqueue_scripts', function () {
         wp_enqueue_style('calendar-css', plugin_dir_url(__FILE__) . 'calendar/css/style.css', [], '1.1');
-        wp_enqueue_style('calendar-google-css', '//ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/themes/smoothness/jquery-ui.css', [], '1.1');
-        wp_enqueue_style('bootstrapcdn-css', 'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css', [], '1.1');
+        wp_enqueue_style('calendar-google-css', '//ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/themes/smoothness/jquery-ui.css', [], '1.2');
+        wp_enqueue_style('bootstrapcdn-css', 'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css', [], '1.2');
         wp_enqueue_style('admin-page-css', plugin_dir_url(__FILE__) . 'calendar/css/admin-page.css', [], filemtime(__DIR__.'/calendar/css/admin-page.css'));
 
-        wp_enqueue_script('prefixfree-js', '//cdnjs.cloudflare.com/ajax/libs/prefixfree/1.0.7/prefixfree.min.js', ['jquery'], '1.1');
-        wp_enqueue_script('jquery213', '//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js', ['prefixfree-js'], '1.1');
-        wp_enqueue_script('jquery1112', '//ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js', ['jquery213'], '1.1');
+        wp_enqueue_script('prefixfree-js', '//cdnjs.cloudflare.com/ajax/libs/prefixfree/1.0.7/prefixfree.min.js', ['jquery'], '1.2');
+        wp_enqueue_script('jquery213', '//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js', ['prefixfree-js'], '1.2');
+        wp_enqueue_script('jquery1112', '//ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js', ['jquery213'], '1.2');
 
-        wp_enqueue_script('modernizr-js', plugin_dir_url(__FILE__) . 'calendar/js/modernizr-custom.js', ['jquery1112'], '1.1');
-        wp_enqueue_script('calendar-index-js', plugin_dir_url(__FILE__) . 'calendar/js/index.js', ['modernizr-js'], '1.1');
+        wp_enqueue_script('modernizr-js', plugin_dir_url(__FILE__) . 'calendar/js/modernizr-custom.js', ['jquery1112'], '1.2');
+        wp_enqueue_script('calendar-index-js', plugin_dir_url(__FILE__) . 'calendar/js/index.js', ['modernizr-js'], filemtime(__DIR__.'/calendar/js/index.js'));
         wp_enqueue_script('function-js', plugin_dir_url(__FILE__) . 'calendar/js/function_bkng.js', ['modernizr-js'], filemtime(__DIR__.'/calendar/js/function_bkng.js'));
 
     });

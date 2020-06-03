@@ -21,7 +21,7 @@ function get_times_format(){
 function bkng_save_booking(){
     if (isset($_POST['save_booking'])){
 
-        if (!$_POST['price_booking'] || !$_POST['room_id']){
+        if (!$_POST['price_booking']){
             return false;
         }
 

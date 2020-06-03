@@ -1,4 +1,3 @@
-
 var calendar_month = null;
 var ROOMS_DATES_TIMES = null;
 
@@ -185,9 +184,10 @@ jQuery( document ).ready(function() {
         jQuery(button_edit).show();
         jQuery(button_save).hide();
         jQuery('.change-date-button').show();
-    });
 
-    /********* Select a Time *********/
+    /*});
+
+
     jQuery(document).on("click", ".cell-time", function (event) {
 
         if (!jQuery(this).hasClass('reserved') && jQuery(this).hasClass('past-time')) {
@@ -199,7 +199,7 @@ jQuery( document ).ready(function() {
             is_edited = false;
         }else{
             is_edited = true;
-        }
+        }*/
 
         if (jQuery(this).hasClass('reserved') && is_change_datetime){
             alert("Date already reserved");
@@ -226,6 +226,7 @@ jQuery( document ).ready(function() {
         jQuery("#delete_booking").val(booking_id);
 
         hideNewBooking();
+
 
         if (booking_id){
             spinnerShow();
@@ -315,6 +316,7 @@ function BookingInfoAjax(booking_id, onload = false) {
     jQuery.ajax({
         url: '/wp-admin/admin-ajax.php',
         type: 'POST',
+        async: true,
         data: {action:'get_booking', booking_id:booking_id},
         success: function( data ) {
             var booking = JSON.parse(data);
@@ -329,6 +331,7 @@ function BookingInfoAjax(booking_id, onload = false) {
                     jQuery.ajax({
                         url: '/wp-admin/admin-ajax.php',
                         type: 'POST',
+                        async: true,
                         data: {action: 'get_booking_rooms_by_date', date: sel_date},
                         success: function (data) {
                             ROOMS_DATES_TIMES = JSON.parse(data);
@@ -400,14 +403,20 @@ function fillBooking(data, clear = false) {
             var response = JSON.parse(data);
             var prices = response['prices'];
             /********* Fill Input Price & Quantity ******/
-            var options = '<option disabled selected value="">----</option>';
+            var options = '<option disabled value="">----</option>';
             jQuery( prices ).each(function( index ) {
                 var selected = '';
+
                 if (amount_price == prices[index]['price']) {
                     selected = 'selected';
                 }
                 options += '<option '+selected+' value = "' + prices[index]['price'] + '">' + prices[index]['quantity'] + ' - ' + prices[index]['price'] + '</option>';
             });
+
+            if (options.indexOf('selected') < 0){
+                options = options.replace("disabled", " selected disabled ")
+            }
+
             jQuery("#price_booking").html(options);
             // console.log(response['times'], response['room_id'] );
             // fillTimes(response['times'], response['room_id']);
