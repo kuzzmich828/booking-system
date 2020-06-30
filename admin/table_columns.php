@@ -22,6 +22,7 @@ function add_views_column( $columns ){
     $num = 2; // после какой по счету колонки вставлять новые
 
     $new_columns = array(
+        'order' => __('Order', 'booking-system'),
         'room' => __('Room', 'booking-system'),
         'room_date' => __('Game Date', 'booking-system'),
         'room_time' => __('Game Time', 'booking-system'),
@@ -47,7 +48,9 @@ function add_views_column( $columns ){
 // заполняем колонку данными
 add_action('manage_'.'bookings'.'_posts_custom_column', 'fill_views_column', 5, 2 );
 function fill_views_column( $colname, $post_id ){
-    if( $colname === 'name' ){
+    if( $colname === 'order' ){
+        echo $post_id;
+    }elseif( $colname === 'name' ){
         echo get_post_meta($post_id, 'fw_option:name', 1);
     }elseif ($colname === 'phone'){
         echo get_post_meta($post_id, 'fw_option:phone', 1);
