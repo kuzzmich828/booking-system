@@ -98,7 +98,8 @@ function bkng_save_booking(){
                 $response['amount_price'] ,
                 $response['wpcf_time'] ,
                 743,
-                1
+                1,
+                $booking_id
             );
             if ($fields['fw_option:approve'] == 'on') {
                 approveBookingData($booking_id);
@@ -113,7 +114,8 @@ function bkng_save_booking(){
                     $response['amount_price'] ,
                     $response['wpcf_time'] ,
                     800,
-                    1
+                    1,
+                    $booking_id
                 );
             }
 

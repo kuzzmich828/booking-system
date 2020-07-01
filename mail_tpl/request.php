@@ -1,6 +1,6 @@
 <?php
 
-function mail_request($fullname, $email, $phone, $quantity, $date, $time, $room, $price, $duration, $action, $subscription)
+function mail_request($fullname, $email, $phone, $quantity, $date, $time, $room, $price, $duration, $action, $subscription, $order = null)
 {
     bkng_write_log("SEND MAIL $action: $fullname|$email|$phone|$quantity|$date|$time|$room|$price");
     $admin_email = get_option('admin_email');
@@ -111,6 +111,9 @@ HTML;
         'From: Escapequest <' . $admin_email . '>',
         'content-type: text/html',
     );
+
+    if ($order)
+        $message = str_replace(['##order##'], [$order], $message);
 
     wp_mail($admin_email, $subject, $message, $headers);
     wp_mail($email, $subject, $message, $headers);

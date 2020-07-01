@@ -383,7 +383,8 @@ add_action('approve_booking_hook', function ($booking_id){
         $response['amount_price'] ,
         $response['wpcf_time'] ,
         800,
-        1
+        1,
+        $booking_id
     );
 
     approveBookingData($booking_id);
@@ -833,7 +834,8 @@ function callback_create_booking(){
         $response['amount_price'] ,
         $response['wpcf_time'] ,
         743,
-        1
+        1,
+        $response['booking_id']
     );
 
     wp_send_json(json_encode($response), 200);
@@ -892,7 +894,8 @@ function before_delete_booking( $booking_id ) {
         $response['amount_price'] ,
         $response['wpcf_time'] ,
         798,
-        1
+        1,
+        $booking_id
     );
 
 }
