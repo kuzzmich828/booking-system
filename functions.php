@@ -386,7 +386,7 @@ function rcopy($src, $dest){
 add_action('admin_footer', function (){
     ?>
     <style>
-        #menu-posts-bookings ul, #fw-backend-option-fw-option-approve_time, #fw-backend-option-fw-option-approve_person {
+        #menu-posts-booking_, #menu-posts-bookings ul, #fw-backend-option-fw-option-approve_time, #fw-backend-option-fw-option-approve_person {
             display: none;
         }
     </style>
