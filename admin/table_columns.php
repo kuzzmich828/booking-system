@@ -113,11 +113,12 @@ function fill_views_column( $colname, $post_id ){
 
 
 // добавляем возможность сортировать колонку
-add_filter( 'manage_'.'edit-booking'.'_sortable_columns', 'add_views_sortable_column' );
+add_filter( 'manage_'.'edit-bookings'.'_sortable_columns', 'add_views_sortable_column' );
 function add_views_sortable_column( $sortable_columns ){
-    $sortable_columns['name'] = [ 'name_name', false ];
-    $sortable_columns['amount'] = [ 'amount', false ];
+    $sortable_columns['name'] = [ 'name', false ];
     $sortable_columns['room_date'] = [ 'room_date', false ];
+    $sortable_columns['booking_created'] = [ 'booking_created', false ];
+    $sortable_columns['approved_date'] = [ 'approved_date', false ];
     // false = asc (по умолчанию)
     // true  = desc
 
@@ -137,37 +138,36 @@ function add_column_amount_request( $query ){
     $query->set( 'orderby', 'meta_value_num' );
 }
 
-add_action( 'pre_get_posts', 'add_column_room_date_request' );
-function add_column_room_date_request( $query ){
-    if( ! is_admin()
-        || ! $query->is_main_query()
-        || $query->get('orderby') !== 'room_date'
-    )
+//add_action( 'pre_get_posts', 'add_column_room_date_request' );
+//add_action( 'pre_user_query', 'add_column_room_date_request' );
+
+add_action( 'pre_get_posts', 'add_column_name_sort' );
+function add_column_name_sort( $user_query ){
+    global $current_screen;
+
+    if ( !is_admin() )
         return;
 
-    $query->set( 'meta_key', 'room_date:timestamp' );
-    $query->set( 'orderby', 'meta_value_num' );
+    if ( $current_screen->id != 'edit-bookings' )
+        return;
+
+    $vars = $user_query->query_vars;
+
+    if( 'name' === $vars['orderby'] ){
+        $user_query->set('meta_key', 'fw_option:name');
+        $user_query->set( 'orderby', 'meta_value' );
+        $user_query->set( 'order', $vars['order'] );
+    } elseif ( 'room_date' === $vars['orderby'] ){
+        $user_query->set('meta_key', 'room_date:timestamp');
+        $user_query->set( 'orderby', 'meta_value_num' );
+        $user_query->set( 'order', $vars['order'] );
+    } elseif ( 'approved_date' === $vars['orderby'] ){
+        $user_query->set('meta_key', 'fw_option:approve_time');
+        $user_query->set( 'orderby', 'meta_value' );
+        $user_query->set( 'order', $vars['order'] );
+    } elseif ( 'booking_created' === $vars['orderby'] ){
+        $user_query->set( 'orderby', 'date' );
+        $user_query->set( 'order', $vars['order'] );
+    }
 
 }
-/*
-add_action( 'pre_get_posts', 'add_column_week_day_request' );
-function add_column_week_day_request( $query ){
-    if(  is_admin()
-        && isset($_GET['week_day'])
-        && $_GET['week_day']
-    ) {
-        $query->set('meta_key', 'room_date:week_day');
-        $query->set('meta_value', $_GET['week_day']);
-    }
-}
-
-add_action( 'pre_get_posts', 'add_column_subscribe_request' );
-function add_column_subscribe_request( $query ){
-    if(  is_admin()
-        && isset($_GET['subscribe'])
-        && $_GET['subscribe']
-    ) {
-        $query->set('meta_key', 'fw_option:subscription');
-        $query->set('meta_value', $_GET['subscribe']);
-    }
-}*/
