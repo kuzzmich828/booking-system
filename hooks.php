@@ -899,3 +899,14 @@ function before_delete_booking( $booking_id ) {
     );
 
 }
+
+
+
+add_filter( 'wp', 'disable_booking_types' );
+function disable_booking_types()
+{
+    if (is_single() && (get_post_type() == 'bookings' || get_post_type() == 'room')) {
+        wp_safe_redirect(site_url());
+    }
+}
+
