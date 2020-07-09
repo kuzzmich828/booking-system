@@ -51,22 +51,28 @@ jQuery( document ).ready(function() {
             if (jQuery('#name_booking').val() == ''){
                 event.preventDefault();
                 alert("השם לא מלא");
+                return;
             }else if (jQuery('#email_booking').val() == ''){
                 event.preventDefault();
                 alert("נא למלא את הדוא”ל!");
+                return;
             }else if (jQuery('#phone_booking').val() == ''){
                 event.preventDefault();
                 alert("נא למלא את מס’ הטלפון!");
+                return;
             }else if (jQuery('#price_booking').val() == null || jQuery('#price_booking').val() == '' || jQuery('#price_booking').length < 1){
                 event.preventDefault();
                 alert("המחיר ומספר המשתתפים אינם צוינו!");
+                return;
             }
         } else {
             if (jQuery('#price_booking').val() == null || jQuery('#price_booking').val() == '' || jQuery('#price_booking').length < 1){
                 event.preventDefault();
                 alert("המחיר ומספר המשתתפים אינם צוינו!");
+                return;
             }
         }
+        jQuery(this).hide();
     });
 
 

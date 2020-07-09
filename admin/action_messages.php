@@ -26,7 +26,7 @@ add_action('admin_init', function () {
                     <script>
                         jQuery(document).ready(function(){
                             setTimeout(function () {
-                                window.location.href = 'https://'+window.location.hostname + '/wp-admin/admin.php?page=booking-calendar&edit_booking=<?= $is_saved; ?>';
+                                window.location.href = '//'+window.location.hostname + '/wp-admin/admin.php?page=booking-calendar&edit_booking=<?= $is_saved; ?>';
                             }, 500);
                         });
                     </script>
