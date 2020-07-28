@@ -293,6 +293,10 @@ function callback_get_booking_rooms_by_date(){
                     'key' => 'fw_option:room_date',
                     'value' => $date->format("d-m-Y"),
                 ],
+                [
+                    'key' => 'fw_option:canceled',
+                    'value' => 'off',
+                ],
             ),
         ]);
 
@@ -587,10 +591,15 @@ add_action('admin_footer', function () {
         global $wp_query;
         $attr = $wp_query->query;
         $attr['posts_per_page'] = -1;
+//      $attr['meta_key'] = 'fw_option:canceled';
+//      $attr['meta_value'] = '%';
+//	    $attr['meta_compare'] = 'LIKE';
         $query = new WP_Query($attr);
         $posts = $query->posts;
         $summa = 0;
         foreach ($posts as $post) {
+            if (get_post_meta($post->ID, 'fw_option:canceled', 1) == 'on')
+                continue;
             $summa = $summa + (float)get_post_meta($post->ID, 'amount', true);
         }
         wp_reset_query();
@@ -758,6 +767,9 @@ function bkng_export_xls($posts)
         $post_status = '';
         $meta = get_all_meta_booking($post->ID);
 
+        if ($meta['canceled'] == 'on')
+            continue;
+
         if ($meta['frozen'] == 'on') {
             $post_status = 'מושבת';
         } else {
@@ -780,7 +792,9 @@ function bkng_export_xls($posts)
         $sheet->setCellValue("I" . $row, $meta['approve_person'] );
         $sheet->setCellValue("H" . $row, $subscr);
         $sheet->setCellValue("J" . $row, $meta['amount']);
+
         $summa = $summa + (float)$meta['amount'];
+
         $row++;
     }
     $sheet->setCellValue("J" . $row, $summa);

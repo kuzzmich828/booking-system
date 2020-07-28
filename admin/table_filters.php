@@ -42,6 +42,7 @@ function add_post_formats_filter_to_post_administration(){
             <option value="frozen"><?= __('Frozen', 'booking-system'); ?></option>
             <option value="needapprove"><?= __('Need Approve', 'booking-system'); ?></option>
             <option value="approved"><?= __('Approved', 'booking-system'); ?></option>
+            <option value="canceled"><?= __('Canceled', 'booking-system'); ?></option>
         </select>
 
         <!--   ***********************************************************   -->
@@ -165,6 +166,9 @@ function add_post_format_filter_to_posts($query){
                 }elseif($status == 'frozen'){
                     $metakey = 'fw_option:frozen';
                     $metaval = 'on';
+                }elseif($status == 'canceled'){
+                    $metakey = 'fw_option:canceled';
+                    $metaval = 'on';
                 }
 
 
@@ -249,3 +253,31 @@ function add_post_format_filter_to_posts($query){
 }
 
 add_action('pre_get_posts','add_post_format_filter_to_posts');
+
+
+add_action( 'pre_get_posts','wpse_admin_search_include_ids' );
+function wpse_admin_search_include_ids( $query ) {
+    // Bail if we are not in the admin area
+    if ( ! is_admin() ) {
+        return;
+    }
+
+    // Bail if this is not the search query.
+    if ( ! $query->is_main_query() && ! $query->is_search() ) {
+        return;
+    }
+
+    // Get the value that is being searched.
+    $search_string = get_query_var( 's' );
+
+    // Bail if the search string is not an integer.
+    if ( ! filter_var( $search_string, FILTER_VALIDATE_INT ) ) {
+        return;
+    }
+
+    // Set WP Query's p value to the searched post ID.
+    $query->set( 'p', intval( $search_string ) );
+
+    // Reset the search value to prevent standard search from being used.
+    $query->set( 's', '' );
+}

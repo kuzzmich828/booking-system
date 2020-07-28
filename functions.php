@@ -36,6 +36,7 @@ function bkng_save_booking(){
         $fields['fw_option:amount_price'] = (isset($_POST['price_booking'])) ? (float)$_POST['price_booking'] : null;
         $fields['fw_option:approve'] = 'off';
         $fields['fw_option:frozen'] = 'off';
+        $fields['fw_option:canceled'] = 'off';
         $fields['fw_option:quantity'] = (isset($_POST['price_booking'])) ? (float)$_POST['price_booking'] : null;
 
         $fields['fw_option:room_date'] = (isset($_POST['room_date']) && $_POST['room_date']) ? DateTime::createFromFormat('d-m-Y', $_POST['room_date'])->format('d-m-Y') : null;
@@ -50,6 +51,12 @@ function bkng_save_booking(){
             $fields['fw_option:frozen'] = ($_POST['frozen_booking'] == 'on') ? 'on' : 'off';
         } else {
             $fields['fw_option:frozen'] = 'off';
+        }
+
+        if (isset($_POST['canceled_booking'])) {
+            $fields['fw_option:canceled'] = ($_POST['canceled_booking'] == 'on') ? 'on' : 'off';
+        } else {
+            $fields['fw_option:canceled'] = 'off';
         }
 
         if (isset($_POST['approve_booking'])) {
@@ -190,8 +197,11 @@ function get_booking_count_by_date(){
     foreach ($posts as $post){
         $date = get_post_meta($post->ID, "fw_option:room_date", true);
         $frozen = get_post_meta($post->ID, "fw_option:frozen", true);
-        if ($frozen == 'on')
+        $canceled = get_post_meta($post->ID, "fw_option:canceled", true);
+
+        if ($frozen == 'on' || $canceled == 'on')
             continue;
+
         if (isset($response[$date])){
             $response[$date]++;
         } else {
@@ -254,6 +264,12 @@ function get_booking_after_date($from_date, $time, $frozen = null, $approve = nu
             ],
 
         ),
+    ];
+
+    $args['meta_query'][] = [
+        'key' => 'fw_option:canceled',
+        'compare' => '=',
+        'value' => 'off'
     ];
 
     if ($frozen){
@@ -332,6 +348,7 @@ function get_all_meta_booking($id){
         'approve_person'    => get_post_meta($id, 'fw_option:approve_person', 1),
         'approve'    => get_post_meta($id, 'fw_option:approve', 1),
         'frozen'    => get_post_meta($id, 'fw_option:frozen', 1),
+        'canceled'    => get_post_meta($id, 'fw_option:canceled', 1),
         'room_date'    => get_post_meta($id, 'fw_option:room_date', 1),
         'room_time'    => get_post_meta($id, 'fw_option:room_time', 1),
         'quantity'    => get_post_meta($id, 'fw_option:quantity', 1),

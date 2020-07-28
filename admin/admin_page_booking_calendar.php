@@ -120,8 +120,10 @@
                             <tr>
                                 <td>
                                     <input name="approve_booking" id="approve_booking" type="checkbox" class="form-control" /> <label><?= __('Approve','booking-system'); ?></label>
-                                    &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+                                    &nbsp;&nbsp;
                                     <input name="frozen_booking" id="frozen_booking" type="checkbox" class="form-control" /> <label><?= __('Frozen','booking-system'); ?></label>
+                                    &nbsp;
+                                    <input name="canceled_booking" id="canceled_booking" type="checkbox" class="form-control" /> <label><?= __('Canceled','booking-system'); ?></label>
                                 </td>
                             </tr>
                             <tr>

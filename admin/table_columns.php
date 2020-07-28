@@ -85,6 +85,8 @@ function fill_views_column( $colname, $post_id ){
             echo "frozen";
         }elseif (get_post_meta($post_id, 'fw_option:approve', 1) == 'on'){
             echo "approve";
+        }elseif (get_post_meta($post_id, 'fw_option:canceled', 1) == 'on'){
+            echo "<strong style='color:darkred;'>canceled</strong>";
         }else{
             echo "need approve";
         }
@@ -96,7 +98,9 @@ function fill_views_column( $colname, $post_id ){
         $frozen = get_post_meta($post_id, 'fw_option:frozen', 1);
         if ($frozen == 'on') {
             echo '0';
-        }else {
+        }elseif(get_post_meta($post_id, 'fw_option:canceled', 1) == 'on'){
+            echo '0';
+        }else{
             echo get_post_meta($post_id, 'amount', 1);
         }
     }elseif ($colname === 'subscribe'){
