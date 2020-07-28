@@ -140,6 +140,24 @@ $options = array(
         ),
     ),
 
+    'canceled' => array(
+        'type'  => 'switch',
+        'label' =>  __('Canceled', 'booking-system') ,
+        'value' => 'off',
+        'left-choice' => array(
+            'value' => 'on',
+            'label' => __('Yes', 'booking-system'),
+        ),
+        'right-choice' => array(
+            'value' => 'off',
+            'label' => __('No', 'booking-system'),
+        ),
+        'fw-storage' => array(
+            'type' => 'post-meta',
+            'post-meta' => 'fw_option:canceled',
+        ),
+    ),
+
     'approve' => array(
         'type'  => 'switch',
         'label' =>  __('Approve', 'booking-system') ,
