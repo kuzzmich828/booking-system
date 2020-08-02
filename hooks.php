@@ -293,10 +293,10 @@ function callback_get_booking_rooms_by_date(){
                     'key' => 'fw_option:room_date',
                     'value' => $date->format("d-m-Y"),
                 ],
-                [
-                    'key' => 'fw_option:canceled',
-                    'value' => 'off',
-                ],
+//                [
+//                    'key' => 'fw_option:canceled',
+//                    'value' => 'off',
+//                ],
             ),
         ]);
 
@@ -305,6 +305,11 @@ function callback_get_booking_rooms_by_date(){
         $room_for_exclude = [];
         foreach ($bookings as $booking){
             $room_id = get_post_meta($booking->ID, 'fw_option:room', 1);
+            $is_canceled = get_post_meta($booking->ID, 'fw_option:canceled', 1);
+
+            if ($is_canceled == 'on')
+                continue;
+
             $room_for_exclude [] = $room_id;
             $bookings_all [] = [
                 'id'    => $booking->ID,
