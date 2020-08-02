@@ -266,12 +266,6 @@ function get_booking_after_date($from_date, $time, $frozen = null, $approve = nu
         ),
     ];
 
-    $args['meta_query'][] = [
-        'key' => 'fw_option:canceled',
-        'compare' => '=',
-        'value' => 'off'
-    ];
-
     if ($frozen){
         $args['meta_query'][] = [
             'key' => 'fw_option:frozen',
@@ -296,8 +290,9 @@ function get_booking_after_date($from_date, $time, $frozen = null, $approve = nu
 
         $date = get_post_meta($booking->ID, "fw_option:room_date", true);
         $time = get_post_meta($booking->ID, "fw_option:room_time", true);
+        $canceled = get_post_meta($booking->ID, "fw_option:canceled", true);
 
-        if (!$date || !$time){
+        if (!$date || !$time || $canceled == 'on'){
             continue;
         }
 
