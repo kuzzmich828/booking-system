@@ -44,7 +44,7 @@ function bkng_register_posts_type(){
         'hierarchical'       => false,
         'menu_position'      => 4,
         'menu_icon'          => 'dashicons-grid-view',
-        'supports'           => array('title','author','thumbnail', 'editor')
+        'supports'           => array('title','author','thumbnail', 'editor', 'revisions')
     ) );
 
     register_post_type('bookings', array(
@@ -88,7 +88,7 @@ function bkng_register_posts_type(){
         'hierarchical'       => false,
         'menu_position'      => 4,
         'menu_icon'          => 'dashicons-feedback',
-        'supports'           => array('title','author', )
+        'supports'           => array('title','author', 'revisions')
     ) );
 
     register_post_type('roomcontent', array(
@@ -132,7 +132,7 @@ function bkng_register_posts_type(){
         'hierarchical'       => false,
         'menu_position'      => 4,
         'menu_icon'          => 'dashicons-grid-view',
-        'supports'           => array('title','author','thumbnail', 'editor')
+        'supports'           => array('title','author','thumbnail', 'editor', 'revisions')
     ) );
 
 }
