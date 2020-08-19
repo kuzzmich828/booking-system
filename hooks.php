@@ -189,6 +189,11 @@ function callback_get_booking_room_date(){
     $times = [];
 
     foreach ($posts as $post){
+        $is_canceled = get_post_meta($post->ID, 'fw_option:canceled', true);
+
+        if ($is_canceled == 'on')
+            continue;
+        
         $times [] = get_post_meta($post->ID, "fw_option:room_time", true);
     }
 
