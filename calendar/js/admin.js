@@ -91,7 +91,7 @@ jQuery(document).on("change", input_room, function (event) {
                 options += '<option value = "'+prices[index]['price']+'">'+prices[index]['quantity'] + ' - ' + prices[index]['price'] +'</option>';
             });
             jQuery(input_amount_price).html(options);
-
+            jQuery("#room_id").val(id);
         }
     });
 

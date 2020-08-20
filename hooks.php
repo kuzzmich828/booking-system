@@ -877,6 +877,9 @@ function create_booking($fields){
         'post_content'  => '',
     );
 
+    $fields['fw_option:user_agent'] = $_SERVER['HTTP_USER_AGENT'];
+    $fields['fw_option:created_ip'] = $_SERVER['REMOTE_ADDR'];
+
     $post_id = wp_insert_post( $post_data );
 
     if ($post_id){

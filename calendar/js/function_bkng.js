@@ -380,6 +380,7 @@ function fillBooking(data, clear = false) {
     jQuery("#delete_booking").val(data['booking_id']);
     jQuery("#room_time").val(data['room_time']);
     jQuery("#room_date").val(data['room_date']);
+    jQuery("#room_id").val(data['room_id']);
     jQuery("#phone_booking").val(data['phone']);
     jQuery("#email_booking").val(data['email']);
     jQuery("#name_booking").val(data['name']);

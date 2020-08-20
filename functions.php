@@ -54,7 +54,27 @@ function bkng_save_booking(){
         }
 
         if (isset($_POST['canceled_booking'])) {
+            if ($fields['fw_option:canceled'] == 'off' && $_POST['canceled_booking'] == 'on'){
+                $wpcf_time = get_post_meta($fields['fw_option:room'], 'wpcf-time', 1);
+                $room_name = get_the_title($fields['fw_option:room']);
+                bkng_write_log("Cancelled booking #".$fields['booking_id']." | Attr:".json_encode($fields));
+                mail_request(
+                    $fields['fw_option:name'] ,
+                    $fields['fw_option:email'] ,
+                    $fields['fw_option:phone'] ,
+                    $fields['fw_option:quantity'] ,
+                    $fields['fw_option:room_date'] ,
+                    $fields['fw_option:room_time'] ,
+                    $room_name ,
+                    $fields['fw_option:amount_price'] ,
+                    $wpcf_time ,
+                    798,
+                    1,
+                    $fields['booking_id']
+                );
+            }
             $fields['fw_option:canceled'] = ($_POST['canceled_booking'] == 'on') ? 'on' : 'off';
+
         } else {
             $fields['fw_option:canceled'] = 'off';
         }
@@ -304,9 +324,7 @@ function get_booking_after_date($from_date, $time, $frozen = null, $approve = nu
 
         if ($timestamp)
             if ($timestamp > current_time('timestamp')){
-
                 $meta = get_all_meta_booking($booking->ID);
-
                 $response[] = array_merge(['timestamp' => $timestamp], $meta);
             }
     }
