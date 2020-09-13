@@ -215,9 +215,14 @@ select.form-control {
     display: none;
 }
 
-input.form-control, textarea.form-control, select.form-control {
+input.form-control, textarea.form-control, select.form-control, input[type=number] {
     border-radius: 0px;
     margin: 9px 0;
     border: 1px solid #7e8993;
     direction: rtl;
+}
+input[type=number] {
+    height: 35px;
+    font-size: 16px;
+    width: 48px;
 }

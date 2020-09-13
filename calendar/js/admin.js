@@ -92,10 +92,13 @@ jQuery(document).on("change", input_room, function (event) {
             });
             jQuery(input_amount_price).html(options);
             jQuery("#room_id").val(id);
+
+
         }
     });
 
 });
+
 
 jQuery(document).on("changeDate", input_room_date, function (event) {
 

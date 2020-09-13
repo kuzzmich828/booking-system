@@ -257,6 +257,8 @@ jQuery( document ).ready(function() {
 
         jQuery(container_time).fadeIn(300);
         disableTodayTimeAdmin();
+        jQuery("#custom-time-table").hide();
+        jQuery("#calendar-time").show();
         spinnerHide();
     });
 
@@ -278,6 +280,19 @@ jQuery( document ).ready(function() {
             jQuery(container_rooms+", "+container_time+", "+container_edit).hide();
         }
 
+    });
+
+    jQuery(document).on("click", "#custom-time-button", function(){
+        jQuery("#calendar-time").hide();
+        jQuery("#custom-time-table").fadeIn(300);
+        jQuery("#room_time").val('');
+    });
+
+    jQuery("#custom-hour, #custom-minute").on("change", function (event) {
+        if (jQuery(this).val().length < 2){
+            jQuery(this).val("0"+jQuery(this).val());
+        }
+        jQuery("#room_time").val(jQuery("#custom-hour").val() + ":" + jQuery("#custom-minute").val());
     });
 
 });

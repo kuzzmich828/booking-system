@@ -64,6 +64,15 @@
                         </div>
                     </div>
                 </div>
+
+                <div>
+                    <div style="padding: 10px 0;">
+                        <button class="btn btn-success edit-button" id="custom-time-button" type="button" style="display: inline-block;"><?= __('Custom Time', 'booking-system'); ?></button>
+                    </div>
+                    <div style="display: none;" id="custom-time-table">
+                        <input type="number" min="0" max="23"  id="custom-hour" value="0" />:<input id="custom-minute" type="number" min="0" max="59" value="0" />
+                    </div>
+                </div>
             </div>
 
         </div>

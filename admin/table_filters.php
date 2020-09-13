@@ -95,8 +95,8 @@ function add_post_formats_filter_to_post_administration(){
 
             } ) );
 
-            $( function() {
-                $( "#datepicker" ).datepicker( $.datepicker.regional[ "he" ] );
+            jQuery( function() {
+                jQuery( "#datepicker" ).datepicker( jQuery.datepicker.regional[ "he" ] );
             } );
         </script>
 <?php
