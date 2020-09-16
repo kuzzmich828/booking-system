@@ -191,6 +191,7 @@ jQuery( document ).ready(function() {
         jQuery(button_save).hide();
         jQuery('.change-date-button').show();
 
+
     /*});
 
 
@@ -284,8 +285,11 @@ jQuery( document ).ready(function() {
 
     jQuery(document).on("click", "#custom-time-button", function(){
         jQuery("#calendar-time").hide();
+        if (!is_edited)
+            newBooking();
         jQuery("#custom-time-table").fadeIn(300);
-        jQuery("#room_time").val('');
+        jQuery("#room_time").val('00:00');
+        jQuery(this).hide();
     });
 
     jQuery("#custom-hour, #custom-minute").on("change", function (event) {
@@ -293,6 +297,7 @@ jQuery( document ).ready(function() {
             jQuery(this).val("0"+jQuery(this).val());
         }
         jQuery("#room_time").val(jQuery("#custom-hour").val() + ":" + jQuery("#custom-minute").val());
+
     });
 
 });
@@ -342,9 +347,11 @@ function BookingInfoAjax(booking_id, onload = false) {
         success: function( data ) {
             var booking = JSON.parse(data);
             if (booking) {
+
                 fillBooking(booking);
 
                 if (onload) {
+                    // jQuery("#custom-time-button").hide();
                     var sel_date = jQuery(".cell-day.selected-day").attr("data-date-attr");
                     var room_id = booking['room_id'];
 
@@ -367,6 +374,7 @@ function BookingInfoAjax(booking_id, onload = false) {
                 jQuery(container_edit).hide();
                 init_calendar('m', 'Y');
             }
+
             spinnerHide();
         }
     });
@@ -391,6 +399,7 @@ function spinnerShow() {
 
 function fillBooking(data, clear = false) {
 
+    jQuery("#custom-time-button").hide();
     jQuery("#booking_id").val(data['booking_id']);
     jQuery("#delete_booking").val(data['booking_id']);
     jQuery("#room_time").val(data['room_time']);
@@ -465,6 +474,7 @@ function fillBooking(data, clear = false) {
         jQuery(container_time).show();
 
     } else {
+
         jQuery(table_edit + " input, " + table_edit + " select, " + table_edit + " textarea").prop("disabled", false);
     }
 }
