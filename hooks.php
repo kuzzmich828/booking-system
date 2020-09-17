@@ -937,3 +937,38 @@ function disable_booking_types()
     }
 }
 
+add_action( 'wp_ajax_get_booking_by_room_date_time', 'callback_get_booking_by_room_date_time' );
+add_action( 'wp_ajax_nopriv_get_booking_by_room_date_time', 'callback_get_booking_by_room_date_time' );
+function callback_get_booking_by_room_date_time(){
+
+    if (!isset($_POST['room_time']) || !isset($_POST['room_date']) || !isset($_POST['room_id'])){
+        wp_send_json(json_encode(['result'=>false]), 200);
+    }
+
+    $query = new WP_Query([
+        'posts_per_page' => -1,
+        'post_type' =>  'bookings',
+        'post_status' => 'publish',
+        'meta_key' => 'fw_option:room_date',
+        'meta_query' => array(
+            'relation' => 'AND',
+            [
+                'key' => 'fw_option:room_date',
+                'value' => $_POST['room_date'],
+            ],
+            [
+                'key' => 'fw_option:room',
+                'value' => $_POST['room_id'],
+            ],
+            [
+                'key' => 'fw_option:room_time',
+                'value' => $_POST['room_time'],
+            ],
+        ),
+    ]);
+
+    $posts = $query->post_count ? true : false;
+
+    wp_send_json(json_encode(['result'=>$posts]), 200);
+}
+
