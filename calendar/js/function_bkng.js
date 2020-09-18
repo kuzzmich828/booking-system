@@ -247,7 +247,10 @@ jQuery( document ).ready(function() {
         jQuery(container_time).fadeIn(300);
         disableTodayTimeAdmin();
         jQuery("#custom-time-table").hide();
+        // if (!ajax_load_booking)
+            jQuery("#custom-time-button").show();
         jQuery("#calendar-time").show();
+        jQuery(button_save).show();
         spinnerHide();
     });
 
@@ -277,16 +280,25 @@ jQuery( document ).ready(function() {
             newBooking();
         jQuery("#custom-time-table").fadeIn(300);
         jQuery("#room_time").val('00:00');
+        jQuery(button_edit).click();
         jQuery(this).hide();
     });
-    var old_val;
-    jQuery("#custom-hour, #custom-minute").on("change", function (event) {
 
-        old_val = jQuery(this).val();
+    jQuery('#custom-hour, #custom-minute').on('focusin', function(){
+        jQuery(this).data('val', jQuery(this).val());
+    });
+
+
+    jQuery("#custom-hour, #custom-minute").on("change", function (event) {
+        spinnerShow();
+        var old_val, _this;
+        old_val = jQuery(this).data('val');
+        _this = jQuery(this);
 
         if (jQuery(this).val().length < 2){
             jQuery(this).val("0"+jQuery(this).val());
         }
+
         jQuery("#room_time").val(jQuery("#custom-hour").val() + ":" + jQuery("#custom-minute").val());
 
         var room_id = jQuery("#room_id").val();
@@ -304,23 +316,18 @@ jQuery( document ).ready(function() {
                 result = JSON.parse(data);
                 if (result.result == true){
                     alert(room_time + " " + room_date + " already booking!\nPlease, choose another time.");
-                    alert(old_val);
-                    jQuery(this).val(old_val);
+                    _this.val(old_val);
                 }
-
+                spinnerHide();
+            },
+            done: function (data){
+                spinnerHide();
             }
         });
 
     });
 
 });
-
-
-
-
-
-
-
 
 
 function showNewBooking() {
@@ -357,7 +364,11 @@ function updateUrlBookingID() {
 
 }
 
+var ajax_load_booking = false;
+
 function BookingInfoAjax(booking_id, onload = false) {
+
+    ajax_load_booking = true;
 
     /******* AJAX ******/
     jQuery.ajax({
@@ -401,6 +412,7 @@ function BookingInfoAjax(booking_id, onload = false) {
         }
     });
     jQuery(container_edit).fadeIn(300);
+
 }
 
 function AutoFillDateTimeBooking(date){
