@@ -478,8 +478,54 @@ function approveBookingData($booking_id, $unapprove = false){
 
 add_action('init', function (){
     $array = [
-        'message_confirm_before_delete_booking' => __('Do you want ot delete booking?'),
+
+        'message_confirm_before_delete_booking' => __('Do you want ot delete booking?', 'booking-system'),
+        'message_already_booking' => __("already booking!\nPlease, choose another time.", 'booking-system'),
+        'date_already_reserved' => __("Date already reserved!", 'booking-system'),
+        'you_change_date' => __("You changed date to", 'booking-system'),
+
+        'Sunday' => __("Sunday", 'booking-system'),
+        'Monday' => __("Monday", 'booking-system'),
+        'Wednesday' => __("Wednesday", 'booking-system'),
+        'Thursday' => __("Thursday", 'booking-system'),
+        'Friday' => __("Friday", 'booking-system'),
+        'Saturday' => __("Saturday", 'booking-system'),
+
+        'Sun' => __("Sun", 'booking-system'),
+        'Mon' => __("Mon", 'booking-system'),
+        'Tue' => __("Tue", 'booking-system'),
+        'Wed' => __("Wed", 'booking-system'),
+        'Thu' => __("Thu", 'booking-system'),
+        'Fri' => __("Fri", 'booking-system'),
+        'Sat' => __("Sat", 'booking-system'),
+
+        'January' => __("January", 'booking-system'),
+        'February' => __("February", 'booking-system'),
+        'March' => __("March", 'booking-system'),
+        'April' => __("April", 'booking-system'),
+        'May' => __("May", 'booking-system'),
+        'June' => __("June", 'booking-system'),
+        'July' => __("July", 'booking-system'),
+        'August' => __("August", 'booking-system'),
+        'September' => __("September", 'booking-system'),
+        'October' => __("October", 'booking-system'),
+        'November' => __("November", 'booking-system'),
+        'December' => __("December", 'booking-system'),
+
+        'Jan' => __("Jan", 'booking-system'),
+        'Feb' => __("Feb", 'booking-system'),
+        'Mar' => __("Mar", 'booking-system'),
+        'Apr' => __("Apr", 'booking-system'),
+        'Jun' => __("Jun", 'booking-system'),
+        'Jul' => __("Jul", 'booking-system'),
+        'Aug' => __("Aug", 'booking-system'),
+        'Sep' => __("Sep", 'booking-system'),
+        'Oct' => __("Oct", 'booking-system'),
+        'Nov' => __("Nov", 'booking-system'),
+        'Dec' => __("Dec", 'booking-system'),
+
     ];
+
     wp_localize_script('jquery', 'bkng_messages', $array);
 });
 

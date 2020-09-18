@@ -7,11 +7,10 @@
 
 	// the options
 	$.Calendario.defaults = {
-		weeks : [ 'Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday' ],
-		weekabbrs : [ 'Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat' ],
-		months : [ 'January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December' ],
-		// months : [ "ינואר", "פברואר", "מרץ", "אפריל", "מאי", "יוני", "יולי", "אוגוסט", "ספטמבר", "אוקטובר", "נובמבר", ],
-		monthabbrs : [ 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec' ],
+		weeks : [ bkng_messages.Sunday, bkng_messages.Monday, bkng_messages.Tuesday, bkng_messages.Wednesday, bkng_messages.Thursday, bkng_messages.Friday, bkng_messages.Saturday ],
+		weekabbrs : [ bkng_messages.Sun, bkng_messages.Mon, bkng_messages.Tue, bkng_messages.Wed, bkng_messages.Thu, bkng_messages.Fri, bkng_messages.Sat ],
+		months : [ bkng_messages.January, bkng_messages.February, bkng_messages.March, bkng_messages.April, bkng_messages.May, bkng_messages.June, bkng_messages.July, bkng_messages.August, bkng_messages.September, bkng_messages.October, bkng_messages.November, bkng_messages.December ],
+		monthabbrs : [ bkng_messages.Jan, bkng_messages.Feb, bkng_messages.Mar, bkng_messages.Apr, bkng_messages.May, bkng_messages.Jun, bkng_messages.Jul, bkng_messages.Aug, bkng_messages.Sep, bkng_messages.Oct, bkng_messages.Nov, bkng_messages.Dec ],
 		displayWeekAbbr : false,
 		displayMonthAbbr : false,
 		startIn : 0,
@@ -49,7 +48,6 @@
 			} );
 		},*/
 		_generateTemplate : function( callback ) {
-
 			var head = this._getHead(),	body = this._getBody(),	rowClass;
 			switch( this.rowTotal ) {
 				case 4 : rowClass = 'fc-four-rows'; break;
@@ -62,7 +60,6 @@
 			updateDateCount();
 		},
 		_getHead : function() {
-
 			var html = '<div class="fc-head">';		
 			for ( var i = 0; i <= 6; i++ ) {
 				var pos = i + this.options.startIn,
@@ -191,14 +188,12 @@
 			caldata = caldata || {};
 			$.extend( this.caldata, caldata );
 			this._generateTemplate();
-
 		},
 		// goes to today's month/year
 		gotoNow : function( callback ) {
 			this.month = this.today.getMonth();
 			this.year = this.today.getFullYear();
 			this._generateTemplate( callback );
-
 		},
 		// goes to month/year
 		goto : function( month, year, callback ) {

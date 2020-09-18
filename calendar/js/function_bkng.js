@@ -191,6 +191,7 @@ jQuery( document ).ready(function() {
         jQuery( days ).each(function( index ) {
             jQuery(days[index]).removeClass('selected-day');
         });
+
         jQuery(this).toggleClass("selected-day");
         jQuery(button_delete).show();
         jQuery(button_edit).show();
@@ -198,23 +199,22 @@ jQuery( document ).ready(function() {
         jQuery('.change-date-button').show();
 
         if (jQuery(this).hasClass('reserved') && is_change_datetime){
-            alert("Date already reserved");
+            alert(bkng_messages.date_already_reserved);
             return;
         }
 
         jQuery("#room_time").val(jQuery('.cell-time.selected-day').attr('data-time'));
         jQuery("#room_date").val(jQuery('.cell-day.selected-day').attr('data-date-attr'));
 
-
         if (is_change_datetime) {
-            alert("You changed date to " + jQuery("#room_date").val().replace(/\-/g, ".") +", "+ jQuery("#room_time").val());
+            alert(bkng_messages.you_change_date + " " + jQuery("#room_date").val().replace(/\-/g, ".") +", "+ jQuery("#room_time").val());
             jQuery("#form-booking *").prop("disabled", false);
             jQuery('#room_id').val(jQuery('.choose-room').val());
             console.log(jQuery('.choose-room').val());
             jQuery(button_save).click();
-
             return;
         }
+
         var booking_id = jQuery(this).attr('data-booking-id');
 
         jQuery("#booking_id").val(booking_id);
@@ -233,7 +233,6 @@ jQuery( document ).ready(function() {
         }
 
         setEditable(is_edited);
-
         updateUrlBookingID();
     });
 
@@ -315,7 +314,7 @@ jQuery( document ).ready(function() {
             success: function (data) {
                 result = JSON.parse(data);
                 if (result.result == true){
-                    alert(room_time + " " + room_date + " already booking!\nPlease, choose another time.");
+                    alert(room_time + " " + room_date + ' ' + bkng_messages.message_already_booking);
                     _this.val(old_val);
                 }
                 spinnerHide();
@@ -421,7 +420,6 @@ function AutoFillDateTimeBooking(date){
     jQuery( days ).each(function( index ) {
         jQuery(days[index]).removeClass(SELECT_CELL);
     });
-    console.log("Find date = "+date);
     console.log("Find date = "+date);
     jQuery("#calendar").find(".cell-day[data-date-attr='"+date+"']").toggleClass(SELECT_CELL);
 

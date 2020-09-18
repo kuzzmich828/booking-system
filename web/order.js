@@ -17,23 +17,18 @@ document.addEventListener("DOMContentLoaded", function () {
         close = document.getElementById('wrapper-quest__close');
 
     open_related_quest.click(function(e){
-
         e.preventDefault();
         close_all_modal();
         open_1_modal($(this));
-
     });
 
     button1.click(function(e){
-
         e.preventDefault();
         open_1_modal($(this));
-
     });
 
     button2.addEventListener('click', function (e) {
         e.preventDefault();
-        // $(wrapperQuestButtons).addClass('hide');
         $(wrapperQuestContainer).addClass('show');
         $(modal1).addClass('show');
         $(widget1).removeClass('show');
@@ -265,9 +260,6 @@ document.addEventListener("DOMContentLoaded", function () {
                 $(".quest__room_name").html(response['room_name']);
                 // $(".quest__room_name").css("color", response['title_color']);
 
-
-
-
                 $(wrapperQuestContainer).addClass('show');
                 $(modal1).addClass('show');
                 $(widget1).addClass('show');
@@ -327,7 +319,7 @@ jQuery(document).on("click", "div.vcal-date", function(e){
         calendar_today = true;
 
     var date_calendar = $(this).attr("data-calendar-date");
-    var room_id = selected_room_id; //$('.open-booking').attr('id');
+    var room_id = selected_room_id;
     $("#button-step-1").css('display','none');
     $("div.vcal-date").removeClass("reserv").removeClass("selected-day");
     $("div.item_content").removeClass("reserv").removeClass("selected-day");

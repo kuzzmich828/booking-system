@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: Booking System\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-26 08:01+0000\n"
-"PO-Revision-Date: 2020-02-12 19:19+0000\n"
+"PO-Revision-Date: 2020-02-12 19:17+0000\n"
 "Last-Translator: Administrator <escapegameilat@gmail.com>\n"
 "Language-Team: עִבְרִית\n"
 "Language: he_IL\n"
@@ -246,7 +246,7 @@ msgstr "שם"
 
 #: admin/admin_page_booking_calendar.php:84
 msgid "Name..."
-msgstr "שם..."
+msgstr "שם"
 
 #: admin/dashboard.php:101 admin/table_filters.php:43
 msgid "Need Approve"
@@ -309,7 +309,7 @@ msgstr "טלפון"
 
 #: admin/admin_page_booking_calendar.php:90
 msgid "Phone..."
-msgstr "טלפון..."
+msgstr "טלפון"
 
 #: admin/admin_page_booking_calendar.php:5
 msgid "Please, chese new date & time"

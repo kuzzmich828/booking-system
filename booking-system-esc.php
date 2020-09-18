@@ -105,7 +105,7 @@ function bkng_deactive(){
 }
 
 add_action( 'plugins_loaded', function () {
-    load_plugin_textdomain('booking-system', false, dirname(plugin_basename(__FILE__)) . '/languages/');
+    load_plugin_textdomain('booking-system', true, dirname(plugin_basename(__FILE__)) . '/languages/');
 });
 
 require __DIR__.'/functions.php';

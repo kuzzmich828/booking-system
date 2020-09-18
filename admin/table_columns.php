@@ -123,8 +123,6 @@ function add_views_sortable_column( $sortable_columns ){
     $sortable_columns['room_date'] = [ 'room_date', false ];
     $sortable_columns['booking_created'] = [ 'booking_created', false ];
     $sortable_columns['approved_date'] = [ 'approved_date', false ];
-    // false = asc (по умолчанию)
-    // true  = desc
 
     return $sortable_columns;
 }

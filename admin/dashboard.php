@@ -452,20 +452,12 @@ add_action('admin_head', function (){
         return true;
     elseif (check_capability_other_button()):
     ?>
-        <style>
-            #menu-posts-bookings
-            {
-                display: none;
-            }
-        </style>
+        <style>#menu-posts-bookings{display: none;}</style>
     <?php
     endif;
     ?>
     <style>
-        #wp-admin-bar-new-content, #adminmenu li:not(#menu-dashboard):not(#toplevel_page_booking-calendar):not(#menu-posts-bookings)
-        {
-            display: none;
-        }
+        #wp-admin-bar-new-content, #adminmenu li:not(#menu-dashboard):not(#toplevel_page_booking-calendar):not(#menu-posts-bookings) {display: none;}
     </style>
     <?php
 });

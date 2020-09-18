@@ -1,4 +1,3 @@
-
 var input_room = "#fw-option-room";
 var input_room_time = "#fw-option-room_time";
 var input_room_date = "#fw-option-room_date";
@@ -29,8 +28,6 @@ jQuery( document ).ready(function() {
 
     });
 
-
-
     var url = new URL(document.location.href);
     var query_string = url.search;
     var search_params = new URLSearchParams(query_string);
@@ -46,9 +43,7 @@ jQuery( document ).ready(function() {
         jQuery(input_room_time).val(room_time);
     }
 
-
 });
-
 
 jQuery(document).on("click", "input#publish", function(){
     jQuery(input_room_time).prop("disabled", false);

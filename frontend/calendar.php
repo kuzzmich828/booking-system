@@ -14,14 +14,7 @@
                 </svg>
             </button>
         </div>
-        <div class="vcal-week"> 
-            <!-- <span>Mon</span>
-            <span>Tue</span>
-            <span>Wed</span>
-            <span>Thu</span>
-            <span>Fri</span>
-            <span>Sat</span>
-            <span>Sun</span> -->
+        <div class="vcal-week">
         </div>
         <div class="vcal-body" data-calendar-area="month"></div>
     </div>
@@ -35,7 +28,6 @@
             <div class="item_content"></div>
         </div>
     </div>
-
 
     <div class="booking-popup-right-agent">להזמנת משחק ב 01:00, מומלץ ליצור קשר עם הנציג</div>
     <a href="#" class="booking-buttom">הזמן עכשיו</a>
@@ -60,20 +52,11 @@
     });
     //
     jQuery(document).on("click", ".booking-submit", function(){
-        alert();
 
         var name = $("input[name='order_fullname']").val();
         var email =$("input[name='order_email']").val();
         var phone =$("input[name='order_phone']").val();
 
-        console.log(name);
-        console.log(email);
-        console.log(phone);
-        // $(".f-step").hide();
-        // $(".s-step").show();
-        // $(".second-step").show();
-        // var time_room = $(this).attr("data-time-room");
-        // var room_id = $('.open-booking').attr('id');
     });
 
     jQuery(document).on("click", ".booking-buttom", function(){
@@ -141,7 +124,6 @@
         $('img.main-icon').hide();
         $('img.order-icon').attr( "style", "display: block !important;" );
         /* присвоить клас всплывающему окну бронирования */
-        // $post_id = $(this).parent().attr('id');
         $post_id = $(this).attr('id');
 
         /* открыть окно бронирования */

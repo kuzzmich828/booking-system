@@ -185,8 +185,6 @@ $options = array(
 
 );
 
-
-
 $times = get_times_format();
 
 foreach ($times as $v) {

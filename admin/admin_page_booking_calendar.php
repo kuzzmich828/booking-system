@@ -4,7 +4,7 @@
             <span class="alert-calendar"><?= __('Please, chese new date & time','booking-system'); ?></span>
         </div>
     </div>
-    <h1><?= __('Booking Calendar'); ?></h1>
+    <h1><?= __('Booking Calendar','booking-system'); ?></h1>
     <div class="row wrap-calendar-admin">
 
         <div class="col-sm-4">
@@ -57,7 +57,7 @@
                             <div class="fc-calendar fc-five-rows">
                                 <div class="fc-body calendar-time-body">
                                     <div class="fc-row">
-                                        <div class="cell-time" data-date-attr="4/2/2019"><span class="fc-date">4:30</span></div>
+                                        <div class="cell-time" data-date-attr=""><span class="fc-date"></span></div>
                                     </div>
                                 </div>
                             </div>

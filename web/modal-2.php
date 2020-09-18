@@ -17,8 +17,6 @@
         <span class="wrapper-quest__span">* משתתפים במשחק</span>
         <select id="quest__quantity" name="wrapper-quest__quantity">
         </select>
-        <!--                    <div class="clearfix"></div>-->
-
 
         <div id="wrapper-quest__dis_wrapper" class="wrapper-quest__dis_wrapper">
 
