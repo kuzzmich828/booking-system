@@ -274,6 +274,10 @@ jQuery( document ).ready(function() {
     });
 
     jQuery(document).on("click", "#custom-time-button", function(){
+        jQuery("#booking_id").val('');
+        jQuery(table_edit).hide();
+        showNewBooking();
+
         jQuery("#calendar-time").hide();
         if (!is_edited)
             newBooking();

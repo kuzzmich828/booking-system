@@ -4,7 +4,7 @@ Plugin Name: Booking System Esc
 Plugin URI:
 Description: Booking System Esc
 Author: kuzzmich
-Version: 2.5
+Version: 2.6
 */
 
 register_activation_hook(__FILE__, 'bkng_active');
