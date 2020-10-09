@@ -1018,3 +1018,31 @@ function callback_get_booking_by_room_date_time(){
     wp_send_json(json_encode(['result'=>$posts]), 200);
 }
 
+
+add_action( 'wp_ajax_find_client_by_phone', 'callback_find_client_by_phone' );
+add_action( 'wp_ajax_nopriv_find_client_by_phone', 'callback_find_client_by_phone' );
+function callback_find_client_by_phone(){
+
+    if (!isset($_POST['phone'])){
+        wp_send_json(json_encode(['result'=>false]), 200);
+    }
+
+    $query = new WP_Query([
+        'posts_per_page' => -1,
+        'post_type' =>  'bookings',
+        'post_status' => 'publish',
+        'meta_key' => 'fw_option:room_date',
+        'meta_query' => array(
+            'relation' => 'AND',
+            [
+                'key' => 'fw_option:phone',
+                'compare' => 'LIKE',
+                'value' => $_POST['phone'],
+            ],
+        ),
+    ]);
+
+    $posts = $query->get_posts();
+
+    wp_send_json(json_encode($posts), 200);
+}

@@ -287,10 +287,32 @@ jQuery( document ).ready(function() {
         jQuery(this).hide();
     });
 
+    jQuery('#phone_booking').on('keyup', function(){
+
+        var phone = jQuery(this).val();
+
+        if (phone.length < 3)
+            return;
+
+        // jQuery.ajax({
+        //     url: '/wp-admin/admin-ajax.php',
+        //     type: 'POST',
+        //     dataType: 'json',
+        //     async: false,
+        //     data: {
+        //         action: 'find_client_by_phone',
+        //         phone: phone
+        //     },
+        //     success: function (data){
+        //         console.log(data);
+        //     }
+        // });
+
+    });
+
     jQuery('#custom-hour, #custom-minute').on('focusin', function(){
         jQuery(this).data('val', jQuery(this).val());
     });
-
 
     jQuery("#custom-hour, #custom-minute").on("change", function (event) {
         spinnerShow();
