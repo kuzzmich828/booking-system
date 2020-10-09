@@ -39,10 +39,10 @@ function add_post_formats_filter_to_post_administration(){
         <!--   ***********************************************************   -->
         <select name="status" id="status" class="postform">
             <option value=""><?= __('Status...', 'booking-system'); ?></option>
-            <option value="frozen"><?= __('Frozen', 'booking-system'); ?></option>
+            <option value="frozen"><?= __('Frozen ', 'booking-system'); ?></option>
             <option value="needapprove"><?= __('Need Approve', 'booking-system'); ?></option>
             <option value="approved"><?= __('Approved', 'booking-system'); ?></option>
-            <option value="canceled"><?= __('Canceled', 'booking-system'); ?></option>
+            <option value="canceled"><?= __('Canceled ', 'booking-system'); ?></option>
         </select>
 
         <!--   ***********************************************************   -->
