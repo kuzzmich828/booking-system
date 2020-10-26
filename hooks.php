@@ -1022,27 +1022,15 @@ function callback_get_booking_by_room_date_time(){
 add_action( 'wp_ajax_find_client_by_phone', 'callback_find_client_by_phone' );
 add_action( 'wp_ajax_nopriv_find_client_by_phone', 'callback_find_client_by_phone' );
 function callback_find_client_by_phone(){
-
     if (!isset($_POST['phone'])){
         wp_send_json(json_encode(['result'=>false]), 200);
     }
-
-    $query = new WP_Query([
-        'posts_per_page' => -1,
-        'post_type' =>  'bookings',
-        'post_status' => 'publish',
-        'meta_key' => 'fw_option:room_date',
-        'meta_query' => array(
-            'relation' => 'AND',
-            [
-                'key' => 'fw_option:phone',
-                'compare' => 'LIKE',
-                'value' => $_POST['phone'],
-            ],
-        ),
-    ]);
-
-    $posts = $query->get_posts();
-
-    wp_send_json(json_encode($posts), 200);
+    global $wpdb;
+    $query = "SELECT `ID` FROM `{$wpdb->postmeta}` RIGHT JOIN `{$wpdb->posts}` ON `{$wpdb->posts}`.ID = `{$wpdb->postmeta}`.post_id WHERE post_type = 'bookings' AND meta_key = 'fw_option:phone' AND meta_value LIKE '{$_POST['phone']}%' LIMIT 0,10; ";
+    $bookings = $wpdb->get_results($query);
+    $result = [];
+    foreach ($bookings as $booking){
+        $result [] = get_all_meta_booking($booking->ID);
+    }
+    wp_send_json(json_encode($result), 200);
 }

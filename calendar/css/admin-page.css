@@ -226,3 +226,12 @@ input[type=number] {
     font-size: 16px;
     width: 48px;
 }
+
+.custom-time-wrap{
+    direction: rtl;
+}
+
+.table>tbody>tr>td, .table>tbody>tr>th, .table>tfoot>tr>td, .table>tfoot>tr>th, .table>thead>tr>td, .table>thead>tr>th{
+    border-top: none;
+    padding: 6px;
+}

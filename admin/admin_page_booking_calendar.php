@@ -65,7 +65,7 @@
                     </div>
                 </div>
 
-                <div>
+                <div class="custom-time-wrap">
                     <div style="padding: 10px 0;">
                         <button class="btn btn-success" id="custom-time-button" type="button" style="display: inline-block;"><?= __('Custom Time', 'booking-system'); ?></button>
                     </div>
@@ -103,7 +103,7 @@
                             </tr>
                             <tr>
                                 <td colspan="2">
-                                    <input name="phone_booking" id="phone_booking"  placeholder="<?= __('Phone...','booking-system'); ?>" type="text" value="" class="form-control" />
+                                    <input name="phone_booking" autocomplete="on" id="phone_booking"  placeholder="<?= __('Phone...','booking-system'); ?>" type="text" value="" class="form-control" />
                                 </td>
                             </tr>
                             <tr>
@@ -186,7 +186,6 @@
 
 </script>
 
-
 <div class="loading"><img src="<?= plugin_dir_url(__DIR__); ?>/calendar/img/spinner.svg"></div>
 
 <?php if (isset($_GET['edit_booking']) && $_GET['edit_booking']): ?>
@@ -198,10 +197,3 @@
         jQuery(document).ready(function(){ init_calendar(<?= date('m'); ?>); });
     </script>
 <?php endif; ?>
-
-<style>
-    .table>tbody>tr>td, .table>tbody>tr>th, .table>tfoot>tr>td, .table>tfoot>tr>th, .table>thead>tr>td, .table>thead>tr>th{
-        border-top: none;
-        padding: 6px;
-    }
-</style>
