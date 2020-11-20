@@ -42,6 +42,16 @@ $options = array(
         ),
     ),
 
+    'department' => array(
+        'type'  => 'text',
+        'label' =>  __('Department', 'booking-system') ,
+    ),
+
+    'email' => array(
+        'type'  => 'text',
+        'label' =>  __('Department', 'booking-system') ,
+    ),
+
     'roomcontent' => array(
         'type'  => 'select',
         'label' =>  __('Room Content', 'booking-system') ,

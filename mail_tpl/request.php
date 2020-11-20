@@ -1,9 +1,77 @@
 <?php
 
+function send_email($type, $email, $booking){
+    $message = '';
+
+    $bloginfo = get_bloginfo('name');
+    $admin_email = get_option('admin_email');
+    $date_order = '';
+    $main_logo = '';
+    $subject = "Booking $bloginfo $date_order";
+
+    $email_data = [
+        'id' => '14077'
+    ];
+
+    $header_content = '';
+
+    switch ($type){
+        case 'new':     $header_content = get_post_meta($email_data['id'], 'fw_option:header_new_order_text', true);        break;
+        case 'confirm': $header_content = get_post_meta($email_data['id'], 'fw_option:header_confirm_order_text', true);    break;
+        case 'delete':  $header_content = get_post_meta($email_data['id'], 'fw_option:header_delete_order_text', true);     break;
+    }
+
+    $header_content = str_replace(
+            ['##name##', '##order##'],
+            [$booking['name'], $booking['booking_id']],
+            $header_content
+        );
+
+    $email_main_logo = get_post_meta($email_data['id'], 'fw_option:main_logo', true)['url'];
+    $email_pnone_1 = get_post_meta($email_data['id'], 'fw_option:phone_1', true);
+    $email_pnone_2 = get_post_meta($email_data['id'], 'fw_option:phone_2', true);
+    $email_footer_menu = get_post_meta($email_data['id'], 'fw_option:footer_links', true);
+    $email_banner_image = get_post_meta($email_data['id'], 'fw_option:banner_image', true);
+    $email_banner_image = $email_banner_image ? $email_banner_image['url'] : false;
+    $email_banner_caption = get_post_meta($email_data['id'], 'fw_option:banner_caption', true);
+    $email_block_3_content = get_post_meta($email_data['id'], 'fw_option:block_3_content', true);
+    $email_block_4_content = get_post_meta($email_data['id'], 'fw_option:block_4_content', true);
+    $email_footer_logo = get_post_meta($email_data['id'], 'fw_option:footer_logo', true);
+    $email_footer_logo = $email_footer_logo ? $email_footer_logo['url'] : false;
+
+
+
+//    $email_footer_logo = get_post_meta($email_data['id'], 'fw_option:main_logo', true)['url'];
+
+    $room_image = get_the_post_thumbnail_url($booking['room_id'], 'large');
+    $room_image = $room_image ? $room_image : $main_logo;
+    $room_wpcf_time = get_post_meta($booking['room_id'], 'wpcf-time', true);
+
+    ob_start();
+        include __DIR__ . '/template.php';
+    $message = ob_get_clean();
+
+    echo $message;
+
+    die;
+
+    $headers = array(
+        'From: '.$bloginfo.' <' . $admin_email . '>',
+        'content-type: text/html',
+    );
+
+//    if ($order)
+//        $message = str_replace(['##order##'], [$order], $message);
+
+//    wp_mail($email, $subject, $message, $headers);
+//    wp_mail($admin_email, $subject, $message, $headers);
+}
+
 function mail_request($fullname, $email, $phone, $quantity, $date, $time, $room, $price, $duration, $action, $subscription, $order = null)
 {
     bkng_write_log("SEND MAIL $action: $fullname|$email|$phone|$quantity|$date|$time|$room|$price");
     $admin_email = get_option('admin_email');
+
     $query = new WP_Query('post_type=mails&p=' . $action);
     if ($query->have_posts()):
         while ($query->have_posts()): $query->the_post();

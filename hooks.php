@@ -47,6 +47,50 @@ function bkng_register_posts_type(){
         'supports'           => array('title','author','thumbnail', 'editor', 'revisions')
     ) );
 
+    register_post_type('room-emails', array(
+        'labels'             => array(
+            'name'               => __('Emails', 'booking-system'),
+            'singular_name'      => __('Email', 'booking-system'),
+            'add_new'            => __('Add new', 'booking-system'),
+            'add_new_item'       => __('Add new', 'booking-system'),
+            'edit_item'          => __('Edit', 'booking-system'),
+            'new_item'           => __('New Email', 'booking-system'),
+            'view_item'          => __('View', 'booking-system'),
+            'search_items'       => __('Find', 'booking-system'),
+            'not_found'          =>  __('Not found', 'booking-system'),
+            'not_found_in_trash' => __('Not found', 'booking-system'),
+            'parent_item_colon'  => '',
+            'menu_name'          => __('Emails', 'booking-system')
+
+        ),
+        'capabilities' => array(
+            'edit_post'          => 'edit_room',
+            'read_post'          => 'read_room',
+            'delete_private_posts'        => 'delete_private_room',
+            'delete_published_posts'        => 'delete_published_room',
+            'delete_posts'        => 'delete_room',
+            'delete_others_posts' => 'delete_others_room',
+            'edit_posts'         => 'edit_room',
+            'edit_others_posts'  => 'edit_others_room',
+            'publish_posts'      => 'publish_room',
+            'create_posts'       => 'edit_room',
+            'read_private_posts' => 'read_private_room',
+
+        ),
+
+        'public'             => true,
+        'publicly_queryable' => true,
+        'show_ui'            => true,
+        'show_in_menu'       => true,
+        'query_var'          => true,
+        'rewrite'            => true,
+        'capability_type'    => 'room',
+        'hierarchical'       => false,
+        'menu_position'      => 4,
+        'menu_icon'          => 'dashicons-email',
+        'supports'           => array('title','author', 'revisions')
+    ) );
+
     register_post_type('bookings', array(
         'labels'             => array(
             'name'               => __('Booking', 'booking-system'),
@@ -1034,3 +1078,9 @@ function callback_find_client_by_phone(){
     }
     wp_send_json(json_encode($result), 200);
 }
+
+add_action('init', function (){
+    if (isset($_GET['email']) && $_GET['email'] == 'y'){
+        send_email('new', 'test@mail.com', get_all_meta_booking(14053));
+    }
+});
