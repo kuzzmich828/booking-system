@@ -19,6 +19,7 @@ function send_email($type, $email, $booking){
         case 'new':     $header_content = get_post_meta($email_data['id'], 'fw_option:header_new_order_text', true);        break;
         case 'confirm': $header_content = get_post_meta($email_data['id'], 'fw_option:header_confirm_order_text', true);    break;
         case 'delete':  $header_content = get_post_meta($email_data['id'], 'fw_option:header_delete_order_text', true);     break;
+        default:  $header_content = get_post_meta($email_data['id'], 'fw_option:header_delete_order_text', true);     break;
     }
 
     $header_content = str_replace(

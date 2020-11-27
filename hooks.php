@@ -1080,7 +1080,32 @@ function callback_find_client_by_phone(){
 }
 
 add_action('init', function (){
-    if (isset($_GET['email']) && $_GET['email'] == 'y'){
-        send_email('new', 'test@mail.com', get_all_meta_booking(14053));
+    if (isset($_GET['test_mail']) && (int)$_GET['test_mail']){
+        send_email('new', 'test@mail.com', get_all_meta_booking((int)$_GET['test_mail']));
     }
 });
+
+add_action( 'media_buttons', 'custom_button', 0, 1 );
+
+function custom_button( $post ) {
+    global $post;
+    $bookings = get_posts([
+        'posts_per_page'=>50,
+        'post_type'=>'bookings',
+        'post_status'=>'publish'
+    ]);
+    echo '<form action="" method="get">';
+    echo '<select name="order">';
+        foreach ($bookings as $booking):
+            echo '<option value="'.$booking->ID.'">'.$booking->ID. ' - ' . $booking->post_title;
+            echo '</option>';
+        endforeach;
+    echo '</select>';
+
+
+    echo '<input type="hidden" name="test_mail" value="'.$post->ID.'">';
+    echo '<p>';
+        echo '<input type="submit" class="button button-primary button-large" value="OPEN THIS MAIL">';
+    echo '</p>';
+    echo '</form>';
+}
