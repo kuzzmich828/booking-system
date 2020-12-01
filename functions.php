@@ -367,7 +367,8 @@ function get_all_meta_booking($id){
         'quantity'    => get_post_meta($id, 'fw_option:quantity', 1),
         'room_id' => $room_id,
         'room_name' => $room_name,
-        'wpcf_time' => get_post_meta($room_id, 'wpcf-time', 1)
+        'wpcf_time' => get_post_meta($room_id, 'wpcf-time', 1),
+        'email_template' => get_post_meta($room_id, 'fw_option:email_template', 1)
     ];
 
 }

@@ -8,18 +8,18 @@ function send_email($type, $email, $booking){
     $date_order = '';
     $main_logo = '';
     $subject = "Booking $bloginfo $date_order";
+    $email_id = $booking['email_template'];
 
-    $email_data = [
-        'id' => '14077'
-    ];
+    if (!$email_id)
+        return false;
 
     $header_content = '';
 
     switch ($type){
-        case 'new':     $header_content = get_post_meta($email_data['id'], 'fw_option:header_new_order_text', true);        break;
-        case 'confirm': $header_content = get_post_meta($email_data['id'], 'fw_option:header_confirm_order_text', true);    break;
-        case 'delete':  $header_content = get_post_meta($email_data['id'], 'fw_option:header_delete_order_text', true);     break;
-        default:  $header_content = get_post_meta($email_data['id'], 'fw_option:header_delete_order_text', true);     break;
+        case 'new':     $header_content = get_post_meta($email_id, 'fw_option:header_new_order_text', true);        break;
+        case 'confirm': $header_content = get_post_meta($email_id, 'fw_option:header_confirm_order_text', true);    break;
+        case 'delete':  $header_content = get_post_meta($email_id, 'fw_option:header_delete_order_text', true);     break;
+        default:  $header_content = get_post_meta($email_id, 'fw_option:header_delete_order_text', true);     break;
     }
 
     $header_content = str_replace(
@@ -28,21 +28,21 @@ function send_email($type, $email, $booking){
             $header_content
         );
 
-    $email_main_logo = get_post_meta($email_data['id'], 'fw_option:main_logo', true)['url'];
-    $email_pnone_1 = get_post_meta($email_data['id'], 'fw_option:phone_1', true);
-    $email_pnone_2 = get_post_meta($email_data['id'], 'fw_option:phone_2', true);
-    $email_footer_menu = get_post_meta($email_data['id'], 'fw_option:footer_links', true);
-    $email_banner_image = get_post_meta($email_data['id'], 'fw_option:banner_image', true);
+    $email_main_logo = get_post_meta($email_id, 'fw_option:main_logo', true)['url'];
+    $email_pnone_1 = get_post_meta($email_id, 'fw_option:phone_1', true);
+    $email_pnone_2 = get_post_meta($email_id, 'fw_option:phone_2', true);
+    $email_footer_menu = get_post_meta($email_id, 'fw_option:footer_links', true);
+    $email_banner_image = get_post_meta($email_id, 'fw_option:banner_image', true);
     $email_banner_image = $email_banner_image ? $email_banner_image['url'] : false;
-    $email_banner_caption = get_post_meta($email_data['id'], 'fw_option:banner_caption', true);
-    $email_block_3_content = get_post_meta($email_data['id'], 'fw_option:block_3_content', true);
-    $email_block_4_content = get_post_meta($email_data['id'], 'fw_option:block_4_content', true);
-    $email_footer_logo = get_post_meta($email_data['id'], 'fw_option:footer_logo', true);
+    $email_banner_caption = get_post_meta($email_id, 'fw_option:banner_caption', true);
+    $email_block_3_content = get_post_meta($email_id, 'fw_option:block_3_content', true);
+    $email_block_4_content = get_post_meta($email_id, 'fw_option:block_4_content', true);
+    $email_footer_logo = get_post_meta($email_id, 'fw_option:footer_logo', true);
     $email_footer_logo = $email_footer_logo ? $email_footer_logo['url'] : false;
 
 
 
-//    $email_footer_logo = get_post_meta($email_data['id'], 'fw_option:main_logo', true)['url'];
+//    $email_footer_logo = get_post_meta($email_id, 'fw_option:main_logo', true)['url'];
 
     $room_image = get_the_post_thumbnail_url($booking['room_id'], 'large');
     $room_image = $room_image ? $room_image : $main_logo;

@@ -4,120 +4,13 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="viewport" content="width=device-width"/>
     <style>
-        /* hebrew */
-        @font-face {
-            font-family: 'Assistant';
-            font-style: normal;
-            font-weight: 300;
-            src: url(//fonts.gstatic.com/s/assistant/v6/2sDcZGJYnIjSi6H75xkzamW5O7w.woff2) format('woff2');
-            unicode-range: U+0590-05FF, U+20AA, U+25CC, U+FB1D-FB4F;
-        }
-
-        /* latin-ext */
-        @font-face {
-            font-family: 'Assistant';
-            font-style: normal;
-            font-weight: 300;
-            src: url(//fonts.gstatic.com/s/assistant/v6/2sDcZGJYnIjSi6H75xkzZmW5O7w.woff2) format('woff2');
-            unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
-        }
-
-        /* latin */
-        @font-face {
-            font-family: 'Assistant';
-            font-style: normal;
-            font-weight: 300;
-            src: url(//fonts.gstatic.com/s/assistant/v6/2sDcZGJYnIjSi6H75xkzaGW5.woff2) format('woff2');
-            unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
-        }
-
-        /* hebrew */
-        @font-face {
-            font-family: 'Assistant';
-            font-style: normal;
-            font-weight: 400;
-            src: url(//fonts.gstatic.com/s/assistant/v6/2sDcZGJYnIjSi6H75xkzamW5O7w.woff2) format('woff2');
-            unicode-range: U+0590-05FF, U+20AA, U+25CC, U+FB1D-FB4F;
-        }
-
-        /* latin-ext */
-        @font-face {
-            font-family: 'Assistant';
-            font-style: normal;
-            font-weight: 400;
-            src: url(//fonts.gstatic.com/s/assistant/v6/2sDcZGJYnIjSi6H75xkzZmW5O7w.woff2) format('woff2');
-            unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
-        }
-
-        /* latin */
-        @font-face {
-            font-family: 'Assistant';
-            font-style: normal;
-            font-weight: 400;
-            src: url(//fonts.gstatic.com/s/assistant/v6/2sDcZGJYnIjSi6H75xkzaGW5.woff2) format('woff2');
-            unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
-        }
-
-        /* hebrew */
-        @font-face {
-            font-family: 'Assistant';
-            font-style: normal;
-            font-weight: 700;
-            src: url(//fonts.gstatic.com/s/assistant/v6/2sDcZGJYnIjSi6H75xkzamW5O7w.woff2) format('woff2');
-            unicode-range: U+0590-05FF, U+20AA, U+25CC, U+FB1D-FB4F;
-        }
-
-        /* latin-ext */
-        @font-face {
-            font-family: 'Assistant';
-            font-style: normal;
-            font-weight: 700;
-            src: url(//fonts.gstatic.com/s/assistant/v6/2sDcZGJYnIjSi6H75xkzZmW5O7w.woff2) format('woff2');
-            unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
-        }
-
-        /* latin */
-        @font-face {
-            font-family: 'Assistant';
-            font-style: normal;
-            font-weight: 700;
-            src: url(//fonts.gstatic.com/s/assistant/v6/2sDcZGJYnIjSi6H75xkzaGW5.woff2) format('woff2');
-            unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
-        }
-
-        /* hebrew */
-        @font-face {
-            font-family: 'Assistant';
-            font-style: normal;
-            font-weight: 800;
-            src: url(//fonts.gstatic.com/s/assistant/v6/2sDcZGJYnIjSi6H75xkzamW5O7w.woff2) format('woff2');
-            unicode-range: U+0590-05FF, U+20AA, U+25CC, U+FB1D-FB4F;
-        }
-
-        /* latin-ext */
-        @font-face {
-            font-family: 'Assistant';
-            font-style: normal;
-            font-weight: 800;
-            src: url(//fonts.gstatic.com/s/assistant/v6/2sDcZGJYnIjSi6H75xkzZmW5O7w.woff2) format('woff2');
-            unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
-        }
-
-        /* latin */
-        @font-face {
-            font-family: 'Assistant';
-            font-style: normal;
-            font-weight: 800;
-            src: url(//fonts.gstatic.com/s/assistant/v6/2sDcZGJYnIjSi6H75xkzaGW5.woff2) format('woff2');
-            unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
-        }
 
         * {
             margin: 0;
             padding: 0;
             font-size: 100%;
-            font-family: 'Assistant', 'Avenir Next', 'sans-serif';
-            line-height: 1.65;
+            font-family: 'Arial', 'sans-serif';
+            line-height: 1.4;
         }
 
         img {
@@ -172,9 +65,8 @@
         }
 
         h2 {
-            font-size: 24px;
-            font-weight: normal;
-            line-height: 32px;
+            font-size: 26px;
+            font-weight: bold;
         }
 
         h3 {
@@ -192,7 +84,7 @@
         p, ul, ol {
             font-size: 16px;
             font-weight: normal;
-            margin-bottom: 20px;
+            margin-bottom: 15px;
         }
 
         .container {
@@ -203,11 +95,17 @@
         }
 
         .row-1 p {
-            font-size: 18px;
+            font-size: 20px;
+            line-height: 1.2em;
+        }
+
+        h2, b{
+            line-height: 1.2em;
         }
 
         .container table {
             width: 100% !important;
+            height: 100%;
             border-collapse: collapse;
         }
 
@@ -317,6 +215,7 @@
 
         .room-info span {
             color: #FFFFFF;
+            padding-left: 3px;
         }
 
         .footer-link li {
@@ -400,20 +299,20 @@
                 <tr style="background-color: #ccc;" >
                     <td class="content gray row-2">
 
-                        <h2>מדיניות</h2>
+                        <h2>פירטי הזמנה</h2>
 
                         <table class="room-info">
                             <tr style="font-size: 14px;">
-                                <td style="width:33%;padding: 0 6px;"><span>התנת</span> התנהגות  </td>
-                                <td style="width:33%;padding: 0 6px;"><span >התנהגות</span>  <?= $booking['phone']; ?> </td>
-                                <td style="width:33%;padding: 0 6px;"><span>התנהגות</span> <?= str_replace('-','.', $booking['room_date']); ?> </td>
+                                <td style="font-size: 12px; width:33%;padding: 4px 6px;"><span>שם</span>  <b>התנהגות</b> </td>
+                                <td style="font-size: 12px; width:33%;padding: 4px 6px;"><span>טל’</span>  <b><?= $booking['phone']; ?></b> </td>
+                                <td style="font-size: 12px; width:33%;padding: 4px 6px;"><span>תאריך</span> <b><?= str_replace('-','.', $booking['room_date']); ?></b> </td>
                             </tr>
                             <tr style="border-top: 15px solid #f2f2f2;">
                                 <td colspan="2">
                                     <table class="table-time">
                                         <tr>
                                             <td style="width:50%; background-color:unset;">
-                                                <div class="truncate">התנהגות..........................</div>
+                                                <div class="truncate">ממש..........................</div>
                                             </td>
                                             <td class="truncate" style="width:50%; background-color:unset;"><?= $booking['room_time']; ?></td>
                                         </tr>
@@ -427,7 +326,9 @@
                                             <td>
                                                 <div class="truncate">התנהגות..........................</div>
                                             </td>
-                                            <td class="truncate">?????</td>
+                                            <td class="truncate">
+                                                <?=  $booking['quantity']; ?>
+                                            </td>
                                         </tr>
                                         <tr>
                                             <td>
@@ -448,7 +349,7 @@
                                 <td colspan="1">
                                     <table>
                                         <tr><td><img src="<?= $room_image; ?>"></td></tr>
-                                        <tr><td style="background-color: #eee35e; color: white;"><?= $booking['room_name']; ?></td></tr>
+                                        <tr><td style="background-color: #eee35e; font-size: 14px; color: white;"><?= $booking['room_name']; ?></td></tr>
                                     </table>
                                 </td>
 
