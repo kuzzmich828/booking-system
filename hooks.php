@@ -1085,7 +1085,7 @@ add_action('init', function (){
     }
 });
 
-add_action( 'media_buttons', 'custom_button', 0, 1 );
+add_action( 'media_buttons', 'custom_button', 1, 1 );
 
 function custom_button( $post ) {
     global $post;
@@ -1094,8 +1094,8 @@ function custom_button( $post ) {
         'post_type'=>'bookings',
         'post_status'=>'publish'
     ]);
-    echo '<form action="" method="get">';
-    echo '<select name="order">';
+
+    echo '<select id="order_id">';
         foreach ($bookings as $booking):
             echo '<option value="'.$booking->ID.'">'.$booking->ID. ' - ' . $booking->post_title;
             echo '</option>';
@@ -1103,9 +1103,32 @@ function custom_button( $post ) {
     echo '</select>';
 
 
-    echo '<input type="hidden" name="test_mail" value="'.$post->ID.'">';
+    echo '<input type="hidden" id="test_mail" value="'.$post->ID.'">';
     echo '<p>';
-        echo '<input type="submit" class="button button-primary button-large" value="OPEN THIS MAIL">';
+        echo '<input type="button" id="send_test_email" class="button button-primary button-large" value="SEND EMAIL TO ADMIN">';
     echo '</p>';
-    echo '</form>';
+$script = <<< EOF
+    <script>
+        jQuery("#send_test_email").click(function(){
+            
+            var data = {
+                action: "send_test_email",
+                order_id: jQuery("#test_mail").val(),
+                email_id: jQuery("#order_id").val(),
+            };
+
+            jQuery.post( ajaxurl, data, function(response) {
+                alert('Получено с сервера: ' + response);
+            });
+        });
+    </script>
+EOF;
+    echo $script;
+}
+
+add_action( 'wp_ajax_send_test_email', 'send_test_email_callback' );
+function send_test_email_callback() {
+    send_email('new', $_POST['email_id'], $_POST['order_id'], true );
+    wp_send_json(['STATUS'=>'SUCCESS']);
+    wp_die();
 }
