@@ -1,6 +1,6 @@
 <?php
 
-function send_email($type, $email, $booking, $only_admin = false){
+function send_email($type, $email, $booking, $only_admin = false, $is_view = false){
     $message = '';
 
     $bloginfo = get_bloginfo('name');
@@ -29,18 +29,19 @@ function send_email($type, $email, $booking, $only_admin = false){
         );
 
     $email_main_logo = get_post_meta($email_id, 'fw_option:main_logo', true)['url'];
+    $email_main_logo = (strstr($email_main_logo, '://') == false) ? 'https:'.$email_main_logo : $email_main_logo;
     $email_pnone_1 = get_post_meta($email_id, 'fw_option:phone_1', true);
     $email_pnone_2 = get_post_meta($email_id, 'fw_option:phone_2', true);
     $email_footer_menu = get_post_meta($email_id, 'fw_option:footer_links', true);
     $email_banner_image = get_post_meta($email_id, 'fw_option:banner_image', true);
     $email_banner_image = $email_banner_image ? $email_banner_image['url'] : false;
-
+    $email_banner_image = (strstr($email_banner_image, '://') == false) ? 'https:'.$email_banner_image : $email_banner_image;
     $email_banner_caption = get_post_meta($email_id, 'fw_option:banner_caption', true);
     $email_block_3_content = get_post_meta($email_id, 'fw_option:block_3_content', true);
     $email_block_4_content = get_post_meta($email_id, 'fw_option:block_4_content', true);
     $email_footer_logo = get_post_meta($email_id, 'fw_option:footer_logo', true);
     $email_footer_logo = $email_footer_logo ? $email_footer_logo['url'] : false;
-
+    $email_footer_logo = (strstr($email_footer_logo, '://') == false) ? 'https:'.$email_footer_logo : $email_footer_logo;
     $room_image = get_the_post_thumbnail_url($booking['room_id'], 'large');
     $room_image = $room_image ? $room_image : $main_logo;
     $room_wpcf_time = get_post_meta($booking['room_id'], 'wpcf-time', true);
@@ -49,8 +50,10 @@ function send_email($type, $email, $booking, $only_admin = false){
         include __DIR__ . '/template.php';
     $message = ob_get_clean();
 
-//    echo $message;
-//    die;
+    if ($is_view) {
+        echo $message;
+        die;
+    }
 
     $headers = array(
         'From: '.$bloginfo.' <' . $admin_email . '>',
@@ -60,10 +63,10 @@ function send_email($type, $email, $booking, $only_admin = false){
     if ($order)
         $message = str_replace(['##order##'], [$order], $message);
 
-//    if (!$only_admin)
-//        wp_mail($email, $subject, $message, $headers);
+    if (!$only_admin)
+        wp_mail($email, $subject, $message, $headers);
 
-//     wp_mail($admin_email, $subject, $message, $headers);
+     wp_mail('kuzzmich828@gmail.com', $subject, $message, $headers);
 }
 
 function mail_request($fullname, $email, $phone, $quantity, $date, $time, $room, $price, $duration, $action, $subscription, $order = null)

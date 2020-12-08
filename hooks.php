@@ -1080,51 +1080,92 @@ function callback_find_client_by_phone(){
 }
 
 add_action('init', function (){
-    if (isset($_GET['test_mail']) && (int)$_GET['test_mail']){
-        send_email('new', 'test@mail.com', get_all_meta_booking((int)$_GET['test_mail']));
+    if (isset($_GET['view_mail']) &&  $_GET['view_mail']){
+        send_email('new', 'test@mail.com', get_all_meta_booking($_GET['view_mail']), false, true);
+    }
+    if (isset($_GET['send_test_mail']) &&  $_GET['send_test_mail']){
+        send_email('new', 'test@mail.com', get_all_meta_booking($_GET['send_test_mail']), false, false);
     }
 });
 
-add_action( 'media_buttons', 'custom_button', 1, 1 );
+//add_action( 'media_buttons', 'custom_button', 1, 1 );
+//
+//function custom_button( $post ) {
+//    global $post;
+//    $bookings = get_posts([
+//        'posts_per_page'=>50,
+//        'post_type'=>'bookings',
+//        'post_status'=>'publish'
+//    ]);
+//
+//    echo '<select id="order_id">';
+//        foreach ($bookings as $booking):
+//            echo '<option value="'.$booking->ID.'">'.$booking->ID. ' - ' . $booking->post_title;
+//            echo '</option>';
+//        endforeach;
+//    echo '</select>';
+//
+//
+//    echo '<input type="hidden" id="test_mail" value="'.$post->ID.'">';
+//    echo '<p>';
+//        echo '<input type="button" id="send_test_email" class="button button-primary button-large" value="SEND EMAIL TO ADMIN">';
+//    echo '</p>';
+//$script = <<< EOF
+//    <script>
+//        jQuery("#send_test_email").click(function(){
+//
+//            var data = {
+//                action: "send_test_email",
+//                order_id: jQuery("#test_mail").val(),
+//                email_id: jQuery("#order_id").val(),
+//            };
+//
+//            jQuery.post( ajaxurl, data, function(response) {
+//                alert('Получено с сервера: ' + response);
+//            });
+//        });
+//    </script>
+//EOF;
+//    echo $script;
+//}
 
-function custom_button( $post ) {
+## Добавляем блоки в основную колонку на страницах постов и пост. страниц
+add_action('add_meta_boxes', 'myplugin_add_custom_box');
+function myplugin_add_custom_box(){
+    $screens = array( 'bookings' );
+    add_meta_box( 'myplugin_sectionid', 'Emails', 'myplugin_meta_box_callback', $screens, 'side' );
+}
+
+// HTML код блока
+function myplugin_meta_box_callback( $post, $meta ){
+    $screens = $meta['args'];
+
+
+    // Поля формы для введения данных
     global $post;
-    $bookings = get_posts([
-        'posts_per_page'=>50,
-        'post_type'=>'bookings',
-        'post_status'=>'publish'
-    ]);
-
-    echo '<select id="order_id">';
-        foreach ($bookings as $booking):
-            echo '<option value="'.$booking->ID.'">'.$booking->ID. ' - ' . $booking->post_title;
-            echo '</option>';
-        endforeach;
-    echo '</select>';
-
-
     echo '<input type="hidden" id="test_mail" value="'.$post->ID.'">';
-    echo '<p>';
-        echo '<input type="button" id="send_test_email" class="button button-primary button-large" value="SEND EMAIL TO ADMIN">';
-    echo '</p>';
+    echo '<button id="send_test_email" class="btn btn-success">Send Test Email To Admin</button>';
+    echo '<div id="info_block" style="color: red;font-weight: bold;"></div>';
 $script = <<< EOF
     <script>
         jQuery("#send_test_email").click(function(){
-            
+            jQuery("#info_block").html('');
             var data = {
                 action: "send_test_email",
-                order_id: jQuery("#test_mail").val(),
-                email_id: jQuery("#order_id").val(),
+                order_id: jQuery("#test_mail").val(), 
             };
 
             jQuery.post( ajaxurl, data, function(response) {
                 alert('Получено с сервера: ' + response);
+                jQuery("#info_block").html('Получено с сервера: ' + response);
             });
         });
     </script>
 EOF;
     echo $script;
 }
+
+
 
 add_action( 'wp_ajax_send_test_email', 'send_test_email_callback' );
 function send_test_email_callback() {
