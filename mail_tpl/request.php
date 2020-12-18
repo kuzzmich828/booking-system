@@ -66,7 +66,8 @@ function send_email($type, $email, $booking, $only_admin = false, $is_view = fal
     if (!$only_admin)
         wp_mail($email, $subject, $message, $headers);
 
-     wp_mail('kuzzmich828@gmail.com', $subject, $message, $headers);
+//    return wp_mail('kuzzmich828@gmail.com', $subject, $message, $headers);
+    return wp_mail($admin_email, $subject, $message, $headers);
 }
 
 function mail_request($fullname, $email, $phone, $quantity, $date, $time, $room, $price, $duration, $action, $subscription, $order = null)
