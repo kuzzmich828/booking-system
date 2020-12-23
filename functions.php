@@ -58,7 +58,8 @@ function bkng_save_booking(){
                 $wpcf_time = get_post_meta($fields['fw_option:room'], 'wpcf-time', 1);
                 $room_name = get_the_title($fields['fw_option:room']);
                 bkng_write_log("Cancelled booking #".$fields['booking_id']." | Attr:".json_encode($fields));
-                mail_request(
+                send_email('delete', $fields['fw_option:email'], get_all_meta_booking($fields['booking_id']), false);
+                /*mail_request(
                     $fields['fw_option:name'] ,
                     $fields['fw_option:email'] ,
                     $fields['fw_option:phone'] ,
@@ -71,7 +72,7 @@ function bkng_save_booking(){
                     798,
                     1,
                     $fields['booking_id']
-                );
+                );*/
             }
             $fields['fw_option:canceled'] = ($_POST['canceled_booking'] == 'on') ? 'on' : 'off';
 
@@ -114,7 +115,8 @@ function bkng_save_booking(){
             $booking_id = $response['booking_id'];
 
             $response = get_all_meta_booking($booking_id);
-            mail_request(
+            send_email('new', $response['email'], get_all_meta_booking($booking_id), false);
+            /*mail_request(
                 $response['name'] ,
                 $response['email'] ,
                 $response['phone'] ,
@@ -127,10 +129,12 @@ function bkng_save_booking(){
                 743,
                 1,
                 $booking_id
-            );
+            );*/
+
             if ($fields['fw_option:approve'] == 'on') {
                 approveBookingData($booking_id);
-                mail_request(
+                send_email('confirm', $response['email'], get_all_meta_booking($booking_id), false);
+                /*mail_request(
                     $response['name'] ,
                     $response['email'] ,
                     $response['phone'] ,
@@ -143,7 +147,7 @@ function bkng_save_booking(){
                     800,
                     1,
                     $booking_id
-                );
+                );*/
             }
 
         }

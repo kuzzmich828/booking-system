@@ -430,7 +430,8 @@ add_action('approve_booking_hook', function ($booking_id){
     update_post_meta($booking_id, 'fw_option:approve', 'on');
 
     $response = get_all_meta_booking($booking_id);
-    mail_request(
+    send_email('confirm', $response['email'], get_all_meta_booking($booking_id), false);
+    /*mail_request(
         $response['name'] ,
         $response['email'] ,
         $response['phone'] ,
@@ -443,7 +444,7 @@ add_action('approve_booking_hook', function ($booking_id){
         800,
         1,
         $booking_id
-    );
+    );*/
 
     approveBookingData($booking_id);
     bkng_write_log("User #".get_current_user_id()." APPROVE booking #{$booking_id}| Attr:".json_encode($response));
@@ -936,8 +937,8 @@ function callback_create_booking(){
         return wp_send_json([], 400);
     }
     $response = create_booking($fields);
-
-    mail_request(
+    send_email('new', $response['email'], get_all_meta_booking($response['booking_id']), false);
+    /*mail_request(
         $response['name'] ,
         $response['email'] ,
         $response['phone'] ,
@@ -950,7 +951,7 @@ function callback_create_booking(){
         743,
         1,
         $response['booking_id']
-    );
+    );*/
 
     wp_send_json(json_encode($response), 200);
 
@@ -999,8 +1000,8 @@ function before_delete_booking( $booking_id ) {
         return;
 
     $response = get_all_meta_booking($booking_id);
-
-    mail_request(
+    send_email('delete', $response['email'], get_all_meta_booking($booking_id), false);
+    /*mail_request(
         $response['name'] ,
         $response['email'] ,
         $response['phone'] ,
@@ -1013,7 +1014,7 @@ function before_delete_booking( $booking_id ) {
         798,
         1,
         $booking_id
-    );
+    );*/
 
 }
 

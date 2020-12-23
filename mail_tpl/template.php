@@ -227,7 +227,7 @@
 
                 <!--    ===========================================================    -->
                 <tr style="background-color: #ccc;margin: 0;padding: 0;font-size: 100%;font-family: 'Arial', 'sans-serif';line-height: 1.4;color: black;">
-                    <td class="content gray row-2" style="margin: 0;padding: 30px 35px;font-size: 100%;font-family: 'Arial', 'sans-serif';line-height: 1.4;color: black;direction: rtl;background: white;background-color: #f2f2f2;">
+                    <td class="content gray row-2" style="margin: 0;padding: 26px 35px 30px 35px;font-size: 100%;font-family: 'Arial', 'sans-serif';line-height: 1.4;color: black;direction: rtl;background: white;background-color: #f2f2f2;">
 
                         <h2 style="margin: 0;padding: 0;font-size: 26px;font-family: 'Arial', 'sans-serif';line-height: 1em;color: black;margin-bottom: 5px;font-weight: bold;">פירטי הזמנה</h2>
 
@@ -310,13 +310,13 @@
 
                 <!--    ===========================================================    -->
                 <tr style="background-color: #ccc;margin: 0;padding: 0;font-size: 100%;font-family: 'Arial', 'sans-serif';line-height: 1.4;color: black;">
-                    <td class="content gray" style="padding-top: 50px;margin: 0;padding: 10px 35px 30px 35px;font-size: 100%;font-family: 'Arial', 'sans-serif';line-height: 1.4;color: black;direction: rtl;background: white;background-color: #f2f2f2;">
+                    <td class="content gray" style="padding-top: 50px;margin: 0;padding: 12px 35px 30px 35px;font-size: 100%;font-family: 'Arial', 'sans-serif';line-height: 1.4;color: black;direction: rtl;background: white;background-color: #f2f2f2;">
                         <?= $email_block_3_content; ?>
                     </td>
                 </tr>
                 <!--    ===========================================================    -->
                 <tr style="margin: 0;padding: 0;font-size: 100%;font-family: 'Arial', 'sans-serif';line-height: 1.4;color: black;">
-                    <td class="content" style="margin: 0;padding: 13px 35px 20px 35px;font-size: 100%;font-family: 'Arial', 'sans-serif';line-height: 1.4;color: black;direction: rtl;background: white;">
+                    <td class="content" style="margin: 0;padding: 17px 35px 20px 35px;font-size: 100%;font-family: 'Arial', 'sans-serif';line-height: 1.4;color: black;direction: rtl;background: white;">
 
                         <?= $email_block_4_content; ?>
 
