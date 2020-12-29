@@ -331,7 +331,7 @@
                             <tr style="margin: 0;padding: 0;font-size: 100%;font-family: 'Arial', 'sans-serif';line-height: 1.4;color: black;">
                                 <td style="width: 250px;color: #fff;font-size: 18px;text-align: right;padding: 0;margin: 0;font-family: 'Arial', 'sans-serif';line-height: 1.4;"><?= $email_pnone_1; ?></td>
                                 <td style="width: auto;margin: 0;padding: 0;font-size: 100%;font-family: 'Arial', 'sans-serif';line-height: 1.4;color: black;padding: 0 10px;"><img style="min-width: 30px;max-height: 45px;margin: 0 auto;padding: 0;font-size: 100%;font-family: 'Arial', 'sans-serif';line-height: 1.4;color: black;max-width: 100%;display: block;" src="<?= $email_footer_logo;  ?>"></td>
-                                <td style="width: 250px;color: #fff;font-size: 18px;text-align: left;padding: 0;margin: 0;font-family: 'Arial', 'sans-serif';line-height: 1.4;"><?= $email_pnone_1; ?></td>
+                                <td style="width: 250px;color: #fff;font-size: 18px;text-align: left;padding: 0;margin: 0;font-family: 'Arial', 'sans-serif';line-height: 1.4;"><?= $email_pnone_2; ?></td>
                             </tr>
                             <tr style="margin: 0;padding: 0;font-size: 100%;font-family: 'Arial', 'sans-serif';line-height: 1.4;color: black;">
                                 <td colspan="3" style="padding: 10px 40px;text-align: center;margin: 0;font-size: 100%;font-family: 'Arial', 'sans-serif';line-height: 1.4;color: black;">

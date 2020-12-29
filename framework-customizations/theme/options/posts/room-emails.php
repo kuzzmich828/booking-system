@@ -89,7 +89,6 @@ $options = array(
             'label' => array( 'type' => 'text' ),
             'link' => array( 'type' => 'text' ),
         ),
-        'template' => '{{- label}}',
         'fw-storage' => array(
             'type' => 'post-meta',
             'post-meta' => 'fw_option:footer_links',

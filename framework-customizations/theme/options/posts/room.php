@@ -2,25 +2,6 @@
 
 $options = array(
 
-    'email_template' => array(
-        'type'  => 'select',
-        'label' =>  __('Email Template', 'booking-system') ,
-
-        'population' => 'array',
-
-        'source' => '',
-
-        'prepopulate' => 10,
-
-        'choices' => array(),
-
-        'fw-storage' => array(
-            'type' => 'post-meta',
-            'post-meta' => 'fw_option:email_template',
-        ),
-
-    ),
-
     'times' => array(
         'type'  => 'multi-select',
         'label' =>  __('Times', 'booking-system') ,
@@ -59,6 +40,16 @@ $options = array(
             'type' => 'post-meta',
             'post-meta' => 'fw_option:prices',
         ),
+    ),
+
+    'department' => array(
+        'type'  => 'text',
+        'label' =>  __('Department', 'booking-system') ,
+    ),
+
+    'email' => array(
+        'type'  => 'text',
+        'label' =>  __('Department', 'booking-system') ,
     ),
 
     'roomcontent' => array(
@@ -204,8 +195,6 @@ $options = array(
 
 );
 
-
-
 $times = get_times_format();
 
 foreach ($times as $v) {
@@ -219,14 +208,4 @@ $roomcontents = get_posts([
 $options['roomcontent']['choices']['-'] = '-';
 foreach ($roomcontents as $roomcontent) {
     $options['roomcontent']['choices'][$roomcontent->ID] = $roomcontent->post_title;
-}
-
-
-$emails = get_posts([
-    'post_type'  =>  'room-emails',
-    'status'    =>  'publish'
-]);
-$options['email_template']['choices']['-'] = '-';
-foreach ($emails as $email) {
-    $options['email_template']['choices'][$email->ID] = $email->post_title;
 }
