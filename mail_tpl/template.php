@@ -101,7 +101,7 @@
             background-position: center;
             background-size: 160px;
             background-repeat: no-repeat;
-            border-bottom: 2px solid #eee35e;
+            /*border-bottom: 2px solid #eee35e;*/
             color: white;
         }
 
@@ -214,20 +214,20 @@
 
             <!-- Message start -->
             <table class="main-table" style="margin: 0;padding: 0;font-size: 100%;font-family: 'Arial', 'sans-serif';line-height: 1.4;color: black;border: 1px solid #c4c4c4;border-spacing: 1px;height: 100%;border-collapse: separate;width: 100% !important;">
-                <tr style="margin: 0;padding: 0;font-size: 100%;font-family: 'Arial', 'sans-serif';line-height: 1.4;color: black;">
-                    <td align="center" class="masthead" style="margin: 0;padding: 75px 0;font-size: 100%;font-family: 'Arial', 'sans-serif';line-height: 1.4;color: white;background: #000000;background-position: center;background-size: 160px;background-repeat: no-repeat;border-bottom: 2px solid #eee35e;background-image: url('<?= $email_main_logo; ?>'); ">
+                <tr style="height:184px;margin: 0;padding: 0;font-size: 100%;font-family: 'Arial', 'sans-serif';line-height: 1.4;color: black;">
+                    <td align="center" class="masthead" style="margin: 0;padding: 75px 0;font-size: 100%;font-family: 'Arial', 'sans-serif';line-height: 1.4;color: white;background: #000000;background-position: center;background-size: 160px;background-repeat: no-repeat;border-bottom: unset;background-image: url('<?= $email_main_logo; ?>'); ">
                     </td>
                 </tr>
                 <!--    ===========================================================    -->
                 <tr style="margin: 0;padding: 0;font-size: 100%;font-family: 'Arial', 'sans-serif';line-height: 1.4;color: black;">
-                    <td class="content row-1" style="margin: 0;padding: 15px 35px 30px 35px;font-size: 100%;font-family: 'Arial', 'sans-serif';line-height: 1.4;color: black;direction: rtl;background: white;">
+                    <td class="content row-1" style="border-top: 2px solid #eee35e; margin: 0;padding: 18px 34px 24px 35px;font-size: 100%;font-family: 'Arial', 'sans-serif';line-height: 1.4;color: black;direction: rtl;background: white;">
                         <?= $header_content; ?>
                     </td>
                 </tr>
 
                 <!--    ===========================================================    -->
                 <tr style="background-color: #ccc;margin: 0;padding: 0;font-size: 100%;font-family: 'Arial', 'sans-serif';line-height: 1.4;color: black;">
-                    <td class="content gray row-2" style="margin: 0;padding: 26px 35px 30px 35px;font-size: 100%;font-family: 'Arial', 'sans-serif';line-height: 1.4;color: black;direction: rtl;background: white;background-color: #f2f2f2;">
+                    <td class="content gray row-2" style="margin: 0;padding: 21px 35px 27px 35px;font-size: 100%;font-family: 'Arial', 'sans-serif';line-height: 1.4;color: black;direction: rtl;background: white;background-color: #f2f2f2;">
 
                         <h2 style="margin: 0;padding: 0;font-size: 26px;font-family: 'Arial', 'sans-serif';line-height: 1em;color: black;margin-bottom: 5px;font-weight: bold;">פירטי הזמנה</h2>
 
@@ -285,7 +285,7 @@
                                             <td style="border-right: solid 3px transparent;margin: 0;padding: 0;font-size: 100%;font-family: 'Arial', 'sans-serif';line-height: 1.4;color: black;"><img style="width: 100%;max-height: 180px;margin-bottom: 4px;margin: 0 auto;padding: 0;font-size: 100%;font-family: 'Arial', 'sans-serif';line-height: 1.4;color: black;max-width: 100%;display: block;" src="<?= $room_image;  ?>"></td>
                                         </tr>
                                         <tr style="margin: 0;padding: 0;font-size: 100%;font-family: 'Arial', 'sans-serif';line-height: 1.4;color: black;">
-                                            <td style="height: 20px;padding: 4px 6px;background-color: #eee35e;font-size: 14px;color: white;margin: 0;font-family: 'Arial', 'sans-serif';line-height: 1.4;"><?= $booking['room_name']; ?></td>
+                                            <td style="height: 20px;padding: 5px 9px 3px 9px;background-color: #eee35e;font-size: 14px;color: white;margin: 0;font-family: 'Arial', 'sans-serif';line-height: 1.4;"><?= $booking['room_name']; ?></td>
                                         </tr>
                                     </table>
                                 </td>
@@ -298,7 +298,7 @@
 
                 <!--    ===========================================================    -->
                 <tr style="margin:0;padding: 0;font-size: 100%;font-family: 'Arial', 'sans-serif';line-height: 1.4;color: black;">
-                    <td class="content row-3" style="margin: 0;padding: 30px 39px 30px 35px;font-size: 100%;font-family: 'Arial', 'sans-serif';line-height: 1.4;color: black;direction: rtl;background: white;">
+                    <td class="content row-3" style="margin: 0;padding: 29px 39px 30px 35px;font-size: 100%;font-family: 'Arial', 'sans-serif';line-height: 1.4;color: black;direction: rtl;background: white;">
 
                         <div style="text-align: center;color: white;margin: 0;padding: 0;font-size: 100%;font-family: 'Arial', 'sans-serif';line-height: 1.4;">
 
@@ -310,13 +310,13 @@
 
                 <!--    ===========================================================    -->
                 <tr style="background-color: #ccc;margin: 0;padding: 0;font-size: 100%;font-family: 'Arial', 'sans-serif';line-height: 1.4;color: black;">
-                    <td class="content gray" style="padding-top: 50px;margin: 0;padding: 12px 35px 30px 35px;font-size: 100%;font-family: 'Arial', 'sans-serif';line-height: 1.4;color: black;direction: rtl;background: white;background-color: #f2f2f2;">
+                    <td class="content gray" style="padding-top: 50px;margin: 0;padding: 18px 34px 28px 35px;font-size: 100%;font-family: 'Arial', 'sans-serif';line-height: 1.4;color: black;direction: rtl;background: white;background-color: #f2f2f2;">
                         <?= $email_block_3_content; ?>
                     </td>
                 </tr>
                 <!--    ===========================================================    -->
                 <tr style="margin: 0;padding: 0;font-size: 100%;font-family: 'Arial', 'sans-serif';line-height: 1.4;color: black;">
-                    <td class="content" style="margin: 0;padding: 17px 35px 20px 35px;font-size: 100%;font-family: 'Arial', 'sans-serif';line-height: 1.4;color: black;direction: rtl;background: white;">
+                    <td class="content" style="border-bottom: 2px solid #eee35e; margin: 0;padding: 10px 34px 14px 35px;font-size: 100%;font-family: 'Arial', 'sans-serif';line-height: 1.4;color: black;direction: rtl;background: white;">
 
                         <?= $email_block_4_content; ?>
 
@@ -326,7 +326,7 @@
                 <!--    ===========================================================    -->
 
                 <tr style="margin: 0;padding: 0;font-size: 100%;font-family: 'Arial', 'sans-serif';line-height: 1.4;color: black;">
-                    <td align="center" class="mastfooter" style="padding: 35px 0 0 0;background: #000000;border-top: 2px solid #eee35e;color: white;margin: 0;font-size: 100%;font-family: 'Arial', 'sans-serif';line-height: 1.4;">
+                    <td align="center" class="mastfooter" style="padding: 35px 0 0 0;background: #000000;border-top: unset;color: white;margin: 0;font-size: 100%;font-family: 'Arial', 'sans-serif';line-height: 1.4;">
                         <table style="margin: 0;padding: 0;font-size: 100%;font-family: 'Arial', 'sans-serif';line-height: 1.4;color: black;height: 100%;border-collapse: collapse;width: 100% !important;">
                             <tr style="margin: 0;padding: 0;font-size: 100%;font-family: 'Arial', 'sans-serif';line-height: 1.4;color: black;">
                                 <td style="width: 250px;color: #fff;font-size: 18px;text-align: right;padding: 0;margin: 0;font-family: 'Arial', 'sans-serif';line-height: 1.4;"><?= $email_pnone_1; ?></td>

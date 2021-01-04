@@ -1125,8 +1125,10 @@ function send_test_email_callback() {
 
 
 add_action('init', function (){
+
     if (isset($_GET['view_mail']) &&  $_GET['view_mail']){
         send_email('new', 'test@mail.com', get_all_meta_booking($_GET['view_mail']), false, true);
+        die;
     }
     if (isset($_GET['send_test_mail']) &&  $_GET['send_test_mail']){
         send_email('new', 'test@mail.com', get_all_meta_booking($_GET['send_test_mail']), false, false);
