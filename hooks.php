@@ -40,7 +40,7 @@ function bkng_register_posts_type(){
         'query_var'          => true,
         'rewrite'            => true,
         'capability_type'    => 'room',
-//        'has_archive'        => true,
+        'has_archive'        => true,
         'hierarchical'       => false,
         'menu_position'      => 4,
         'menu_icon'          => 'dashicons-grid-view',
@@ -578,6 +578,9 @@ add_action('init', function (){
 add_action( 'updated_post_meta', 'callback_update_bookin_meta', 10, 4);
 
 function callback_update_bookin_meta($meta_id, $post_id, $meta_key, $meta_value ){
+
+    if (get_post_type($post_id) != 'bookings')
+        return;
 
     remove_action('updated_post_meta', 'callback_update_bookin_meta');
 

@@ -150,7 +150,7 @@ function add_column_name_sort( $user_query ){
     if ( !is_admin() )
         return;
 
-    if ( $current_screen->id != 'edit-bookings' )
+    if ( isset($current_screen->id)  && $current_screen->id != 'edit-bookings' )
         return;
 
     $vars = $user_query->query_vars;
