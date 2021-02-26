@@ -419,6 +419,14 @@ function rcopy($src, $dest){
 }
 
 add_action('admin_footer', function (){
+    ?><script type="application/javascript">
+        jQuery(document).click('.hndle.ui-sortable-handle',function () {
+            jQuery(this).find(".postbox.fw-postbox.initialized").removeClass("closed");
+        });
+    </script><?php
+});
+
+add_action('admin_footer', function (){
     ?>
     <style>
         #menu-posts-booking_, #menu-posts-bookings ul, #fw-backend-option-fw-option-approve_time, #fw-backend-option-fw-option-approve_person {
