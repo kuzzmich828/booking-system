@@ -40,7 +40,7 @@ function bkng_register_posts_type(){
         'query_var'          => true,
         'rewrite'            => true,
         'capability_type'    => 'room',
-//        'has_archive'        => true,
+        'has_archive'        => true,
         'hierarchical'       => false,
         'menu_position'      => 4,
         'menu_icon'          => 'dashicons-grid-view',
@@ -299,7 +299,7 @@ function callback_get_room_attributes(){
         $data ['description'] = apply_filters('the_content', $the_post->post_content);
     }
     $data ['room_name'] = apply_filters('the_title', $the_post->post_title);
-    $data ['room_image'] = get_post_meta($room_id, 'fw_option:room_bg_image', 1)['url'];
+    $data ['room_image'] = isset(get_post_meta($room_id, 'fw_option:room_bg_image', 1)['url']) ? get_post_meta($room_id, 'fw_option:room_bg_image', 1)['url'] : '';
 
     /********* Get room attributes ***********/
     $data ['time_text'] = get_post_meta($room_id, 'wpcf-time', 1);
@@ -578,6 +578,9 @@ add_action('init', function (){
 add_action( 'updated_post_meta', 'callback_update_bookin_meta', 10, 4);
 
 function callback_update_bookin_meta($meta_id, $post_id, $meta_key, $meta_value ){
+
+    if (get_post_type($post_id) != 'bookings')
+        return;
 
     remove_action('updated_post_meta', 'callback_update_bookin_meta');
 
@@ -1132,3 +1135,9 @@ add_action('init', function (){
         send_email('new', 'test@mail.com', get_all_meta_booking($_GET['send_test_mail']), false, false);
     }
 });
+
+add_action( 'pre_get_posts', 'exclude_category', 10, 1 );
+function exclude_category( $query ) {
+    if ($query->get('post_type') == 'bookings')
+        $query->set( 'posts_per_page', 200 );
+}

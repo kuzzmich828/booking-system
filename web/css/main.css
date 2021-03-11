@@ -1,4 +1,4 @@
-html, body {
+/*html, body {
   width: 100%;
   height: auto;
   padding: 0;
@@ -9,7 +9,7 @@ html, body {
   unicode-bidi: embed;
   font-size: 20px;
   background: #000;
-}
+}*/
 
 .clearfix {
   width: 100%;

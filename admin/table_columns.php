@@ -150,26 +150,27 @@ function add_column_name_sort( $user_query ){
     if ( !is_admin() )
         return;
 
-    if ( isset($current_screen->id)  &&  $current_screen->id != 'edit-bookings' )
+    if ( isset($current_screen->id)  && $current_screen->id != 'edit-bookings' )
         return;
 
     $vars = $user_query->query_vars;
 
-    if( 'name' === $vars['orderby'] ){
-        $user_query->set('meta_key', 'fw_option:name');
-        $user_query->set( 'orderby', 'meta_value' );
-        $user_query->set( 'order', $vars['order'] );
-    } elseif ( 'room_date' === $vars['orderby'] ){
-        $user_query->set('meta_key', 'room_date:timestamp');
-        $user_query->set( 'orderby', 'meta_value_num' );
-        $user_query->set( 'order', $vars['order'] );
-    } elseif ( 'approved_date' === $vars['orderby'] ){
-        $user_query->set('meta_key', 'fw_option:approve_time');
-        $user_query->set( 'orderby', 'meta_value' );
-        $user_query->set( 'order', $vars['order'] );
-    } elseif ( 'booking_created' === $vars['orderby'] ){
-        $user_query->set( 'orderby', 'date' );
-        $user_query->set( 'order', $vars['order'] );
+    if (isset($vars['orderby'])) {
+        if ('name' === $vars['orderby']) {
+            $user_query->set('meta_key', 'fw_option:name');
+            $user_query->set('orderby', 'meta_value');
+            $user_query->set('order', $vars['order']);
+        } elseif ('room_date' === $vars['orderby']) {
+            $user_query->set('meta_key', 'room_date:timestamp');
+            $user_query->set('orderby', 'meta_value_num');
+            $user_query->set('order', $vars['order']);
+        } elseif ('approved_date' === $vars['orderby']) {
+            $user_query->set('meta_key', 'fw_option:approve_time');
+            $user_query->set('orderby', 'meta_value');
+            $user_query->set('order', $vars['order']);
+        } elseif ('booking_created' === $vars['orderby']) {
+            $user_query->set('orderby', 'date');
+            $user_query->set('order', $vars['order']);
+        }
     }
-
 }
