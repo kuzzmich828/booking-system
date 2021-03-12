@@ -59,7 +59,7 @@ add_action('admin_init', function () {
         }
         /****************** APPROVE ***********************/
         if (isset($_POST['approve_booking']) && isset($_POST['booking_id']) && $_POST['booking_id']) {
-            do_action('approve_booking_hook', $_POST['booking_id']);
+            do_action('approve_booking_hook', $_POST['booking_id'], $_POST['approve_booking']);
             add_action('admin_notices', 'my_plugin_notice_approve');
             function my_plugin_notice_approve()
             {

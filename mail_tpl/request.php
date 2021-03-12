@@ -59,14 +59,10 @@ function send_email($type, $email, $booking, $only_admin = false, $is_view = fal
         'From: '.$bloginfo.' <' . $admin_email . '>',
         'content-type: text/html',
     );
-
-    if ($order)
-        $message = str_replace(['##order##'], [$order], $message);
-
+    
     if (!$only_admin)
         wp_mail($email, $subject, $message, $headers);
 
-//    return wp_mail('kuzzmich828@gmail.com', $subject, $message, $headers);
     return wp_mail($admin_email, $subject, $message, $headers);
 }
 

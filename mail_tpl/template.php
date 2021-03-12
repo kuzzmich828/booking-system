@@ -337,10 +337,12 @@
                                 <td colspan="3" style="padding: 10px 40px;text-align: center;margin: 0;font-size: 100%;font-family: 'Arial', 'sans-serif';line-height: 1.4;color: black;">
 
                                     <ul style="display: inline-block;list-style: none;font-size: small;margin: 0;padding: 0;font-family: 'Arial', 'sans-serif';line-height: 1.4;color: black;font-weight: normal;margin-bottom: 15px;margin-left: 0;padding-left: 0;">
-                                        <?php for($i = 0; $i < count($email_footer_menu); $i++): ?>
-                                            <li style="display: inline;padding: 3px 0;margin: 0;font-size: 100%;font-family: 'Arial', 'sans-serif';line-height: 1.4;color: black;text-indent: 0em;">  <a style="color: #eee35e;font-size: 16px;margin: 0;padding: 0;font-family: 'Arial', 'sans-serif';line-height: 1.4;text-decoration: underline;" href="<?= $email_footer_menu[$i]['link'];  ?>"><?= $email_footer_menu[$i]['label']; ?></a>
-                                                <?php if ($i + 1 < count($email_footer_menu)): ?><span style="color: #fff;padding: 0 5px;margin: 0;font-size: 100%;font-family: 'Arial', 'sans-serif';line-height: 1.4;">|</span><?php endif; ?> </li>
-                                        <?php endfor; ?>
+                                        <?php if (is_array($email_footer_menu)): ?>
+                                            <?php for($i = 0; $i < count($email_footer_menu); $i++): ?>
+                                                <li style="display: inline;padding: 3px 0;margin: 0;font-size: 100%;font-family: 'Arial', 'sans-serif';line-height: 1.4;color: black;text-indent: 0em;">  <a style="color: #eee35e;font-size: 16px;margin: 0;padding: 0;font-family: 'Arial', 'sans-serif';line-height: 1.4;text-decoration: underline;" href="<?= $email_footer_menu[$i]['link'];  ?>"><?= $email_footer_menu[$i]['label']; ?></a>
+                                                    <?php if ($i + 1 < count($email_footer_menu)): ?><span style="color: #fff;padding: 0 5px;margin: 0;font-size: 100%;font-family: 'Arial', 'sans-serif';line-height: 1.4;">|</span><?php endif; ?> </li>
+                                            <?php endfor; ?>
+                                        <?php endif; ?>
                                     </ul>
 
                                 </td>

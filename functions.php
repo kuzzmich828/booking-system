@@ -59,20 +59,7 @@ function bkng_save_booking(){
                 $room_name = get_the_title($fields['fw_option:room']);
                 bkng_write_log("Cancelled booking #".$fields['booking_id']." | Attr:".json_encode($fields));
                 send_email('delete', $fields['fw_option:email'], get_all_meta_booking($fields['booking_id']), false);
-                /*mail_request(
-                    $fields['fw_option:name'] ,
-                    $fields['fw_option:email'] ,
-                    $fields['fw_option:phone'] ,
-                    $fields['fw_option:quantity'] ,
-                    $fields['fw_option:room_date'] ,
-                    $fields['fw_option:room_time'] ,
-                    $room_name ,
-                    $fields['fw_option:amount_price'] ,
-                    $wpcf_time ,
-                    798,
-                    1,
-                    $fields['booking_id']
-                );*/
+
             }
             $fields['fw_option:canceled'] = ($_POST['canceled_booking'] == 'on') ? 'on' : 'off';
 
@@ -98,8 +85,11 @@ function bkng_save_booking(){
             }
 
             foreach ($fields as $key => $val) {
-                if ($val !== null)
+                if ($key == 'fw_option:approve'){
+                    do_action('approve_booking_hook', $fields['booking_id'], $fields['fw_option:approve']);
+                } elseif ($val !== null ) {
                     update_post_meta($fields['booking_id'], $key, $val);
+                }
             }
 
             $booking_id = $_POST['booking_id'];
@@ -116,38 +106,11 @@ function bkng_save_booking(){
 
             $response = get_all_meta_booking($booking_id);
             send_email('new', $response['email'], get_all_meta_booking($booking_id), false);
-            /*mail_request(
-                $response['name'] ,
-                $response['email'] ,
-                $response['phone'] ,
-                $response['quantity'] ,
-                $response['room_date'] ,
-                $response['room_time'] ,
-                $response['room_name'] ,
-                $response['amount_price'] ,
-                $response['wpcf_time'] ,
-                743,
-                1,
-                $booking_id
-            );*/
+
 
             if ($fields['fw_option:approve'] == 'on') {
                 approveBookingData($booking_id);
                 send_email('confirm', $response['email'], get_all_meta_booking($booking_id), false);
-                /*mail_request(
-                    $response['name'] ,
-                    $response['email'] ,
-                    $response['phone'] ,
-                    $response['quantity'] ,
-                    $response['room_date'] ,
-                    $response['room_time'] ,
-                    $response['room_name'] ,
-                    $response['amount_price'] ,
-                    $response['wpcf_time'] ,
-                    800,
-                    1,
-                    $booking_id
-                );*/
             }
 
         }

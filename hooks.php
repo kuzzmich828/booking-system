@@ -424,31 +424,27 @@ function callback_get_booking(){
 
 }
 
-add_action('approve_booking_hook', function ($booking_id){
-    if (!$booking_id)
+add_action('approve_booking_hook', function ($booking_id, $approve){
+
+    if (!$booking_id || !$approve)
         return;
-    update_post_meta($booking_id, 'fw_option:approve', 'on');
+
+    $old_val = get_post_meta($booking_id, 'fw_option:approve', true);
+    if ($old_val == $approve) {
+        return;
+    }
+
+    update_post_meta($booking_id, 'fw_option:approve', $approve);
 
     $response = get_all_meta_booking($booking_id);
-    send_email('confirm', $response['email'], get_all_meta_booking($booking_id), false);
-    /*mail_request(
-        $response['name'] ,
-        $response['email'] ,
-        $response['phone'] ,
-        $response['quantity'] ,
-        $response['room_date'] ,
-        $response['room_time'] ,
-        $response['room_name'] ,
-        $response['amount_price'] ,
-        $response['wpcf_time'] ,
-        800,
-        1,
-        $booking_id
-    );*/
+
+    if ($old_val == 'off' && $approve == 'on') {
+        send_email('confirm', $response['email'], get_all_meta_booking($booking_id), false);
+    }
 
     approveBookingData($booking_id);
     bkng_write_log("User #".get_current_user_id()." APPROVE booking #{$booking_id}| Attr:".json_encode($response));
-});
+}, 10, 2);
 
 add_action('delete_booking_hook', function ($booking_id){
     if (!$booking_id)
@@ -763,8 +759,11 @@ add_action('admin_footer', function () {
 });
 
 add_action('restrict_manage_posts', function () {
-    global $wp_query;
 
+    if (get_current_screen()->id != 'edit-bookings')
+        return;
+
+    global $wp_query;
     $query = clone $wp_query;
 //    $query->query['posts_per_page'] = 99999;
     $posts = $query->get_posts();
