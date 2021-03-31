@@ -135,6 +135,12 @@ function get_booking_count_by_date(){
         $date_3 = date("03-Y");
         $date_4 = date("04-Y");
         $date_5 = date("05-Y");
+    }elseif (date("d") > '29' ) {
+        $date_1 = date("m", strtotime("-1 month", current_time('timestamp'))) . date('-Y');
+        $date_2 = date('m-Y');
+        $date_3 = date("m-Y", strtotime("+5 day", current_time('timestamp')));
+        $date_4 = date("m-Y", strtotime("+2 month", current_time('timestamp')));
+        $date_5 = date("m-Y", strtotime("+3 month", current_time('timestamp')));
     }else{
         $date_1 = date("m", strtotime("-1 month", current_time('timestamp'))) . date('-Y');
         $date_2 = date('m-Y');
@@ -219,10 +225,13 @@ function get_booking_after_date($from_date, $time, $frozen = null, $approve = nu
     if (date("m") == '01' && date("d") > 27) {
         $date_2 = $date->modify('+27 day')->format('-m-Y');
         $date_3 = $date->modify('+1 month')->format('-m-Y');
+    }elseif (date("d") > '29') {
+        $date_2 = $date->modify('+5 day')->format('-m-Y');
     }else{
         $date_2 = $date->modify('+1 month')->format('-m-Y');
         $date_3 = $date->modify('+1 month')->format('-m-Y');
     }
+
 
     $args = [
         'posts_per_page' =>  -1,
