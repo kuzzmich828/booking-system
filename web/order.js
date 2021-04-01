@@ -109,8 +109,11 @@ document.addEventListener("DOMContentLoaded", function () {
                 $('#order_phone').html(response['phone']);
                 $('#order_value').html(response['amount_price']);
 
-
                 $(modal3).addClass('show');
+            },
+            error: function(data){
+                alert('Order Error');
+                window.location.reload();
             }
 
         });

@@ -924,6 +924,7 @@ function callback_create_booking(){
     $fields['fw_option:room_time'] = (isset($_POST['room_time']) && $_POST['room_time']) ? $_POST['room_time'] : null;
     $fields['fw_option:subscription'] = (isset($_POST['subscription']) && ($_POST['subscription']) == 'true') ? 'on' : 'off';
 
+    $fields['fw_option:canceled'] = 'off';
     $fields['fw_option:frozen'] = 'off';
     $fields['fw_option:approve'] = 'off';
     $fields['fw_option:approve_person'] = '';
@@ -940,20 +941,6 @@ function callback_create_booking(){
     }
     $response = create_booking($fields);
     send_email('new', $response['email'], get_all_meta_booking($response['booking_id']), false);
-    /*mail_request(
-        $response['name'] ,
-        $response['email'] ,
-        $response['phone'] ,
-        $response['quantity'] ,
-        $response['room_date'] ,
-        $response['room_time'] ,
-        $response['room_name'] ,
-        $response['amount_price'] ,
-        $response['wpcf_time'] ,
-        743,
-        1,
-        $response['booking_id']
-    );*/
 
     wp_send_json(json_encode($response), 200);
 
@@ -1003,20 +990,6 @@ function before_delete_booking( $booking_id ) {
 
     $response = get_all_meta_booking($booking_id);
     send_email('delete', $response['email'], get_all_meta_booking($booking_id), false);
-    /*mail_request(
-        $response['name'] ,
-        $response['email'] ,
-        $response['phone'] ,
-        $response['quantity'] ,
-        $response['room_date'] ,
-        $response['room_time'] ,
-        $response['room_name'] ,
-        $response['amount_price'] ,
-        $response['wpcf_time'] ,
-        798,
-        1,
-        $booking_id
-    );*/
 
 }
 

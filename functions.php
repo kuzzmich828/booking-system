@@ -485,11 +485,7 @@ function check_room_for_booking($room_id, $date, $time){
                 'key' => 'fw_option:room',
                 'value' => $room_id,
             ],
-            [
-                'key' => 'fw_option:canceled',
-                'compare' => 'NOT LIKE',
-                'value' => 'on',
-            ],
+
         ),
     ]);
     return $query->post_count;
