@@ -1108,7 +1108,7 @@ add_action('init', function (){
     }
 });
 
-add_action( 'pre_get_posts', 'exclude_category', 10, 1 );
+//add_action( 'pre_get_posts', 'exclude_category', 10, 1 );
 function exclude_category( $query ) {
     if ($query->get('post_type') == 'bookings')
         $query->set( 'posts_per_page', 200 );
