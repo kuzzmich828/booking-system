@@ -82,11 +82,11 @@ jQuery( document ).ready(function() {
     jQuery(document).on("click", ".change-date-button", function (event) {
 
         event.preventDefault();
-
+  
         jQuery(".alert-calendar").show();
         jQuery(".cell-day").removeClass("selected-day");
         jQuery(".cell-time").removeClass("selected-day");
-        is_change_datetime = true;
+        is_change_datetime = true; 
         jQuery(this).attr('data-room-id', jQuery(input_rooms).val());
         jQuery(this).hide();
         jQuery(button_edit).hide();
@@ -247,7 +247,7 @@ jQuery( document ).ready(function() {
         disableTodayTimeAdmin();
         jQuery("#custom-time-table").hide();
         // if (!ajax_load_booking)
-            jQuery("#custom-time-button").show();
+        jQuery("#custom-time-button").show();
         jQuery("#calendar-time").show();
         jQuery(button_save).show();
         spinnerHide();
@@ -277,7 +277,6 @@ jQuery( document ).ready(function() {
 
         if (!is_change_datetime) {
             jQuery("#booking_id").val('');
-        } else {
             jQuery(table_edit).hide();
             showNewBooking();
         }
