@@ -488,7 +488,19 @@ function check_room_for_booking($room_id, $date, $time){
 
         ),
     ]);
-    return $query->post_count;
+
+    $posts = $query->get_posts();
+    $find = 0;
+    foreach ($posts as $post){
+        $is_canceled = get_post_meta($post->ID, 'fw_option:canceled', 1);
+        if ($is_canceled == 'off'){
+            $find = 1;
+            break;
+        }
+    }
+    return $find;
+
+//    return $query->post_count;
 }
 
 function bkng_write_log($str){
