@@ -53,7 +53,7 @@ jQuery(document).on("click", "input#publish", function(){
 
 jQuery(document).on("change", input_room, function (event) {
 
-    var id = $(this).val();
+    var id = jQuery(this).val();
     jQuery(input_room_time).val('');
     jQuery(input_room_date).val('');
     jQuery(input_amount_price).val('');
@@ -97,8 +97,8 @@ jQuery(document).on("change", input_room, function (event) {
 
 jQuery(document).on("changeDate", input_room_date, function (event) {
 
-        var selected_date = $(this).val();
-        var room_id = $(input_room).val();
+        var selected_date = jQuery(this).val();
+        var room_id = jQuery(input_room).val();
 
         /******* AJAX ******/
         jQuery.ajax({

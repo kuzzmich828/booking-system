@@ -190,7 +190,7 @@ function bkng_dashboard_widget_need_approve_handler() {
             <div style="display:flex; direction: rtl;">
                 <form action="" method="post" class="dashboard-form-approve">
                     <input type="hidden" name="booking_id" value="<?= $booking['booking_id']; ?>" />
-                    <button class="button button-approve" name="approve_booking" type="submit"><?= __( 'Approve', 'booking-system' ); ?></button>
+                    <button class="button button-approve" value="on" name="approve_booking" type="submit"><?= __( 'Approve', 'booking-system' ); ?></button>
                 </form>
                 <form action="" method="post" class="dashboard-form-del">
                     <?php if (check_capability_delete_button()): ?>
