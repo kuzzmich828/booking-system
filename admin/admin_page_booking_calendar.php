@@ -71,6 +71,7 @@
                     </div>
                     <div style="display: none;" id="custom-time-table">
                         <p><?= __('Set custom time', 'booking-system'); ?></p>
+                        <span style="direction: rtl;margin-right: 10px;margin-left: 25px;"> שעות   </span> <span style="direction: rtl;"> דקות   </span>   <br>
                         <input type="number" min="0" max="23"  id="custom-hour" value="00" />:<input id="custom-minute" type="number" min="0" max="59" value="00" />
                     </div>
                 </div>
