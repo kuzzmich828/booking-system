@@ -4,7 +4,7 @@ Plugin Name: Booking System Esc
 Plugin URI:
 Description: Booking System Esc
 Author: kuzzmich
-Version: 2.8
+Version: 2.8.1
 */
 
 register_activation_hook(__FILE__, 'bkng_active');
@@ -21,7 +21,14 @@ function bkng_active() {
 add_action('admin_menu', 'add_to_admin_menu_bkng');
 function add_to_admin_menu_bkng(){
 
-    add_menu_page(__('Booking Calendar','booking-system'), __('Booking Calendar','booking-system'), 'edit_others_posts' , 'booking-calendar', 'admin_page_booking_calendar', 'dashicons-calendar-alt', 5);
+    add_menu_page(__('Booking System','booking-system'), __('Booking System','booking-system'), 'edit_others_posts' , 'booking-calendar', 'admin_page_booking_calendar', 'dashicons-calendar-alt', 5);
+    add_submenu_page( 'booking-calendar', __('Booking Table','booking-system'), __('Booking Table','booking-system'), 'edit_others_posts', 'edit.php?post_type=bookings', '', 1 );
+    add_submenu_page( 'booking-calendar', __('Rooms','booking-system'), __('Rooms','booking-system'), 'edit_others_posts', 'edit.php?post_type=room', '', 2 );
+    add_submenu_page( 'booking-calendar', __('Emails','booking-system'), __('Emails','booking-system'), 'edit_others_posts', 'edit.php?post_type=room-emails', '', 3 );
+    add_submenu_page( 'booking-calendar', __('Room Content','booking-system'), __('Room Content','booking-system'), 'edit_others_posts', 'edit.php?post_type=roomcontent', '', 4 );
+
+
+
 }
 
 if (is_admin() && isset($_GET['page']) && $_GET['page'] == 'booking-calendar' ) {
