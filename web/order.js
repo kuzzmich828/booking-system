@@ -64,6 +64,9 @@ document.addEventListener("DOMContentLoaded", function () {
         }else if (!email){
             alert("נא למלא את הדוא”ל!");
             return;
+        }else if (!validateEmail(email)){
+            alert("אימייל שגוי!");
+            return;
         }else if (!phone){
             alert("נא למלא את מס’ הטלפון!");
             return;
@@ -125,6 +128,11 @@ document.addEventListener("DOMContentLoaded", function () {
     close.addEventListener('click', function () {
         close_all_modal();
     });
+
+    function validateEmail(email) {
+        const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+        return re.test(String(email).toLowerCase());
+    }
 
     function close_all_modal() {
 
