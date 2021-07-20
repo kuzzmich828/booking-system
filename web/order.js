@@ -58,7 +58,11 @@ document.addEventListener("DOMContentLoaded", function () {
         var room_id = selected_room_id;//$(button1).attr('id');
         var price = $('#quest__quantity').val();
 
-        if (!name){
+        var regexPhone = /^[0-9]{10,15}$/;
+        var regexName = /^[\w\d\s-_]{1,25}$/;
+
+
+        if (!name || !regexName.test(name)){
             alert("השם לא מלא");
             return;
         }else if (!email){
@@ -67,7 +71,7 @@ document.addEventListener("DOMContentLoaded", function () {
         }else if (!validateEmail(email)){
             alert("אימייל שגוי!");
             return;
-        }else if (!phone){
+        }else if (!phone || !regexPhone.test(phone)){
             alert("נא למלא את מס’ הטלפון!");
             return;
         }else if ($('.quest_politics-js').prop('checked') !== true){

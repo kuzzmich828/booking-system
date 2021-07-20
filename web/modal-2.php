@@ -11,9 +11,9 @@
             <span class="wrapper-quest__time quest__time-js">16:30</span>
         </div><!-- datetime-block -->
 
-        <input required="" type="text" name="quest_fullname" placeholder="* שם מלא">
-        <input required="" type="email" name="quest_email" placeholder="* דוא”ל">
-        <input required="" type="tel" name="quest_phone" placeholder="* טלפון / נייד">
+        <input required type="text" minlength="1" name="quest_fullname" placeholder="* שם מלא">
+        <input required type="email" name="quest_email" placeholder="* דוא”ל">
+        <input required type="tel" minlength="10" maxlength="15" name="quest_phone" placeholder="* טלפון / נייד">
         <span class="wrapper-quest__span">* משתתפים במשחק</span>
         <select id="quest__quantity" name="wrapper-quest__quantity">
         </select>
