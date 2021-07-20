@@ -59,7 +59,7 @@ document.addEventListener("DOMContentLoaded", function () {
         var price = $('#quest__quantity').val();
 
         var regexPhone = /^[0-9]{10,15}$/;
-        var regexName = /^[\w\d\s-_]{1,25}$/;
+        var regexName = /^[\u0590-\u05FF\w\d\s-_]{1,25}$/;
 
 
         if (!name || !regexName.test(name)){
