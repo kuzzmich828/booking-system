@@ -14,6 +14,8 @@ function add_post_formats_filter_to_post_administration(){
             <?php endforeach; ?>
         </select>
 
+        <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+        <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
         <!--  ***********************************************************   -->
 <!--        <input type="text" onfocus="(this.type='date')"  name="room_date" id="room_date" class="postform" placeholder="תאריך משחק"/>-->
 
@@ -54,7 +56,6 @@ function add_post_formats_filter_to_post_administration(){
 
         <input type="text"  autocomplete="off" name="room_date"  placeholder="תאריך משחק" id="datepicker">
 
-        <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
         <script>
             /* Hebrew initialisation for the UI Datepicker extension. */
             /* Written by Amir Hardon (ahardon at gmail dot com). */
