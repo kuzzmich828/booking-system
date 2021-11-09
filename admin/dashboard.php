@@ -87,8 +87,9 @@ function bkng_dashboard_widget_all_booking() {
 
 function bkng_dashboard_widget_all_booking_handler() {
     global $all_bookings;
+
     if (!$all_bookings)
-        $all_bookings = get_booking_after_date(current_time('d-m-Y'), current_time('H:i'), 'off', 'on');
+        $all_bookings = get_booking_after_date(current_time('d-m-Y'), current_time("H:i"), 'off', 'on');
     foreach ($all_bookings as $booking):
 ?>
         <div class="activity-block">

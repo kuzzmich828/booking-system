@@ -297,9 +297,11 @@ function get_booking_after_date($from_date, $time, $frozen = null, $approve = nu
         if ($timeformat)
             $timestamp = $timeformat->getTimestamp();
 
+        $date_minus_2_hours = new DateTime(current_time('Y-m-d H:i:s'));
+        $date_minus_2_hours->modify("-2 hours");
 
         if ($timestamp)
-            if ($timestamp > current_time('timestamp')){
+            if ($timestamp > $date_minus_2_hours->getTimestamp()){
                 $meta = get_all_meta_booking($booking->ID);
                 $response[] = array_merge(['timestamp' => $timestamp], $meta);
             }
