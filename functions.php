@@ -298,7 +298,7 @@ function get_booking_after_date($from_date, $time, $frozen = null, $approve = nu
             $timestamp = $timeformat->getTimestamp();
 
         $date_minus_2_hours = new DateTime(current_time('Y-m-d H:i:s'));
-        $date_minus_2_hours->modify("-2 hours");
+        $date_minus_2_hours->modify("-1 hours");
 
         if ($timestamp)
             if ($timestamp > $date_minus_2_hours->getTimestamp()){
@@ -406,8 +406,9 @@ add_action('admin_footer', function (){
         #menu-posts-mails, #menu-posts-booking_, #menu-posts-bookings ul, #fw-backend-option-fw-option-approve_time, #fw-backend-option-fw-option-approve_person {
             display: none;
         }
-
-
+        .update-nag.notice.notice-warning {
+            display: none !important;
+        }
     </style>
     <?php
 });
