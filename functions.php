@@ -26,8 +26,8 @@ function bkng_save_booking(){
         }
 
         $booking_id = '';
-        $fields['booking_id'] = (isset($_POST['booking_id']) && $_POST['booking_id']) ? $_POST['booking_id'] : null;
-        $fields['fw_option:room'] = (isset($_POST['room_id']) && $_POST['room_id']) ? $_POST['room_id'] : null;
+        $fields['booking_id'] = (isset($_POST['booking_id']) && (int)$_POST['booking_id']) ? (int)$_POST['booking_id'] : null;
+        $fields['fw_option:room'] = (isset($_POST['room_id']) && (int)$_POST['room_id']) ? (int)$_POST['room_id'] : null;
         $fields['fw_option:name'] = (isset($_POST['name_booking']) && $_POST['name_booking']) ? $_POST['name_booking'] : null;
         $fields['fw_option:phone'] = (isset($_POST['phone_booking']) && $_POST['phone_booking']) ? $_POST['phone_booking'] : null;
         $fields['fw_option:email'] = (isset($_POST['email_booking']) && $_POST['email_booking']) ? $_POST['email_booking'] : null;
@@ -76,7 +76,7 @@ function bkng_save_booking(){
         }
         /***************** ********************/
 
-        if ($fields['booking_id'] != null) {
+        if ($fields['booking_id']) {
 
             if ($fields['fw_option:approve'] == 'on') {
                 approveBookingData($fields['booking_id']);
@@ -97,7 +97,7 @@ function bkng_save_booking(){
             updateRoomQuantity($booking_id, $fields['fw_option:room'], $fields['fw_option:amount_price']);
             callback_post_options_update($booking_id);
             bkng_write_log("User #".get_current_user_id()." UPDATE booking #".$booking_id." | Attr:".json_encode($fields));
-        }elseif($fields['fw_option:room'] != null){
+        }elseif($fields['fw_option:room']){
 
             if (check_room_for_booking($fields['fw_option:room'], $fields['fw_option:room_date'], $fields['fw_option:room_time']))
                 return false;
@@ -471,6 +471,11 @@ add_action('wp_footer', function (){
 });
 
 function check_room_for_booking($room_id, $date, $time){
+
+    if (!$room_id || !(string)$date || !(string)$time){
+        return 1;
+    }
+
     $query = new WP_Query([
         'posts_per_page' => -1,
         'post_type' =>  'bookings',
@@ -490,7 +495,6 @@ function check_room_for_booking($room_id, $date, $time){
                 'key' => 'fw_option:room',
                 'value' => $room_id,
             ],
-
         ),
     ]);
 
@@ -503,9 +507,8 @@ function check_room_for_booking($room_id, $date, $time){
             break;
         }
     }
-    return $find;
 
-//    return $query->post_count;
+    return $find;
 }
 
 function bkng_write_log($str){

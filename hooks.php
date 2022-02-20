@@ -914,7 +914,7 @@ add_action( 'wp_ajax_nopriv_create_booking', 'callback_create_booking' );
 function callback_create_booking(){
 
     $fields = [];
-    $fields['fw_option:room'] = (isset($_POST['room_id']) && $_POST['room_id']) ? $_POST['room_id'] : null;
+    $fields['fw_option:room'] = (isset($_POST['room_id']) && (int)$_POST['room_id']) ? (int)$_POST['room_id'] : null;
 
     $fields['fw_option:name'] = (isset($_POST['name_booking']) && $_POST['name_booking']) ? $_POST['name_booking'] : null;
     $fields['fw_option:phone'] = (isset($_POST['phone_booking']) && $_POST['phone_booking']) ? $_POST['phone_booking'] : null;
@@ -939,6 +939,11 @@ function callback_create_booking(){
     if (check_room_for_booking($fields['fw_option:room'], $fields['fw_option:room_date'], $fields['fw_option:room_time'])) {
         return wp_send_json([], 400);
     }
+
+    if (!$fields['fw_option:room']){
+        return wp_send_json([], 400);
+    }
+
     $response = create_booking($fields);
     send_email('new', $response['email'], get_all_meta_booking($response['booking_id']), false);
 
